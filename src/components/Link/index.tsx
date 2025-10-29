@@ -1,12 +1,9 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
-import { cn } from 'src/utilities/cn'
+import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Page, Post } from '@/payload-types'
-import { Icon } from '@/components/Icon'
-import localization from '@/localization.config'
-import { PublicContextProps } from '@/utilities/publicContextProps'
+import type { Page, Post, Media } from '@/payload-types'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -15,23 +12,37 @@ type CMSLinkType = {
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'pages' | 'posts'
-    value: Page | Post | string | number
+    relationTo: 'pages' | 'posts' | 'media'
+    value: Page | Post | Media | string | number
   } | null
-  section?: string | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
-  iconBefore?: string | null
-  iconAfter?: string | null
-  iconClassName?: string
-  /**
-   * If true, we use the next/link (default behavior).
-   * If false, we use a span element instead. This is useful, if you have the CMSLink inside
-   * another <a> element
-   */
-  withAnchor?: boolean
-  publicContext: PublicContextProps
+}
+
+// Helpers
+export const getPageUrl = (reference: NonNullable<CMSLinkType['reference']>): string | null => {
+  if (!reference || (reference.relationTo !== 'pages' && reference.relationTo !== 'posts')) {
+    return null
+  }
+
+  if (typeof reference.value === 'object' && 'slug' in reference.value && reference.value.slug) {
+    return `${reference.relationTo !== 'pages' ? `/${reference.relationTo}` : ''}/${reference.value.slug}`
+  }
+
+  return null
+}
+
+export const getFileUrl = (reference: NonNullable<CMSLinkType['reference']>): string | null => {
+  if (!reference || reference.relationTo !== 'media') {
+    return null
+  }
+
+  if (typeof reference.value === 'object' && 'url' in reference.value && reference.value.url) {
+    return reference.value.url as string
+  }
+
+  return null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -43,36 +54,20 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     label,
     newTab,
     reference,
-    section,
     size: sizeFromProps,
     url,
-    iconBefore,
-    iconAfter,
-    iconClassName,
-    withAnchor = true,
-    publicContext,
   } = props
 
-  const locale = publicContext?.locale || localization.defaultLocale
-  let href = url
-  if (type === 'reference' && typeof reference?.value === 'object' && reference.value.slug) {
-    // Prefix url with locale if it's not the default locale
-    const localePrefix = locale !== localization.defaultLocale ? `/${locale}` : ''
-    // Prefix url with collection name if it's not the pages collection
-    const relationToPrefix = reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''
-    // Add remaining url path
-    const remainingPath =
-      (reference?.relationTo === 'pages' && (reference?.value as Page)?.breadcrumbs
-        ? (reference?.value as Page)?.breadcrumbs?.[
-            (reference?.value as Page)?.breadcrumbs?.length! - 1
-          ]?.url
-        : `/${reference.value.slug}`) || `/${reference.value.slug}`
-    const normalizedRemainingPath = reference.value.slug === 'home' ? '' : remainingPath
-    href = `${localePrefix}${relationToPrefix}${normalizedRemainingPath}`
-  }
+  let href: string | null = null
 
-  if (type === 'reference' && section) {
-    href += `#${section}`
+  if (type === 'reference' && reference) {
+    if (reference.relationTo === 'media') {
+      href = getFileUrl(reference)
+    } else {
+      href = getPageUrl(reference)
+    }
+  } else {
+    href = url || null
   }
 
   if (!href) return null
@@ -80,56 +75,22 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
-  const content = (
-    <>
-      {iconBefore && <Icon className={cn('mr-2 h-6', iconClassName)} icon={iconBefore} />}
-      {label && label}
-      {children && children}
-      {iconAfter && <Icon className={cn('ml-2 h-6', iconClassName)} icon={iconAfter} />}
-    </>
-  )
-
   /* Ensure we don't break any styles set by richText */
-  if (appearance === 'inline') {
-    if (!withAnchor) {
-      return <span className={cn('inline-flex items-center', className)}>{content}</span>
-    }
-    return (
-      <Link
-        className={cn('inline-flex items-center', className)}
-        href={href || url || ''}
-        {...newTabProps}
-      >
-        {content}
-      </Link>
-    )
-  }
-
-  if (!withAnchor) {
-    return (
-      <Button
-        className={className}
-        size={(size as typeof sizeFromProps) || 'default'}
-        variant={appearance}
-      >
-        <span className="flex items-center">{content}</span>
-      </Button>
-    )
-  }
+  // If rich text links ever break then check here. I wanted to be able to specify styles for inline links when it came to the navigation, but i was having issues with consistency and i didn't want to define those styles both here and in the button component.
+  // if (appearance === 'inline') {
+  //   return (
+  //     <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+  //       {label && label}
+  //       {children && children}
+  //     </Link>
+  //   )
+  // }
 
   return (
-    <Button
-      asChild
-      className={className}
-      size={(size as typeof sizeFromProps) || 'default'}
-      variant={appearance}
-    >
-      <Link
-        className={cn('flex items-center', className)}
-        href={href || url || ''}
-        {...newTabProps}
-      >
-        {content}
+    <Button asChild className={className} size={size} variant={appearance}>
+      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+        {label && label}
+        {children && children}
       </Link>
     </Button>
   )

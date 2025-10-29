@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: unset;
+    font-weight: unset;
+  }
+
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 240 5% 96%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 84% 4.9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222.2 84% 4.9%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.2rem;
+
+    --success: 196 52% 74%;
+    --warning: 34 89% 85%;
+    --error: 10 100% 86%;
+  }
+
+  [data-theme='cafe'],
+  .theme-cafe {
+    --background: 32 63% 89%;
+    --foreground: 134 42% 12%;
+    --card: 32 92% 95%;
+    --card-foreground: 134 42% 12%;
+    --popover: 32 92% 95%;
+    --popover-foreground: 134 42% 12%;
+    --primary: 134 42% 12%;
+    --primary-foreground: 33 59% 92%;
+    --secondary: 38.182 28.696% 77.451%;
+    --secondary-foreground: 134 42% 12%;
+    --muted: 45 18% 69%;
+    --muted-foreground: 134 42% 12%;
+    --accent: 134 42% 12%;
+    --accent-foreground: 134 42% 12%;
+    --destructive: 0 66% 29%;
+    --destructive-foreground: 32 63% 89%;
+    --border: 134 42% 12%;
+    --input: 45 18% 69%;
+    --ring: 134 42% 12%;
+  }
+
+  [data-theme='pizza'],
+  .theme-pizza {
+    --background: 32 63% 89%;
+    --foreground: 360 64% 27%;
+    --card: 32 92% 95%;
+    --card-foreground: 360 64% 27%;
+    --popover: 32 92% 95%;
+    --popover-foreground: 360 64% 27%;
+    --primary: 360 64% 27%;
+    --primary-foreground: 33 59% 92%;
+    --secondary: 16deg 36% 77%;
+    --secondary-foreground: 360 64% 27%;
+    --muted: 12 32% 75%;
+    --muted-foreground: 360 64% 27%;
+    --accent: 360 64% 27%;
+    --accent-foreground: 360 64% 27%;
+    --destructive: 0 66% 29%;
+    --destructive-foreground: 32 63% 89%;
+    --border: 360 64% 27%;
+    --input: 12 32% 75%;
+    --ring: 0 66% 29%;
+  }
+
+  [data-theme='sugar-shack'],
+  .theme-sugar-shack {
+    --background: 32 63% 89%;
+    --foreground: 21 33% 9%;
+    --card: 32 92% 95%;
+    --card-foreground: 21 33% 9%;
+    --popover: 32 92% 95%;
+    --popover-foreground: 21 33% 9%;
+    --primary: 22.81 66.851% 35.49%;
+    --primary-foreground: 33 59% 92%;
+    --secondary: 32 44% 80%;
+    --secondary-foreground: 21 33% 9%;
+    --muted: 32 44% 80%;
+    --muted-foreground: 21 33% 9%;
+    --accent: 21 33% 9%;
+    --accent-foreground: 21 33% 9%;
+    --destructive: 21 33% 9%;
+    --destructive-foreground: 32 63% 89%;
+    --border: 21 33% 9%;
+    --input: 32 44% 80%;
+    --ring: 21 33% 9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+}
+
+html {
+  opacity: 0;
+}
+
+html[data-theme='dark'],
+html[data-theme='light'] {
+  opacity: initial;
+}
+
+@layer components {
+  h1,
+  .type-h1,
+  .prose h1 {
+    font-family: var(--font-fiyona);
+    font-size: clamp(3.375rem, 4vw + 2rem, 5.25rem);
+    font-style: normal;
+    font-weight: 100;
+    line-height: 120%;
+  }
+
+  h2,
+  .type-h2,
+  .prose h2 {
+    font-family: var(--font-fiyona);
+    font-size: clamp(2rem, 2.5vw + 1rem, 3.375rem);
+    font-style: normal;
+    font-weight: 82;
+    line-height: 120%;
+  }
+
+  h2 em,
+  .type-h2-accent,
+  .prose .type-h2-accent {
+    font-family: var(--font-laquile);
+    font-size: clamp(2rem, 2.5vw + 1rem, 3.375rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  h3,
+  .type-h3,
+  .prose h3 {
+    font-family: var(--font-martel);
+    font-size: clamp(1.125rem, 0.5vw + 1rem, 1.35rem);
+    font-style: normal;
+    font-weight: 800;
+    line-height: 140%;
+  }
+
+  h4,
+  .type-h4,
+  .prose h4 {
+    font-family: var(--font-martel);
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+  }
+  p,
+  span,
+  a,
+  .type-body,
+  .prose p,
+  .prose span,
+  .prose a {
+    font-family: var(--font-martel);
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+  }
+
+  .type-button {
+    font-family: var(--font-martel);
+    @apply text-sm font-medium;
+  }
+
+  h5,
+  .type-h5,
+  .type-caption,
+  .prose h5 {
+    font-family: var(--font-martel);
+    font-size: clamp(0.875rem, 0.5vw + 0.75rem, 0.875rem);
+    font-style: normal;
+    font-weight: 800;
+    line-height: 140%;
+  }
+}

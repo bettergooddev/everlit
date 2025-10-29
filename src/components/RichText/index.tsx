@@ -1,95 +1,81 @@
-/**
- * RichText component for rendering Lexical editor content
- *
- * @example
- * // With wrapper div (for standalone content sections)
- * <RichText publicContext={publicContext}
- *   withWrapper={true}
- *   content={content}
- *   className="my-4"
- *   enableGutter={true}
- *   enableProse={true}
- * />
- *
- * // Without wrapper (for nested content inside other components)
- * <RichText publicContext={publicContext}
- *   withWrapper={false}
- *   content={content}
- * />
- */
+import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import {
+  DefaultNodeTypes,
+  SerializedBlockNode,
+  SerializedLinkNode,
+  type DefaultTypedEditorState,
+} from '@payloadcms/richtext-lexical'
+import {
+  JSXConvertersFunction,
+  LinkJSXConverter,
+  RichText as ConvertRichText,
+} from '@payloadcms/richtext-lexical/react'
 
-import { cn } from '@/utilities/cn'
-import React from 'react'
+import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 
-import { OverrideStyle, serializeLexical } from './serialize'
-import { PublicContextProps } from '@/utilities/publicContextProps'
+import type {
+  BannerBlock as BannerBlockProps,
+  CallToActionBlock as CTABlockProps,
+  MediaBlock as MediaBlockProps,
+} from '@/payload-types'
+import { BannerBlock } from '@/blocks/Banner/Component'
+import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { cn } from '@/utilities/ui'
 
-type BaseRichTextProps = {
-  /** Raw content object from Lexical editor */
-  content: Record<string, any>
-  /** Optional style overrides for specific elements */
-  overrideStyle?: OverrideStyle
-  publicContext: PublicContextProps
+type NodeTypes =
+  | DefaultNodeTypes
+  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+
+const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
+  const { value, relationTo } = linkNode.fields.doc!
+  if (typeof value !== 'object') {
+    throw new Error('Expected value to be an object')
+  }
+  const slug = value.slug
+  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
 }
 
-type WithWrapperProps = BaseRichTextProps & {
-  /** Set to true to wrap content in a div with styling options */
-  withWrapper: true
-  /** Optional className for the wrapper div */
-  className?: string
-  /** Enables container padding/margin. Default: true */
+const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
+  ...defaultConverters,
+  ...LinkJSXConverter({ internalDocToHref }),
+  blocks: {
+    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
+    mediaBlock: ({ node }) => (
+      <MediaBlock
+        className="col-start-1 col-span-3"
+        imgClassName="m-0"
+        {...node.fields}
+        captionClassName="mx-auto max-w-[48rem]"
+        enableGutter={false}
+        disableInnerContainer={true}
+      />
+    ),
+    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
+    // cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+  },
+})
+
+type Props = {
+  data: DefaultTypedEditorState
   enableGutter?: boolean
-  /** Enables Tailwind prose styling. Default: true */
   enableProse?: boolean
-}
+} & React.HTMLAttributes<HTMLDivElement>
 
-type WithoutWrapperProps = BaseRichTextProps & {
-  /** Set to false to render content without a wrapper div */
-  withWrapper?: false
-  /** Optional className for the fragment wrapper */
-  className?: string
-}
-
-type RichTextProps = WithWrapperProps | WithoutWrapperProps
-
-const RichText: React.FC<RichTextProps> = (props) => {
-  if (!props.content) {
-    return null
-  }
-
-  const content =
-    props.content &&
-    !Array.isArray(props.content) &&
-    typeof props.content === 'object' &&
-    'root' in props.content &&
-    serializeLexical({
-      nodes: props.content?.root?.children,
-      overrideStyle: props.overrideStyle,
-      publicContext: props.publicContext,
-    })
-
-  if (!props.withWrapper) {
-    // If className is provided, wrap in a span for styling
-    if (props.className) {
-      return <span className={props.className}>{content}</span>
-    }
-    return <>{content}</>
-  }
-
+export default function RichText(props: Props) {
+  const { className, enableProse = true, enableGutter = true, ...rest } = props
   return (
-    <div
+    <ConvertRichText
+      converters={jsxConverters}
       className={cn(
+        'payload-richtext [&_br]:hidden sm:[&_br]:block [&_*]:text-pretty',
         {
-          container: props.enableGutter,
-          'max-w-none': !props.enableGutter,
-          'prose dark:prose-invert mx-auto': props.enableProse,
+          container: enableGutter,
+          'max-w-none': !enableGutter,
+          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
         },
-        props.className,
+        className,
       )}
-    >
-      {content}
-    </div>
+      {...rest}
+    />
   )
 }
-
-export default RichText

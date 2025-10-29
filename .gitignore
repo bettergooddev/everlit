@@ -5,12 +5,9 @@ node_modules
 .env
 .next
 .vercel
-.env.*
 
 # Payload default media upload directory
 public/media/
-tsconfig.tsbuildinfo
-.env*.local
 
-dump
-src/payload-types.ts
+public/robots.txt
+public/sitemap*.xml

@@ -1,6 +1,4 @@
-import localization from '@/localization.config'
-import { Breadcrumb } from '@payloadcms/plugin-nested-docs/types'
-import { CollectionSlug, PayloadRequest } from 'payload'
+import { PayloadRequest, CollectionSlug } from 'payload'
 
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
   posts: '/posts',
@@ -10,27 +8,18 @@ const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 type Props = {
   collection: keyof typeof collectionPrefixMap
   slug: string
-  locale: string
-  breadcrumbs: Breadcrumb[] | undefined
-  req?: PayloadRequest
+  req: PayloadRequest
 }
 
-export const generatePreviewPath = ({ collection, slug, locale, breadcrumbs }: Props) => {
-  const path = `${locale !== localization.defaultLocale ? `/${locale}` : ''}${collectionPrefixMap[collection]}${slug === 'home' ? '/' : breadcrumbs?.[breadcrumbs.length - 1]?.url || `/${slug}`}`
-
-  const params = {
+export const generatePreviewPath = ({ collection, slug }: Props) => {
+  const encodedParams = new URLSearchParams({
     slug,
     collection,
-    path,
-    locale,
-    previewSecret: process.env.NEXT_PRIVATE_DRAFT_SECRET || '',
-  }
-
-  const encodedParams = new URLSearchParams()
-
-  Object.entries(params).forEach(([key, value]) => {
-    encodedParams.append(key, value)
+    path: `${collectionPrefixMap[collection]}/${slug}`,
+    previewSecret: process.env.PREVIEW_SECRET || '',
   })
 
-  return `/next/preview?${encodedParams.toString()}`
+  const url = `/next/preview?${encodedParams.toString()}`
+
+  return url
 }

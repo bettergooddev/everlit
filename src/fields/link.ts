@@ -1,58 +1,18 @@
-import type { Field } from 'payload'
+import type { Field, GroupField } from 'payload'
 
 import deepMerge from '@/utilities/deepMerge'
-import { icon } from '@/components/Icon/config'
+import { Appearance, buildAppearanceField } from './appearance'
 
-export type LinkAppearances =
-  | 'default'
-  | 'outline'
-  | 'inline'
-  | 'destructive'
-  | 'ghost'
-  | 'secondary'
-
-export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
-  default: {
-    label: 'Default',
-    value: 'default',
-  },
-  outline: {
-    label: 'Outline',
-    value: 'outline',
-  },
-  inline: {
-    label: 'Inline',
-    value: 'inline',
-  },
-  destructive: {
-    label: 'Destructive',
-    value: 'destructive',
-  },
-  ghost: {
-    label: 'Ghost',
-    value: 'ghost',
-  },
-  secondary: {
-    label: 'Secondary',
-    value: 'secondary',
-  },
-}
+export type LinkAppearances = Appearance
 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
-  disableIcon?: boolean
-  overrides?: Record<string, unknown>
-  size?: 'default' | 'sm' | 'lg' | 'icon' | 'clear'
+  overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({
-  appearances,
-  disableLabel = false,
-  disableIcon = false,
-  overrides = {},
-} = {}) => {
-  const linkResult: Field = {
+export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+  const linkResult: GroupField = {
     name: 'link',
     type: 'group',
     admin: {
@@ -97,11 +57,6 @@ export const link: LinkType = ({
     ],
   }
 
-  /**
-   * This link component should be related to
-   */
-  const relationTo = 'pages'
-
   const linkTypes: Field[] = [
     {
       name: 'reference',
@@ -110,25 +65,8 @@ export const link: LinkType = ({
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
       label: 'Document to link to',
-      maxDepth: 1,
-      relationTo: [relationTo],
+      relationTo: ['pages', 'media'],
       required: true,
-    },
-    {
-      name: 'section',
-      type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
-        components: {
-          Field: {
-            path: '@/components/AdminDashboard/SectionSelect',
-            serverProps: {
-              // there is no "clever" way to always get this information, so we need to set it additionally here as prop
-              relationTo,
-            },
-          },
-        },
-      },
     },
     {
       name: 'url',
@@ -138,7 +76,6 @@ export const link: LinkType = ({
       },
       label: 'Custom URL',
       required: true,
-      localized: true,
     },
   ]
 
@@ -158,7 +95,6 @@ export const link: LinkType = ({
         {
           name: 'label',
           type: 'text',
-          localized: true,
           admin: {
             width: '50%',
           },
@@ -171,46 +107,9 @@ export const link: LinkType = ({
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
-  if (!disableIcon) {
-    linkResult.fields.push({
-      type: 'row',
-      fields: [
-        icon({
-          name: 'iconBefore',
-        }),
-        icon({
-          name: 'iconAfter',
-        }),
-      ],
-    })
-  }
-
   if (appearances !== false) {
-    let appearanceOptionsToUse = Object.values(appearanceOptions)
-
-    if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
-    }
-
-    linkResult.fields.push({
-      type: 'row',
-      fields: [
-        {
-          name: 'appearance',
-          type: 'select',
-          admin: {
-            description: 'Choose how the link should be rendered.',
-          },
-          defaultValue: 'default',
-          options: appearanceOptionsToUse,
-        },
-        {
-          name: 'size',
-          type: 'select',
-          options: ['default', 'sm', 'lg', 'icon', 'clear'],
-        },
-      ],
-    })
+    const allowed = appearances && appearances.length > 0 ? appearances : undefined
+    linkResult.fields.push(buildAppearanceField(allowed))
   }
 
   return deepMerge(linkResult, overrides)

@@ -1,16 +1,16 @@
 'use client'
 
-import type { PayloadAdminBarProps } from '@payloadcms/admin-bar'
+import type { PayloadAdminBarProps, PayloadMeUser } from '@payloadcms/admin-bar'
 
-import { cn } from '@/utilities/cn'
+import { cn } from '@/utilities/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { PayloadAdminBar } from '@payloadcms/admin-bar'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import './index.scss'
-import { serverUrl as NEXT_PUBLIC_SERVER_URL } from '@/config/server'
-import { ThemeColorHelper } from './ThemeColorHelper'
+
+import { getClientSideURL } from '@/utilities/getURL'
 
 const baseClass = 'admin-bar'
 
@@ -37,45 +37,32 @@ export const AdminBar: React.FC<{
   const { adminBarProps } = props || {}
   const segments = useSelectedLayoutSegments()
   const [show, setShow] = useState(false)
-  const collection = collectionLabels?.[segments?.[1]] ? segments?.[1] : 'pages'
+  const collection = (
+    collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
+  ) as keyof typeof collectionLabels
   const router = useRouter()
 
-  const onAuthChange = React.useCallback((user) => {
-    setShow(user?.id)
+  const onAuthChange = React.useCallback((user: PayloadMeUser) => {
+    setShow(Boolean(user?.id))
   }, [])
-
-  // Theme Color Picker on right side of screen
-  const [showThemeColorPicker, setShowThemeColorPicker] = useState(false)
 
   return (
     <div
-      className={cn(baseClass, 'bg-black py-2 text-white', {
+      className={cn(baseClass, 'py-2 bg-black text-white', {
         block: show,
         hidden: !show,
       })}
     >
-      <div className="container">
-        <div className="flex items-center gap-4" style={{ fontSize: 'small' }}>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              checked={showThemeColorPicker}
-              onChange={(e) => setShowThemeColorPicker(e.target.checked)}
-              className="h-3 w-3"
-            />
-            <span>Theme Editor</span>
-          </label>
-          {showThemeColorPicker && <ThemeColorHelper />}
-        </div>
+      <div className="container !type-h5">
         <PayloadAdminBar
           {...adminBarProps}
           className="py-2 text-white"
           classNames={{
-            controls: 'font-medium text-white',
+            controls: ' text-white',
             logo: 'text-white',
             user: 'text-white',
           }}
-          cmsURL={NEXT_PUBLIC_SERVER_URL}
+          cmsURL={getClientSideURL()}
           collectionSlug={collection}
           collectionLabels={{
             plural: collectionLabels[collection]?.plural || 'Pages',

@@ -10,6 +10,7 @@ import {
 export const FormBlock: Block = {
   slug: 'formBlock',
   interfaceName: 'FormBlock',
+  imageURL: '/api/media/file/block-form.png',
   fields: [
     {
       name: 'form',
@@ -25,7 +26,6 @@ export const FormBlock: Block = {
     {
       name: 'introContent',
       type: 'richText',
-      localized: true,
       admin: {
         condition: (_, { enableIntro }) => Boolean(enableIntro),
       },

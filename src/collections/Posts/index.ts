@@ -7,20 +7,16 @@ import {
   HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
-  OrderedListFeature,
-  UnorderedListFeature,
-  BlockquoteFeature,
-  UploadFeature,
 } from '@payloadcms/richtext-lexical'
 
-import { authenticated } from '@/access/authenticated'
-import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-import { Banner } from '@/blocks/LexicalBlocks/Banner/config'
-import { Code } from '@/blocks/Code/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { authenticated } from '../../access/authenticated'
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { Banner } from '../../blocks/Banner/config'
+import { Code } from '../../blocks/Code/config'
+import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
-import { revalidatePost } from './hooks/revalidatePost'
+import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
 
 import {
   MetaDescriptionField,
@@ -30,25 +26,8 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
-import { serverUrl as NEXT_PUBLIC_SERVER_URL } from '@/config/server'
-import { Breadcrumb } from '@payloadcms/plugin-nested-docs/types'
-import { designVersionPreview } from '@/components/AdminDashboard/DesignVersionPreview/config'
-import { calculateReadTime } from './hooks/calculcateReadTime'
 
-export const allPostDesignVersions = [
-  {
-    label: 'BLOG18',
-    value: 'BLOG18',
-    image: '/admin/previews/blog/blog18.jpeg',
-  },
-  {
-    label: 'BLOG20',
-    value: 'BLOG20',
-    image: '/admin/previews/blog/blog20.jpeg',
-  },
-]
-
-export const Posts: CollectionConfig = {
+export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   access: {
     create: authenticated,
@@ -56,32 +35,38 @@ export const Posts: CollectionConfig = {
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  // This config controls what's populated by default when a post is referenced
+  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
+  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'posts'>
+  defaultPopulate: {
+    title: true,
+    slug: true,
+    categories: true,
+    meta: {
+      image: true,
+      description: true,
+    },
+  },
   admin: {
+    hidden: true,
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, locale, req }) => {
+      url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          breadcrumbs: data?.breadcrumbs,
           collection: 'posts',
-          locale: locale.code,
           req,
         })
 
-        return `${NEXT_PUBLIC_SERVER_URL}${path}`
+        return path
       },
     },
-    preview: (data, options) => {
-      const path = generatePreviewPath({
+    preview: (data, { req }) =>
+      generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        breadcrumbs: data?.breadcrumbs as Breadcrumb[],
         collection: 'posts',
-        locale: options.locale,
-        req: options.req,
-      })
-
-      return `${NEXT_PUBLIC_SERVER_URL}${path}`
-    },
+        req,
+      }),
     useAsTitle: 'title',
   },
   fields: [
@@ -96,19 +81,13 @@ export const Posts: CollectionConfig = {
         {
           fields: [
             {
-              name: 'bannerImage',
+              name: 'heroImage',
               type: 'upload',
               relationTo: 'media',
-              admin: {
-                description: 'Banner image displayed at the top of the blog post',
-                condition: (data) => data?.designVersion === 'BLOG20',
-                position: 'sidebar',
-              },
             },
             {
               name: 'content',
               type: 'richText',
-              localized: true,
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
                   return [
@@ -118,16 +97,6 @@ export const Posts: CollectionConfig = {
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
-                    OrderedListFeature(),
-                    UnorderedListFeature(),
-                    BlockquoteFeature(),
-                    UploadFeature({
-                      collections: {
-                        media: {
-                          fields: [],
-                        },
-                      },
-                    }),
                   ]
                 },
               }),
@@ -196,11 +165,6 @@ export const Posts: CollectionConfig = {
         },
       ],
     },
-    designVersionPreview(allPostDesignVersions, {
-      admin: {
-        position: 'sidebar',
-      },
-    }),
     {
       name: 'publishedAt',
       type: 'date',
@@ -254,27 +218,19 @@ export const Posts: CollectionConfig = {
         },
       ],
     },
-    // This is an internal, hidden field to store the average read time. We calculate this in a hook
-    {
-      name: 'readTime',
-      type: 'number',
-      admin: {
-        disabled: true,
-        readOnly: true,
-      },
-    },
     ...slugField(),
   ],
   hooks: {
-    beforeChange: [calculateReadTime],
     afterChange: [revalidatePost],
     afterRead: [populateAuthors],
+    afterDelete: [revalidateDelete],
   },
   versions: {
     drafts: {
       autosave: {
         interval: 100, // We set this interval for optimal live preview
       },
+      schedulePublish: true,
     },
     maxPerDoc: 50,
   },

@@ -1,36 +1,57 @@
 import type { Metadata } from 'next'
-import type { Page, Post } from '../payload-types'
+
+import type { Media, Page, Post, Config } from '../payload-types'
+
 import { mergeOpenGraph } from './mergeOpenGraph'
-import { serverUrl as NEXT_PUBLIC_SERVER_URL } from '@/config/server'
+import { getServerSideURL } from './getURL'
+import { getCachedGlobal } from './getGlobals'
+import { DataFromGlobalSlug } from 'payload'
 
-export const generateMeta = async (args: { doc: Page | Post; url: string }): Promise<Metadata> => {
-  const { doc, url } = args || {}
+const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
+  const serverUrl = getServerSideURL()
 
-  const customOGImage =
-    typeof doc?.meta?.image === 'object' &&
-    doc.meta.image !== null &&
-    'url' in doc.meta.image &&
-    `${NEXT_PUBLIC_SERVER_URL}${doc.meta.image.url}`
+  let url = serverUrl + '/website-template-OG.webp'
 
-  const title = doc?.meta?.title || doc?.title || 'Payblocks'
-  const description = doc?.meta?.description || ''
+  if (image && typeof image === 'object' && 'url' in image) {
+    const ogUrl = image.sizes?.og?.url
 
-  const defaultOGImage = `${NEXT_PUBLIC_SERVER_URL}/next/og?title=${title}`
+    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
+  }
+
+  return url
+}
+
+export const generateMeta = async (args: {
+  doc: Partial<Page> | Partial<Post> | null
+}): Promise<Metadata> => {
+  const { doc } = args
+
+  const ogImage = getImageURL(doc?.meta?.image)
+
+  const pageConfig = (await getCachedGlobal(
+    'page-config',
+    3,
+  )()) as DataFromGlobalSlug<'page-config'>
+
+  const titleText = doc?.meta?.title || doc?.title || `${process.env.NEXT_PUBLIC_COMPANY_NAME} PAGE`
+  const ignoreSuffix = (doc?.meta && 'ignoreSuffix' in doc.meta && doc.meta.ignoreSuffix) ?? false
+  const pageSuffix = ignoreSuffix ? '' : (pageConfig?.pageSuffix ?? '')
+  const pageTitle = pageSuffix ? titleText + ' | ' + pageSuffix : titleText
 
   return {
-    title: `${title}`,
-    description,
+    description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
-      title,
-      description,
-      url,
-      images: customOGImage
+      description: doc?.meta?.description || '',
+      images: ogImage
         ? [
             {
-              url: customOGImage,
+              url: ogImage,
             },
           ]
-        : defaultOGImage,
+        : undefined,
+      title: pageTitle,
+      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
     }),
+    title: pageTitle,
   }
 }

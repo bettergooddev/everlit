@@ -8,26 +8,20 @@ import { link } from './link'
 type LinkGroupType = (options?: {
   appearances?: LinkAppearances[] | false
   overrides?: Partial<ArrayField>
-  disableIcon?: boolean
-  disableLabel?: boolean
 }) => Field
 
-export const linkGroup: LinkGroupType = ({
-  appearances,
-  overrides = {},
-  disableIcon,
-  disableLabel,
-} = {}) => {
+export const linkGroup: LinkGroupType = ({ appearances, overrides = {} } = {}) => {
   const generatedLinkGroup: Field = {
     name: 'links',
     type: 'array',
     fields: [
       link({
         appearances,
-        disableIcon,
-        disableLabel,
       }),
     ],
+    admin: {
+      initCollapsed: true,
+    },
   }
 
   return deepMerge(generatedLinkGroup, overrides)

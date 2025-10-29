@@ -1,5 +1,5 @@
 'use client'
-import { cn } from '@/utilities/cn'
+import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
@@ -8,10 +8,12 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
+
 export const Card: React.FC<{
   alignItems?: 'center'
   className?: string
-  doc?: Post
+  doc?: CardPostData
   relationTo?: 'posts'
   showCategories?: boolean
   title?: string
@@ -30,18 +32,18 @@ export const Card: React.FC<{
   return (
     <article
       className={cn(
-        'border-border bg-card overflow-hidden rounded-lg border hover:cursor-pointer',
+        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full">
+      <div className="relative w-full ">
         {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="360px" />}
+        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
       </div>
       <div className="p-4">
         {showCategories && hasCategories && (
-          <div className="mb-4 text-sm uppercase">
+          <div className="uppercase text-sm mb-4">
             {showCategories && hasCategories && (
               <div>
                 {categories?.map((category, index) => {

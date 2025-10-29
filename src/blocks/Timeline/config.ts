@@ -1,95 +1,61 @@
-import { Block } from 'payload'
-import { backgroundColor } from '@/fields/color'
-import {
-  HeadingFeature,
-  lexicalEditor,
-  OrderedListFeature,
-  UnorderedListFeature,
-} from '@payloadcms/richtext-lexical'
-import { createBlockItemCondition } from '@/utilities/findParentFeatureVersion'
-import { designVersionPreview } from '@/components/AdminDashboard/DesignVersionPreview/config'
+import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import type { Block, Field } from 'payload'
 
-export type TimelineDesignVersion = (typeof allTimelineDesignVersions)[number]['value']
+const Event: Field[] = [
+  {
+    name: 'year',
+    type: 'number',
+    required: true,
+  },
+  {
+    name: 'description',
+    type: 'textarea',
+    required: true,
+  },
+  {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+  },
+]
 
-export interface TimelineSection {
-  tagline: string
-  richText: string
-  image: string
-}
-
-export const allTimelineDesignVersions = [
-  { label: 'TIMELINE2', value: 'TIMELINE2', image: '/admin/previews/timeline/timeline2.jpeg' },
-  { label: 'TIMELINE8', value: 'TIMELINE8', image: '/admin/previews/timeline/timeline8.jpeg' },
-] as const
-
-export const TimelineBlock: Block = {
+export const Timeline: Block = {
   slug: 'timeline',
   interfaceName: 'TimelineBlock',
-  labels: {
-    singular: 'Timeline',
-    plural: 'Timelines',
-  },
+  imageURL: '/api/media/file/block-timeline.png',
   fields: [
-    backgroundColor,
-    designVersionPreview(allTimelineDesignVersions),
     {
       name: 'heading',
-      type: 'text',
-      localized: true,
-      required: true,
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h2'] }),
+            FixedToolbarFeature(),
+            // InlineToolbarFeature(),
+          ]
+        },
+      }),
+      label: false,
     },
     {
-      name: 'sections',
+      name: 'subheading',
+      type: 'textarea',
+      required: false,
+    },
+    {
+      name: 'events',
       type: 'array',
+      fields: Event,
+      required: true,
       minRows: 1,
       admin: {
-        condition: (_, { designVersion = '' } = {}) =>
-          ['TIMELINE2', 'TIMELINE8'].includes(designVersion),
+        components: {
+          RowLabel: '@/blocks/Timeline/RowLabel#RowLabel',
+        },
       },
-      fields: [
-        {
-          name: 'date',
-          type: 'date',
-          localized: true,
-          required: true,
-          admin: {
-            condition: createBlockItemCondition(['TIMELINE8']),
-          },
-        },
-        {
-          name: 'tagline',
-          type: 'text',
-          required: true,
-          localized: true,
-          admin: {
-            condition: createBlockItemCondition(['TIMELINE2']),
-          },
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          admin: {
-            condition: createBlockItemCondition(['TIMELINE2']),
-          },
-        },
-        {
-          name: 'richText',
-          type: 'richText',
-          localized: true,
-          editor: lexicalEditor({
-            features: ({ rootFeatures }) => {
-              return [
-                ...rootFeatures,
-                HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-                UnorderedListFeature(),
-                OrderedListFeature(),
-              ]
-            },
-          }),
-        },
-      ],
     },
   ],
 }

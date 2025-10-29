@@ -3,11 +3,18 @@ import { getPayload } from 'payload'
 
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { NextRequest } from 'next/server'
 
 import configPromise from '@payload-config'
 
-export async function GET(req: NextRequest): Promise<Response> {
+export async function GET(
+  req: {
+    cookies: {
+      get: (name: string) => {
+        value: string
+      }
+    }
+  } & Request,
+): Promise<Response> {
   const payload = await getPayload({ config: configPromise })
 
   const { searchParams } = new URL(req.url)
@@ -17,7 +24,7 @@ export async function GET(req: NextRequest): Promise<Response> {
   const slug = searchParams.get('slug')
   const previewSecret = searchParams.get('previewSecret')
 
-  if (previewSecret !== process.env.NEXT_PRIVATE_DRAFT_SECRET) {
+  if (previewSecret !== process.env.PREVIEW_SECRET) {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 

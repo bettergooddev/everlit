@@ -1,11 +1,9 @@
-import { backgroundColor } from '@/fields/color'
 import type { Block } from 'payload'
 
 export const Code: Block = {
   slug: 'code',
   interfaceName: 'CodeBlock',
   fields: [
-    backgroundColor,
     {
       name: 'language',
       type: 'select',
@@ -28,7 +26,6 @@ export const Code: Block = {
     {
       name: 'code',
       type: 'code',
-      localized: true,
       label: false,
       required: true,
     },

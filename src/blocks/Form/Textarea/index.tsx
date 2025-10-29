@@ -10,39 +10,33 @@ import { Width } from '../Width'
 
 export const Textarea: React.FC<
   TextField & {
-    errors: Partial<
-      FieldErrorsImpl<{
-        [x: string]: any
-      }>
-    >
+    errors: Partial<FieldErrorsImpl>
     register: UseFormRegister<FieldValues>
     rows?: number
   }
-> = ({
-  name,
-  defaultValue,
-  errors,
-  label,
-  register,
-  required: requiredFromProps,
-  rows = 3,
-  width,
-}) => {
+> = ({ name, defaultValue, errors, label, register, required, rows = 3, width }) => {
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
+      <Label className="type-body" htmlFor={name}>
         {label}
-        {requiredFromProps && <span className="ml-1">*</span>}
+
+        {required && (
+          <span className="required">
+            * <span className="sr-only">(required)</span>
+          </span>
+        )}
       </Label>
 
       <TextAreaComponent
+        className="rounded-none border-none bg-card shadow-md type-body placeholder:opacity-50 min-h-32"
         defaultValue={defaultValue}
         id={name}
+        placeholder={label}
         rows={rows}
-        {...register(name, { required: requiredFromProps })}
+        {...register(name, { required: required })}
       />
 
-      {requiredFromProps && errors[name] && <Error />}
+      {errors[name] && <Error name={name} />}
     </Width>
   )
 }

@@ -1,29 +1,23 @@
-import type { Block, CollectionConfig } from 'payload'
+import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '@/access/authenticated'
-import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
-
-import { Archive } from '@/blocks/ArchiveBlock/config'
-import { FormBlock } from '@/blocks/Form/config'
-import { FeatureBlock } from '@/blocks/Feature/config'
-import { CtaBlock } from '@/blocks/Cta/config'
-import { AboutBlock } from '@/blocks/About/config'
-import { LogosBlock } from '@/blocks/Logos/config'
-import { Gallery } from '@/blocks/Gallery/config'
-import { TestimonialBlock } from '@/blocks/Testimonial/config'
-import { FaqBlock } from '@/blocks/Faq/config'
-import { StatBlock } from '@/blocks/Stat/config'
-import { SplitViewBlock } from '@/blocks/SplitView/config'
-import { TextBlock } from '@/blocks/TextBlock/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { authenticated } from '../../access/authenticated'
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { CallToAction } from '../../blocks/CallToAction/config'
+import { Content } from '../../blocks/Content/config'
+import { FormBlock } from '../../blocks/Form/config'
+// import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Features } from '@/blocks/Features/config'
+import { PlayingCards } from '@/blocks/PlayingCards/config'
+import { Testimonials } from '@/blocks/Testimonials/config'
+import { Timeline } from '@/blocks/Timeline/config'
+import { Flair } from '@/blocks/Flair/config'
+import { Menu } from '@/blocks/Menu/config'
+import { MenuThumbnails } from '@/blocks/MenuThumbnails/config'
 import { hero } from '@/heros/config'
-import { CustomBlock } from '@/blocks/CustomBlock/config'
-import { ChangelogBlock } from '@/blocks/Changelog/config'
-
 import { slugField } from '@/fields/slug'
-import { populatePublishedAt } from '@/hooks/populatePublishedAt'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
-import { revalidatePage } from './hooks/revalidatePage'
+import { populatePublishedAt } from '../../hooks/populatePublishedAt'
+import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
 import {
   MetaDescriptionField,
@@ -32,85 +26,41 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import { serverUrl as NEXT_PUBLIC_SERVER_URL } from '@/config/server'
-import { ContactBlock } from '@/blocks/Contact/config'
-import { Breadcrumb } from '@payloadcms/plugin-nested-docs/types'
-import { Blog } from '@/blocks/Blog/config'
-import { BannerBlock } from '@/blocks/Banner/config'
-import { CasestudiesBlock } from '@/blocks/Casestudies/config'
-import { TimelineBlock } from '@/blocks/Timeline/config'
-import { LoginBlock } from '@/blocks/Login/config'
-import { SignupBlock } from '@/blocks/Signup/config'
 
-export const PageBlocks: Block[] = [
-  FeatureBlock,
-  Archive,
-  FormBlock,
-  CtaBlock,
-  LogosBlock,
-  AboutBlock,
-  ContactBlock,
-  Gallery,
-  TestimonialBlock,
-  FaqBlock,
-  StatBlock,
-  SplitViewBlock,
-  TextBlock,
-  MediaBlock,
-  CustomBlock,
-  ChangelogBlock,
-  Blog,
-  BannerBlock,
-  CasestudiesBlock,
-  TimelineBlock,
-  LoginBlock,
-  SignupBlock,
-]
-
-export const Pages: CollectionConfig = {
+export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
-  labels: {
-    plural: {
-      en: 'Pages',
-      de: 'Seiten',
-    },
-    singular: {
-      en: 'Page',
-      de: 'Seite',
-    },
-  },
   access: {
     create: authenticated,
     delete: authenticated,
     read: authenticatedOrPublished,
     update: authenticated,
   },
+  // This config controls what's populated by default when a page is referenced
+  // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
+  // Type safe if the collection slug generic is passed to `CollectionConfig` - `CollectionConfig<'pages'>
+  defaultPopulate: {
+    title: true,
+    slug: true,
+  },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, locale, req }) => {
+      url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          breadcrumbs: data?.breadcrumbs,
           collection: 'pages',
-          locale: locale.code,
           req,
         })
 
-        return `${NEXT_PUBLIC_SERVER_URL}${path}`
+        return path
       },
     },
-    preview: (data, options) => {
-      const path = generatePreviewPath({
+    preview: (data, { req }) =>
+      generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        breadcrumbs: data?.breadcrumbs as Breadcrumb[],
         collection: 'pages',
-        locale: options.locale,
-        req: options.req,
-      })
-
-      return `${NEXT_PUBLIC_SERVER_URL}${path}`
-    },
+        req,
+      }),
     useAsTitle: 'title',
   },
   fields: [
@@ -131,8 +81,23 @@ export const Pages: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: PageBlocks,
+              blocks: [
+                CallToAction,
+                Content,
+                // MediaBlock,
+                FormBlock,
+                Features,
+                PlayingCards,
+                Testimonials,
+                Timeline,
+                Flair,
+                Menu,
+                MenuThumbnails,
+              ],
               required: true,
+              admin: {
+                initCollapsed: true,
+              },
             },
           ],
           label: 'Content',
@@ -149,6 +114,15 @@ export const Pages: CollectionConfig = {
             MetaTitleField({
               hasGenerateFn: true,
             }),
+            {
+              name: 'ignoreSuffix',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Ignore Suffix',
+              admin: {
+                hidden: true,
+              },
+            },
             MetaImageField({
               relationTo: 'media',
             }),
@@ -167,40 +141,34 @@ export const Pages: CollectionConfig = {
       ],
     },
     {
+      name: 'background',
+      type: 'relationship',
+      relationTo: 'background',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'publishedAt',
       type: 'date',
       admin: {
         position: 'sidebar',
       },
     },
-
     ...slugField(),
-    {
-      name: 'enableBreadcrumbs',
-      type: 'checkbox',
-      defaultValue: false,
-      label: {
-        en: 'Breadcrumbs',
-        de: 'Breadcumbs',
-      },
-      admin: {
-        position: 'sidebar',
-        description: {
-          en: 'Enable breadcrumbs for the page',
-          de: 'Breadcumbs für die Seite aktivieren',
-        },
-      },
-    },
   ],
   hooks: {
     afterChange: [revalidatePage],
     beforeChange: [populatePublishedAt],
+    afterDelete: [revalidateDelete],
   },
   versions: {
     drafts: {
       autosave: {
         interval: 100, // We set this interval for optimal live preview
       },
+      schedulePublish: true,
     },
     maxPerDoc: 50,
   },
