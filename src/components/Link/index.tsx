@@ -3,7 +3,7 @@ import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Page, Post, Media } from '@/payload-types'
+import type { Page, CaseStudy, Media } from '@/payload-types'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -12,8 +12,8 @@ type CMSLinkType = {
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'pages' | 'posts' | 'media'
-    value: Page | Post | Media | string | number
+    relationTo: 'pages' | 'case-studies' | 'media'
+    value: Page | CaseStudy | Media | string | number
   } | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
@@ -22,7 +22,7 @@ type CMSLinkType = {
 
 // Helpers
 export const getPageUrl = (reference: NonNullable<CMSLinkType['reference']>): string | null => {
-  if (!reference || (reference.relationTo !== 'pages' && reference.relationTo !== 'posts')) {
+  if (!reference || (reference.relationTo !== 'pages' && reference.relationTo !== 'case-studies')) {
     return null
   }
 

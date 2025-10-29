@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
+import { CaseStudies } from './collections/CaseStudies'
 import { Users } from './collections/Users'
 import { Testimonials } from './collections/Testimonials'
 import { Footer } from './Footer/config'
@@ -70,7 +70,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Brands],
+  collections: [Pages, CaseStudies, Media, Categories, Users, Brands],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [PageConfig, Navigation, Footer, Testimonials, Masks, TypeGenerator],
   plugins: [

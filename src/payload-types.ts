@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     pages: Page;
-    posts: Post;
+    'case-studies': CaseStudy;
     media: Media;
     categories: Category;
     users: User;
@@ -85,7 +85,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -812,9 +812,9 @@ export interface FlairBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "case-studies".
  */
-export interface Post {
+export interface CaseStudy {
   id: string;
   title: string;
   heroImage?: (string | null) | Media;
@@ -833,7 +833,7 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (string | Post)[] | null;
+  relatedCaseStudies?: (string | CaseStudy)[] | null;
   categories?: (string | Category)[] | null;
   meta?: {
     title?: string | null;
@@ -922,8 +922,8 @@ export interface Redirect {
           value: string | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: string | Post;
+          relationTo: 'case-studies';
+          value: string | CaseStudy;
         } | null);
     url?: string | null;
   };
@@ -958,8 +958,8 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'posts';
-    value: string | Post;
+    relationTo: 'case-studies';
+    value: string | CaseStudy;
   };
   slug?: string | null;
   meta?: {
@@ -1081,8 +1081,8 @@ export interface PayloadLockedDocument {
         value: string | Page;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: string | Post;
+        relationTo: 'case-studies';
+        value: string | CaseStudy;
       } | null)
     | ({
         relationTo: 'media';
@@ -1415,13 +1415,13 @@ export interface FlairBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "case-studies_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface CaseStudiesSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
-  relatedPosts?: T;
+  relatedCaseStudies?: T;
   categories?: T;
   meta?:
     | T
@@ -2311,8 +2311,8 @@ export interface TaskSchedulePublish {
           value: string | Page;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: string | Post;
+          relationTo: 'case-studies';
+          value: string | CaseStudy;
         } | null);
     global?: string | null;
     user?: (string | null) | User;
