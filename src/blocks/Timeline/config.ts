@@ -23,7 +23,6 @@ const Event: Field[] = [
 export const Timeline: Block = {
   slug: 'timeline',
   interfaceName: 'TimelineBlock',
-  imageURL: '/api/media/file/block-timeline.png',
   fields: [
     {
       name: 'heading',

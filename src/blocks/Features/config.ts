@@ -61,7 +61,6 @@ const highlights: Field[] = [
 export const Features: Block = {
   slug: 'features',
   interfaceName: 'FeaturesBlock',
-  imageURL: '/api/media/file/block-features.png',
   fields: [
     {
       name: 'type',

@@ -10,7 +10,6 @@ import {
 export const FormBlock: Block = {
   slug: 'formBlock',
   interfaceName: 'FormBlock',
-  imageURL: '/api/media/file/block-form.png',
   fields: [
     {
       name: 'form',
