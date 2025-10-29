@@ -7,12 +7,9 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RenderFeatures } from '@/blocks/Features/RenderFeatures'
-import { PlayingCardsBlock } from '@/blocks/PlayingCards/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { FlairBlock } from '@/blocks/Flair/Component'
-import { MenuBlock } from '@/blocks/Menu/Component'
-import { MenuThumbnailsBlock } from '@/blocks/MenuThumbnails/Component'
 import Section from '@/components/Section'
 
 const blockComponents = {
@@ -21,12 +18,9 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   features: RenderFeatures,
-  playingCards: PlayingCardsBlock,
   testimonials: TestimonialsBlock,
   timeline: TimelineBlock,
   flair: FlairBlock,
-  menu: MenuBlock,
-  menuThumbnails: MenuThumbnailsBlock,
 }
 
 export const RenderBlocks: React.FC<{

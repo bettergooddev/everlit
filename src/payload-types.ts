@@ -73,7 +73,6 @@ export interface Config {
     categories: Category;
     users: User;
     brands: Brand;
-    menus: Menu;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -91,7 +90,6 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     brands: BrandsSelect<false> | BrandsSelect<true>;
-    menus: MenusSelect<false> | MenusSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -108,9 +106,6 @@ export interface Config {
     'page-config': PageConfig;
     navigation: Navigation;
     footer: Footer;
-    companyDetails: CompanyDetail;
-    card: Card;
-    hours: Hour;
     testimonials: Testimonial;
     masks: Mask;
     typeGenerator: TypeGenerator;
@@ -119,9 +114,6 @@ export interface Config {
     'page-config': PageConfigSelect<false> | PageConfigSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
-    companyDetails: CompanyDetailsSelect<false> | CompanyDetailsSelect<true>;
-    card: CardSelect<false> | CardSelect<true>;
-    hours: HoursSelect<false> | HoursSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     masks: MasksSelect<false> | MasksSelect<true>;
     typeGenerator: TypeGeneratorSelect<false> | TypeGeneratorSelect<true>;
@@ -299,12 +291,9 @@ export interface Page {
     | ContentBlock
     | FormBlock
     | FeaturesBlock
-    | PlayingCardsBlock
     | TestimonialsBlock
     | TimelineBlock
     | FlairBlock
-    | MenuBlock
-    | MenuThumbnailsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -757,32 +746,6 @@ export interface FeaturesBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PlayingCardsBlock".
- */
-export interface PlayingCardsBlock {
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subheading?: string | null;
-  attachToFooter?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'playingCards';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialsBlock".
  */
 export interface TestimonialsBlock {
@@ -846,69 +809,6 @@ export interface FlairBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'flair';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuBlock".
- */
-export interface MenuBlock {
-  heading?: string | null;
-  subheading?: string | null;
-  menus?: (string | Menu)[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'menu';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "menus".
- */
-export interface Menu {
-  id: string;
-  brand: string | Brand;
-  name: string;
-  lucideIcon?: string | null;
-  pdf: string | Media;
-  thumbnail?: (string | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "brands".
- */
-export interface Brand {
-  id: string;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuThumbnailsBlock".
- */
-export interface MenuThumbnailsBlock {
-  padding?: ('top-bottom' | 'top' | 'bottom' | 'none') | null;
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subheading?: string | null;
-  menus: (string | Menu)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'menuThumbnails';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -993,6 +893,16 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands".
+ */
+export interface Brand {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1191,10 +1101,6 @@ export interface PayloadLockedDocument {
         value: string | Brand;
       } | null)
     | ({
-        relationTo: 'menus';
-        value: string | Menu;
-      } | null)
-    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -1365,12 +1271,9 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         features?: T | FeaturesBlockSelect<T>;
-        playingCards?: T | PlayingCardsBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         flair?: T | FlairBlockSelect<T>;
-        menu?: T | MenuBlockSelect<T>;
-        menuThumbnails?: T | MenuThumbnailsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1475,17 +1378,6 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PlayingCardsBlock_select".
- */
-export interface PlayingCardsBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  attachToFooter?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialsBlock_select".
  */
 export interface TestimonialsBlockSelect<T extends boolean = true> {
@@ -1518,29 +1410,6 @@ export interface TimelineBlockSelect<T extends boolean = true> {
  */
 export interface FlairBlockSelect<T extends boolean = true> {
   image?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuBlock_select".
- */
-export interface MenuBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  menus?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MenuThumbnailsBlock_select".
- */
-export interface MenuThumbnailsBlockSelect<T extends boolean = true> {
-  padding?: T;
-  heading?: T;
-  subheading?: T;
-  menus?: T;
   id?: T;
   blockName?: T;
 }
@@ -1708,19 +1577,6 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface BrandsSelect<T extends boolean = true> {
   name?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "menus_select".
- */
-export interface MenusSelect<T extends boolean = true> {
-  brand?: T;
-  name?: T;
-  lucideIcon?: T;
-  pdf?: T;
-  thumbnail?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -2167,129 +2023,6 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "companyDetails".
- */
-export interface CompanyDetail {
-  id: string;
-  findUs?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: string | Media;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        lucideIcon?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  location?: {
-    /**
-     * Paste the embed URL from Google Maps (e.g., https://www.google.com/maps/embed?pb=...)
-     */
-    googleMapsEmbedUrl?: string | null;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "card".
- */
-export interface Card {
-  id: string;
-  cards?:
-    | {
-        style: 'high-impact' | 'low-impact';
-        logo?: (string | null) | Media;
-        pattern: string | Media;
-        patternSize: number;
-        patternOpacity: number;
-        eyebrow?: string | null;
-        name: string;
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: string | Media;
-              } | null);
-          url?: string | null;
-          label: string;
-        };
-        hoverImage: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hours".
- */
-export interface Hour {
-  id: string;
-  hours?:
-    | {
-        brand: string | Brand;
-        monday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        tuesday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        wednesday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        thursday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        friday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        saturday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        sunday: {
-          openTime?: string | null;
-          closeTime?: string | null;
-          isClosed: boolean;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
 export interface Testimonial {
@@ -2350,7 +2083,6 @@ export interface TypeGenerator {
       label: string;
     };
     lucideIcon?: string | null;
-    id?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -2503,130 +2235,6 @@ export interface FooterSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "companyDetails_select".
- */
-export interface CompanyDetailsSelect<T extends boolean = true> {
-  findUs?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        lucideIcon?: T;
-        id?: T;
-      };
-  location?:
-    | T
-    | {
-        googleMapsEmbedUrl?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "card_select".
- */
-export interface CardSelect<T extends boolean = true> {
-  cards?:
-    | T
-    | {
-        style?: T;
-        logo?: T;
-        pattern?: T;
-        patternSize?: T;
-        patternOpacity?: T;
-        eyebrow?: T;
-        name?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
-        hoverImage?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hours_select".
- */
-export interface HoursSelect<T extends boolean = true> {
-  hours?:
-    | T
-    | {
-        brand?: T;
-        monday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        tuesday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        wednesday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        thursday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        friday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        saturday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        sunday?:
-          | T
-          | {
-              openTime?: T;
-              closeTime?: T;
-              isClosed?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials_select".
  */
 export interface TestimonialsSelect<T extends boolean = true> {
@@ -2684,7 +2292,6 @@ export interface TypeGeneratorSelect<T extends boolean = true> {
               label?: T;
             };
         lucideIcon?: T;
-        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

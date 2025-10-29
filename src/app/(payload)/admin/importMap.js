@@ -24,18 +24,13 @@ import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 }
 import { SlugComponent as SlugComponent_92cc057d0a2abb4f6cf0307edf59f986 } from '@/fields/slug/SlugComponent'
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BlocksFeatureClient as BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
-import { Select as Select_120d363afd071dc9d3846e86a2a5d3db } from '@/fields/lucideIcon/Select'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { LinkRowLabel as LinkRowLabel_bb1c4b965b7c07ad4b88efe6dc65271f } from '@/fields/dropdown/LinkRowLabel'
 import { RowLabel as RowLabel_2cfe2e364368a03eb7e153423c97fea0 } from '@/Navigation/RowLabel'
+import { Select as Select_120d363afd071dc9d3846e86a2a5d3db } from '@/fields/lucideIcon/Select'
 import { RowLabel as RowLabel_1f6ff6ff633e3695d348f4f3c58f1466 } from '@/Footer/RowLabel'
 import { RowLabel as RowLabel_e99f0474d47353a988995608827977bb } from '@/Footer/GroupsRowLabel'
-import { Field as Field_9bbc4ea063d21e8ca0498094333bb64f } from '@/collections/CompanyDetails/Field'
-import { RowLabel as RowLabel_a6fee3a038409b1d77c10e4497e52913 } from '@/collections/CompanyDetails/FindUsRowLabel'
-import { RowLabel as RowLabel_2070b2f5f3e169c59d6769e389794f9c } from '@/collections/Cards/RowLabel'
-import { TimeFormatInfo as TimeFormatInfo_d34487111b42bc922d18204b2f5948d8 } from '@/collections/Hours/TimeFormatInfo'
-import { RowLabel as RowLabel_bd670192799650a036dbe69d685a3ecf } from '@/collections/Hours/RowLabel'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
@@ -66,18 +61,13 @@ export const importMap = {
   "@/fields/slug/SlugComponent#SlugComponent": SlugComponent_92cc057d0a2abb4f6cf0307edf59f986,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BlocksFeatureClient": BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  "@/fields/lucideIcon/Select#Select": Select_120d363afd071dc9d3846e86a2a5d3db,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@/fields/dropdown/LinkRowLabel#LinkRowLabel": LinkRowLabel_bb1c4b965b7c07ad4b88efe6dc65271f,
   "@/Navigation/RowLabel#RowLabel": RowLabel_2cfe2e364368a03eb7e153423c97fea0,
+  "@/fields/lucideIcon/Select#Select": Select_120d363afd071dc9d3846e86a2a5d3db,
   "@/Footer/RowLabel#RowLabel": RowLabel_1f6ff6ff633e3695d348f4f3c58f1466,
   "@/Footer/GroupsRowLabel#RowLabel": RowLabel_e99f0474d47353a988995608827977bb,
-  "@/collections/CompanyDetails/Field#Field": Field_9bbc4ea063d21e8ca0498094333bb64f,
-  "@/collections/CompanyDetails/FindUsRowLabel#RowLabel": RowLabel_a6fee3a038409b1d77c10e4497e52913,
-  "@/collections/Cards/RowLabel#RowLabel": RowLabel_2070b2f5f3e169c59d6769e389794f9c,
-  "@/collections/Hours/TimeFormatInfo#TimeFormatInfo": TimeFormatInfo_d34487111b42bc922d18204b2f5948d8,
-  "@/collections/Hours/RowLabel#RowLabel": RowLabel_bd670192799650a036dbe69d685a3ecf,
   "@/components/BeforeLogin#default": default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }

@@ -14,13 +14,9 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Testimonials } from './collections/Testimonials'
-import { Menus } from './collections/Menus'
 import { Footer } from './Footer/config'
 import { Navigation } from './Navigation/config'
-import { Cards } from './collections/Cards'
-import { CompanyDetails } from './collections/CompanyDetails'
 import { Brands } from './collections/Brands'
-import { Hours } from './collections/Hours'
 import { Masks } from './collections/Masks'
 import { TypeGenerator } from './collections/TypeGenerator'
 
@@ -74,19 +70,9 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Brands, Menus],
+  collections: [Pages, Posts, Media, Categories, Users, Brands],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [
-    PageConfig,
-    Navigation,
-    Footer,
-    CompanyDetails,
-    Cards,
-    Hours,
-    Testimonials,
-    Masks,
-    TypeGenerator,
-  ],
+  globals: [PageConfig, Navigation, Footer, Testimonials, Masks, TypeGenerator],
   plugins: [
     ...plugins,
     vercelBlobStorage({
@@ -97,18 +83,18 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
-  email: nodemailerAdapter({
-    defaultFromAddress: process.env.EMAIL_DEFAULT_FROM_ADDRESS!,
-    defaultFromName: process.env.EMAIL_DEFAULT_FROM_NAME!,
-    transportOptions: {
-      host: process.env.SMTP_HOST,
-      port: 587,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    },
-  }),
+  // email: nodemailerAdapter({
+  //   defaultFromAddress: process.env.EMAIL_DEFAULT_FROM_ADDRESS!,
+  //   defaultFromName: process.env.EMAIL_DEFAULT_FROM_NAME!,
+  //   transportOptions: {
+  //     host: process.env.SMTP_HOST,
+  //     port: 587,
+  //     auth: {
+  //       user: process.env.SMTP_USER,
+  //       pass: process.env.SMTP_PASS,
+  //     },
+  //   },
+  // }),
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {

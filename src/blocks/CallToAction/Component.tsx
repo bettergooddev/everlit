@@ -6,8 +6,6 @@ import { IconList } from '@/components/IconList'
 import { Heading } from '@/components/Heading'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { BusinessHours } from '@/components/BusinessHours'
-import { HoursType } from '@/collections/Hours/types'
 import { Frame } from '@/components/Frame'
 import Map from '@/components/Map'
 import { MaskBackground } from '@/components/MaskBackground'
@@ -33,33 +31,11 @@ export const CallToActionBlock: React.FC<CTABlockProps> = async ({
 }) => {
   const payload = await getPayload({ config: configPromise })
 
-  const hoursData = await payload.findGlobal({
-    slug: 'hours',
-    depth: 1,
-  })
-
-  const companyDetailsData = await payload.findGlobal({
-    slug: 'companyDetails',
-    depth: 1,
-  })
-
-  const hours = (hoursData.hours || []) as HoursType
-  const { googleMapsEmbedUrl } = companyDetailsData?.location || {}
-  const findUs = companyDetailsData?.findUs || []
-
   const contentGrid = (
     <>
-      <Frame className="lg:min-h-0">
-        {googleMapsEmbedUrl && (
-          <Map src={googleMapsEmbedUrl} className="min-h-[450px] lg:min-h-0" />
-        )}
-      </Frame>
+      <Frame className="lg:min-h-0"></Frame>
       <div className="flex flex-col gap-14">
-        <BusinessHours hours={hours} />
-        <div className={cn('flex flex-col gap-4', classes.text({ style }))}>
-          <h4 className="type-h4">Find Us</h4>
-          {findUs.length > 0 && <IconList items={findUs} />}
-        </div>
+        <div className={cn('flex flex-col gap-4', classes.text({ style }))}></div>
       </div>
     </>
   )
