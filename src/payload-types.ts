@@ -74,7 +74,6 @@ export interface Config {
     users: User;
     brands: Brand;
     menus: Menu;
-    background: Background;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -93,7 +92,6 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     brands: BrandsSelect<false> | BrandsSelect<true>;
     menus: MenusSelect<false> | MenusSelect<true>;
-    background: BackgroundSelect<false> | BackgroundSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -317,7 +315,6 @@ export interface Page {
     image?: (string | null) | Media;
     description?: string | null;
   };
-  background: string | Background;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -915,22 +912,6 @@ export interface MenuThumbnailsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "background".
- */
-export interface Background {
-  id: string;
-  name: string;
-  layers?:
-    | {
-        media: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
@@ -1214,10 +1195,6 @@ export interface PayloadLockedDocument {
         value: string | Menu;
       } | null)
     | ({
-        relationTo: 'background';
-        value: string | Background;
-      } | null)
-    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -1403,7 +1380,6 @@ export interface PagesSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
-  background?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
@@ -1745,21 +1721,6 @@ export interface MenusSelect<T extends boolean = true> {
   lucideIcon?: T;
   pdf?: T;
   thumbnail?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "background_select".
- */
-export interface BackgroundSelect<T extends boolean = true> {
-  name?: T;
-  layers?:
-    | T
-    | {
-        media?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -141,15 +141,6 @@ export const Pages: CollectionConfig<'pages'> = {
       ],
     },
     {
-      name: 'background',
-      type: 'relationship',
-      relationTo: 'background',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'publishedAt',
       type: 'date',
       admin: {
