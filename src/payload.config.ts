@@ -18,7 +18,6 @@ import { Menus } from './collections/Menus'
 import { Footer } from './Footer/config'
 import { Navigation } from './Navigation/config'
 import { Cards } from './collections/Cards'
-import { Background } from './collections/Background'
 import { CompanyDetails } from './collections/CompanyDetails'
 import { Brands } from './collections/Brands'
 import { Hours } from './collections/Hours'
@@ -75,7 +74,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Brands, Menus, Background],
+  collections: [Pages, Posts, Media, Categories, Users, Brands, Menus],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [
     PageConfig,

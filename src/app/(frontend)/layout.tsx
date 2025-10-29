@@ -6,7 +6,6 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { Background } from '@/components/Background'
 import { Footer } from '@/Footer/Component'
 import { Navigation } from '@/Navigation/Component'
 import { Providers } from '@/providers'

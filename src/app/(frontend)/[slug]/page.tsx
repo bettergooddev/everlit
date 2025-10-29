@@ -11,8 +11,6 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { Background } from '@/components/Background'
-import { Background as BackgroundType } from '@/payload-types'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -59,27 +57,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout } = page
 
-  let background = page.background
-
-  if (typeof page.background === 'string') {
-    const payload = await getPayload({ config: configPromise })
-    const backgroundData = await payload.find({
-      collection: 'background',
-      where: {
-        id: {
-          equals: page.background,
-        },
-      },
-    })
-
-    background = backgroundData.docs?.[0] as BackgroundType
-  }
-
-  console.log(background)
-
   return (
     <>
-      <Background background={background} />
       <article
       // className="pt-16 pb-24"
       >
