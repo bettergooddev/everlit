@@ -7,6 +7,8 @@ import {
   HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
+  ParagraphFeature,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
 import { authenticated } from '../../access/authenticated'
@@ -41,7 +43,6 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
   defaultPopulate: {
     title: true,
     slug: true,
-    categories: true,
     meta: {
       image: true,
       description: true,
@@ -75,65 +76,94 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
       required: true,
     },
     {
+      name: 'heroImage',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       type: 'tabs',
       tabs: [
         {
           fields: [
             {
-              name: 'heroImage',
-              type: 'upload',
-              relationTo: 'media',
+              name: 'type',
+              type: 'select',
+              options: [
+                {
+                  label: 'Residential',
+                  value: 'residential',
+                },
+                {
+                  label: 'Commercial',
+                  value: 'commercial',
+                },
+              ],
+              required: true,
             },
             {
-              name: 'content',
+              name: 'date',
+              type: 'date',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayOnly',
+                },
+              },
+              required: true,
+            },
+            {
+              name: 'location',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'description',
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                  ]
+                  return [ParagraphFeature(), UnorderedListFeature()]
                 },
               }),
-              label: false,
+              label: 'Description',
+            },
+            {
+              name: 'collaborators',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [ParagraphFeature(), UnorderedListFeature()]
+                },
+              }),
+              label: 'Collaborators',
+            },
+            {
+              name: 'scope',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [ParagraphFeature(), UnorderedListFeature()]
+                },
+              }),
+              label: 'Scope',
+            },
+            {
+              name: 'features',
+              type: 'richText',
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [ParagraphFeature(), UnorderedListFeature()]
+                },
+              }),
+              label: 'Features',
+            },
+            {
+              name: 'photo',
+              type: 'upload',
+              relationTo: 'media',
+              hasMany: true,
               required: true,
             },
           ],
           label: 'Content',
-        },
-        {
-          fields: [
-            {
-              name: 'relatedCaseStudies',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              filterOptions: ({ id }) => {
-                return {
-                  id: {
-                    not_in: [id],
-                  },
-                }
-              },
-              hasMany: true,
-              relationTo: 'case-studies',
-            },
-            {
-              name: 'categories',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              hasMany: true,
-              relationTo: 'categories',
-            },
-          ],
-          label: 'Meta',
         },
         {
           name: 'meta',
