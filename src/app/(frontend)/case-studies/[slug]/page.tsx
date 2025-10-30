@@ -13,6 +13,7 @@ import type { CaseStudy } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { MediumImpactHero } from '@/heros/MediumImpact'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -49,7 +50,7 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
   if (!caseStudy) return <PayloadRedirects url={url} />
 
   return (
-    <article className="pt-16 pb-16">
+    <article className="">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -57,21 +58,23 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
+      <MediumImpactHero type="mediumImpact" mediumImpact={[caseStudy.mediumImpactHero]} />
+
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">
-          <RichText
+          {/* <RichText
             className="max-w-[48rem] mx-auto"
             data={caseStudy.content}
             enableGutter={false}
-          />
-          {caseStudy.relatedCaseStudies && caseStudy.relatedCaseStudies.length > 0 && (
+          /> */}
+          {/* {caseStudy.relatedCaseStudies && caseStudy.relatedCaseStudies.length > 0 && (
             <RelatedCaseStudies
               className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
               docs={caseStudy.relatedCaseStudies.filter(
                 (caseStudy) => typeof caseStudy === 'object',
               )}
             />
-          )}
+          )} */}
         </div>
       </div>
     </article>

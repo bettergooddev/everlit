@@ -803,72 +803,73 @@ export interface FlairBlock {
 export interface CaseStudy {
   id: string;
   title: string;
-  heroImage?: (string | null) | Media;
-  image?: (string | null) | Media;
-  heading?: string | null;
-  type: 'residential' | 'commercial';
-  date: string;
-  location: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
+  mediumImpactHero: {
+    image?: (string | null) | Media;
+    heading?: string | null;
+    type: 'residential' | 'commercial';
+    date: string;
+    location: string;
+    description?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  collaborators?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
+      };
+      [k: string]: unknown;
+    } | null;
+    collaborators?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  scope?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
+      };
+      [k: string]: unknown;
+    } | null;
+    scope?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  features?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
+      };
+      [k: string]: unknown;
+    } | null;
+    features?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   gallery: (string | Media)[];
   meta?: {
     title?: string | null;
@@ -1409,16 +1410,19 @@ export interface FlairBlockSelect<T extends boolean = true> {
  */
 export interface CaseStudiesSelect<T extends boolean = true> {
   title?: T;
-  heroImage?: T;
-  image?: T;
-  heading?: T;
-  type?: T;
-  date?: T;
-  location?: T;
-  description?: T;
-  collaborators?: T;
-  scope?: T;
-  features?: T;
+  mediumImpactHero?:
+    | T
+    | {
+        image?: T;
+        heading?: T;
+        type?: T;
+        date?: T;
+        location?: T;
+        description?: T;
+        collaborators?: T;
+        scope?: T;
+        features?: T;
+      };
   gallery?: T;
   meta?:
     | T

@@ -66,16 +66,16 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
       required: true,
     },
     {
-      name: 'heroImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    {
       type: 'tabs',
       tabs: [
         {
           fields: [
-            ...mediumImpactHeroFields,
+            {
+              label: 'Hero',
+              name: 'mediumImpactHero',
+              type: 'group',
+              fields: [...mediumImpactHeroFields],
+            },
             {
               name: 'gallery',
               type: 'upload',
