@@ -32,10 +32,7 @@ export const HighImpactHero: React.FC<Page['hero']> = (props) => {
 
   return (
     <>
-      <section
-        className="relative min-h-screen overflow-hidden flex flex-col justify-center pb-24 md:pb-60 pt-12"
-        data-theme="cafe"
-      >
+      <section className="relative min-h-screen overflow-hidden flex flex-col justify-center pb-24 md:pb-60 pt-12">
         <HeroBackground backgroundLayers={backgroundLayers} scrollY={scrollY} />
 
         <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 text-center">
@@ -186,7 +183,6 @@ const HeroBackground: React.FC<{
       )}
 
       <div
-        data-theme="sugar-shack"
         className="absolute inset-0 h-[75%] lg:h-[30%] mt-auto bg-gradient-to-b  from-background/0 to-background"
         style={{
           transform:

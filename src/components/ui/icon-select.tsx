@@ -46,7 +46,7 @@ export const IconSelect: React.FC<IconSelectProps> = ({ items, selected, onChang
         </SelectValue>
       </SelectTrigger>
 
-      <SelectContent className="rounded-none" data-theme="pizza">
+      <SelectContent className="rounded-none">
         {items.map((item) => (
           <SelectItem
             key={item.id}

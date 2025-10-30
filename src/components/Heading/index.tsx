@@ -79,7 +79,7 @@ export const Heading = ({
   }, [isInView])
 
   return (
-    <div data-theme="sugar-shack" className={cn('mb-16', className)}>
+    <div className={cn('mb-16', className)}>
       {heading && (
         <div className="" ref={textWrapper}>
           <RichText

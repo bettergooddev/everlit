@@ -38,7 +38,6 @@ export const MediumImpactHero: React.FC<Page['hero']> = (props) => {
         'w-full -mb-8 flex flex-col items-center text-center px-4',
         classes.wrapper({ hasLogo: !!logo }),
       )}
-      data-theme={theme}
     >
       {logo && (
         <Media

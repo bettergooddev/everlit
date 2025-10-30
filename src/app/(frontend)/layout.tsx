@@ -9,7 +9,6 @@ import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Navigation } from '@/Navigation/Component'
 import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { laquile, laquileRounded, laquileRough, laquileStamp, martel, fiyona } from '@/fonts/fonts'
@@ -34,7 +33,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       suppressHydrationWarning
     >
       <head>
-        <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <meta name="apple-mobile-web-app-title" content="My-Chosen" />

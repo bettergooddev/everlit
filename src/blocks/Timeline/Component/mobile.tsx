@@ -14,7 +14,7 @@ export function MobileTimeline({
   className?: string
 }) {
   return (
-    <div className={cn('mt-8 relative', className)} data-theme="sugar-shack">
+    <div className={cn('mt-8 relative', className)}>
       {/* Vertical line running through items */}
       <span
         className="pointer-events-none absolute left-4 top-4 bottom-7 w-0.5 bg-border"

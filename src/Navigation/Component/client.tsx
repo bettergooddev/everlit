@@ -30,10 +30,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   }
 
   return (
-    <header
-      data-theme="sugar-shack"
-      className="bg-background border-b border-primary/5 sticky top-0 z-50"
-    >
+    <header className="bg-background border-b border-primary/5 sticky top-0 z-50">
       <div className="container-full !px-[0.9rem] mx-auto flex items-center justify-between py-[0.9rem]">
         {/* Logo – left aligned */}
         <div className="flex h-min mr-12">
@@ -47,12 +44,12 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
         </nav>
 
         {/* Actions – right aligned */}
-        <div className="items-center gap-6 hidden lg:flex" data-theme="cafe">
+        <div className="items-center gap-6 hidden lg:flex">
           {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))}
         </div>
 
         {/* Mobile navigation – visible on small screens */}
-        <div className="flex items-center lg:hidden" data-theme="cafe">
+        <div className="flex items-center lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="default" size="icon" aria-label="Open menu">
@@ -60,7 +57,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="p-6 space-y-6" data-theme="cafe" hideClose>
+            <SheetContent side="right" className="p-6 space-y-6" hideClose>
               <div className="flex items-center justify-between mb-4">
                 <NavLogo logo={data?.logo ?? null} />
                 <SheetClose asChild>

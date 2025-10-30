@@ -42,8 +42,8 @@ export function DesktopCarousel({
       </CarouselContent>
 
       {/* Navigation */}
-      <CarouselPrevious data-theme="pizza" variant="default" />
-      <CarouselNext data-theme="pizza" variant="default" />
+      <CarouselPrevious variant="default" />
+      <CarouselNext variant="default" />
     </Carousel>
   )
 }
@@ -55,7 +55,7 @@ const Event: React.FC<{
   index: number
 }> = ({ event, isFirst, isLast, index }) => {
   return (
-    <CarouselItem className="md:basis-1/2 lg:basis-1/3 !pl-0" data-theme="sugar-shack">
+    <CarouselItem className="md:basis-1/2 lg:basis-1/3 !pl-0">
       <motion.div
         {...slideInFromRightInView(index)}
         className="flex flex-col items-center text-center h-full"
