@@ -14,6 +14,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { MediumImpactHero } from '@/heros/MediumImpact'
+import { GalleryBlock } from '@/blocks/Gallery/Component'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -59,6 +60,8 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <MediumImpactHero type="mediumImpact" mediumImpact={[caseStudy.mediumImpactHero]} />
+
+      <GalleryBlock images={caseStudy.gallery} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">

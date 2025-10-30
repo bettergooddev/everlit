@@ -10,6 +10,7 @@ import { RenderFeatures } from '@/blocks/Features/RenderFeatures'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { FlairBlock } from '@/blocks/Flair/Component'
+import { GalleryBlock } from '@/blocks/Gallery/Component'
 import Section from '@/components/Section'
 
 const blockComponents = {
@@ -21,6 +22,7 @@ const blockComponents = {
   testimonials: TestimonialsBlock,
   timeline: TimelineBlock,
   flair: FlairBlock,
+  gallery: GalleryBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -37,12 +39,11 @@ export const RenderBlocks: React.FC<{
           const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
               return (
                 <Section key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </Section>
               )

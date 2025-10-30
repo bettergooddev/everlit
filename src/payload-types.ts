@@ -280,6 +280,7 @@ export interface Page {
     | TestimonialsBlock
     | TimelineBlock
     | FlairBlock
+    | GalleryBlock
   )[];
   meta?: {
     title?: string | null;
@@ -798,6 +799,16 @@ export interface FlairBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  images?: (string | Media)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies".
  */
 export interface CaseStudy {
@@ -1265,6 +1276,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         flair?: T | FlairBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
       };
   meta?:
     | T
@@ -1401,6 +1413,15 @@ export interface TimelineBlockSelect<T extends boolean = true> {
  */
 export interface FlairBlockSelect<T extends boolean = true> {
   image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  images?: T;
   id?: T;
   blockName?: T;
 }

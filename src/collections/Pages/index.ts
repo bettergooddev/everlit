@@ -10,6 +10,7 @@ import { Features } from '@/blocks/Features/config'
 import { Testimonials } from '@/blocks/Testimonials/config'
 import { Timeline } from '@/blocks/Timeline/config'
 import { Flair } from '@/blocks/Flair/config'
+import { Gallery } from '@/blocks/Gallery/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -87,6 +88,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Testimonials,
                 Timeline,
                 Flair,
+                Gallery,
               ],
               required: true,
               admin: {
