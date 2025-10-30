@@ -31,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       )}
       lang="en"
       suppressHydrationWarning
+      data-theme="dark"
     >
       <head>
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
