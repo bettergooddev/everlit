@@ -736,22 +736,6 @@ export interface FeaturesBlock {
  * via the `definition` "TestimonialsBlock".
  */
 export interface TestimonialsBlock {
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subheading?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
@@ -1384,8 +1368,6 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
  * via the `definition` "TestimonialsBlock_select".
  */
 export interface TestimonialsBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
   id?: T;
   blockName?: T;
 }
@@ -2051,13 +2033,19 @@ export interface Testimonial {
   id: string;
   testimonials?:
     | {
-        image: string | Media;
-        review: string;
+        description: string;
+        image?: (string | null) | Media;
+        /**
+         * YouTube or Vimeo embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)
+         */
+        video?: string | null;
         author: {
           name: string;
-          role: string;
-          profilePicture: string | Media;
+          position: string;
+          company: string;
+          logo: string | Media;
         };
+        caseStudy?: (string | null) | CaseStudy;
         id?: string | null;
       }[]
     | null;
@@ -2263,15 +2251,18 @@ export interface TestimonialsSelect<T extends boolean = true> {
   testimonials?:
     | T
     | {
+        description?: T;
         image?: T;
-        review?: T;
+        video?: T;
         author?:
           | T
           | {
               name?: T;
-              role?: T;
-              profilePicture?: T;
+              position?: T;
+              company?: T;
+              logo?: T;
             };
+        caseStudy?: T;
         id?: T;
       };
   updatedAt?: T;
