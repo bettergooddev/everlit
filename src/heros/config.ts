@@ -9,6 +9,7 @@ import {
 
 import { linkGroup } from '@/fields/linkGroup'
 import { link } from '@/fields/link'
+import { mediumImpactHeroFields } from '@/fields/mediumImpactHeroFields'
 
 const logo: Field[] = [
   {
@@ -59,92 +60,7 @@ const highImpact: Field[] = [
   },
 ]
 
-const mediumImpact: Field[] = [
-  {
-    name: 'logo',
-    type: 'upload',
-    relationTo: 'media',
-  },
-  {
-    name: 'heading',
-    type: 'text',
-    required: true,
-  },
-  {
-    name: 'subheading',
-    type: 'textarea',
-  },
-
-  {
-    name: 'Buttons',
-    type: 'group',
-    label: false,
-    fields: [
-      {
-        name: 'primaryButton',
-        type: 'array',
-        fields: [link()],
-        maxRows: 1,
-        minRows: 1,
-        admin: {
-          components: {
-            RowLabel: '@/heros/MediumImpact/ButtonRowLabels#PrimaryButtonRowLabel',
-          },
-        },
-      },
-      {
-        name: 'secondaryButton',
-        type: 'array',
-        fields: [link()],
-        maxRows: 1,
-        minRows: 1,
-        admin: {
-          components: {
-            RowLabel: '@/heros/MediumImpact/ButtonRowLabels#SecondaryButtonRowLabel',
-          },
-        },
-      },
-
-      {
-        name: 'tertiaryButton',
-        type: 'array',
-        fields: [link()],
-        maxRows: 1,
-        minRows: 1,
-        admin: {
-          components: {
-            RowLabel: '@/heros/MediumImpact/ButtonRowLabels#TertiaryButtonRowLabel',
-          },
-        },
-      },
-    ],
-  },
-
-  {
-    name: 'image',
-    type: 'upload',
-    relationTo: 'media',
-  },
-  {
-    name: 'theme',
-    type: 'select',
-    options: [
-      {
-        label: 'Cafe',
-        value: 'cafe',
-      },
-      {
-        label: 'Sugar Shack',
-        value: 'sugar-shack',
-      },
-      {
-        label: 'Pizza',
-        value: 'pizza',
-      },
-    ],
-    required: true,
-  },
-]
+const mediumImpact: Field[] = [...mediumImpactHeroFields]
 
 const lowImpact: Field[] = [
   {

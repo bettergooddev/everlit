@@ -100,7 +100,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
 
   return (
     <motion.header
-      className={cn('sticky z-50', classes.header({ hasScroll, collapsed }))}
+      className={cn('fixed top-0 left-0 right-0 z-50', classes.header({ hasScroll, collapsed }))}
       transition={transition}
     >
       <AnimatePresence>
@@ -117,7 +117,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
               layout
               transition={transition}
               className={cn(
-                'absolute inset-0 w-full pointer-events-none transition-opacity duration-300 bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10.3px] border border-white/36 z-[-1]',
+                'absolute inset-0 w-full pointer-events-none transition-opacity duration-300 bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10.3px] border border-white/15 z-[-1]',
                 classes.visible({ collapsed }),
               )}
             ></motion.div>

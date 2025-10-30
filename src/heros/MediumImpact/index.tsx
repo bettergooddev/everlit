@@ -1,73 +1,114 @@
-'use client'
-
 import React from 'react'
 
 import type { Page } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Frame } from '@/components/Frame'
-import { tv } from 'tailwind-variants'
-import { cn } from '@/utilities/ui'
-import { motion } from 'motion/react'
-import { fadeUpInView } from '@/utilities/animations'
-
-const classes = {
-  wrapper: tv({
-    variants: {
-      hasLogo: {
-        true: 'pt-6',
-        false: 'pt-16',
-      },
-    },
-  }),
-}
+import RichText from '@/components/RichText'
+import { Badge } from '@/components/ui/badge'
+import { formatLongDate } from '@/utilities/formatDateTime'
 
 export const MediumImpactHero: React.FC<Page['hero']> = (props) => {
   if (!props?.mediumImpact?.[0]) return null
 
-  const { logo, heading, subheading, Buttons, image, theme = 'cafe' } = props.mediumImpact[0]
+  const { image, heading, type, date, location, description, collaborators, scope, features } =
+    props.mediumImpact[0]
 
-  const primary = Buttons?.primaryButton?.[0]?.link
-  const secondary = Buttons?.secondaryButton?.[0]?.link
-  const tertiary = Buttons?.tertiaryButton?.[0]?.link
+  const formattedDate = date ? formatLongDate(date) : null
 
   return (
-    <div
-      className={cn(
-        'w-full -mb-8 flex flex-col items-center text-center px-4',
-        classes.wrapper({ hasLogo: !!logo }),
-      )}
-    >
-      {logo && (
-        <Media
-          resource={logo}
-          className="w-[12rem] md:w-[18rem] h-auto"
-          imgClassName="h-full w-full"
-        />
-      )}
-      {heading && <h1 className="text-primary mt-0 type-h1">{heading}</h1>}
-      {subheading && (
-        <p className="opacity-75 text-primary mt-4 max-w-[60ch] mx-auto">{subheading}</p>
-      )}
-      {(primary || secondary || tertiary) && (
-        <div className="flex flex-col items-center gap-4 justify-center mt-8">
-          {(primary || secondary) && (
-            <div className="flex flex-row gap-5">
-              {secondary && <CMSLink {...secondary} appearance="secondary" />}
-              {primary && <CMSLink {...primary} appearance="default" />}
-            </div>
-          )}
-          {tertiary && (
-            <CMSLink {...tertiary} appearance="link" className="opacity-75 hover:opacity-100" />
-          )}
+    <section className="w-full">
+      {/* Hero Image */}
+      {image && (
+        <div className="relative w-full aspect-[21/7] md:aspect-[21/8] overflow-hidden">
+          <Media resource={image} className="size-full" imgClassName="size-full object-cover" />
         </div>
       )}
-      {image && (
-        <motion.div {...fadeUpInView(0)} className="w-full flex justify-center">
-          <Media resource={image} className="max-w-screen-xl flex mt-7 w-full rotate-[1deg]" />
-        </motion.div>
-      )}
-    </div>
+
+      {/* Content Section */}
+      <div className="relative bg-background px-4 py-12 md:py-16 lg:py-24">
+        <div className="container mx-auto">
+          {/* Heading */}
+          {heading && (
+            <div className="flex w-full mb-4 md:mb-6">
+              <h1 className="type-h1 text-foreground">{heading}</h1>
+            </div>
+          )}
+
+          {/* Metadata Row */}
+          {(type || formattedDate || location) && (
+            <>
+              <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+                {type && (
+                  <Badge variant="secondary" className="capitalize">
+                    {type}
+                  </Badge>
+                )}
+                {formattedDate && (
+                  <span className="type-body text-foreground/75">{formattedDate}</span>
+                )}
+                {location && <span className="type-body text-foreground/75">{location}</span>}
+              </div>
+
+              {/* Separator */}
+              <div
+                className="w-full h-[2px] mb-8 md:mb-10"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at center, hsl(var(--border)) 0%, transparent 80%)',
+                }}
+              />
+            </>
+          )}
+
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:gap-12">
+            {/* Left Column - Description */}
+            {description && (
+              <div>
+                <RichText data={description} enableGutter={false} />
+              </div>
+            )}
+
+            {/* Right Column - Stacked Sections */}
+            <div className="flex flex-col gap-6 md:gap-8">
+              {/* Collaborators */}
+              {collaborators && (
+                <div>
+                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground">Collaborators</h2>
+                  <RichText
+                    data={collaborators}
+                    className="[&_p]:type-body [&_p]:text-foreground/75 [&_ul]:type-body [&_li]:text-foreground/75"
+                    enableGutter={false}
+                  />
+                </div>
+              )}
+
+              {/* Scope */}
+              {scope && (
+                <div>
+                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground">Scope</h2>
+                  <RichText
+                    data={scope}
+                    className="[&_p]:type-body [&_p]:text-foreground/75 [&_ul]:type-body [&_li]:text-foreground/75"
+                    enableGutter={false}
+                  />
+                </div>
+              )}
+
+              {/* Features */}
+              {features && (
+                <div>
+                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground">Features</h2>
+                  <RichText
+                    data={features}
+                    className="[&_p]:type-body [&_p]:text-foreground/75 [&_ul]:type-body [&_li]:text-foreground/75"
+                    enableGutter={false}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }

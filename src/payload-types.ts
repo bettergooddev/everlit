@@ -196,85 +196,71 @@ export interface Page {
       | null;
     mediumImpact?:
       | {
-          logo?: (string | null) | Media;
-          heading: string;
-          subheading?: string | null;
-          Buttons?: {
-            primaryButton?:
-              | {
-                  link: {
-                    type?: ('reference' | 'custom') | null;
-                    newTab?: boolean | null;
-                    reference?:
-                      | ({
-                          relationTo: 'pages';
-                          value: string | Page;
-                        } | null)
-                      | ({
-                          relationTo: 'media';
-                          value: string | Media;
-                        } | null);
-                    url?: string | null;
-                    label: string;
-                    /**
-                     * Choose how this item should be rendered.
-                     */
-                    appearance?: ('default' | 'outline' | 'secondary') | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            secondaryButton?:
-              | {
-                  link: {
-                    type?: ('reference' | 'custom') | null;
-                    newTab?: boolean | null;
-                    reference?:
-                      | ({
-                          relationTo: 'pages';
-                          value: string | Page;
-                        } | null)
-                      | ({
-                          relationTo: 'media';
-                          value: string | Media;
-                        } | null);
-                    url?: string | null;
-                    label: string;
-                    /**
-                     * Choose how this item should be rendered.
-                     */
-                    appearance?: ('default' | 'outline' | 'secondary') | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-            tertiaryButton?:
-              | {
-                  link: {
-                    type?: ('reference' | 'custom') | null;
-                    newTab?: boolean | null;
-                    reference?:
-                      | ({
-                          relationTo: 'pages';
-                          value: string | Page;
-                        } | null)
-                      | ({
-                          relationTo: 'media';
-                          value: string | Media;
-                        } | null);
-                    url?: string | null;
-                    label: string;
-                    /**
-                     * Choose how this item should be rendered.
-                     */
-                    appearance?: ('default' | 'outline' | 'secondary') | null;
-                  };
-                  id?: string | null;
-                }[]
-              | null;
-          };
           image?: (string | null) | Media;
-          theme: 'cafe' | 'sugar-shack' | 'pizza';
+          heading?: string | null;
+          type: 'residential' | 'commercial';
+          date: string;
+          location: string;
+          description?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          collaborators?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          scope?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+          features?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
           id?: string | null;
         }[]
       | null;
@@ -818,6 +804,8 @@ export interface CaseStudy {
   id: string;
   title: string;
   heroImage?: (string | null) | Media;
+  image?: (string | null) | Media;
+  heading?: string | null;
   type: 'residential' | 'commercial';
   date: string;
   location: string;
@@ -881,7 +869,7 @@ export interface CaseStudy {
     };
     [k: string]: unknown;
   } | null;
-  photo: (string | Media)[];
+  gallery: (string | Media)[];
   meta?: {
     title?: string | null;
     /**
@@ -1247,60 +1235,15 @@ export interface PagesSelect<T extends boolean = true> {
         mediumImpact?:
           | T
           | {
-              logo?: T;
-              heading?: T;
-              subheading?: T;
-              Buttons?:
-                | T
-                | {
-                    primaryButton?:
-                      | T
-                      | {
-                          link?:
-                            | T
-                            | {
-                                type?: T;
-                                newTab?: T;
-                                reference?: T;
-                                url?: T;
-                                label?: T;
-                                appearance?: T;
-                              };
-                          id?: T;
-                        };
-                    secondaryButton?:
-                      | T
-                      | {
-                          link?:
-                            | T
-                            | {
-                                type?: T;
-                                newTab?: T;
-                                reference?: T;
-                                url?: T;
-                                label?: T;
-                                appearance?: T;
-                              };
-                          id?: T;
-                        };
-                    tertiaryButton?:
-                      | T
-                      | {
-                          link?:
-                            | T
-                            | {
-                                type?: T;
-                                newTab?: T;
-                                reference?: T;
-                                url?: T;
-                                label?: T;
-                                appearance?: T;
-                              };
-                          id?: T;
-                        };
-                  };
               image?: T;
-              theme?: T;
+              heading?: T;
+              type?: T;
+              date?: T;
+              location?: T;
+              description?: T;
+              collaborators?: T;
+              scope?: T;
+              features?: T;
               id?: T;
             };
         lowImpact?:
@@ -1467,6 +1410,8 @@ export interface FlairBlockSelect<T extends boolean = true> {
 export interface CaseStudiesSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
+  image?: T;
+  heading?: T;
   type?: T;
   date?: T;
   location?: T;
@@ -1474,7 +1419,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   collaborators?: T;
   scope?: T;
   features?: T;
-  photo?: T;
+  gallery?: T;
   meta?:
     | T
     | {

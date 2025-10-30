@@ -1,16 +1,5 @@
 import type { CollectionConfig } from 'payload'
 
-import {
-  BlocksFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-  ParagraphFeature,
-  UnorderedListFeature,
-} from '@payloadcms/richtext-lexical'
-
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
@@ -19,6 +8,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidateCaseStudy } from './hooks/revalidateCaseStudy'
+import { mediumImpactHeroFields } from '@/fields/mediumImpactHeroFields'
 
 import {
   MetaDescriptionField,
@@ -85,78 +75,9 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
       tabs: [
         {
           fields: [
+            ...mediumImpactHeroFields,
             {
-              name: 'type',
-              type: 'select',
-              options: [
-                {
-                  label: 'Residential',
-                  value: 'residential',
-                },
-                {
-                  label: 'Commercial',
-                  value: 'commercial',
-                },
-              ],
-              required: true,
-            },
-            {
-              name: 'date',
-              type: 'date',
-              admin: {
-                date: {
-                  pickerAppearance: 'dayOnly',
-                },
-              },
-              required: true,
-            },
-            {
-              name: 'location',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'description',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [ParagraphFeature(), UnorderedListFeature()]
-                },
-              }),
-              label: 'Description',
-            },
-            {
-              name: 'collaborators',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [ParagraphFeature(), UnorderedListFeature()]
-                },
-              }),
-              label: 'Collaborators',
-            },
-            {
-              name: 'scope',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [ParagraphFeature(), UnorderedListFeature()]
-                },
-              }),
-              label: 'Scope',
-            },
-            {
-              name: 'features',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [ParagraphFeature(), UnorderedListFeature()]
-                },
-              }),
-              label: 'Features',
-            },
-            {
-              name: 'photo',
+              name: 'gallery',
               type: 'upload',
               relationTo: 'media',
               hasMany: true,
