@@ -34,14 +34,13 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
       data-theme="sugar-shack"
       className="bg-background border-b border-primary/5 sticky top-0 z-50"
     >
-      <div className="container mx-auto flex items-center justify-between py-[0.9rem]">
+      <div className="container-full !px-[0.9rem] mx-auto flex items-center justify-between py-[0.9rem]">
         {/* Logo – left aligned */}
-        <div className="flex h-min">
+        <div className="flex h-min mr-12">
           <NavLogo logo={data?.logo ?? null} />
         </div>
-
-        {/* Primary navigation items – centered */}
-        <nav className="flex-1 items-center justify-center gap-6 hidden lg:flex">
+        <nav className="flex-1 items-center gap-6 hidden lg:flex">
+          {/* Primary navigation items – centered */}
           {navItems.map((item, index) =>
             renderNavigationItem(item, index, { appearance: 'inline' }),
           )}

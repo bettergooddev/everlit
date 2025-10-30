@@ -17,12 +17,7 @@ export const NavLogo: React.FC<NavLogoProps> = ({ logo }) => {
 
   if (link) {
     return (
-      <CMSLink
-        {...link}
-        className="inline-block transition-all duration-150 hover:scale-95 hover:opacity-70 hover:-rotate-[1.5deg]"
-        appearance="inline"
-        label={''}
-      >
+      <CMSLink {...link} className="inline-block" appearance="inline" label={''}>
         <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
       </CMSLink>
     )

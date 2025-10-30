@@ -42,46 +42,64 @@ export const renderMobileNavigationItem = (
     navItem.dropdown?.items &&
     navItem.dropdown.items.length > 0
   ) {
-    const dropdown = navItem.dropdown!
-
-    const buttonVariant: ButtonProps['variant'] =
-      overrideAppearance ?? dropdown.appearance ?? 'inline'
-
-    const MobileAccordionItem: React.FC = () => {
-      const [open, setOpen] = useState(false)
-      return (
-        <div key={index} className="flex flex-col w-full">
-          <Button
-            variant={buttonVariant}
-            className="w-full flex items-center justify-between gap-1 py-2"
-            onClick={() => setOpen(!open)}
-          >
-            {dropdown.label}
-            <ChevronDown
-              className={cn('h-4 w-4 transition-transform', open ? 'rotate-180' : 'rotate-0')}
-            />
-          </Button>
-          {open && (
-            <div className="pl-4 flex flex-col gap-2 mt-2">
-              {dropdown.items!.map((dropdownItem, dropdownIndex) => (
-                <div key={dropdownIndex} onClick={onItemClick}>
-                  <CMSLink
-                    {...dropdownItem.link}
-                    appearance={overrideAppearance ?? 'inline'}
-                    className="type-button py-2 text-left underline-offset-4 hover:underline text-primary"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )
-    }
-
-    return <MobileAccordionItem key={index} />
+    return renderMobileDropdown(navItem, index, overrideAppearance, onItemClick)
   }
 
   return null
+}
+
+const renderMobileDropdown = (
+  navItem: NonNullable<NonNullable<NavigationType['navItems']>[number]['navigationItem']>,
+  index: number | string,
+  overrideAppearance?: 'inline' | Parameters<typeof CMSLink>[0]['appearance'],
+  onItemClick?: () => void,
+): React.ReactNode => {
+  if (
+    navItem.type !== 'dropdown' ||
+    !navItem.dropdown?.label ||
+    !navItem.dropdown?.items ||
+    navItem.dropdown.items.length === 0
+  ) {
+    return null
+  }
+
+  const dropdown = navItem.dropdown
+
+  const buttonVariant: ButtonProps['variant'] =
+    overrideAppearance ?? dropdown.appearance ?? 'inline'
+
+  const MobileAccordionItem: React.FC = () => {
+    const [open, setOpen] = useState(false)
+    return (
+      <div key={index} className="flex flex-col w-full">
+        <Button
+          variant={buttonVariant}
+          className="w-full flex items-center justify-between gap-1 py-2"
+          onClick={() => setOpen(!open)}
+        >
+          {dropdown.label}
+          <ChevronDown
+            className={cn('h-4 w-4 transition-transform', open ? 'rotate-180' : 'rotate-0')}
+          />
+        </Button>
+        {open && (
+          <div className="pl-4 flex flex-col gap-2 mt-2">
+            {dropdown.items!.map((dropdownItem, dropdownIndex) => (
+              <div key={dropdownIndex} onClick={onItemClick}>
+                <CMSLink
+                  {...dropdownItem.link}
+                  appearance={overrideAppearance ?? 'inline'}
+                  className="type-button py-2 text-left underline-offset-4 hover:underline text-primary"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  return <MobileAccordionItem key={index} />
 }
 
 export default renderMobileNavigationItem
