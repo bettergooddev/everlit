@@ -70,9 +70,9 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, CaseStudies, Media, Categories, Users, Brands],
+  collections: [Pages, CaseStudies, Media, Categories, Users, Brands, Testimonials],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [PageConfig, Navigation, Footer, Testimonials, Masks, TypeGenerator],
+  globals: [PageConfig, Navigation, Footer, Masks, TypeGenerator],
   plugins: [
     ...plugins,
     vercelBlobStorage({

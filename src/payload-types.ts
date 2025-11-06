@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     brands: Brand;
+    testimonials: Testimonial;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,6 +91,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     brands: BrandsSelect<false> | BrandsSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -106,7 +108,6 @@ export interface Config {
     'page-config': PageConfig;
     navigation: Navigation;
     footer: Footer;
-    testimonials: Testimonial;
     masks: Mask;
     typeGenerator: TypeGenerator;
   };
@@ -114,7 +115,6 @@ export interface Config {
     'page-config': PageConfigSelect<false> | PageConfigSelect<true>;
     navigation: NavigationSelect<false> | NavigationSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
-    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     masks: MasksSelect<false> | MasksSelect<true>;
     typeGenerator: TypeGeneratorSelect<false> | TypeGeneratorSelect<true>;
   };
@@ -939,6 +939,33 @@ export interface Brand {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: string;
+  title: string;
+  description: string;
+  image?: (string | null) | Media;
+  /**
+   * YouTube or Vimeo embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)
+   */
+  video?: string | null;
+  author: {
+    name: string;
+    position: string;
+    company: string;
+    logo: string | Media;
+  };
+  caseStudy?: (string | null) | CaseStudy;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1132,6 +1159,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'brands';
         value: string | Brand;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: string | Testimonial;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1592,6 +1623,31 @@ export interface BrandsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+  video?: T;
+  author?:
+    | T
+    | {
+        name?: T;
+        position?: T;
+        company?: T;
+        logo?: T;
+      };
+  caseStudy?: T;
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -2033,33 +2089,6 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials".
- */
-export interface Testimonial {
-  id: string;
-  testimonials?:
-    | {
-        description: string;
-        image?: (string | null) | Media;
-        /**
-         * YouTube or Vimeo embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)
-         */
-        video?: string | null;
-        author: {
-          name: string;
-          position: string;
-          company: string;
-          logo: string | Media;
-        };
-        caseStudy?: (string | null) | CaseStudy;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "masks".
  */
 export interface Mask {
@@ -2251,32 +2280,6 @@ export interface FooterSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "testimonials_select".
- */
-export interface TestimonialsSelect<T extends boolean = true> {
-  testimonials?:
-    | T
-    | {
-        description?: T;
-        image?: T;
-        video?: T;
-        author?:
-          | T
-          | {
-              name?: T;
-              position?: T;
-              company?: T;
-              logo?: T;
-            };
-        caseStudy?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "masks_select".
  */
 export interface MasksSelect<T extends boolean = true> {
@@ -2332,6 +2335,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'case-studies';
           value: string | CaseStudy;
+        } | null)
+      | ({
+          relationTo: 'testimonials';
+          value: string | Testimonial;
         } | null);
     global?: string | null;
     user?: (string | null) | User;
