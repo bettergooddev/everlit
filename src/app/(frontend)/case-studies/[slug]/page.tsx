@@ -13,7 +13,7 @@ import type { CaseStudy } from '@/payload-types'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { MediumImpactHero } from '@/heros/MediumImpact'
+import { StudyHero } from '@/heros/Study'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 
 export async function generateStaticParams() {
@@ -59,7 +59,7 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <MediumImpactHero type="mediumImpact" mediumImpact={[caseStudy.mediumImpactHero]} />
+      <StudyHero type="study" study={[caseStudy.studyHero]} />
 
       <GalleryBlock images={caseStudy.gallery} />
 

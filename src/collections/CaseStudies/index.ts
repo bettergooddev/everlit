@@ -8,7 +8,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidateCaseStudy } from './hooks/revalidateCaseStudy'
-import { mediumImpactHeroFields } from '@/heros/MediumImpact/fields'
+import { studyHeroFields } from '@/heros/Study/fields'
 
 import {
   MetaDescriptionField,
@@ -72,9 +72,9 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
           fields: [
             {
               label: 'Hero',
-              name: 'mediumImpactHero',
+              name: 'studyHero',
               type: 'group',
-              fields: [...mediumImpactHeroFields],
+              fields: [...studyHeroFields],
             },
             {
               name: 'gallery',

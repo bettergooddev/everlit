@@ -13,3 +13,4 @@ export const LogosRowLabel = () => {
 
   return <>{labels[rowNumber ?? 0]}</>
 }
+

@@ -1,7 +1,7 @@
 import { lexicalEditor, ParagraphFeature, UnorderedListFeature } from '@payloadcms/richtext-lexical'
 import type { Field } from 'payload'
 
-export const mediumImpactHeroFields: Field[] = [
+export const studyHeroFields: Field[] = [
   {
     name: 'image',
     type: 'upload',
@@ -82,4 +82,5 @@ export const mediumImpactHeroFields: Field[] = [
     label: 'Features',
   },
 ]
+
 

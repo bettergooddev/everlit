@@ -159,8 +159,8 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    highImpact?:
+    type: 'none' | 'main' | 'study' | 'archive';
+    main?:
       | {
           logos?:
             | {
@@ -194,7 +194,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    mediumImpact?:
+    study?:
       | {
           image?: (string | null) | Media;
           heading?: string | null;
@@ -264,7 +264,7 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    lowImpact?:
+    archive?:
       | {
           heading: string;
           subheading?: string | null;
@@ -798,7 +798,7 @@ export interface GalleryBlock {
 export interface CaseStudy {
   id: string;
   title: string;
-  mediumImpactHero: {
+  studyHero: {
     image?: (string | null) | Media;
     heading?: string | null;
     type: 'residential' | 'commercial';
@@ -1203,7 +1203,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        highImpact?:
+        main?:
           | T
           | {
               logos?:
@@ -1228,7 +1228,7 @@ export interface PagesSelect<T extends boolean = true> {
               backgroundLayers?: T;
               id?: T;
             };
-        mediumImpact?:
+        study?:
           | T
           | {
               image?: T;
@@ -1242,7 +1242,7 @@ export interface PagesSelect<T extends boolean = true> {
               features?: T;
               id?: T;
             };
-        lowImpact?:
+        archive?:
           | T
           | {
               heading?: T;
@@ -1413,7 +1413,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
  */
 export interface CaseStudiesSelect<T extends boolean = true> {
   title?: T;
-  mediumImpactHero?:
+  studyHero?:
     | T
     | {
         image?: T;

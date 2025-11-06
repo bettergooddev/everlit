@@ -9,7 +9,7 @@ import {
 
 import { linkGroup } from '@/fields/linkGroup'
 import { link } from '@/fields/link'
-import { mediumImpactHeroFields } from '@/heros/MediumImpact/fields'
+import { studyHeroFields } from '@/heros/Study/fields'
 
 const logo: Field[] = [
   {
@@ -21,7 +21,7 @@ const logo: Field[] = [
   link(),
 ]
 
-const highImpact: Field[] = [
+const main: Field[] = [
   {
     name: 'logos',
     type: 'array',
@@ -29,7 +29,7 @@ const highImpact: Field[] = [
     maxRows: 3,
     admin: {
       components: {
-        RowLabel: '@/heros/HighImpact/LogosRowLabel#LogosRowLabel',
+        RowLabel: '@/heros/Main/LogosRowLabel#LogosRowLabel',
       },
     },
   },
@@ -60,9 +60,9 @@ const highImpact: Field[] = [
   },
 ]
 
-const mediumImpact: Field[] = [...mediumImpactHeroFields]
+const study: Field[] = [...studyHeroFields]
 
-const lowImpact: Field[] = [
+const archive: Field[] = [
   {
     name: 'heading',
     type: 'text',
@@ -81,7 +81,7 @@ export const hero: Field = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'lowImpact',
+      defaultValue: 'archive',
       label: 'Type',
       options: [
         {
@@ -89,28 +89,28 @@ export const hero: Field = {
           value: 'none',
         },
         {
-          label: 'High Impact',
-          value: 'highImpact',
+          label: 'Main',
+          value: 'main',
         },
         {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
+          label: 'Study',
+          value: 'study',
         },
         {
-          label: 'Low Impact',
-          value: 'lowImpact',
+          label: 'Archive',
+          value: 'archive',
         },
       ],
       required: true,
     },
 
     {
-      name: 'highImpact',
+      name: 'main',
       type: 'array',
-      fields: highImpact,
+      fields: main,
       label: 'Content',
       admin: {
-        condition: (_, { type } = {}) => type === 'highImpact',
+        condition: (_, { type } = {}) => type === 'main',
         components: {
           RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
         },
@@ -119,12 +119,12 @@ export const hero: Field = {
     },
 
     {
-      name: 'mediumImpact',
+      name: 'study',
       type: 'array',
-      fields: mediumImpact,
+      fields: study,
       label: 'Content',
       admin: {
-        condition: (_, { type } = {}) => type === 'mediumImpact',
+        condition: (_, { type } = {}) => type === 'study',
         components: {
           RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
         },
@@ -133,12 +133,12 @@ export const hero: Field = {
     },
 
     {
-      name: 'lowImpact',
+      name: 'archive',
       type: 'array',
-      fields: lowImpact,
+      fields: archive,
       label: 'Content',
       admin: {
-        condition: (_, { type } = {}) => type === 'lowImpact',
+        condition: (_, { type } = {}) => type === 'archive',
         components: {
           RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
         },
