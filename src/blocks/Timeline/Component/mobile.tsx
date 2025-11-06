@@ -1,7 +1,7 @@
 'use client'
 
 import type { TimelineBlock as TimelineBlockProps } from '@/payload-types'
-import { Frame } from '@/components/Frame'
+import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import { ChevronDown } from 'lucide-react'
@@ -36,7 +36,7 @@ export function MobileTimeline({
             <span className="absolute left-4 -translate-x-1/2 top-2.5 block size-4 rounded-full bg-foreground" />
 
             {/* Event image */}
-            <Frame
+            <Media
               resource={event.image}
               className="aspect-square w-full max-w-[10rem] overflow-hidden rounded-md"
               imgClassName="size-full object-cover"

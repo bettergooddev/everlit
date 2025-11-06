@@ -10,7 +10,6 @@ import type { Media as MediaType } from '@/payload-types'
 import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
 import { Heading } from '@/components/Heading'
-import { Frame } from '@/components/Frame'
 
 export const FlairBlock: React.FC<FlairBlockType> = ({ image }) => {
   return (

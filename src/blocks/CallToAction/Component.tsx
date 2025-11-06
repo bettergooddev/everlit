@@ -6,7 +6,7 @@ import { IconList } from '@/components/IconList'
 import { Heading } from '@/components/Heading'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { Frame } from '@/components/Frame'
+import { Media } from '@/components/Media'
 import Map from '@/components/Map'
 import { MaskBackground } from '@/components/MaskBackground'
 import { cn } from '@/utilities/ui'
@@ -33,7 +33,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = async ({
 
   const contentGrid = (
     <>
-      <Frame className="lg:min-h-0"></Frame>
+      <Media className="lg:min-h-0" />
       <div className="flex flex-col gap-14">
         <div className={cn('flex flex-col gap-4', classes.text({ style }))}></div>
       </div>

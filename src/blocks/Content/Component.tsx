@@ -5,7 +5,7 @@ import RichText from '@/components/RichText'
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
-import { Frame } from '../../components/Frame'
+import { Media } from '../../components/Media'
 import * as motion from 'motion/react-client'
 import { fadeUpInView } from '@/utilities/animations'
 
@@ -56,7 +56,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
 
                 {type === 'media' && media && (
                   <motion.div {...fadeUpInView(index)}>
-                    <Frame
+                    <Media
                       resource={media}
                       className="w-full overflow-hidden"
                       imgClassName="w-full h-auto scale-[1.025]"

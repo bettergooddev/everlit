@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Frame } from '@/components/Frame'
+import { Media } from '@/components/Media'
 import * as motion from 'motion/react-client'
 import { slideInFromRightInView } from '@/utilities/animations'
 import React from 'react'
@@ -61,7 +61,7 @@ const Event: React.FC<{
         className="flex flex-col items-center text-center h-full"
       >
         {/* Image with internal padding formerly on the item */}
-        <Frame
+        <Media
           resource={event.image}
           className="aspect-square w-full max-w-[13rem] overflow-hidden rounded-md"
           imgClassName="size-full object-cover"
