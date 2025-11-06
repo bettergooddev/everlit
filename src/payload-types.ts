@@ -256,6 +256,7 @@ export interface Page {
   };
   layout: (
     | CallToActionBlock
+    | ContentBlock
     | FormBlock
     | FeaturesBlock
     | TestimonialsBlock
@@ -421,6 +422,37 @@ export interface CallToActionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  variant: 'standard' | 'dualImage';
+  heading: string;
+  description?: string | null;
+  dualImage?: {
+    images: (string | Media)[];
+  };
+  standard?: {
+    image: string | Media;
+    tags?:
+      | {
+          tag: string;
+          id?: string | null;
+        }[]
+      | null;
+    bullets?:
+      | {
+          bullet: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  reverseLayout?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1233,6 +1265,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         features?: T | FeaturesBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
@@ -1279,6 +1312,40 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock_select".
+ */
+export interface ContentBlockSelect<T extends boolean = true> {
+  variant?: T;
+  heading?: T;
+  description?: T;
+  dualImage?:
+    | T
+    | {
+        images?: T;
+      };
+  standard?:
+    | T
+    | {
+        image?: T;
+        tags?:
+          | T
+          | {
+              tag?: T;
+              id?: T;
+            };
+        bullets?:
+          | T
+          | {
+              bullet?: T;
+              id?: T;
+            };
+      };
+  reverseLayout?: T;
   id?: T;
   blockName?: T;
 }
