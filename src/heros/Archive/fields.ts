@@ -7,8 +7,7 @@ export const archiveHeroFields: Field[] = [
     required: true,
   },
   {
-    name: 'subheading',
+    name: 'description',
     type: 'textarea',
   },
 ]
-

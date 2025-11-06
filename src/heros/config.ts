@@ -20,20 +20,20 @@ export const hero: Field = {
           value: 'none',
         },
         {
-          label: 'Main',
+          label: 'Homepage',
           value: 'main',
         },
         {
-          label: 'Study',
+          label: 'Sub-Page',
+          value: 'sub',
+        },
+        {
+          label: 'Case Study',
           value: 'study',
         },
         {
-          label: 'Archive',
+          label: 'Simple',
           value: 'archive',
-        },
-        {
-          label: 'Sub',
-          value: 'sub',
         },
       ],
       required: true,

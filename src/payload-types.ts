@@ -159,38 +159,12 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'main' | 'study' | 'archive' | 'sub';
+    type: 'none' | 'main' | 'sub' | 'study' | 'archive';
     main?:
       | {
-          logos?:
-            | {
-                logo: string | Media;
-                link: {
-                  type?: ('reference' | 'custom') | null;
-                  newTab?: boolean | null;
-                  reference?:
-                    | ({
-                        relationTo: 'pages';
-                        value: string | Page;
-                      } | null)
-                    | ({
-                        relationTo: 'media';
-                        value: string | Media;
-                      } | null);
-                  url?: string | null;
-                  label: string;
-                  /**
-                   * Choose how this item should be rendered.
-                   */
-                  appearance?: ('default' | 'outline' | 'secondary') | null;
-                };
-                id?: string | null;
-              }[]
-            | null;
           heading: string;
-          subheading?: string | null;
-          media: (string | Media)[];
-          backgroundLayers?: (string | Media)[] | null;
+          description?: string | null;
+          image?: (string | null) | Media;
           id?: string | null;
         }[]
       | null;
@@ -267,14 +241,15 @@ export interface Page {
     archive?:
       | {
           heading: string;
-          subheading?: string | null;
+          description?: string | null;
           id?: string | null;
         }[]
       | null;
     sub?:
       | {
           heading: string;
-          subheading?: string | null;
+          description?: string | null;
+          image?: (string | null) | Media;
           id?: string | null;
         }[]
       | null;
@@ -1213,26 +1188,9 @@ export interface PagesSelect<T extends boolean = true> {
         main?:
           | T
           | {
-              logos?:
-                | T
-                | {
-                    logo?: T;
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
-                  };
               heading?: T;
-              subheading?: T;
-              media?: T;
-              backgroundLayers?: T;
+              description?: T;
+              image?: T;
               id?: T;
             };
         study?:
@@ -1253,14 +1211,15 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               heading?: T;
-              subheading?: T;
+              description?: T;
               id?: T;
             };
         sub?:
           | T
           | {
               heading?: T;
-              subheading?: T;
+              description?: T;
+              image?: T;
               id?: T;
             };
       };

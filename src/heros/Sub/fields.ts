@@ -7,8 +7,12 @@ export const subHeroFields: Field[] = [
     required: true,
   },
   {
-    name: 'subheading',
+    name: 'description',
     type: 'textarea',
   },
+  {
+    name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+  },
 ]
-
