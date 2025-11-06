@@ -102,9 +102,9 @@ const columnFields: Field[] = [
   },
 ]
 
-export const Content: Block = {
-  slug: 'content',
-  interfaceName: 'ContentBlock',
+export const Columns: Block = {
+  slug: 'columns',
+  interfaceName: 'ColumnsBlock',
   fields: [
     {
       name: 'columns',

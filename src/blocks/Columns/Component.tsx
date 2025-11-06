@@ -2,14 +2,14 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-import type { ContentBlock as ContentBlockProps } from '@/payload-types'
+import type { ColumnsBlock as ColumnsBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
 import { Media } from '../../components/Media'
 import * as motion from 'motion/react-client'
 import { fadeUpInView } from '@/utilities/animations'
 
-export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
+export const ColumnsBlock: React.FC<ColumnsBlockProps> = (props) => {
   const { columns } = props
 
   const colsSpanClasses = {

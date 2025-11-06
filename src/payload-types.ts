@@ -256,13 +256,13 @@ export interface Page {
   };
   layout: (
     | CallToActionBlock
-    | ContentBlock
     | FormBlock
     | FeaturesBlock
     | TestimonialsBlock
     | TimelineBlock
     | FlairBlock
     | GalleryBlock
+    | CaseStudiesBlock
   )[];
   meta?: {
     title?: string | null;
@@ -421,62 +421,6 @@ export interface CallToActionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
-  columns?:
-    | {
-        /**
-         * Choose whether this column contains text content or media
-         */
-        type?: ('content' | 'media') | null;
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: string | Media;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how this item should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'secondary') | null;
-        };
-        media?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  reverse?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -792,6 +736,17 @@ export interface GalleryBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudiesBlock".
+ */
+export interface CaseStudiesBlock {
+  heading: string;
+  caseStudies: (string | CaseStudy)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'case-studies';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1278,13 +1233,13 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         features?: T | FeaturesBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         flair?: T | FlairBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
+        'case-studies'?: T | CaseStudiesBlockSelect<T>;
       };
   meta?:
     | T
@@ -1324,35 +1279,6 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
- */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        type?: T;
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        media?: T;
-        id?: T;
-      };
-  reverse?: T;
   id?: T;
   blockName?: T;
 }
@@ -1441,6 +1367,16 @@ export interface FlairBlockSelect<T extends boolean = true> {
  */
 export interface GalleryBlockSelect<T extends boolean = true> {
   images?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudiesBlock_select".
+ */
+export interface CaseStudiesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  caseStudies?: T;
   id?: T;
   blockName?: T;
 }
