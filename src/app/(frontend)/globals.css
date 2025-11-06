@@ -14,69 +14,85 @@
   }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    /* Commented out existing colors */
+    /* --background: 0 0% 100%; */
+    /* --foreground: 222.2 47.4% 11.2%; */
+    /* --card: 0 0% 100%; */
+    /* --card-foreground: 222.2 47.4% 11.2%; */
+    /* --popover: 0 0% 100%; */
+    /* --popover-foreground: 222.2 47.4% 11.2%; */
+    /* --primary: 222.2 47.4% 11.2%; */
+    /* --primary-foreground: 210 40% 98%; */
+    /* --secondary: 210 40% 96.1%; */
+    /* --secondary-foreground: 222.2 47.4% 11.2%; */
+    /* --muted: 210 40% 96.1%; */
+    /* --muted-foreground: 215.4 16.3% 46.9%; */
+    /* --accent: 210 40% 96.1%; */
+    /* --accent-foreground: 222.2 47.4% 11.2%; */
+    /* --destructive: 0 84.2% 60.2%; */
+    /* --destructive-foreground: 210 40% 98%; */
+    /* --border: 214.3 31.8% 91.4%; */
+    /* --input: 214.3 31.8% 91.4%; */
+    /* --ring: 222.2 47.4% 11.2%; */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 47.4% 11.2%;
+    /* Primary colors */
+    --primary-900: 18.26 83.64% 21.57%;
+    --primary-500: 18.04 83.61% 35.88%;
+    --primary-100: 18.10 73.66% 52.35%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    /* Foreground colors */
+    --foreground-900: 45.82 63.22% 82.94%;
+    --foreground-500: 45.00 100.00% 92.94%;
+    --foreground-100: 41.54 68.42% 96.27%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Background colors */
+    --background-900: 198.95 82.61% 4.51%;
+    --background-500: 200.00 82.98% 9.22%;
+    --background-100: 199.15 59.49% 15.49%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Default mappings for existing CSS variables */
+    --background: var(--background-900);
+    --foreground: var(--foreground-900);
+    --primary: var(--primary-500);
+    --primary-foreground: var(--foreground-100);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --card: var(--background-500);
+    --card-foreground: var(--foreground-500);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --popover: var(--background-500);
+    --popover-foreground: var(--foreground-500);
+
+    --secondary: var(--background-500);
+    --secondary-foreground: var(--foreground-500);
+
+    --muted: var(--background-500);
+    --muted-foreground: var(--foreground-500);
+
+    --accent: var(--primary-500);
+    --accent-foreground: var(--foreground-100);
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: var(--foreground-100);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 47.4% 11.2%;
+    --border: var(--background-500);
+    --input: var(--background-500);
+    --ring: var(--primary-500);
 
     --radius: 0.5rem;
 
     --gradient-x: -20%;
     --gradient-y: 110%;
+
+    /* Background gradient colors (gradient 1) */
+    --gradient-background-start: 198.95 73.8% 16.5%; /* rgb(11, 53, 73) */
+    --gradient-background-end: 198.95 73.8% 16.5%; /* same color, different opacity */
+    
+    /* Foreground gradient colors (gradient 2) */
+    --gradient-foreground-start: 0 0% 59.2%; /* rgb(151, 151, 151) */
+    --gradient-foreground-end: 0 0% 59.2%; /* same color, different opacity */
+
   }
 
-  [data-theme="dark"] {
-    --background: 222.2 47.4% 11.2%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 47.4% 11.2%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 47.4% 11.2%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
 }
 
 @layer base {

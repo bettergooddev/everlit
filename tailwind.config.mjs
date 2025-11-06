@@ -85,7 +85,12 @@ const config = {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
-        background: 'hsl(var(--background))',
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+          900: 'hsl(var(--background-900))',
+          500: 'hsl(var(--background-500))',
+          100: 'hsl(var(--background-100))',
+        },
         border: 'hsla(var(--border))',
         card: {
           DEFAULT: 'hsl(var(--card))',
@@ -95,7 +100,12 @@ const config = {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        foreground: 'hsl(var(--foreground))',
+        foreground: {
+          DEFAULT: 'hsl(var(--foreground))',
+          900: 'hsl(var(--foreground-900))',
+          500: 'hsl(var(--foreground-500))',
+          100: 'hsl(var(--foreground-100))',
+        },
         input: 'hsl(var(--input))',
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -108,6 +118,9 @@ const config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          900: 'hsl(var(--primary-900))',
+          500: 'hsl(var(--primary-500))',
+          100: 'hsl(var(--primary-100))',
         },
         ring: 'hsl(var(--ring))',
         secondary: {
@@ -117,6 +130,14 @@ const config = {
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        'gradient-background': {
+          start: 'hsl(var(--gradient-background-start))',
+          end: 'hsl(var(--gradient-background-end))',
+        },
+        'gradient-foreground': {
+          start: 'hsl(var(--gradient-foreground-start))',
+          end: 'hsl(var(--gradient-foreground-end))',
+        },
       },
       fontFamily: {
         fiyona: ['var(--font-fiyona)'],
