@@ -13,6 +13,7 @@ import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { FlairBlock } from '@/blocks/Flair/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
+import { Tabs } from '@/blocks/Tabs/Component'
 import Section from '@/components/Section'
 
 const blockComponents = {
@@ -26,6 +27,7 @@ const blockComponents = {
   flair: FlairBlock,
   gallery: GalleryBlock,
   'case-studies': CaseStudiesBlock,
+  tabs: Tabs,
 }
 
 export const RenderBlocks: React.FC<{

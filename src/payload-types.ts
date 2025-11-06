@@ -252,6 +252,7 @@ export interface Page {
     | FlairBlock
     | GalleryBlock
     | CaseStudiesBlock
+    | Tabs
   )[];
   meta?: {
     title?: string | null;
@@ -895,6 +896,24 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Tabs".
+ */
+export interface Tabs {
+  heading: string;
+  description?: string | null;
+  highlights: {
+    media: string | Media;
+    heading: string;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  reverseLayout?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -1260,6 +1279,7 @@ export interface PagesSelect<T extends boolean = true> {
         flair?: T | FlairBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         'case-studies'?: T | CaseStudiesBlockSelect<T>;
+        tabs?: T | TabsSelect<T>;
       };
   meta?:
     | T
@@ -1436,6 +1456,25 @@ export interface GalleryBlockSelect<T extends boolean = true> {
 export interface CaseStudiesBlockSelect<T extends boolean = true> {
   heading?: T;
   caseStudies?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Tabs_select".
+ */
+export interface TabsSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  highlights?:
+    | T
+    | {
+        media?: T;
+        heading?: T;
+        description?: T;
+        id?: T;
+      };
+  reverseLayout?: T;
   id?: T;
   blockName?: T;
 }
