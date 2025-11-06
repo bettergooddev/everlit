@@ -2,11 +2,9 @@ import React from 'react'
 
 import type { FeaturesBlock, Page } from '@/payload-types'
 
-import { Gallery } from './Gallery'
 import { Highlights } from './Highlights'
 
 const features = {
-  gallery: Gallery,
   highlights: Highlights,
 }
 

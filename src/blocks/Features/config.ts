@@ -25,23 +25,6 @@ const highlightField: Field[] = [
   },
 ]
 
-const gallery: Field[] = [
-  {
-    name: 'images',
-    type: 'upload',
-    relationTo: 'media',
-    hasMany: true,
-    required: true,
-    minRows: 2,
-  },
-  // {
-  //   name: 'reverse',
-  //   type: 'checkbox',
-  //   label: 'Reverse Layout',
-  //   defaultValue: false,
-  // },
-]
-
 const highlights: Field[] = [
   {
     name: 'highlights',
@@ -65,16 +48,12 @@ export const Features: Block = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'gallery',
+      defaultValue: 'none',
       label: 'Type',
       options: [
         {
           label: 'None',
           value: 'none',
-        },
-        {
-          label: 'Gallery',
-          value: 'gallery',
         },
         {
           label: 'Highlights',
@@ -102,15 +81,6 @@ export const Features: Block = {
       name: 'subheading',
       type: 'textarea',
     },
-
-    // @ts-expect-error the convience of this set up was worth it
-    ...gallery.map((field: Field) => ({
-      ...field,
-      admin: {
-        ...field.admin,
-        condition: (_: any, { type }: { type: string }) => type === 'gallery',
-      },
-    })),
 
     // @ts-expect-error the convience of this set up was worth it
     ...highlights.map((field: Field) => ({

@@ -683,7 +683,7 @@ export interface Form {
  * via the `definition` "FeaturesBlock".
  */
 export interface FeaturesBlock {
-  type: 'none' | 'gallery' | 'highlights';
+  type: 'none' | 'highlights';
   heading?: {
     root: {
       type: string;
@@ -700,7 +700,6 @@ export interface FeaturesBlock {
     [k: string]: unknown;
   } | null;
   subheading?: string | null;
-  images?: (string | Media)[] | null;
   highlights?:
     | {
         image: string | Media;
@@ -1324,7 +1323,6 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
   type?: T;
   heading?: T;
   subheading?: T;
-  images?: T;
   highlights?:
     | T
     | {
