@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { dualImageFields } from './DualImage/fields'
+import { gridFields } from './Grid/fields'
 import { standardFields } from './Standard/fields'
 
 export const Content: Block = {
@@ -21,6 +22,10 @@ export const Content: Block = {
           label: 'Dual Image',
           value: 'dualImage',
         },
+        {
+          label: 'Grid',
+          value: 'grid',
+        },
       ],
       required: true,
     },
@@ -34,6 +39,15 @@ export const Content: Block = {
       type: 'textarea',
     },
     {
+      name: 'standard',
+      type: 'group',
+      fields: standardFields,
+      label: false,
+      admin: {
+        condition: (_, { variant } = {}) => variant === 'standard',
+      },
+    },
+    {
       name: 'dualImage',
       type: 'group',
       fields: dualImageFields,
@@ -43,12 +57,12 @@ export const Content: Block = {
       },
     },
     {
-      name: 'standard',
+      name: 'grid',
       type: 'group',
-      fields: standardFields,
+      fields: gridFields,
       label: false,
       admin: {
-        condition: (_, { variant } = {}) => variant === 'standard',
+        condition: (_, { variant } = {}) => variant === 'grid',
       },
     },
     {

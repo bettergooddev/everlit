@@ -3,10 +3,12 @@ import React from 'react'
 import type { ContentBlock } from '@/payload-types'
 
 import { DualImage } from './DualImage/Component'
+import { Grid } from './Grid/Component'
 import { Standard } from './Standard/Component'
 
 const content = {
   dualImage: DualImage,
+  grid: Grid,
   standard: Standard,
 }
 

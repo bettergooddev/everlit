@@ -416,12 +416,9 @@ export interface CallToActionBlock {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
-  variant: 'standard' | 'dualImage';
+  variant: 'standard' | 'dualImage' | 'grid';
   heading: string;
   description?: string | null;
-  dualImage?: {
-    images: (string | Media)[];
-  };
   standard?: {
     image: string | Media;
     tags?:
@@ -436,6 +433,12 @@ export interface ContentBlock {
           id?: string | null;
         }[]
       | null;
+  };
+  dualImage?: {
+    images: (string | Media)[];
+  };
+  grid?: {
+    image: string | Media;
   };
   reverseLayout?: boolean | null;
   id?: string | null;
@@ -1307,11 +1310,6 @@ export interface ContentBlockSelect<T extends boolean = true> {
   variant?: T;
   heading?: T;
   description?: T;
-  dualImage?:
-    | T
-    | {
-        images?: T;
-      };
   standard?:
     | T
     | {
@@ -1328,6 +1326,16 @@ export interface ContentBlockSelect<T extends boolean = true> {
               bullet?: T;
               id?: T;
             };
+      };
+  dualImage?:
+    | T
+    | {
+        images?: T;
+      };
+  grid?:
+    | T
+    | {
+        image?: T;
       };
   reverseLayout?: T;
   id?: T;
