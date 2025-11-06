@@ -14,6 +14,7 @@ import { Gallery } from '@/blocks/Gallery/config'
 import { CaseStudies } from '@/blocks/CaseStudies/config'
 import { Tabs } from '@/blocks/Tabs/config'
 import { Rolodex } from '@/blocks/Rolodex/config'
+import { Quote } from '@/blocks/Quote/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -95,6 +96,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CaseStudies,
                 Tabs,
                 Rolodex,
+                Quote,
               ],
               required: true,
               admin: {
