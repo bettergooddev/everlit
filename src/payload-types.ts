@@ -159,7 +159,7 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'main' | 'study' | 'archive';
+    type: 'none' | 'main' | 'study' | 'archive' | 'sub';
     main?:
       | {
           logos?:
@@ -265,6 +265,13 @@ export interface Page {
         }[]
       | null;
     archive?:
+      | {
+          heading: string;
+          subheading?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    sub?:
       | {
           heading: string;
           subheading?: string | null;
@@ -1243,6 +1250,13 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         archive?:
+          | T
+          | {
+              heading?: T;
+              subheading?: T;
+              id?: T;
+            };
+        sub?:
           | T
           | {
               heading?: T;
