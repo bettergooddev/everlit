@@ -1,4 +1,4 @@
-import type { Block, Field } from 'payload'
+import type { Block } from 'payload'
 
 import {
   FixedToolbarFeature,
@@ -7,61 +7,12 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
-const highlightField: Field[] = [
-  {
-    name: 'image',
-    type: 'upload',
-    relationTo: 'media',
-    required: true,
-  },
-  {
-    name: 'heading',
-    type: 'text',
-    required: true,
-  },
-  {
-    name: 'subheading',
-    type: 'text',
-  },
-]
-
-const highlights: Field[] = [
-  {
-    name: 'highlights',
-    type: 'array',
-    fields: highlightField,
-    required: true,
-    minRows: 3,
-    maxRows: 3,
-    admin: {
-      components: {
-        RowLabel: '@/blocks/Features/Highlights/HighlightsRowLabel#HighlightsRowLabel',
-      },
-    },
-  },
-]
+import { linkGroup } from '@/fields/linkGroup'
 
 export const Features: Block = {
   slug: 'features',
   interfaceName: 'FeaturesBlock',
   fields: [
-    {
-      name: 'type',
-      type: 'select',
-      defaultValue: 'none',
-      label: 'Type',
-      options: [
-        {
-          label: 'None',
-          value: 'none',
-        },
-        {
-          label: 'Highlights',
-          value: 'highlights',
-        },
-      ],
-      required: true,
-    },
     {
       name: 'heading',
       type: 'richText',
@@ -75,21 +26,46 @@ export const Features: Block = {
           ]
         },
       }),
-      label: false,
     },
     {
       name: 'subheading',
       type: 'textarea',
     },
-
-    // @ts-expect-error the convience of this set up was worth it
-    ...highlights.map((field: Field) => ({
-      ...field,
-      admin: {
-        ...field.admin,
-        condition: (_: any, { type }: { type: string }) => type === 'highlights',
+    linkGroup({
+      overrides: {
+        name: 'Actions',
+        maxRows: 2,
       },
-    })),
+    }),
+    {
+      name: 'highlights',
+      type: 'array',
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'subheading',
+          type: 'text',
+        },
+      ],
+      required: true,
+      minRows: 1,
+      maxRows: 3,
+      admin: {
+        components: {
+          RowLabel: '@/blocks/Features/Highlights/HighlightsRowLabel#HighlightsRowLabel',
+        },
+      },
+    },
   ],
   labels: {
     plural: 'Features',

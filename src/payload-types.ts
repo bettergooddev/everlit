@@ -683,7 +683,6 @@ export interface Form {
  * via the `definition` "FeaturesBlock".
  */
 export interface FeaturesBlock {
-  type: 'none' | 'highlights';
   heading?: {
     root: {
       type: string;
@@ -700,14 +699,36 @@ export interface FeaturesBlock {
     [k: string]: unknown;
   } | null;
   subheading?: string | null;
-  highlights?:
+  Actions?:
     | {
-        image: string | Media;
-        heading: string;
-        subheading?: string | null;
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'media';
+                value: string | Media;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how this item should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'secondary') | null;
+        };
         id?: string | null;
       }[]
     | null;
+  highlights: {
+    image: string | Media;
+    heading: string;
+    subheading?: string | null;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'features';
@@ -1320,9 +1341,23 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "FeaturesBlock_select".
  */
 export interface FeaturesBlockSelect<T extends boolean = true> {
-  type?: T;
   heading?: T;
   subheading?: T;
+  Actions?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
   highlights?:
     | T
     | {
