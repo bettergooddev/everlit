@@ -140,12 +140,8 @@ const config = {
         },
       },
       fontFamily: {
-        fiyona: ['var(--font-fiyona)'],
-        laquile: ['var(--font-laquile)'],
-        laquileRounded: ['var(--font-laquile-rounded)'],
-        laquileRough: ['var(--font-laquile-rough)'],
-        laquileStamp: ['var(--font-laquile-stamp)'],
-        martel: ['var(--font-martel)'],
+        calvino: ['var(--font-calvino)'],
+        figtree: ['var(--font-figtree)'],
       },
       keyframes: {
         'accordion-down': {

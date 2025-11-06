@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
@@ -11,7 +9,7 @@ import { Navigation } from '@/Navigation/Component'
 import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
-import { laquile, laquileRounded, laquileRough, laquileStamp, martel, fiyona } from '@/fonts/fonts'
+import { calvino, figtree } from '@/fonts/fonts'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -22,12 +20,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       className={cn(
-        fiyona.variable,
-        martel.variable,
-        laquile.variable,
-        laquileRounded.variable,
-        laquileRough.variable,
-        laquileStamp.variable,
+        calvino.variable,
+        figtree.variable,
       )}
       lang="en"
       suppressHydrationWarning

@@ -112,7 +112,7 @@ html {
   h1,
   .type-h1,
   .prose h1 {
-    font-family: var(--font-fiyona);
+    font-family: var(--font-calvino);
     font-size: clamp(3.375rem, 4vw + 2rem, 5.25rem);
     font-style: normal;
     font-weight: 100;
@@ -122,19 +122,19 @@ html {
   h2,
   .type-h2,
   .prose h2 {
-    font-family: var(--font-fiyona);
+    font-family: var(--font-calvino);
     font-size: clamp(2rem, 2.5vw + 1rem, 3.375rem);
     font-style: normal;
-    font-weight: 82;
+    font-weight: 400;
     line-height: 120%;
   }
 
   h2 em,
   .type-h2-accent,
   .prose .type-h2-accent {
-    font-family: var(--font-laquile);
+    font-family: var(--font-calvino);
     font-size: clamp(2rem, 2.5vw + 1rem, 3.375rem);
-    font-style: normal;
+    font-style: italic;
     font-weight: 400;
     line-height: 120%;
   }
@@ -142,20 +142,20 @@ html {
   h3,
   .type-h3,
   .prose h3 {
-    font-family: var(--font-martel);
+    font-family: var(--font-calvino);
     font-size: clamp(1.125rem, 0.5vw + 1rem, 1.35rem);
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 140%;
   }
 
   h4,
   .type-h4,
   .prose h4 {
-    font-family: var(--font-martel);
+    font-family: var(--font-calvino);
     font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 120%;
   }
   p,
@@ -165,7 +165,7 @@ html {
   .prose p,
   .prose span,
   .prose a {
-    font-family: var(--font-martel);
+    font-family: var(--font-figtree);
     font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
     font-style: normal;
     font-weight: 400;
@@ -173,7 +173,7 @@ html {
   }
 
   .type-button {
-    font-family: var(--font-martel);
+    font-family: var(--font-figtree);
     @apply text-sm font-medium;
   }
 
@@ -181,10 +181,10 @@ html {
   .type-h5,
   .type-caption,
   .prose h5 {
-    font-family: var(--font-martel);
+    font-family: var(--font-figtree);
     font-size: clamp(0.875rem, 0.5vw + 0.75rem, 0.875rem);
     font-style: normal;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 140%;
   }
 }
