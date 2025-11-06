@@ -8,7 +8,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidateCaseStudy } from './hooks/revalidateCaseStudy'
-import { mediumImpactHeroFields } from '@/fields/mediumImpactHeroFields'
+import { mediumImpactHeroFields } from '@/heros/MediumImpact/fields'
 
 import {
   MetaDescriptionField,

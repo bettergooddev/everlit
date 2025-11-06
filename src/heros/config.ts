@@ -9,7 +9,7 @@ import {
 
 import { linkGroup } from '@/fields/linkGroup'
 import { link } from '@/fields/link'
-import { mediumImpactHeroFields } from '@/fields/mediumImpactHeroFields'
+import { mediumImpactHeroFields } from '@/heros/MediumImpact/fields'
 
 const logo: Field[] = [
   {

@@ -82,3 +82,4 @@ export const mediumImpactHeroFields: Field[] = [
     label: 'Features',
   },
 ]
+
