@@ -43,6 +43,9 @@
     --ring: 222.2 47.4% 11.2%;
 
     --radius: 0.5rem;
+
+    --gradient-x: -20%;
+    --gradient-y: 110%;
   }
 
   [data-theme="dark"] {

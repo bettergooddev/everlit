@@ -20,6 +20,7 @@ import { useWindowScroll } from '@uidotdev/usehooks'
 import { tv } from 'tailwind-variants'
 import { cn } from '@/utilities/ui'
 import { AnimatePresence, motion } from 'motion/react'
+import NavButton from './navButton'
 
 interface NavigationClientProps {
   data: NavigationType
@@ -140,7 +141,9 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
             layout="position"
             transition={transition}
           >
-            {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))}
+            {/* {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))} */}
+
+            <NavButton />
           </motion.div>
 
           {/* Mobile navigation – visible on small screens */}
