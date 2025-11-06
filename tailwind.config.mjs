@@ -90,6 +90,7 @@ const config = {
           900: 'hsl(var(--background-900))',
           500: 'hsl(var(--background-500))',
           100: 'hsl(var(--background-100))',
+          50: 'hsl(var(--background-50))',
         },
         border: 'hsla(var(--border))',
         card: {

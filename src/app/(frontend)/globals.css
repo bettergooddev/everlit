@@ -49,6 +49,7 @@
     --background-900: 198.95 82.61% 4.51%;
     --background-500: 200.00 82.98% 9.22%;
     --background-100: 199.15 59.49% 15.49%;
+    --background-50: 0 0% 85.1%;
 
     /* Default mappings for existing CSS variables */
     --background: var(--background-900);
