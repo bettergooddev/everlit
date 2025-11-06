@@ -160,99 +160,87 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'main' | 'sub' | 'study' | 'archive';
-    main?:
-      | {
-          heading: string;
-          description?: string | null;
-          image?: (string | null) | Media;
-          id?: string | null;
-        }[]
-      | null;
-    study?:
-      | {
-          image?: (string | null) | Media;
-          heading?: string | null;
-          type: 'residential' | 'commercial';
-          date: string;
-          location: string;
-          description?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
+    main?: {
+      heading: string;
+      description?: string | null;
+      image?: (string | null) | Media;
+    };
+    study?: {
+      image?: (string | null) | Media;
+      heading?: string | null;
+      type: 'residential' | 'commercial';
+      date: string;
+      location: string;
+      description?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
             [k: string]: unknown;
-          } | null;
-          collaborators?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      collaborators?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
             [k: string]: unknown;
-          } | null;
-          scope?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      scope?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
             [k: string]: unknown;
-          } | null;
-          features?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+      features?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
             [k: string]: unknown;
-          } | null;
-          id?: string | null;
-        }[]
-      | null;
-    archive?:
-      | {
-          heading: string;
-          description?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    sub?:
-      | {
-          heading: string;
-          description?: string | null;
-          image?: (string | null) | Media;
-          id?: string | null;
-        }[]
-      | null;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+    archive?: {
+      heading: string;
+      description?: string | null;
+    };
+    sub?: {
+      heading: string;
+      description?: string | null;
+      image?: (string | null) | Media;
+    };
   };
   layout: (
     | CallToActionBlock
@@ -1229,7 +1217,6 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               description?: T;
               image?: T;
-              id?: T;
             };
         study?:
           | T
@@ -1243,14 +1230,12 @@ export interface PagesSelect<T extends boolean = true> {
               collaborators?: T;
               scope?: T;
               features?: T;
-              id?: T;
             };
         archive?:
           | T
           | {
               heading?: T;
               description?: T;
-              id?: T;
             };
         sub?:
           | T
@@ -1258,7 +1243,6 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               description?: T;
               image?: T;
-              id?: T;
             };
       };
   layout?:

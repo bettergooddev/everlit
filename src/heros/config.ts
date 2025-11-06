@@ -38,61 +38,41 @@ export const hero: Field = {
       ],
       required: true,
     },
-
     {
       name: 'main',
-      type: 'array',
+      type: 'group',
       fields: mainHeroFields,
-      label: 'Content',
+      label: false,
       admin: {
         condition: (_, { type } = {}) => type === 'main',
-        components: {
-          RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
-        },
       },
-      maxRows: 1,
     },
-
     {
       name: 'study',
-      type: 'array',
+      type: 'group',
       fields: studyHeroFields,
-      label: 'Content',
+      label: false,
       admin: {
         condition: (_, { type } = {}) => type === 'study',
-        components: {
-          RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
-        },
       },
-      maxRows: 1,
     },
-
     {
       name: 'archive',
-      type: 'array',
+      type: 'group',
       fields: archiveHeroFields,
-      label: 'Content',
+      label: false,
       admin: {
         condition: (_, { type } = {}) => type === 'archive',
-        components: {
-          RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
-        },
       },
-      maxRows: 1,
     },
-
     {
       name: 'sub',
-      type: 'array',
+      type: 'group',
       fields: subHeroFields,
-      label: 'Content',
+      label: false,
       admin: {
         condition: (_, { type } = {}) => type === 'sub',
-        components: {
-          RowLabel: '@/heros/HeroRowLabel#HeroRowLabel',
-        },
       },
-      maxRows: 1,
     },
   ],
   label: false,
