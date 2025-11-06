@@ -16,7 +16,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
   // const groups = (data?.groups ?? []) as NonNullable<FooterType['groups']>
 
   return (
-    <footer className="mt-auto border-t border-primary/10 bg-muted text-foreground">
+    <footer className="mt-auto border-t border-primary/10 bg-muted text-foreground h-64">
       {/* <div className="w-full px-4 py-8 md:px-16 md:py-16">
         <div className="flex flex-col gap-16 md:grid md:grid-cols-2 md:gap-12 lg:flex lg:flex-row lg:gap-16 lg:justify-between">
           {groups.map((group, i) => (
