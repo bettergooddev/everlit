@@ -253,6 +253,7 @@ export interface Page {
     | GalleryBlock
     | CaseStudiesBlock
     | Tabs
+    | Rolodex
   )[];
   meta?: {
     title?: string | null;
@@ -914,6 +915,24 @@ export interface Tabs {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Rolodex".
+ */
+export interface Rolodex {
+  highlights: {
+    heading: string;
+    tags: {
+      tag: string;
+      id?: string | null;
+    }[];
+    description?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'rolodex';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -1280,6 +1299,7 @@ export interface PagesSelect<T extends boolean = true> {
         gallery?: T | GalleryBlockSelect<T>;
         'case-studies'?: T | CaseStudiesBlockSelect<T>;
         tabs?: T | TabsSelect<T>;
+        rolodex?: T | RolodexSelect<T>;
       };
   meta?:
     | T
@@ -1475,6 +1495,27 @@ export interface TabsSelect<T extends boolean = true> {
         id?: T;
       };
   reverseLayout?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Rolodex_select".
+ */
+export interface RolodexSelect<T extends boolean = true> {
+  highlights?:
+    | T
+    | {
+        heading?: T;
+        tags?:
+          | T
+          | {
+              tag?: T;
+              id?: T;
+            };
+        description?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

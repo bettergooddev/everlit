@@ -14,6 +14,7 @@ import { FlairBlock } from '@/blocks/Flair/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
 import { Tabs } from '@/blocks/Tabs/Component'
+import { Rolodex } from '@/blocks/Rolodex/Component'
 import Section from '@/components/Section'
 
 const blockComponents = {
@@ -28,6 +29,7 @@ const blockComponents = {
   gallery: GalleryBlock,
   'case-studies': CaseStudiesBlock,
   tabs: Tabs,
+  rolodex: Rolodex,
 }
 
 export const RenderBlocks: React.FC<{

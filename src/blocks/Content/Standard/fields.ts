@@ -1,5 +1,7 @@
 import type { Field } from 'payload'
 
+import { tags } from '@/fields/tags'
+
 export const standardFields: Field[] = [
   {
     name: 'image',
@@ -7,18 +9,7 @@ export const standardFields: Field[] = [
     relationTo: 'media',
     required: true,
   },
-  {
-    name: 'tags',
-    type: 'array',
-    label: 'Tags',
-    fields: [
-      {
-        name: 'tag',
-        type: 'text',
-        required: true,
-      },
-    ],
-  },
+  tags(),
   {
     name: 'bullets',
     type: 'array',
