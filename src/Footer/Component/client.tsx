@@ -13,14 +13,12 @@ interface FooterClientProps {
 }
 
 export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
-  const groups = (data?.groups ?? []) as NonNullable<FooterType['groups']>
+  // const groups = (data?.groups ?? []) as NonNullable<FooterType['groups']>
 
   return (
     <footer className="mt-auto border-t border-primary/10 bg-muted text-foreground">
-      <div className="w-full px-4 py-8 md:px-16 md:py-16">
-        {/* Groups */}
+      {/* <div className="w-full px-4 py-8 md:px-16 md:py-16">
         <div className="flex flex-col gap-16 md:grid md:grid-cols-2 md:gap-12 lg:flex lg:flex-row lg:gap-16 lg:justify-between">
-          {/* Groups */}
           {groups.map((group, i) => (
             <div key={group.id ?? i} className="flex flex-col gap-4">
               {group.heading && <h4 className="font-bold whitespace-nowrap">{group.heading}</h4>}
@@ -50,7 +48,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
           ))}
         </div>
       </div>
-      <WebsiteTag />
+      <WebsiteTag /> */}
     </footer>
   )
 }

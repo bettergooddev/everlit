@@ -1,7 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
-import { lucideIcon } from '@/fields/lucideIcon'
+import { linkGroup } from '@/fields/linkGroup'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
 export const Footer: GlobalConfig = {
@@ -18,42 +18,50 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
-      name: 'groups',
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Background Image',
+    },
+    {
+      name: 'logoImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Logo Image',
+    },
+    linkGroup({
+      appearances: false,
+      overrides: {
+        name: 'links',
+        label: 'Links',
+      },
+    }),
+    linkGroup({
+      appearances: false,
+      overrides: {
+        name: 'buttons',
+        label: 'Buttons',
+      },
+    }),
+    {
+      name: 'socials',
       type: 'array',
-      label: 'Groups',
+      label: 'Socials',
       fields: [
         {
-          name: 'heading',
-          type: 'text',
-          label: 'Heading',
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Image',
           required: true,
         },
-        {
-          name: 'linkGroups',
-          type: 'array',
-          label: 'Link Groups',
-          fields: [
-            link({
-              appearances: false,
-              overrides: {
-                label: false,
-              },
-            }),
-            lucideIcon,
-          ],
-          maxRows: 8,
-          admin: {
-            initCollapsed: true,
-            components: {
-              RowLabel: '@/Footer/RowLabel#RowLabel',
-            },
-          },
-        },
+        link({
+          appearances: false,
+        }),
       ],
       admin: {
-        initCollapsed: true,
         components: {
-          RowLabel: '@/Footer/GroupsRowLabel#RowLabel',
+          RowLabel: '@/Footer/SocialsRowLabel#SocialsRowLabel',
         },
       },
     },
