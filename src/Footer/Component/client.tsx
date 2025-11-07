@@ -21,29 +21,29 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
   const socials = (data?.socials ?? []) as NonNullable<FooterType['socials']>
 
   return (
-    <footer className="bg-background-500 p-16 pb-20 border-t-foreground-100/10 border-t-[0.0625rem] relative overflow-hidden">
-      <div className="absolute inset-0 bg-background/20 backdrop-blur-sm z-[0]" />
+    <footer className="bg-background-500/35 pb-16 p-12 lg:p-16 lg:pb-20 border-t-foreground-100/10 border-t-[0.0625rem] relative overflow-hidden">
+      <div className="absolute inset-0 bg-background/15 backdrop-blur-sm z-[1]" />
 
       <Media
         resource={backgroundImage}
-        className="flex justify-center absolute -top-[130px] md:-top-[270px] inset-0 -translate-x-1/2 left-1/2"
-        imgClassName="max-w-[unset] size-[1000px] md:size-[2000px] object-contain object-top "
+        className="flex justify-center absolute left-[40%] -top-[380px] lg:-top-[320px] inset-0 -translate-x-1/2 lg:left-[45%] z-[0]"
+        imgClassName="max-w-[unset] size-[2000px] object-contain object-top "
       />
 
-      <div className="gap-20 grid grid-cols-[auto,1fr] items-center z-10 relative">
+      <div className="gap-20 grid grid-cols-1 lg:grid-cols-[auto,1fr] items-center z-10 relative">
         <Media
           resource={logoImage}
-          className="w-auto h-full max-h-24 flex"
-          imgClassName="w-auto h-full"
+          className="w-auto h-full max-h-24 flex justify-center"
+          imgClassName="w-auto lg:w-auto h-16 lg:h-full"
         />
         <div className="w-full">
-          <div className="flex w-full justify-between items-center pb-8 border-b-[0.0625rem] border-foreground-100/25">
+          <div className="flex lg:flex-row flex-col w-full justify-between items-center pb-8 border-b-[0.0625rem] border-foreground-100/25 lg:gap-0 gap-8">
             <FooterLinks links={links} className="" />
-            <FooterButtons buttons={buttons} className="" />
+            <FooterButtons buttons={buttons} className="lg:flex-row flex-col lg:w-min w-full" />
           </div>
-          <div className="flex w-full pt-8 justify-between">
-            <WebsiteTag />
-            <FooterSocials socials={socials} />
+          <div className="flex w-full pt-8 justify-between lg:flex-row flex-col lg:gap-0 gap-8">
+            <WebsiteTag className="lg:order-1 order-2 lg:w-min w-full justify-center" />
+            <FooterSocials socials={socials} className="lg:order-2 order-1  justify-center" />
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@ function FooterButtons({
     <ul className={cn('flex flex-row gap-3.5', className)}>
       {(buttons ?? []).map(({ link, id }, i) => (
         <li key={id ?? i}>
-          <CMSLink {...link} className="" label={link.label} />
+          <CMSLink {...link} className="lg:w-min w-full" label={link.label} />
         </li>
       ))}
     </ul>
