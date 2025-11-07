@@ -29,7 +29,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           {/* Heading */}
           {heading && (
             <div className="flex w-full mb-4 md:mb-6">
-              <h1 className="type-h1 text-foreground">{heading}</h1>
+              <h1 className="type-h1 text-foreground-100">{heading}</h1>
             </div>
           )}
 
@@ -43,9 +43,9 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
                   </Badge>
                 )}
                 {formattedDate && (
-                  <span className="type-body text-foreground/75">{formattedDate}</span>
+                  <span className="type-body text-foreground-100/75">{formattedDate}</span>
                 )}
-                {location && <span className="type-body text-foreground/75">{location}</span>}
+                {location && <span className="type-body text-foreground-100/75">{location}</span>}
               </div>
 
               {/* Separator */}
@@ -73,10 +73,10 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               {/* Collaborators */}
               {collaborators && (
                 <div>
-                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground">Collaborators</h2>
+                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Collaborators</h2>
                   <RichText
                     data={collaborators}
-                    className="[&_p]:type-body [&_p]:text-foreground/75 [&_ul]:type-body [&_li]:text-foreground/75"
+                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75"
                     enableGutter={false}
                   />
                 </div>
@@ -85,10 +85,10 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               {/* Scope */}
               {scope && (
                 <div>
-                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground">Scope</h2>
+                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Scope</h2>
                   <RichText
                     data={scope}
-                    className="[&_p]:type-body [&_p]:text-foreground/75 [&_ul]:type-body [&_li]:text-foreground/75"
+                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75"
                     enableGutter={false}
                   />
                 </div>
@@ -97,10 +97,10 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               {/* Features */}
               {features && (
                 <div>
-                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground">Features</h2>
+                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Features</h2>
                   <RichText
                     data={features}
-                    className="[&_p]:type-body [&_p]:text-foreground/75 [&_ul]:type-body [&_li]:text-foreground/75"
+                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75"
                     enableGutter={false}
                   />
                 </div>

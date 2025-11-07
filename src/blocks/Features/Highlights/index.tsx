@@ -30,9 +30,9 @@ function HighlightCard({ highlight }: { highlight: HighlightType }) {
       <div className="mb-6 w-full aspect-square max-w-xs sm:max-w-none mx-auto">
         <Media resource={highlight.image} className="size-full rounded-lg" />
       </div>
-      <h3 className="type-h3 text-foreground mt-2">{highlight.heading}</h3>
+      <h3 className="type-h3 text-foreground-100 mt-2">{highlight.heading}</h3>
       {highlight.subheading && (
-        <p className="type-body text-foreground/65 mt-2">{highlight.subheading}</p>
+        <p className="type-body text-foreground-100/65 mt-2">{highlight.subheading}</p>
       )}
     </div>
   )

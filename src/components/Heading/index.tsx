@@ -86,15 +86,15 @@ export const Heading = ({
             data={heading}
             enableGutter={false}
             className={cn(
-              'prose-center [&_*]:text-foreground type-h1 text-center',
-              '[&_em]:type-h2-accent [&_em]:theme-pizza [&_svg]:theme-pizza [&_svg]:stroke-foreground',
+              'prose-center [&_*]:text-foreground-100 type-h1 text-center',
+              '[&_em]:type-h2-accent [&_em]:theme-pizza [&_svg]:theme-pizza [&_svg]:stroke-foreground-100',
             )}
           />
         </div>
       )}
 
       {subheading && (
-        <p className="opacity-75 type-body text-center text-foreground mx-auto max-w-[52ch] mt-4">
+        <p className="opacity-75 type-body text-center text-foreground-100 mx-auto max-w-[52ch] mt-4">
           {subheading}
         </p>
       )}

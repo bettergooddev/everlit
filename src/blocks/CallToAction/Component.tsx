@@ -17,7 +17,7 @@ const classes = {
     variants: {
       style: {
         fancy: '[&_*]:!text-background',
-        default: 'theme-sugar-shack text-foreground [&_*]:!text-foreground',
+        default: 'theme-sugar-shack text-foreground-100 [&_*]:!text-foreground-100',
       },
     },
   }),

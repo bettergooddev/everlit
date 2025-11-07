@@ -41,7 +41,7 @@ export const ColumnsBlock: React.FC<ColumnsBlockProps> = (props) => {
                   <>
                     {richText && (
                       <RichText
-                        className="[&_h2]:!mb-4 [&_*]:text-foreground [&_p]:opacity-65 [&_p]:lg:max-w-[32ch] [&_br]:hidden [&_br]:lg:block"
+                        className="[&_h2]:!mb-4 [&_*]:text-foreground-100 [&_p]:opacity-65 [&_p]:lg:max-w-[32ch] [&_br]:hidden [&_br]:lg:block"
                         data={richText}
                         enableGutter={false}
                       />

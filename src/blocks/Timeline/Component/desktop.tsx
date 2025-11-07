@@ -70,9 +70,9 @@ const Event: React.FC<{
         {/* Timeline line */}
         <TimelineLine isFirst={isFirst} isLast={isLast} />
 
-        <p className="type-h3 text-foreground mt-4">{event.year}</p>
+        <p className="type-h3 text-foreground-100 mt-4">{event.year}</p>
         {event.description && (
-          <p className="type-caption !font-normal text-foreground/75 mt-3 px-4">
+          <p className="type-caption !font-normal text-foreground-100/75 mt-3 px-4">
             {event.description}
           </p>
         )}

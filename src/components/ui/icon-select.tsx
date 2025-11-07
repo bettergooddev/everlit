@@ -56,7 +56,7 @@ export const IconSelect: React.FC<IconSelectProps> = ({ items, selected, onChang
             <div className="flex items-center pl-1 gap-2">
               {item.lucideIcon && <DynamicIcon name={item.lucideIcon as any} size={20} />}
               <div className="flex flex-col items-start">
-                <span className="type-body text-foreground -mb-1">{item.name}</span>
+                <span className="type-body text-foreground-100 -mb-1">{item.name}</span>
               </div>
             </div>
           </SelectItem>

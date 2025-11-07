@@ -42,7 +42,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
                     <CMSLink
                       {...linkGroup.link}
                       appearance="link"
-                      className="text-foreground hover:underline flex items-center gap-1.5"
+                      className="text-foreground-100 hover:underline flex items-center gap-1.5"
                       label={''}
                     >
                       {linkGroup?.lucideIcon && (

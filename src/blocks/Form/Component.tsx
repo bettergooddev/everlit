@@ -121,7 +121,7 @@ export const FormBlock: React.FC<
       <FormProvider {...formMethods}>
         {!isLoading && hasSubmitted && confirmationType === 'message' && (
           <RichText
-            className="[&_*]:!text-foreground text-center [&_h2]:mb-6 [&_p]:opacity-75"
+            className="[&_*]:!text-foreground-100 text-center [&_h2]:mb-6 [&_p]:opacity-75"
             data={confirmationMessage}
           />
         )}

@@ -42,9 +42,9 @@ export function MobileTimeline({
               imgClassName="size-full object-cover"
             />
 
-            <p className="type-h3 text-foreground mt-4">{event.year}</p>
+            <p className="type-h3 text-foreground-100 mt-4">{event.year}</p>
             {event.description && (
-              <p className="type-caption !font-normal text-foreground/75 mt-2 pr-2 max-w-[48ch]">
+              <p className="type-caption !font-normal text-foreground-100/75 mt-2 pr-2 max-w-[48ch]">
                 {event.description}
               </p>
             )}
