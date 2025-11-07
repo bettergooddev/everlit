@@ -37,7 +37,6 @@ export const Footer: GlobalConfig = {
       },
     }),
     linkGroup({
-      appearances: false,
       overrides: {
         name: 'buttons',
         label: 'Buttons',

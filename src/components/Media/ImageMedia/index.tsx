@@ -23,6 +23,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     fill,
     pictureClassName,
     imgClassName,
+    imgStyle,
     priority,
     resource,
     size: sizeFromProps,
@@ -70,6 +71,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         loading={loading}
         sizes={sizes}
         src={src}
+        style={imgStyle}
         width={!fill ? width : undefined}
       />
     </picture>

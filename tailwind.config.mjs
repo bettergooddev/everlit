@@ -46,10 +46,10 @@ const config = {
       },
       screens: {
         '2xl': '73.1rem',
+        xl: '68rem',
         lg: '54.4rem',
         md: '40.8rem',
         sm: '34rem',
-        xl: '68rem',
       },
       // screens: {
       //   '2xl': '86rem',
@@ -79,6 +79,7 @@ const config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        xs: 'calc(var(--radius) - 6px)',
       },
       colors: {
         accent: {
