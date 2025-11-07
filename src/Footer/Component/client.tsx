@@ -1,7 +1,5 @@
-'use client'
-
 import React from 'react'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import Link from 'next/link'
 
 import type { Footer as FooterType } from '@/payload-types'
 
@@ -31,11 +29,13 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
       />
 
       <div className="gap-20 grid grid-cols-1 lg:grid-cols-[auto,1fr] items-center z-10 relative">
-        <Media
-          resource={logoImage}
-          className="w-auto h-full max-h-24 flex justify-center"
-          imgClassName="w-auto lg:w-auto h-16 lg:h-full"
-        />
+        <Link href="/" className="w-auto h-full max-h-24 flex justify-center">
+          <Media
+            resource={logoImage}
+            className="w-auto h-full max-h-24 flex justify-center"
+            imgClassName="w-auto lg:w-auto h-16 lg:h-full"
+          />
+        </Link>
         <div className="w-full">
           <div className="flex lg:flex-row flex-col w-full justify-between items-center pb-8 border-b-[0.0625rem] border-foreground-100/25 lg:gap-0 gap-8">
             <FooterLinks links={links} className="" />
