@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { RelatedCaseStudies } from '@/blocks/RelatedCaseStudies/Component'
+// import { RelatedCaseStudies } from '@/blocks/RelatedCaseStudies/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -59,9 +59,9 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <StudyHero type="study" study={[caseStudy.studyHero]} />
+      {caseStudy.studyHero && <StudyHero type="study" study={caseStudy.studyHero} />}
 
-      <GalleryBlock images={caseStudy.gallery} />
+      <GalleryBlock blockType="gallery" images={caseStudy.gallery} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">

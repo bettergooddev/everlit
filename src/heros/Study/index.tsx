@@ -7,10 +7,10 @@ import { Badge } from '@/components/ui/badge'
 import { formatLongDate } from '@/utilities/formatDateTime'
 
 export const StudyHero: React.FC<Page['hero']> = (props) => {
-  if (!props?.study?.[0]) return null
+  if (!props?.study) return null
 
   const { image, heading, type, date, location, description, collaborators, scope, features } =
-    props.study[0]
+    props.study
 
   const formattedDate = date ? formatLongDate(date) : null
 
@@ -112,4 +112,3 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
     </section>
   )
 }
-

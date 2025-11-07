@@ -24,7 +24,6 @@ import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloa
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { LinkRowLabel as LinkRowLabel_bb1c4b965b7c07ad4b88efe6dc65271f } from '@/fields/dropdown/LinkRowLabel'
 import { RowLabel as RowLabel_2cfe2e364368a03eb7e153423c97fea0 } from '@/Navigation/RowLabel'
-import { SocialsRowLabel as SocialsRowLabel_484291e8dc0ed4c73d0a2988492a50af } from '@/Footer/SocialsRowLabel'
 import { Select as Select_120d363afd071dc9d3846e86a2a5d3db } from '@/fields/lucideIcon/Select'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
@@ -56,7 +55,6 @@ export const importMap = {
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@/fields/dropdown/LinkRowLabel#LinkRowLabel": LinkRowLabel_bb1c4b965b7c07ad4b88efe6dc65271f,
   "@/Navigation/RowLabel#RowLabel": RowLabel_2cfe2e364368a03eb7e153423c97fea0,
-  "@/Footer/SocialsRowLabel#SocialsRowLabel": SocialsRowLabel_484291e8dc0ed4c73d0a2988492a50af,
   "@/fields/lucideIcon/Select#Select": Select_120d363afd071dc9d3846e86a2a5d3db,
   "@/components/BeforeLogin#default": default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e

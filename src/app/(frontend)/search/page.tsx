@@ -1,12 +1,12 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
+// import { CollectionArchive } from '@/components/CollectionArchive'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
-import { CardCaseStudyData } from '@/components/Card'
+// import { CardCaseStudyData } from '@/components/Card'
 
 type Args = {
   searchParams: Promise<{
@@ -71,12 +71,12 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
           </div>
         </div>
       </div>
-
+      {/* 
       {caseStudies.totalDocs > 0 ? (
         <CollectionArchive caseStudies={caseStudies.docs as CardCaseStudyData[]} />
       ) : (
         <div className="container">No results found.</div>
-      )}
+      )} */}
     </div>
   )
 }

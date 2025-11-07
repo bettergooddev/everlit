@@ -58,11 +58,6 @@ export const Footer: GlobalConfig = {
           appearances: false,
         }),
       ],
-      admin: {
-        components: {
-          RowLabel: '@/Footer/SocialsRowLabel#SocialsRowLabel',
-        },
-      },
     },
   ],
   hooks: {

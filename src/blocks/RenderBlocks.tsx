@@ -3,10 +3,10 @@ import React, { Fragment } from 'react'
 import type { Page } from '@/payload-types'
 
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { ColumnsBlock } from '@/blocks/Columns/Component'
+// import { ColumnsBlock } from '@/blocks/Columns/Component'
 import { RenderContent } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
+// import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RenderFeatures } from '@/blocks/Features/RenderFeatures'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
@@ -22,7 +22,7 @@ const blockComponents = {
   content: RenderContent,
   cta: CallToActionBlock,
   formBlock: FormBlock,
-  mediaBlock: MediaBlock,
+  // mediaBlock: MediaBlock,
   features: RenderFeatures,
   testimonials: TestimonialsBlock,
   timeline: TimelineBlock,
@@ -53,7 +53,12 @@ export const RenderBlocks: React.FC<{
             if (Block) {
               return (
                 <Section key={index}>
-                  <Block {...block} disableInnerContainer />
+                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                  <Block
+                    {...block}
+                    // TODO: bring this back when needed on blocks that go inside rich text like columns or media, i believe
+                    //  disableInnerContainer
+                  />
                 </Section>
               )
             }
