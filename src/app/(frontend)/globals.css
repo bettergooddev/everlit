@@ -101,7 +101,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-background text-foreground-100 min-h-[100vh] flex flex-col;
   }
 }
 
@@ -114,39 +114,30 @@ html {
   .type-h1,
   .prose h1 {
     font-family: var(--font-calvino);
-    font-size: clamp(3.375rem, 4vw + 2rem, 5.25rem);
+    font-size: 6.625rem;
     font-style: normal;
-    font-weight: 100;
-    line-height: 120%;
+    font-weight: 400;
+    line-height: 105%;
+    letter-spacing: -0.06625rem;
   }
 
   h2,
   .type-h2,
   .prose h2 {
     font-family: var(--font-calvino);
-    font-size: clamp(2rem, 2.5vw + 1rem, 3.375rem);
+    font-size: 4rem;
     font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-  }
-
-  h2 em,
-  .type-h2-accent,
-  .prose .type-h2-accent {
-    font-family: var(--font-calvino);
-    font-size: clamp(2rem, 2.5vw + 1rem, 3.375rem);
-    font-style: italic;
-    font-weight: 400;
-    line-height: 120%;
+    font-weight: 350;
+    line-height: 115%;
   }
 
   h3,
   .type-h3,
   .prose h3 {
     font-family: var(--font-calvino);
-    font-size: clamp(1.125rem, 0.5vw + 1rem, 1.35rem);
+    font-size: 2rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 300;
     line-height: 140%;
   }
 
@@ -154,10 +145,10 @@ html {
   .type-h4,
   .prose h4 {
     font-family: var(--font-calvino);
-    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+    font-size: 1.4375rem;
     font-style: normal;
-    font-weight: 600;
-    line-height: 120%;
+    font-weight: 350;
+    line-height: 140%;
   }
   p,
   span,
@@ -167,10 +158,10 @@ html {
   .prose span,
   .prose a {
     font-family: var(--font-figtree);
-    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+    font-size: 1.0625rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 140%;
+    line-height: 150%;
   }
 
   .type-button {
@@ -183,9 +174,9 @@ html {
   .type-caption,
   .prose h5 {
     font-family: var(--font-figtree);
-    font-size: clamp(0.875rem, 0.5vw + 0.75rem, 0.875rem);
+    font-size: 0.75rem;
     font-style: normal;
-    font-weight: 600;
-    line-height: 140%;
+    font-weight: 400;
+    line-height: 160%;
   }
 }

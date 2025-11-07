@@ -7,16 +7,29 @@ import type { Footer as FooterType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import WebsiteTag from '@/components/WebsiteTag'
+import { Media } from '@/components/Media'
 
 interface FooterClientProps {
   data: FooterType
 }
 
 export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
-  // const groups = (data?.groups ?? []) as NonNullable<FooterType['groups']>
+  const { backgroundImage, logoImage, buttons, socials } = data
+  const links = (data?.links ?? []) as NonNullable<FooterType['links']>
 
   return (
-    <footer className="mt-auto border-t border-primary/10 bg-muted text-foreground h-64">
+    <footer className="h-64 bg-background-500 p-8">
+      <div>
+        <Media resource={logoImage} className="w-full h-auto flex " imgClassName="w-full h-auto" />
+
+        <ul className="flex flex-col gap-3.5">
+          {(links ?? []).map(({ link, id }, j) => (
+            <li key={id ?? j}>
+              <CMSLink {...link} appearance="link" className="" label={link.label} />
+            </li>
+          ))}
+        </ul>
+      </div>
       {/* <div className="w-full px-4 py-8 md:px-16 md:py-16">
         <div className="flex flex-col gap-16 md:grid md:grid-cols-2 md:gap-12 lg:flex lg:flex-row lg:gap-16 lg:justify-between">
           {groups.map((group, i) => (
