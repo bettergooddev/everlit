@@ -1,12 +1,5 @@
 import type { Block } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-
 import { linkGroup } from '@/fields/linkGroup'
 
 export const Features: Block = {
@@ -15,17 +8,7 @@ export const Features: Block = {
   fields: [
     {
       name: 'heading',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h2'] }),
-            FixedToolbarFeature(),
-            // InlineToolbarFeature(),
-          ]
-        },
-      }),
+      type: 'text',
     },
     {
       name: 'subheading',
@@ -33,7 +16,8 @@ export const Features: Block = {
     },
     linkGroup({
       overrides: {
-        name: 'Actions',
+        label: 'Actions',
+        name: 'actions',
         maxRows: 2,
       },
     }),

@@ -655,23 +655,9 @@ export interface Form {
  * via the `definition` "FeaturesBlock".
  */
 export interface FeaturesBlock {
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  heading?: string | null;
   subheading?: string | null;
-  Actions?:
+  actions?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1426,7 +1412,7 @@ export interface FormBlockSelect<T extends boolean = true> {
 export interface FeaturesBlockSelect<T extends boolean = true> {
   heading?: T;
   subheading?: T;
-  Actions?:
+  actions?:
     | T
     | {
         link?:
