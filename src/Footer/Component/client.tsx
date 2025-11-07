@@ -1,5 +1,8 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
+import { motion } from 'motion/react'
 
 import type { Footer as FooterType } from '@/payload-types'
 
@@ -20,13 +23,29 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
 
   return (
     <footer className="bg-background-500/35 pb-16 p-12 lg:p-16 lg:pb-20 border-t-foreground-100/10 border-t-[0.0625rem] relative overflow-hidden">
-      <div className="absolute inset-0 bg-background/15 backdrop-blur-sm z-[1]" />
+      <div className="absolute inset-0 bg-background/5 backdrop-blur-sm z-[1]" />
 
-      <Media
-        resource={backgroundImage}
-        className="flex justify-center absolute left-[40%] -top-[380px] lg:-top-[320px] inset-0 -translate-x-1/2 lg:left-[45%] z-[0]"
-        imgClassName="max-w-[unset] size-[2000px] object-contain object-top "
-      />
+      <motion.div
+        animate={{
+          rotateY: [5, -5, 5],
+          rotateX: [10, -10, 10],
+          opacity: [100, 80, 100],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        style={{
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        <Media
+          resource={backgroundImage}
+          className="flex justify-center absolute left-[40%] -top-[380px] lg:-top-[320px] inset-0 -translate-x-1/2 lg:left-[45%] z-[0]"
+          imgClassName="max-w-[unset] size-[2000px] object-contain object-top "
+        />
+      </motion.div>
 
       <div className="gap-20 grid grid-cols-1 lg:grid-cols-[auto,1fr] items-center z-10 relative">
         <Link href="/" className="w-auto h-full max-h-24 flex justify-center">
