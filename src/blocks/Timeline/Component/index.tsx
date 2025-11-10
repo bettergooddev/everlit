@@ -9,7 +9,7 @@ export const TimelineBlock: React.FC<TimelineBlockProps> = ({ heading, subheadin
 
   return (
     <div className="container">
-      <Heading heading={heading} subheading={subheading} />
+      {/* <Heading heading={heading} subheading={subheading} /> */}
 
       {/* Mobile (vertical list) */}
       <MobileTimeline events={events} className="md:hidden" />

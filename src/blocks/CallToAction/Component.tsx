@@ -43,7 +43,7 @@ export const CallToActionBlock: React.FC<CTABlockProps> = async ({
   return (
     <div className="">
       <div className="container">
-        <Heading heading={heading} subheading={subheading} actions={links || []} />
+        {/* <Heading heading={heading} subheading={subheading} actions={links || []} /> */}
       </div>
 
       {style === 'fancy' ? (
