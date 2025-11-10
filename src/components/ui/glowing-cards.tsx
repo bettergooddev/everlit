@@ -1,14 +1,18 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+import { motion } from 'motion/react'
 
 import { cn } from '@/utilities/ui'
+import * as Path from '@/paths/paths'
 
 export interface GlowingCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   className?: string
   glowColor?: string
   hoverEffect?: boolean
+  background?: boolean
+  isOverlay?: boolean
 }
 
 export interface GlowingCardsProps {
@@ -43,30 +47,109 @@ export interface GlowingCardsProps {
   }
 }
 
+const defaultGlowColor = '#616f74'
+
 export const GlowingCard: React.FC<GlowingCardProps> = ({
   children,
   className,
-  glowColor = '#3b82f6',
+  glowColor = defaultGlowColor,
   hoverEffect = true,
+  background = false,
+  isOverlay = false,
   ...props
 }) => {
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
     <div
       className={cn(
-        'relative flex-1 min-w-[14rem] p-6 rounded-2xl text-black dark:text-white',
-        'bg-background border',
-        'transition-all duration-400 ease-out',
+        'relative flex-1 min-w-[14rem] p-6 overflow-hidden rounded-2xl text-black dark:text-white',
+        'border-[1px] border-white/10 border-solid hover:border-[var(--glow-color)]',
+        'transition-all duration-2000',
         className,
       )}
       style={
         {
           '--glow-color': glowColor, // CSS variable definition
+          boxShadow: isHovered
+            ? `0 0 20px 5px ${glowColor}20, 0 0 40px 10px ${glowColor}10`
+            : 'none',
+          transition: 'all 1000ms ease-in-out',
         } as React.CSSProperties
       }
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       {...props}
     >
-      {children}
+      {/* {children} */}
+      {background && <GlowingCardBackground isHovered={isHovered} isOverlay={isOverlay} />}
+      {/* <GlowingCardBackground isHovered={true} isOverlay={isOverlay} /> */}
+      {background ? <div className="relative z-[2]">{children}</div> : children}
     </div>
+  )
+}
+
+export interface GlowingCardBackgroundProps extends React.HTMLAttributes<HTMLDivElement> {
+  children?: React.ReactNode
+  isHovered?: boolean
+  isOverlay?: boolean
+}
+
+export const GlowingCardBackground: React.FC<GlowingCardBackgroundProps> = ({
+  children,
+  className,
+  isHovered = false,
+  isOverlay = false,
+  ...props
+}) => {
+  // Overlay cards should always be visible (they're masked by the radial gradient)
+  // Actual cards should only be visible on hover
+  const shouldShow = isOverlay || isHovered
+
+  return (
+    <>
+      <motion.div
+        className={cn('absolute inset-0 bg-primary-500/0')}
+        animate={{
+          opacity: shouldShow ? 1 : 0,
+        }}
+        transition={{
+          duration: 2,
+          ease: 'easeInOut',
+        }}
+      />
+      <div
+        className={cn(
+          'absolute inset-0 z-[0] duration-2000',
+          shouldShow ? 'opacity-100' : 'opacity-0',
+        )}
+      >
+        <motion.div
+          className="absolute inset-0 blur-xl"
+          animate={{
+            rotateY: [18, -18, 18],
+            rotateX: [6, -6, 6],
+            // translateX: [10, -10, 10],
+            translateY: [5, -5, 5],
+            opacity: [100, 70, 100],
+            // rotateX: [10, -10, 10],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            transformStyle: 'preserve-3d',
+          }}
+        >
+          <Path.PanelBackgroundUnmasked
+            className="w-full h-full aspect-[unset] max-w-[unset] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-125 opacity-75"
+            img={true}
+          />
+        </motion.div>
+      </div>
+    </>
   )
 }
 
@@ -76,7 +159,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
   enableGlow = true,
   glowRadius = 25,
   glowOpacity = 1,
-  animationDuration = 400,
+  animationDuration = 2000,
   enableHover = true,
   gap = '2.5rem',
   padding = '0rem 0rem',
@@ -115,12 +198,12 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
       overlay.style.setProperty('--opacity', '0')
     }
 
-    container.addEventListener('mousemove', handleMouseMove)
-    container.addEventListener('mouseleave', handleMouseLeave)
+    container.parentElement.parentElement.addEventListener('mousemove', handleMouseMove)
+    container.parentElement.parentElement.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
-      container.removeEventListener('mousemove', handleMouseMove)
-      container.removeEventListener('mouseleave', handleMouseLeave)
+      container.parentElement.parentElement.removeEventListener('mousemove', handleMouseMove)
+      container.parentElement.parentElement.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [enableGlow, glowOpacity])
 
@@ -148,7 +231,17 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
             responsive && 'flex-col sm:flex-row',
           )}
         >
-          {children}
+          {React.Children.map(
+            children as React.ReactElement<GlowingCardProps>[],
+            (child: React.ReactElement<GlowingCardProps> | undefined) => {
+              if (React.isValidElement(child) && child.type === GlowingCard) {
+                return React.cloneElement(child as React.ReactElement<any>, {
+                  background: true,
+                })
+              }
+              return child
+            },
+          )}
         </div>
 
         {enableGlow && (
@@ -156,7 +249,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
             ref={overlayRef}
             className={cn(
               'absolute inset-0 pointer-events-none select-none',
-              'opacity-0 transition-all duration-[var(--animation-duration)] ease-out',
+              'opacity-0 transition-all duration-2000',
             )}
             style={{
               // String concatenation for WebkitMask and mask
@@ -169,7 +262,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
             <div
               className={cn(
                 'flex items-center justify-center flex-wrap gap-[var(--gap)] center mx-auto',
-                responsive && 'flex-col sm:flex-row',
+                responsive && 'flex-col sm:flex-row relative',
               )}
               style={{ padding: 'var(--padding)' }} // String literal
             >
@@ -177,9 +270,11 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
                 children as React.ReactElement<GlowingCardProps>[],
                 (child: React.ReactElement<GlowingCardProps> | undefined, index) => {
                   if (React.isValidElement(child) && child.type === GlowingCard) {
-                    const cardGlowColor = child.props.glowColor || '#3b82f6'
+                    const cardGlowColor = child.props.glowColor || defaultGlowColor
 
                     return React.cloneElement(child as React.ReactElement<any>, {
+                      // background: true,
+                      // isOverlay: true,
                       className: cn(
                         child.props.className,
                         'bg-opacity-15 dark:bg-opacity-15',

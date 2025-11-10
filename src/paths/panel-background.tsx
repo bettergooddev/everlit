@@ -1,0 +1,86 @@
+import React from 'react'
+
+export interface PanelBackgroundProps extends Omit<React.SVGProps<SVGSVGElement>, 'viewBox'> {
+  className?: string
+  viewBox?: boolean
+  img?: boolean
+}
+
+export function PanelBackground({ className, viewBox = true, img = false, ...props }: PanelBackgroundProps) {
+  if (img) {
+    return (
+      <img
+        src="/paths/panel-background.svg"
+        alt="Panel background"
+        width="401"
+        height="354"
+        className={className}
+        {...(props as React.ImgHTMLAttributes<HTMLImageElement>)}
+      />
+    )
+  }
+
+  return (
+    <svg
+      width="401"
+      height="354"
+      {...(viewBox && { viewBox: '0 0 401 354' })}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      {...props}
+    >
+      <mask
+        id="mask0_810_315"
+        style={{ maskType: 'alpha' }}
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="401"
+        height="354"
+      >
+        <rect
+          x="0.5"
+          y="0.5"
+          width="400"
+          height="353"
+          fill="#D9D9D9"
+          stroke="url(#paint0_linear_810_315)"
+        />
+      </mask>
+      <g mask="url(#mask0_810_315)">
+        <path
+          d="M320.392 443.149C316.461 445.761 311.727 446.92 307.023 446.423L-12.2324 412.69C-19.4062 411.932 -25.6116 407.431 -28.4935 400.896L-162.231 97.6121C-166.554 87.8093 -162.248 76.3658 -152.487 71.7186L169.812 -81.7416C176.328 -84.8441 184.019 -84.2555 189.959 -80.1997L272.645 -23.7479C286.399 -14.3575 283.187 6.58705 267.227 11.5823L67.8562 73.9807C62.4729 75.6656 58.0484 79.5076 55.6626 84.5691L28.4219 142.362C27.464 144.394 26.86 146.571 26.6353 148.8L19.1552 223.014C19.0501 224.056 19.0285 225.104 19.0904 226.149L23.3248 297.609C23.9298 307.819 32.2718 315.895 42.6098 316.277L216.25 322.698C217.737 322.753 219.227 322.645 220.691 322.375L398.529 289.579C409.131 287.624 419.389 294.278 421.786 304.666L432.945 353.021C434.798 361.049 431.45 369.386 424.527 373.984L320.392 443.149Z"
+          fill="url(#paint1_linear_810_315)"
+          fillOpacity="0.72"
+        />
+      </g>
+      <defs>
+        <linearGradient
+          id="paint0_linear_810_315"
+          x1="6.29874"
+          y1="7.59946e-06"
+          x2="394.469"
+          y2="354.255"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#FFDB92" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#FFDB92" stopOpacity="0.1" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_810_315"
+          x1="461.472"
+          y1="-69.9956"
+          x2="63.4568"
+          y2="367.063"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.240385" stopColor="#F7E9C1" stopOpacity="0" />
+          <stop offset="0.504808" stopColor="#F7E9C1" stopOpacity="0.05" />
+          <stop offset="0.855769" stopColor="#C47B3F" />
+          <stop offset="0.995192" stopColor="#E15927" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}

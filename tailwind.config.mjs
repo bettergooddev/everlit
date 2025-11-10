@@ -199,6 +199,10 @@ const config = {
           '100%': { opacity: '1' },
         },
       },
+      transitionDuration: {
+        2000: '2000ms',
+        3000: '3000ms',
+      },
       typography: () => ({
         DEFAULT: {
           css: [
