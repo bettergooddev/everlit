@@ -21,17 +21,17 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights }) => {
   const highlightCount = highlights.length
   const numbers = Array.from({ length: highlightCount }, (_, index) => index + 1)
 
-  const y = isTablet
-    ? useTransform(
-        scrollYProgress,
-        [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-        ['0%', '-25%', '-25%', '-50%', '-50%', '-75%'],
-      )
-    : useTransform(
-        scrollYProgress,
-        [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-        ['0%', '0%', '-25%', '-35%', '-50%', '-75%'],
-      )
+  // const y = isTablet
+  //   ? useTransform(
+  //       scrollYProgress,
+  //       [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+  //       ['0%', '-25%', '-25%', '-50%', '-50%', '-75%'],
+  //     )
+  //   : useTransform(
+  //       scrollYProgress,
+  //       [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+  //       ['0%', '0%', '-25%', '-35%', '-50%', '-75%'],
+  //     )
 
   return (
     <section id="relume" ref={ref} className="px-[5%] py-16 md:py-24 lg:py-28">
@@ -39,13 +39,13 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights }) => {
         <div className="relative grid auto-cols-fr grid-cols-1 items-start gap-x-8 gap-y-12 md:grid-cols-[0.75fr_1fr] md:gap-y-16 lg:grid-cols-[max-content_1fr] lg:gap-x-20">
           <div className="static top-[20%] hidden h-56 overflow-hidden md:sticky md:flex md:items-start">
             <h1 className="text-[6rem] font-bold leading-[1] md:text-[14rem]">0</h1>
-            <motion.div className="text-center" style={{ y }}>
+            {/* <motion.div className="text-center" style={{ y }}>
               {numbers.map((number, index) => (
                 <h1 key={index} className="text-[6rem] font-bold leading-[1] md:text-[14rem]">
                   {number}
                 </h1>
               ))}
-            </motion.div>
+            </motion.div> */}
           </div>
           <div className="grid auto-cols-fr grid-cols-1 gap-x-12 gap-y-12 md:gap-x-28 md:gap-y-28">
             {highlights.map((highlight, index) => (
