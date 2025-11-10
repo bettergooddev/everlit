@@ -376,10 +376,6 @@ export interface Testimonial {
   title: string;
   description: string;
   image?: (string | null) | Media;
-  /**
-   * YouTube or Vimeo embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)
-   */
-  video?: string | null;
   author: {
     name: string;
     position: string;
@@ -847,6 +843,7 @@ export interface FeaturesBlock {
  * via the `definition` "TestimonialsBlock".
  */
 export interface TestimonialsBlock {
+  testimonials: (string | Testimonial)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
@@ -1446,6 +1443,7 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
  * via the `definition` "TestimonialsBlock_select".
  */
 export interface TestimonialsBlockSelect<T extends boolean = true> {
+  testimonials?: T;
   id?: T;
   blockName?: T;
 }
@@ -1730,7 +1728,6 @@ export interface TestimonialsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   image?: T;
-  video?: T;
   author?:
     | T
     | {

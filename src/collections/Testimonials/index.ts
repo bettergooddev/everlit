@@ -38,13 +38,6 @@ export const Testimonials: CollectionConfig<'testimonials'> = {
       relationTo: 'media',
     },
     {
-      name: 'video',
-      type: 'text',
-      admin: {
-        description: 'YouTube or Vimeo embed URL (e.g., https://www.youtube.com/embed/VIDEO_ID)',
-      },
-    },
-    {
       name: 'author',
       type: 'group',
       fields: [
