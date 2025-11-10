@@ -1,4 +1,12 @@
-import { lexicalEditor, ParagraphFeature, UnorderedListFeature } from '@payloadcms/richtext-lexical'
+import { defaultLexical } from '@/fields/defaultLexical'
+import {
+  BoldFeature,
+  ItalicFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+  ParagraphFeature,
+  UnorderedListFeature,
+} from '@payloadcms/richtext-lexical'
 import type { Field } from 'payload'
 
 export const studyHeroFields: Field[] = [
@@ -44,43 +52,25 @@ export const studyHeroFields: Field[] = [
   {
     name: 'description',
     type: 'richText',
-    editor: lexicalEditor({
-      features: ({ rootFeatures }) => {
-        return [ParagraphFeature(), UnorderedListFeature()]
-      },
-    }),
+    editor: defaultLexical,
     label: 'Description',
   },
   {
     name: 'collaborators',
     type: 'richText',
-    editor: lexicalEditor({
-      features: ({ rootFeatures }) => {
-        return [ParagraphFeature(), UnorderedListFeature()]
-      },
-    }),
+    editor: defaultLexical,
     label: 'Collaborators',
   },
   {
     name: 'scope',
     type: 'richText',
-    editor: lexicalEditor({
-      features: ({ rootFeatures }) => {
-        return [ParagraphFeature(), UnorderedListFeature()]
-      },
-    }),
+    editor: defaultLexical,
     label: 'Scope',
   },
   {
     name: 'features',
     type: 'richText',
-    editor: lexicalEditor({
-      features: ({ rootFeatures }) => {
-        return [ParagraphFeature(), UnorderedListFeature()]
-      },
-    }),
+    editor: defaultLexical,
     label: 'Features',
   },
 ]
-
-

@@ -5,6 +5,7 @@ import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { Badge } from '@/components/ui/badge'
 import { formatLongDate } from '@/utilities/formatDateTime'
+import { isRichTextEmpty } from '@/utilities/richtext'
 
 export const StudyHero: React.FC<Page['hero']> = (props) => {
   if (!props?.study) return null
@@ -62,7 +63,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           {/* Two Column Layout */}
           <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:gap-12">
             {/* Left Column - Description */}
-            {description && (
+            {description && !isRichTextEmpty(description) && (
               <div>
                 <RichText data={description} enableGutter={false} />
               </div>
@@ -71,7 +72,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
             {/* Right Column - Stacked Sections */}
             <div className="flex flex-col gap-6 md:gap-8">
               {/* Collaborators */}
-              {collaborators && (
+              {collaborators && !isRichTextEmpty(collaborators) && (
                 <div>
                   <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Collaborators</h2>
                   <RichText
@@ -83,7 +84,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               )}
 
               {/* Scope */}
-              {scope && (
+              {scope && !isRichTextEmpty(scope) && (
                 <div>
                   <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Scope</h2>
                   <RichText
@@ -95,7 +96,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               )}
 
               {/* Features */}
-              {features && (
+              {features && !isRichTextEmpty(features) && (
                 <div>
                   <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Features</h2>
                   <RichText
