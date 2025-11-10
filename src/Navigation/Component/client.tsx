@@ -5,7 +5,7 @@ import { NavLogo } from './logo'
 import { renderNavigationItem } from './renderNavigationItem'
 import type { Navigation as NavigationType } from '@/payload-types'
 import { Button } from '@/components/ui/button'
-import { Menu } from 'lucide-react'
+import { ArrowLeft, Menu } from 'lucide-react'
 import {
   Sheet,
   SheetContent,
@@ -21,6 +21,8 @@ import { tv } from 'tailwind-variants'
 import { cn } from '@/utilities/ui'
 import { AnimatePresence, motion } from 'motion/react'
 import NavButton from './navButton'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 interface NavigationClientProps {
   data: NavigationType
@@ -35,8 +37,8 @@ const classes = {
         false: 'opacity-0',
       },
       collapsed: {
-        true: 'top-4',
-        false: 'top-0',
+        true: 'top-4 container', //moved from inner
+        false: 'top-0 container-full', //moved from inner
       },
     },
   }),
@@ -44,8 +46,8 @@ const classes = {
     base: '',
     variants: {
       collapsed: {
-        true: 'container',
-        false: 'container-full',
+        true: '',
+        false: '',
       },
     },
   }),
@@ -61,6 +63,9 @@ const classes = {
 }
 
 export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
+  const pathname = usePathname()
+  const isCaseStudy = pathname.includes('case-studies/')
+
   const [{ y }] = useWindowScroll()
 
   const [hasScroll, setHasScroll] = useState<boolean>(false)
@@ -100,7 +105,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   const transition = collapsed ? collapseTransition : expandTransition
 
   return (
-    <motion.header
+    <motion.nav
       className={cn('fixed top-0 left-0 right-0 z-50', classes.header({ hasScroll, collapsed }))}
       transition={transition}
     >
@@ -125,15 +130,18 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
           </AnimatePresence>
 
           {/* Logo – left aligned */}
-          <div className="flex h-min mr-12">
+          <div className="flex h-min mr-12 gap-4">
+            {isCaseStudy && (
+              <Link href={'/home#case-studies'}>
+                <Button variant={'secondary'}>
+                  <ArrowLeft />
+                  Back Home
+                </Button>
+              </Link>
+            )}
+
             <NavLogo logo={data?.logo ?? null} />
           </div>
-          <nav className="flex-1 items-center gap-6 hidden lg:flex">
-            {/* Primary navigation items – centered */}
-            {navItems.map((item, index) =>
-              renderNavigationItem(item, index, { appearance: 'inline' }),
-            )}
-          </nav>
 
           {/* Actions – right aligned */}
           <motion.div
@@ -141,6 +149,12 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
             layout="position"
             transition={transition}
           >
+            <div className="flex-1 justify-end gap-6 hidden lg:flex">
+              {/* Primary navigation items – centered */}
+              {navItems.map((item, index) =>
+                renderNavigationItem(item, index, { appearance: 'inline' }),
+              )}
+            </div>
             {/* {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))} */}
 
             <NavButton />
@@ -196,7 +210,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
           </div>
         </motion.div>
       </AnimatePresence>
-    </motion.header>
+    </motion.nav>
   )
 }
 

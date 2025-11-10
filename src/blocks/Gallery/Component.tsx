@@ -4,6 +4,7 @@ import { fadeUpInView } from '@/utilities/animations'
 import type { GalleryBlock as GalleryBlockType } from '@/payload-types'
 import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { Frame } from '@/components/Frame'
 
 export const GalleryBlock: React.FC<GalleryBlockType> = ({ images }) => {
   if (!images || images.length === 0) return null
@@ -80,7 +81,7 @@ const SingleColumnRow = ({
     <div className="w-full">
       {images.map((image, index) => (
         <motion.div key={index} className="relative w-full" {...fadeUpInView(startIndex + index)}>
-          <Media
+          <Frame
             resource={image}
             className="w-full overflow-hidden"
             imgClassName="w-full h-auto max-h-screen object-cover"
@@ -102,7 +103,7 @@ const DoubleColumnRow = ({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {images.map((image, index) => (
         <motion.div key={index} className="relative" {...fadeUpInView(startIndex + index)}>
-          <Media
+          <Frame
             resource={image}
             className="w-full overflow-hidden"
             imgClassName="w-full h-auto max-h-screen object-cover"

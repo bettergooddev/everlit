@@ -73,4 +73,10 @@ export const studyHeroFields: Field[] = [
     editor: defaultLexical,
     label: 'Features',
   },
+  {
+    name: 'testimonials',
+    type: 'relationship',
+    relationTo: 'testimonials',
+    hasMany: true,
+  },
 ]

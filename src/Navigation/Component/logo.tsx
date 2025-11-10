@@ -17,7 +17,7 @@ export const NavLogo: React.FC<NavLogoProps> = ({ logo }) => {
 
   if (link) {
     return (
-      <CMSLink {...link} className="inline-block" appearance="inline" label={''}>
+      <CMSLink {...link} className="inline-block p-1" appearance="inline" label={''}>
         <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
       </CMSLink>
     )
@@ -37,7 +37,7 @@ function Inner({ desktopLogo, mobileLogo }: InnerProps) {
       {desktopLogo && (
         <Media
           resource={desktopLogo}
-          className="hidden md:block h-9 w-auto"
+          className="hidden md:block size-full w-auto"
           imgClassName="h-full w-auto"
           alt="logo"
         />
@@ -45,7 +45,7 @@ function Inner({ desktopLogo, mobileLogo }: InnerProps) {
       {mobileLogo && (
         <Media
           resource={mobileLogo}
-          className="block md:hidden h-9 w-auto"
+          className="block md:hidden size-full w-auto"
           imgClassName="h-full w-auto"
           alt="logo"
         />

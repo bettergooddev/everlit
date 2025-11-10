@@ -26,7 +26,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
 
       {/* Content Section */}
       <div className="relative bg-background px-4 py-12 md:py-16 lg:py-24">
-        <div className="container mx-auto max-w-screen-lg">
+        <div className="container mx-auto">
           {/* Heading */}
           {heading && (
             <div className="flex w-full mb-4 md:mb-6">
