@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { cn } from '@/utilities/ui'
 
-export interface GlowingCardProps {
+export interface GlowingCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   className?: string
   glowColor?: string
@@ -26,8 +26,6 @@ export interface GlowingCardsProps {
   enableHover?: boolean
   /** Gap between cards */
   gap?: string
-  /** Maximum width of cards container */
-  maxWidth?: string
   /** Padding around the container */
   padding?: string
   /** Background color for the container */
@@ -81,8 +79,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
   animationDuration = 400,
   enableHover = true,
   gap = '2.5rem',
-  maxWidth = '75rem',
-  padding = '3rem 1.5rem',
+  padding = '0rem 0rem',
   backgroundColor,
   borderRadius = '1rem',
   responsive = true,
@@ -129,7 +126,6 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
 
   const containerStyle = {
     '--gap': gap,
-    '--max-width': maxWidth,
     '--padding': padding,
     '--border-radius': borderRadius,
     '--animation-duration': animationDuration + 'ms', // Concatenation
@@ -143,7 +139,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
     <div className={cn('relative w-full', className)} style={containerStyle}>
       <div
         ref={containerRef}
-        className={cn('relative max-w-[var(--max-width)] mx-auto', 'px-6 py-2')}
+        className={cn('relative mx-auto', 'px-6 py-2')}
         style={{ padding: 'var(--padding)' }} // String literal
       >
         <div
@@ -172,32 +168,35 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
           >
             <div
               className={cn(
-                'flex items-center justify-center flex-wrap gap-[var(--gap)] max-w-[var(--max-width)] center mx-auto',
+                'flex items-center justify-center flex-wrap gap-[var(--gap)] center mx-auto',
                 responsive && 'flex-col sm:flex-row',
               )}
               style={{ padding: 'var(--padding)' }} // String literal
             >
-              {React.Children.map(children, (child, index) => {
-                if (React.isValidElement(child) && child.type === GlowingCard) {
-                  const cardGlowColor = child.props.glowColor || '#3b82f6'
+              {React.Children.map(
+                children as React.ReactElement<GlowingCardProps>[],
+                (child: React.ReactElement<GlowingCardProps> | undefined, index) => {
+                  if (React.isValidElement(child) && child.type === GlowingCard) {
+                    const cardGlowColor = child.props.glowColor || '#3b82f6'
 
-                  return React.cloneElement(child as React.ReactElement<any>, {
-                    className: cn(
-                      child.props.className,
-                      'bg-opacity-15 dark:bg-opacity-15',
-                      'border-opacity-100 dark:border-opacity-100',
-                    ),
-                    style: {
-                      ...child.props.style,
-                      // String concatenation for background, border, and boxShadow
-                      backgroundColor: cardGlowColor + '15',
-                      borderColor: cardGlowColor,
-                      boxShadow: '0 0 0 1px inset ' + cardGlowColor,
-                    },
-                  })
-                }
-                return child
-              })}
+                    return React.cloneElement(child as React.ReactElement<any>, {
+                      className: cn(
+                        child.props.className,
+                        'bg-opacity-15 dark:bg-opacity-15',
+                        'border-opacity-100 dark:border-opacity-100',
+                      ),
+                      style: {
+                        ...child.props.style,
+                        // String concatenation for background, border, and boxShadow
+                        backgroundColor: cardGlowColor + '15',
+                        borderColor: cardGlowColor,
+                        boxShadow: '0 0 0 1px inset ' + cardGlowColor,
+                      },
+                    })
+                  }
+                  return child
+                },
+              )}
             </div>
           </div>
         )}
@@ -207,4 +206,3 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
 }
 
 export { GlowingCards as default }
-
