@@ -36,8 +36,6 @@ export interface GlowingCardsProps {
   backgroundColor?: string
   /** Border radius for cards */
   borderRadius?: string
-  /** Enable responsive layout */
-  responsive?: boolean
   /** Custom CSS variables for theming */
   customTheme?: {
     cardBg?: string
@@ -63,7 +61,7 @@ export const GlowingCard: React.FC<GlowingCardProps> = ({
   return (
     <div
       className={cn(
-        'relative flex-1 min-w-[14rem] p-6 overflow-hidden rounded-2xl text-black dark:text-white',
+        'relative flex-1 w-full p-6 overflow-hidden rounded-2xl text-black dark:text-white',
         'border-[1px] border-white/10 border-solid hover:border-[var(--glow-color)]',
         'transition-all duration-2000',
         className,
@@ -131,6 +129,7 @@ export const GlowingCardBackground: React.FC<GlowingCardBackgroundProps> = ({
             rotateX: [6, -6, 6],
             // translateX: [10, -10, 10],
             translateY: [5, -5, 5],
+            translateX: [5, -5, 5],
             opacity: [100, 70, 100],
             // rotateX: [10, -10, 10],
           }}
@@ -165,7 +164,6 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
   padding = '0rem 0rem',
   backgroundColor,
   borderRadius = '1rem',
-  responsive = true,
   customTheme,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -198,11 +196,15 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
       overlay.style.setProperty('--opacity', '0')
     }
 
+    // @ts-expect-error
     container.parentElement.parentElement.addEventListener('mousemove', handleMouseMove)
+    // @ts-expect-error
     container.parentElement.parentElement.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
+      // @ts-expect-error
       container.parentElement.parentElement.removeEventListener('mousemove', handleMouseMove)
+      // @ts-expect-error
       container.parentElement.parentElement.removeEventListener('mouseleave', handleMouseLeave)
     }
   }, [enableGlow, glowOpacity])
@@ -225,12 +227,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
         className={cn('relative mx-auto', 'px-6 py-2')}
         style={{ padding: 'var(--padding)' }} // String literal
       >
-        <div
-          className={cn(
-            'flex items-center justify-center flex-wrap gap-[var(--gap)]',
-            responsive && 'flex-col sm:flex-row',
-          )}
-        >
+        <div className={cn('flex justify-center flex-wrap gap-[var(--gap)] flex-col md:flex-row')}>
           {React.Children.map(
             children as React.ReactElement<GlowingCardProps>[],
             (child: React.ReactElement<GlowingCardProps> | undefined) => {
@@ -261,8 +258,8 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
           >
             <div
               className={cn(
-                'flex items-center justify-center flex-wrap gap-[var(--gap)] center mx-auto',
-                responsive && 'flex-col sm:flex-row relative',
+                'flex justify-center flex-wrap gap-[var(--gap)] center mx-auto',
+                'flex-col md:flex-row relative',
               )}
               style={{ padding: 'var(--padding)' }} // String literal
             >
@@ -273,8 +270,8 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
                     const cardGlowColor = child.props.glowColor || defaultGlowColor
 
                     return React.cloneElement(child as React.ReactElement<any>, {
-                      // background: true,
-                      // isOverlay: true,
+                      background: true,
+                      isOverlay: true,
                       className: cn(
                         child.props.className,
                         'bg-opacity-15 dark:bg-opacity-15',
