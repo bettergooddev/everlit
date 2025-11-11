@@ -47,23 +47,13 @@ export function CaseStudiesClient({ heading, caseStudies }: CaseStudiesBlockType
               <div className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32">
                 <Frame
                   resource={caseStudies[activeStudy]?.studyHero?.image}
-                  className="size-full -mt-[25%] flex aspect-[3/4]"
-                  imgClassName="size-full object-cover"
-                  style={
-                    {
-                      // marginTop: `${-25 + activeStudy * 15}%`,
-                    }
-                  }
+                  className="size-full -mt-[35%] flex aspect-[3/4] "
+                  imgClassName="size-full object-cover "
                 />
                 <Frame
                   resource={caseStudies[activeStudy]?.gallery[0]}
-                  className="size-full h-1/2 flex"
+                  className="size-full h-1/2 mt-[65%] flex"
                   imgClassName="size-full object-cover"
-                  style={
-                    {
-                      // marginBottom: `${-25 + activeStudy * 25}%`,
-                    }
-                  }
                 />
               </div>
             )}
