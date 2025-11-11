@@ -6,7 +6,7 @@ import { Media } from '@/components/Media'
 import type { CaseStudiesBlock, CaseStudy } from '@/payload-types'
 import Link from 'next/link'
 import { Frame } from '@/components/Frame'
-import { AnimatePresence, motion } from 'motion/react'
+import { motion } from 'motion/react'
 import { cn } from '@/utilities/ui'
 
 type CaseStudiesBlockType = Omit<CaseStudiesBlock, 'caseStudies'> & {
@@ -46,23 +46,37 @@ export function CaseStudiesClient({ heading, caseStudies }: CaseStudiesBlockType
           </div>
           <div className="col-start-3 col-span-3 row-start-1 size-full relative pointer-events-none">
             {caseStudies.map(({ id, title, slug }, index) => (
-              <div
-                className={cn(
-                  'absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32',
-                  index === activeStudy ? 'opacity-100' : 'opacity-0',
-                )}
+              <motion.div
+                key={id}
+                className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32"
+                initial={{ opacity: 0, y: 20 }}
+                animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{
+                  duration: 0.4,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
               >
                 <Frame
                   resource={caseStudies[index]?.studyHero?.image}
                   className="size-full -mt-[35%] flex aspect-[3/4] "
                   imgClassName="size-full object-cover "
                 />
-                <Frame
-                  resource={caseStudies[index]?.gallery[0]}
-                  className="size-full h-1/2 mt-[65%] flex"
-                  imgClassName="size-full object-cover"
-                />
-              </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.1,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                >
+                  <Frame
+                    resource={caseStudies[index]?.gallery[0]}
+                    className="size-full h-1/2 mt-[65%] flex"
+                    imgClassName="size-full object-cover"
+                  />
+                </motion.div>
+              </motion.div>
             ))}
           </div>
         </div>
