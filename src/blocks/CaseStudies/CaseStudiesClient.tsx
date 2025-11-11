@@ -28,7 +28,7 @@ export function CaseStudiesClient({ heading, caseStudies }: CaseStudiesBlockType
               <Link
                 key={id}
                 href={`/case-studies/${slug}`}
-                className="py-8 bg-blue-500/50 outline outline-foreground-300 grid grid-cols-subgrid col-start-1 col-span-4"
+                className="py-8 bg-transparent hover:bg-background-100/25 outline outline-foreground-300 grid grid-cols-subgrid col-start-1 col-span-4 shadow-inner transition-colors"
                 style={{
                   outlineWidth: '1px',
                   outlineOffset: '-0.5px',
@@ -44,22 +44,26 @@ export function CaseStudiesClient({ heading, caseStudies }: CaseStudiesBlockType
           </div>
           <div className="col-start-3 col-span-3 row-start-1 size-full relative pointer-events-none">
             {hasActiveStudy && (
-              <div className="absolute inset-0 grid grid-cols-[2fr,1fr] gap-16 p-16">
+              <div className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32">
                 <Frame
                   resource={caseStudies[activeStudy]?.studyHero?.image}
-                  className="size-full -mt-[25%] flex"
+                  className="size-full -mt-[25%] flex aspect-[3/4]"
                   imgClassName="size-full object-cover"
-                  style={{
-                    marginTop: `${-25 + activeStudy * 15}%`,
-                  }}
+                  style={
+                    {
+                      // marginTop: `${-25 + activeStudy * 15}%`,
+                    }
+                  }
                 />
                 <Frame
                   resource={caseStudies[activeStudy]?.gallery[0]}
-                  className="size-full  h-1/2 mt-auto flex"
+                  className="size-full h-1/2 flex"
                   imgClassName="size-full object-cover"
-                  style={{
-                    marginBottom: `${-25 + activeStudy * 25}%`,
-                  }}
+                  style={
+                    {
+                      // marginBottom: `${-25 + activeStudy * 25}%`,
+                    }
+                  }
                 />
               </div>
             )}
