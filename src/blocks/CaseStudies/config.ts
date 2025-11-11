@@ -19,7 +19,7 @@ export const CaseStudies: Block = {
       relationTo: 'media',
       defaultValue: '69135116854935e5aa5fbfdc',
       required: true,
-      hidden: true,
+      // hidden: true,
     },
     {
       name: 'caseStudies',

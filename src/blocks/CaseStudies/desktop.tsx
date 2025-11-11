@@ -29,9 +29,11 @@ export function CaseStudiesDesktop({
 
   return (
     <div className={cn('relative', className)}>
-      {/* <motion.div
+      <motion.div
+        className=" absolute inset-0 z-[-1] blur-xl"
         animate={{
           rotateY: [12, -12, 12],
+          rotateX: [8, -8, 8],
           // rotateX: [10, -10, 10],
           translateY: [2, -2, 2],
           translateX: [5, -5, 5],
@@ -45,13 +47,13 @@ export function CaseStudiesDesktop({
         style={{
           transformStyle: 'preserve-3d',
         }}
-      > */}
-      <Media
-        resource={backgroundImage}
-        className=""
-        imgClassName="z-[-1] absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[unset] size-[2000px] object-contain"
-      />
-      {/* </motion.div> */}
+      >
+        <Media
+          resource={backgroundImage}
+          className=""
+          imgClassName="absolute inset-0 object-left-top top-[-120%] left-[-25%] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
+        />
+      </motion.div>
 
       <Heading heading={heading} className="container z-10" />
 
@@ -61,10 +63,12 @@ export function CaseStudiesDesktop({
             <Link
               key={id}
               href={`/case-studies/${slug}`}
-              className="py-8 bg-transparent hover:bg-background-100/25 outline outline-foreground-300 grid grid-cols-subgrid col-start-1 col-span-4 shadow-inner transition-colors"
+              className="py-8 bg-transparent hover:bg-background-100/25 outline outline-foreground-300/10 grid grid-cols-subgrid col-start-1 col-span-4 shadow-inner transition-colors"
               style={{
                 outlineWidth: '1px',
                 outlineOffset: '-0.5px',
+                boxShadow:
+                  index === activeStudy ? 'inset 0 0 20px 10px rgba(0, 0, 0, 0.1)' : undefined,
               }}
               onMouseEnter={() => setActiveStudy(index)}
               onMouseLeave={() => setActiveStudy(null)}
@@ -79,7 +83,7 @@ export function CaseStudiesDesktop({
           {caseStudies.map(({ id, title, slug }, index) => (
             <motion.div
               key={id}
-              className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32"
+              className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 pl-0 p-32 will-change-transform"
               initial={{ opacity: 0, y: 20 }}
               animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{
@@ -93,6 +97,7 @@ export function CaseStudiesDesktop({
                 imgClassName="size-full object-cover "
               />
               <motion.div
+                className="will-change-transform"
                 initial={{ opacity: 0, y: 20 }}
                 animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{

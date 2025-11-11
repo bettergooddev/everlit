@@ -19,10 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html
-      className={cn(
-        calvino.variable,
-        figtree.variable,
-      )}
+      className={cn(calvino.variable, figtree.variable)}
       lang="en"
       suppressHydrationWarning
       data-theme="dark"

@@ -43,29 +43,31 @@ export const RenderBlocks: React.FC<{
 
   if (hasBlocks) {
     return (
-      <Fragment>
-        {blocks.map((block, index) => {
-          const { blockType } = block
+      <div className="overflow-hidden">
+        <Fragment>
+          {blocks.map((block, index) => {
+            const { blockType } = block
 
-          if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType as keyof typeof blockComponents]
+            if (blockType && blockType in blockComponents) {
+              const Block = blockComponents[blockType as keyof typeof blockComponents]
 
-            if (Block) {
-              return (
-                <Section key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block
-                    {...block}
-                    // TODO: bring this back when needed on blocks that go inside rich text like columns or media, i believe
-                    //  disableInnerContainer
-                  />
-                </Section>
-              )
+              if (Block) {
+                return (
+                  <Section key={index}>
+                    {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                    <Block
+                      {...block}
+                      // TODO: bring this back when needed on blocks that go inside rich text like columns or media, i believe
+                      //  disableInnerContainer
+                    />
+                  </Section>
+                )
+              }
             }
-          }
-          return null
-        })}
-      </Fragment>
+            return null
+          })}
+        </Fragment>
+      </div>
     )
   }
 
