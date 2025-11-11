@@ -12,12 +12,14 @@ import {
 } from '@/components/ui/carousel'
 import { Media } from '@/components/Media'
 import type { TestimonialsBlock as TestimonialsBlockType, Testimonial } from '@/payload-types'
+import { Frame } from '@/components/Frame'
+import { Button } from '@/components/ui/button'
 
-interface TestimonialsClientProps extends Omit<TestimonialsBlockType, 'testimonials'> {
+interface ImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
 }
 
-export const TestimonialsClient: React.FC<TestimonialsClientProps> = ({ testimonials }) => {
+export const Image: React.FC<ImageProps> = ({ testimonials }) => {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
 
@@ -36,38 +38,36 @@ export const TestimonialsClient: React.FC<TestimonialsClientProps> = ({ testimon
   }
 
   return (
-    <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28">
+    <section className="">
       <div className="container">
         <Carousel
           setApi={setApi}
           opts={{
-            loop: true,
+            // loop: true,
             align: 'start',
           }}
-          className="overflow-hidden"
+          className="pb-24"
         >
-          <div className="relative pt-20 md:pb-20 md:pt-0">
-            <CarouselContent className="ml-0">
+          <div className="relative">
+            <CarouselContent className="-ml-32">
               {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-0">
+                <CarouselItem key={index} className="pl-32">
                   <TestimonialCard testimonial={testimonial} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="absolute top-0 flex w-full items-start justify-between md:bottom-0 md:top-auto md:items-end">
-              <div className="mt-2.5 flex w-full items-start justify-start md:mb-2.5 md:mt-0">
+            <div className="absolute top-full pt-12 flex w-full items-end justify-between">
+              <div className="mb-2.5 flex w-full items-start justify-start">
                 {testimonials.map((_, index) => (
-                  <button
+                  <Button
                     key={index}
                     onClick={() => api?.scrollTo(index)}
-                    className={cn('mx-[3px] inline-block size-2 rounded-full', {
-                      'bg-black': current === index + 1,
-                      'bg-neutral-light': current !== index + 1,
-                    })}
+                    variant={current === index + 1 ? 'default' : 'secondary'}
+                    className={'mr-3 inline-block size-4 rounded-xs p-0'}
                   />
                 ))}
               </div>
-              <div className="flex items-end justify-end gap-2 md:gap-4">
+              <div className="flex items-end justify-end gap-4">
                 <CarouselPrevious className="static right-0 top-0 size-12 -translate-y-0" />
                 <CarouselNext className="static right-0 top-0 size-12 -translate-y-0" />
               </div>
@@ -80,37 +80,37 @@ export const TestimonialsClient: React.FC<TestimonialsClientProps> = ({ testimon
 }
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
-  if (!testimonial) {
-    return null
-  }
+  if (!testimonial) return null
 
   const { image, description, author } = testimonial
 
   return (
-    <div className="grid w-full auto-cols-fr grid-cols-1 items-center justify-center gap-12 md:grid-cols-2 md:gap-10 lg:gap-x-20">
+    <div className="lg:grid w-full lg:auto-cols-fr lg:grid-cols-2 items-center justify-center gap-12 md:gap-10 lg:gap-x-20 flex flex-col">
       {image && (
-        <div className="order-last md:order-first">
-          <Media
-            resource={image}
-            className="aspect-square w-full object-cover"
-            imgClassName="aspect-square w-full object-cover"
-          />
-        </div>
+        <Frame
+          resource={image}
+          className="aspect-square w-full object-cover"
+          imgClassName="aspect-square w-full object-cover"
+        />
       )}
-      <div className="flex flex-col items-start">
-        <blockquote className="type-h3">{description}</blockquote>
-        <div className="mt-6 flex flex-nowrap items-center gap-5 md:mt-8">
+      <div className="flex flex-col items-start h-full justify-between gap-12 xl:gap-0">
+        <blockquote className="type-h4 xl:type-h3">{description}</blockquote>
+        <div className="flex flex-nowrap items-center gap-5 justify-between w-full">
           <div>
-            <p className="font-semibold">{author.name}</p>
-            <p>
+            <p className="type-h4">{author.name}</p>
+            <p className="[&_*]:type-body opacity-65 mt-1">
               <span>{author.position}</span>, <span>{author.company}</span>
             </p>
           </div>
           {author.logo && (
             <>
-              <div className="mx-4 w-px self-stretch bg-background-alternative sm:mx-0" />
+              <div className="mx-4 w-px self-stretch bg-foreground-100/15 sm:mx-0" />
               <div>
-                <Media resource={author.logo} className="max-h-12" imgClassName="max-h-12" />
+                <Media
+                  resource={author.logo}
+                  className="h-8"
+                  imgClassName="size-full object-contain"
+                />
               </div>
             </>
           )}

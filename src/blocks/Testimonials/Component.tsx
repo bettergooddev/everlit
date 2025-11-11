@@ -1,6 +1,6 @@
 import React from 'react'
 import type { TestimonialsBlock as TestimonialsBlockType, Testimonial } from '@/payload-types'
-import { TestimonialsClient } from './client'
+import { RenderTestimonials } from './RenderTestimonials'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
@@ -31,5 +31,5 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockType> = async (props) 
     populatedTestimonials = testimonialsResult.docs
   }
 
-  return <TestimonialsClient {...props} testimonials={populatedTestimonials} />
+  return <RenderTestimonials {...props} testimonials={populatedTestimonials} />
 }

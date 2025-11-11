@@ -31,3 +31,4 @@ export const Frame: React.FC<FrameProps> = ({
     />
   )
 }
+

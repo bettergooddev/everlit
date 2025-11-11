@@ -38,11 +38,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           {(type || formattedDate || location) && (
             <>
               <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
-                {type && (
-                  <Badge variant="secondary" className="capitalize">
-                    {type}
-                  </Badge>
-                )}
+                {type && <Badge className="capitalize">{type}</Badge>}
                 {formattedDate && (
                   <span className="type-body text-foreground-100/75">{formattedDate}</span>
                 )}

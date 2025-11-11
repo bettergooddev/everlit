@@ -843,6 +843,7 @@ export interface FeaturesBlock {
  * via the `definition` "TestimonialsBlock".
  */
 export interface TestimonialsBlock {
+  variant: 'image' | 'noImage';
   testimonials: (string | Testimonial)[];
   id?: string | null;
   blockName?: string | null;
@@ -1443,6 +1444,7 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
  * via the `definition` "TestimonialsBlock_select".
  */
 export interface TestimonialsBlockSelect<T extends boolean = true> {
+  variant?: T;
   testimonials?: T;
   id?: T;
   blockName?: T;
