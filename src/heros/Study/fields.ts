@@ -37,12 +37,7 @@ export const studyHeroFields: Field[] = [
   },
   {
     name: 'date',
-    type: 'date',
-    admin: {
-      date: {
-        pickerAppearance: 'dayOnly',
-      },
-    },
+    type: 'text',
     required: true,
   },
   {
