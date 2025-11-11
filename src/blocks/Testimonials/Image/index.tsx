@@ -33,13 +33,12 @@ export const Image: React.FC<ImageProps> = ({ testimonials }) => {
     })
   }, [api])
 
-  if (!testimonials || testimonials.length === 0) {
-    return null
-  }
+  const isCarousel = testimonials.length > 1
+  if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <section className="">
-      <div className="container">
+    <div className="container">
+      {isCarousel ? (
         <Carousel
           setApi={setApi}
           opts={{
@@ -74,8 +73,10 @@ export const Image: React.FC<ImageProps> = ({ testimonials }) => {
             </div>
           </div>
         </Carousel>
-      </div>
-    </section>
+      ) : (
+        <TestimonialCard testimonial={testimonials[0]!} />
+      )}
+    </div>
   )
 }
 
