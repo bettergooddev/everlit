@@ -63,16 +63,21 @@ export function CaseStudiesDesktop({
             <Link
               key={id}
               href={`/case-studies/${slug}`}
-              className="py-8 bg-transparent hover:bg-background-100/25 outline outline-foreground-300/10 grid grid-cols-subgrid col-start-1 col-span-4 shadow-inner transition-colors"
+              className="py-8 bg-transparent outline outline-foreground-300/10 grid grid-cols-subgrid col-start-1 col-span-4 transition-colors duration-500 relative"
               style={{
                 outlineWidth: '1px',
                 outlineOffset: '-0.5px',
-                boxShadow:
-                  index === activeStudy ? 'inset 0 0 20px 10px rgba(0, 0, 0, 0.1)' : undefined,
               }}
               onMouseEnter={() => setActiveStudy(index)}
               onMouseLeave={() => setActiveStudy(null)}
             >
+              <div
+                className={cn(
+                  'absolute inset-0 bg-background-100/25 shadow-inner -z-[1] duration-300',
+                  index === activeStudy ? 'opacity-100' : 'opacity-0',
+                )}
+              />
+
               <div className="col-start-2 pr-8">
                 <div className="type-h3">{title}</div>
               </div>
