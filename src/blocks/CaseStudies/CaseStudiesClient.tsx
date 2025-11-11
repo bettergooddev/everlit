@@ -6,6 +6,8 @@ import { Media } from '@/components/Media'
 import type { CaseStudiesBlock, CaseStudy } from '@/payload-types'
 import Link from 'next/link'
 import { Frame } from '@/components/Frame'
+import { AnimatePresence, motion } from 'motion/react'
+import { cn } from '@/utilities/ui'
 
 type CaseStudiesBlockType = Omit<CaseStudiesBlock, 'caseStudies'> & {
   caseStudies: CaseStudy[]
@@ -43,20 +45,25 @@ export function CaseStudiesClient({ heading, caseStudies }: CaseStudiesBlockType
             ))}
           </div>
           <div className="col-start-3 col-span-3 row-start-1 size-full relative pointer-events-none">
-            {hasActiveStudy && (
-              <div className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32">
+            {caseStudies.map(({ id, title, slug }, index) => (
+              <div
+                className={cn(
+                  'absolute inset-0 grid grid-cols-[70%,30%] gap-16 p-32',
+                  index === activeStudy ? 'opacity-100' : 'opacity-0',
+                )}
+              >
                 <Frame
-                  resource={caseStudies[activeStudy]?.studyHero?.image}
+                  resource={caseStudies[index]?.studyHero?.image}
                   className="size-full -mt-[35%] flex aspect-[3/4] "
                   imgClassName="size-full object-cover "
                 />
                 <Frame
-                  resource={caseStudies[activeStudy]?.gallery[0]}
+                  resource={caseStudies[index]?.gallery[0]}
                   className="size-full h-1/2 mt-[65%] flex"
                   imgClassName="size-full object-cover"
                 />
               </div>
-            )}
+            ))}
           </div>
         </div>
       </div>
