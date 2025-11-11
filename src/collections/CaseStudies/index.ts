@@ -81,6 +81,7 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
               relationTo: 'media',
               hasMany: true,
               required: true,
+              minRows: 1,
             },
           ],
           label: 'Content',
@@ -138,6 +139,7 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
       name: 'authors',
       type: 'relationship',
       admin: {
+        hidden: true,
         position: 'sidebar',
       },
       hasMany: true,

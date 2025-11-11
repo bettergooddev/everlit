@@ -14,6 +14,7 @@ export const studyHeroFields: Field[] = [
     name: 'image',
     type: 'upload',
     relationTo: 'media',
+    required: true,
   },
   {
     name: 'heading',

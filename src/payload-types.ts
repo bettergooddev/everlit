@@ -168,7 +168,7 @@ export interface Page {
       image?: (string | null) | Media;
     };
     study?: {
-      image?: (string | null) | Media;
+      image: string | Media;
       heading?: string | null;
       type: 'residential' | 'commercial';
       date: string;
@@ -398,7 +398,7 @@ export interface CaseStudy {
   id: string;
   title: string;
   studyHero: {
-    image?: (string | null) | Media;
+    image: string | Media;
     heading?: string | null;
     type: 'residential' | 'commercial';
     date: string;
