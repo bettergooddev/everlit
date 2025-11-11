@@ -4,7 +4,6 @@ import type { Page } from '@/payload-types'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { Badge } from '@/components/ui/badge'
-import { formatLongDate } from '@/utilities/formatDateTime'
 import { isRichTextEmpty } from '@/utilities/richtext'
 
 export const StudyHero: React.FC<Page['hero']> = (props) => {
@@ -12,8 +11,6 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
 
   const { image, heading, type, date, location, description, collaborators, scope, features } =
     props.study
-
-  const formattedDate = date ? formatLongDate(date) : null
 
   return (
     <section className="w-full">
@@ -35,13 +32,11 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           )}
 
           {/* Metadata Row */}
-          {(type || formattedDate || location) && (
+          {(type || date || location) && (
             <>
               <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
                 {type && <Badge className="capitalize">{type}</Badge>}
-                {formattedDate && (
-                  <span className="type-body text-foreground-100/75">{formattedDate}</span>
-                )}
+                {date && <span className="type-body text-foreground-100/75">{date}</span>}
                 {location && <span className="type-body text-foreground-100/75">{location}</span>}
               </div>
 

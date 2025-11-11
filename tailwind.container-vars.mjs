@@ -1,0 +1,64 @@
+/** @type {import('tailwindcss').PluginCreator} */
+export default function ({ addBase, theme }) {
+  const containerScreens = theme('container.screens', {})
+  const containerPadding = theme('container.padding', {})
+  const defaultPadding = containerPadding.DEFAULT || containerPadding.default || '1rem'
+  
+  // Helper function to get padding for a breakpoint
+  const getPadding = (breakpointName) => {
+    return containerPadding[breakpointName] || defaultPadding
+  }
+  
+  // Helper function to calculate content width (max-width - 2 * padding)
+  const calculateContentWidth = (maxWidth, padding) => {
+    const maxWidthValue = parseFloat(maxWidth)
+    const paddingValue = parseFloat(padding)
+    const totalPadding = paddingValue * 2 // left + right
+    return `${maxWidthValue - totalPadding}rem`
+  }
+  
+  // Get all breakpoints sorted by value
+  const breakpoints = Object.entries(containerScreens)
+    .map(([name, value]) => {
+      const padding = getPadding(name)
+      const contentWidth = calculateContentWidth(value, padding)
+      return { name, value, padding, contentWidth }
+    })
+    .sort((a, b) => {
+      // Convert rem to pixels for comparison (1rem = 16px)
+      const aValue = parseFloat(a.value) * 16
+      const bValue = parseFloat(b.value) * 16
+      return aValue - bValue
+    })
+
+  // Generate CSS variables for each breakpoint
+  const cssVars = {}
+  const mediaQueries = []
+
+  // Set default (smallest breakpoint)
+  if (breakpoints.length > 0) {
+    cssVars['--container-max-width'] = breakpoints[0].contentWidth
+  }
+
+  // Generate media queries for each breakpoint
+  breakpoints.forEach(({ name, value, contentWidth }) => {
+    mediaQueries.push({
+      [`@media (width >= ${value})`]: {
+        ':root': {
+          '--container-max-width': contentWidth,
+        },
+      },
+    })
+  })
+
+  // Add base CSS variables
+  addBase({
+    ':root': cssVars,
+  })
+
+  // Add media queries
+  mediaQueries.forEach((query) => {
+    addBase(query)
+  })
+}
+

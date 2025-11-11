@@ -1,6 +1,7 @@
 import tailwindcssAnimate from 'tailwindcss-animate'
 import typography from '@tailwindcss/typography'
 import fluid, { extract, screens, fontSize } from 'fluid-tailwind'
+import containerVarsPlugin from './tailwind.container-vars.mjs'
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -15,7 +16,7 @@ const config = {
     extract,
   },
   darkMode: ['selector', '[data-theme="dark"]'],
-  plugins: [tailwindcssAnimate, typography, fluid],
+  plugins: [tailwindcssAnimate, typography, fluid, containerVarsPlugin],
   prefix: '',
   safelist: [
     'lg:col-span-4',
@@ -106,6 +107,7 @@ const config = {
           DEFAULT: 'hsl(var(--foreground))',
           900: 'hsl(var(--foreground-900))',
           500: 'hsl(var(--foreground-500))',
+          300: 'hsl(var(--foreground-300))',
           100: 'hsl(var(--foreground-100))',
         },
         input: 'hsl(var(--input))',
