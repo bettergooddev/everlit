@@ -906,6 +906,7 @@ export interface GalleryBlock {
  */
 export interface CaseStudiesBlock {
   heading: string;
+  backgroundImage: string | Media;
   caseStudies: (string | CaseStudy)[];
   id?: string | null;
   blockName?: string | null;
@@ -1491,6 +1492,7 @@ export interface GalleryBlockSelect<T extends boolean = true> {
  */
 export interface CaseStudiesBlockSelect<T extends boolean = true> {
   heading?: T;
+  backgroundImage?: T;
   caseStudies?: T;
   id?: T;
   blockName?: T;

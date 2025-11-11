@@ -13,18 +13,41 @@ type CaseStudiesBlockType = Omit<CaseStudiesBlock, 'caseStudies'> & {
   caseStudies: CaseStudy[]
 }
 
-export function CaseStudiesClient({ heading, caseStudies }: CaseStudiesBlockType) {
+export function CaseStudiesClient({ heading, backgroundImage, caseStudies }: CaseStudiesBlockType) {
   const [activeStudy, setActiveStudy] = useState<number | null>(null)
-  const hasActiveStudy = typeof activeStudy === 'number'
 
   if (!caseStudies || caseStudies.length === 0) return null
 
   return (
     <>
-      <div className="">
-        <Heading heading={heading} className="container" />
+      <div className="relative">
+        {/* <motion.div
+          animate={{
+            rotateY: [12, -12, 12],
+            // rotateX: [10, -10, 10],
+            translateY: [2, -2, 2],
+            translateX: [5, -5, 5],
+            opacity: [100, 80, 100],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            transformStyle: 'preserve-3d',
+          }}
+        > */}
+        <Media
+          resource={backgroundImage}
+          className=""
+          imgClassName="z-[-1] absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[unset] size-[2000px] object-contain"
+        />
+        {/* </motion.div> */}
 
-        <div className="grid grid-cols-[1fr,calc(var(--container-max-width)/2),calc(var(--container-max-width)/2),1fr]">
+        <Heading heading={heading} className="container z-10" />
+
+        <div className="grid grid-cols-[1fr,calc(var(--container-max-width)/2),calc(var(--container-max-width)/2),1fr] z-[1]">
           <div className="grid grid-cols-subgrid col-start-1 col-span-4 row-start-1">
             {caseStudies.map(({ id, title, slug }, index) => (
               <Link

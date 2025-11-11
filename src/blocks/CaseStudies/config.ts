@@ -14,6 +14,14 @@ export const CaseStudies: Block = {
       required: true,
     },
     {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      defaultValue: '69135116854935e5aa5fbfdc',
+      required: true,
+      hidden: true,
+    },
+    {
       name: 'caseStudies',
       type: 'relationship',
       relationTo: 'case-studies',
