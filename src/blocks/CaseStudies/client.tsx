@@ -2,7 +2,7 @@
 
 import type { CaseStudiesBlock, CaseStudy } from '@/payload-types'
 import { CaseStudiesDesktop } from './desktop'
-import { CaseStudiesMobile } from './CaseStudiesMobile'
+import { CaseStudiesMobile } from './mobile'
 
 type CaseStudiesBlockType = Omit<CaseStudiesBlock, 'caseStudies'> & {
   caseStudies: CaseStudy[]

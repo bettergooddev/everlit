@@ -2,7 +2,7 @@ import React from 'react'
 import type { CaseStudiesBlock as CaseStudiesBlockType, CaseStudy } from '@/payload-types'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { CaseStudiesClient } from './CaseStudiesClient'
+import { CaseStudiesClient } from './client'
 
 export const CaseStudiesBlock: React.FC<CaseStudiesBlockType> = async (props) => {
   const payload = await getPayload({ config: configPromise })
