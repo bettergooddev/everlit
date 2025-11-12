@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { lexicalEditor, ParagraphFeature } from '@payloadcms/richtext-lexical'
 
 import { dualImageFields } from './DualImage/fields'
 import { gridFields } from './Grid/fields'
@@ -31,8 +32,11 @@ export const Content: Block = {
     },
     {
       name: 'heading',
-      type: 'text',
+      type: 'richText',
       required: true,
+      editor: lexicalEditor({
+        features: [ParagraphFeature()],
+      }),
     },
     {
       name: 'description',
