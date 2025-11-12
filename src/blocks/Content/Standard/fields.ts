@@ -21,5 +21,10 @@ export const standardFields: Field[] = [
         required: true,
       },
     ],
+    admin: {
+      components: {
+        RowLabel: '@/blocks/Content/Standard/BulletsRowLabel#BulletsRowLabel',
+      },
+    },
   },
 ]
