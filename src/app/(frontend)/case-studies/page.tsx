@@ -5,14 +5,31 @@ import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
+import { draftMode } from 'next/headers'
+import React, { cache } from 'react'
 import PageClient from './page.client'
+import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
+import { CaseStudy, Media } from '@/payload-types'
+import { RenderHero } from '@/heros/RenderHero'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { generateMeta } from '@/utilities/generateMeta'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
 
 export default async function Page() {
   const payload = await getPayload({ config: configPromise })
+
+  const page = await queryPageBySlug({ slug: 'case-studies' })
+
+  const backgroundImage = await payload.find({
+    collection: 'media',
+    where: {
+      id: {
+        equals: '69135116854935e5aa5fbfdc',
+      },
+    },
+  })
 
   const caseStudies = await payload.find({
     collection: 'case-studies',
@@ -27,37 +44,55 @@ export default async function Page() {
     },
   })
 
+  const { hero, layout } = page || {}
+
   return (
     <div className="pt-24 pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Case Studies</h1>
-        </div>
-      </div>
 
-      <div className="container mb-8">
-        <PageRange
-          collection="case-studies"
-          currentPage={caseStudies.page}
-          limit={12}
-          totalDocs={caseStudies.totalDocs}
-        />
-      </div>
+      {hero && <RenderHero {...hero} />}
 
-      {/* <CollectionArchive caseStudies={caseStudies.docs} /> */}
+      <CaseStudiesBlock
+        blockType="case-studies"
+        backgroundImage={backgroundImage.docs[0] as Media}
+        caseStudies={caseStudies.docs as CaseStudy[]}
+      />
 
-      <div className="container">
-        {caseStudies.totalPages > 1 && caseStudies.page && (
-          <Pagination page={caseStudies.page} totalPages={caseStudies.totalPages} />
-        )}
-      </div>
+      {layout && <RenderBlocks blocks={layout} />}
     </div>
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await queryPageBySlug({ slug: 'case-studies' })
+
+  if (page) {
+    return generateMeta({ doc: page })
+  }
+
   return {
     title: `Payload Website Template Case Studies`,
   }
 }
+
+const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+  const { isEnabled: draft } = await draftMode()
+
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    collection: 'pages',
+    draft,
+    depth: 3,
+    limit: 1,
+    pagination: false,
+    overrideAccess: draft,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  return result.docs?.[0] || null
+})
