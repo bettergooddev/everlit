@@ -1,10 +1,11 @@
 'use client'
 
+import { useRef, useEffect } from 'react'
 import type { CaseStudy, Media as MediaType } from '@/payload-types'
 import Link from 'next/link'
 import { Frame } from '@/components/Frame'
 import { ArrowRight } from 'lucide-react'
-import { motion } from 'motion/react'
+import { motion, useInView } from 'motion/react'
 import { Media } from '@/components/Media'
 import { Heading } from '@/components/Heading'
 import { cn } from '@/utilities/ui'
@@ -27,36 +28,10 @@ export function CaseStudiesMobile({
 
   return (
     <div className={cn(className, 'relative')}>
-      <div className="absolute inset-0 z-[-1] overflow-hidden max-w-[100vw] ">
-        <motion.div
-          className="absolute inset-0 z-[-1] blur-xl "
-          animate={{
-            rotateY: [14, -14, 14],
-            rotateX: [8, -8, 8],
-            // rotateX: [10, -10, 10],
-            translateY: [4, -4, 4],
-            translateX: [7, -7, 7],
-            opacity: [100, 80, 100],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          style={{
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          <Media
-            resource={backgroundImage}
-            className=""
-            imgClassName="absolute inset-0 object-right-top translate-x-[-1000px] max-w-[unset] size-[2000px] object-contain rotate-[200deg] scale-125"
-          />
-        </motion.div>
-      </div>
+      <BackgroundGlow backgroundImage={backgroundImage} />
       {heading && <Heading heading={heading} className="container z-10" />}
 
-      <div className="container grid gap-16">
+      <div className="relative container grid gap-16 z-10">
         {caseStudies.map(({ id, title, slug, studyHero }, index) => (
           <motion.div
             key={id}
@@ -85,5 +60,58 @@ export function CaseStudiesMobile({
         ))}
       </div>
     </div>
+  )
+}
+
+function BackgroundGlow({ backgroundImage }: { backgroundImage: string | MediaType }) {
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const parentRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (wrapperRef.current?.parentNode) {
+      parentRef.current = wrapperRef.current.parentNode as HTMLElement
+    }
+  }, [])
+
+  const backgroundIsInView = useInView(parentRef, { once: false, amount: 0.4 })
+
+  return (
+    <motion.div
+      ref={wrapperRef}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: backgroundIsInView ? 1 : 0 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1],
+      }}
+    >
+      <div className="absolute inset-0 z-[-1] overflow-hidden max-w-[100vw]">
+        <motion.div
+          className="absolute inset-0 z-[-1] blur-xl"
+          animate={{
+            rotateY: [18, -18, 18],
+            rotateX: [8, -8, 8],
+            // rotateX: [10, -10, 10],
+            translateY: [5, -5, 5],
+            translateX: [7, -7, 7],
+            opacity: [100, 80, 100],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            transformStyle: 'preserve-3d',
+          }}
+        >
+          <Media
+            resource={backgroundImage}
+            className=""
+            imgClassName="absolute inset-0 object-right-top translate-x-[-1000px] max-w-[unset] size-[2000px] object-contain rotate-[200deg] scale-125"
+          />
+        </motion.div>
+      </div>
+    </motion.div>
   )
 }

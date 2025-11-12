@@ -1,14 +1,11 @@
 'use client'
 
-import type { CaseStudiesBlock, CaseStudy } from '@/payload-types'
+import type { CaseStudiesBlock, CaseStudy, Media } from '@/payload-types'
 import { CaseStudiesDesktop } from './desktop'
 import { CaseStudiesMobile } from './mobile'
+import { CaseStudiesBlockProps } from './Component'
 
-type CaseStudiesBlockType = Omit<CaseStudiesBlock, 'caseStudies'> & {
-  caseStudies: CaseStudy[]
-}
-
-export function CaseStudiesClient(props: CaseStudiesBlockType) {
+export function CaseStudiesClient(props: CaseStudiesBlockProps) {
   if (!props.caseStudies || props.caseStudies.length === 0) return null
 
   return (

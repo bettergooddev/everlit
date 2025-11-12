@@ -1,16 +1,27 @@
 import React from 'react'
-import type { CaseStudiesBlock as CaseStudiesBlockType, CaseStudy } from '@/payload-types'
+import type { CaseStudiesBlock as CaseStudiesBlockType, CaseStudy, Media } from '@/payload-types'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { CaseStudiesClient } from './client'
 
-export const CaseStudiesBlock: React.FC<CaseStudiesBlockType> = async (props) => {
+export type CaseStudiesBlockProps = Omit<
+  CaseStudiesBlockType,
+  'caseStudies' | 'backgroundImage'
+> & {
+  caseStudies: CaseStudy[]
+  backgroundImage: Media
+  className?: string
+}
+
+export const CaseStudiesBlock: React.FC<CaseStudiesBlockType> = async (rawProps) => {
   const payload = await getPayload({ config: configPromise })
+
+  const backgroundImage = rawProps.backgroundImage as Media
 
   let populatedCaseStudies: CaseStudy[] = []
 
-  if (props?.caseStudies && props.caseStudies.length > 0) {
-    const caseStudyIds = props.caseStudies.map((caseStudy) =>
+  if (rawProps?.caseStudies && rawProps.caseStudies.length > 0) {
+    const caseStudyIds = rawProps.caseStudies.map((caseStudy) =>
       typeof caseStudy === 'object' && caseStudy?.id ? caseStudy.id : caseStudy,
     )
 
@@ -31,7 +42,7 @@ export const CaseStudiesBlock: React.FC<CaseStudiesBlockType> = async (props) =>
     const caseStudiesMap = new Map(caseStudiesResult.docs.map((doc) => [doc.id, doc]))
 
     // Preserve the original order by mapping over the original array
-    populatedCaseStudies = props.caseStudies
+    populatedCaseStudies = rawProps.caseStudies
       .map((caseStudy) => {
         // Extract the ID whether it's a string or object
         const id = typeof caseStudy === 'object' && caseStudy?.id ? caseStudy.id : caseStudy
@@ -44,5 +55,7 @@ export const CaseStudiesBlock: React.FC<CaseStudiesBlockType> = async (props) =>
       .filter((caseStudy): caseStudy is CaseStudy => caseStudy !== null)
   }
 
-  return <CaseStudiesClient {...props} caseStudies={populatedCaseStudies} />
+  const props = { ...rawProps, caseStudies: populatedCaseStudies, backgroundImage }
+
+  return <CaseStudiesClient {...props} />
 }
