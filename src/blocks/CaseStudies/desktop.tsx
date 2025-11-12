@@ -34,11 +34,11 @@ export function CaseStudiesDesktop({
         className=" absolute inset-0 z-[-1] blur-xl"
         animate={{
           rotateY: [14, -14, 14],
-          rotateX: [8, -8, 8],
-          scaleY: [1.25, 1, 1.25],
+          //   rotateX: [8, -8, 8],
+          scaleY: [1.05, 1, 1.05],
           // rotateX: [10, -10, 10],
-          translateY: [4, -4, 4],
-          translateX: [7, -7, 7],
+          //   translateY: [4, -4, 4],
+          //   translateX: [7, -7, 7],
           opacity: [100, 80, 100],
         }}
         transition={{
@@ -53,7 +53,7 @@ export function CaseStudiesDesktop({
         <Media
           resource={backgroundImage}
           className=""
-          imgClassName="absolute inset-0 object-left-top left-[-35%] top-[-120%] xl:left-[-15%] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
+          imgClassName="absolute inset-0 object-left-top left-[-30rem] top-[-55rem] xl:left-[-20rem] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
         />
       </motion.div>
 
@@ -84,7 +84,7 @@ export function CaseStudiesDesktop({
               <Frame
                 resource={caseStudies[index]?.studyHero?.image}
                 className="size-full -mt-[35%] flex aspect-[3/4] "
-                imgClassName="size-full object-cover "
+                imgClassName="size-full object-cover will-change-transform"
               />
               <motion.div
                 className="will-change-transform"
@@ -99,7 +99,7 @@ export function CaseStudiesDesktop({
                 <Frame
                   resource={caseStudies[index]?.gallery[0]}
                   className="size-full h-1/2 mt-[65%] flex"
-                  imgClassName="size-full object-cover"
+                  imgClassName="size-full object-cover will-change-transform"
                 />
               </motion.div>
             </motion.div>
@@ -142,7 +142,7 @@ function CaseStudyLinksWrapper({
         <Link
           key={id}
           href={`/case-studies/${slug}`}
-          className="py-8 bg-transparent outline outline-foreground-300/10 grid grid-cols-subgrid col-start-1 col-span-4 transition-colors duration-500 relative"
+          className="py-8 bg-transparent outline outline-foreground-100/10 grid grid-cols-subgrid col-start-1 col-span-4 transition-colors duration-500 relative"
           style={{
             outlineWidth: '1px',
             outlineOffset: '-0.5px',
