@@ -905,7 +905,7 @@ export interface GalleryBlock {
  * via the `definition` "CaseStudiesBlock".
  */
 export interface CaseStudiesBlock {
-  heading: string;
+  heading?: string | null;
   backgroundImage: string | Media;
   caseStudies: (string | CaseStudy)[];
   id?: string | null;

@@ -11,7 +11,7 @@ export const CaseStudies: Block = {
     {
       name: 'heading',
       type: 'text',
-      required: true,
+      required: false,
     },
     {
       name: 'backgroundImage',

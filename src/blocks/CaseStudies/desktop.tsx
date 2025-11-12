@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Heading } from '@/components/Heading'
 import { Media } from '@/components/Media'
 import type { CaseStudy, Media as MediaType } from '@/payload-types'
 import Link from 'next/link'
 import { Frame } from '@/components/Frame'
-import { motion } from 'motion/react'
+import { motion, useInView, animate } from 'motion/react'
 import { cn } from '@/utilities/ui'
+import { springFadeUpStaggered } from './animations'
 
 interface CaseStudiesDesktopProps {
-  heading: string
+  heading?: string | null
   backgroundImage: string | MediaType
   caseStudies: CaseStudy[]
   className?: string
@@ -32,11 +33,12 @@ export function CaseStudiesDesktop({
       <motion.div
         className=" absolute inset-0 z-[-1] blur-xl"
         animate={{
-          rotateY: [12, -12, 12],
+          rotateY: [14, -14, 14],
           rotateX: [8, -8, 8],
+          scaleY: [1.25, 1, 1.25],
           // rotateX: [10, -10, 10],
-          translateY: [2, -2, 2],
-          translateX: [5, -5, 5],
+          translateY: [4, -4, 4],
+          translateX: [7, -7, 7],
           opacity: [100, 80, 100],
         }}
         transition={{
@@ -51,44 +53,27 @@ export function CaseStudiesDesktop({
         <Media
           resource={backgroundImage}
           className=""
-          imgClassName="absolute inset-0 object-left-top top-[-120%] left-[-25%] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
+          imgClassName="absolute inset-0 object-left-top left-[-35%] top-[-120%] xl:left-[-15%] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
         />
       </motion.div>
 
-      <Heading heading={heading} className="container z-10" />
+      {heading && <Heading heading={heading} className="container z-10" />}
 
-      <div className="grid grid-cols-[1fr,calc(var(--container-max-width)/2),calc(var(--container-max-width)/2),1fr] z-[1]">
-        <div className="grid grid-cols-subgrid col-start-1 col-span-4 row-start-1">
-          {caseStudies.map(({ id, title, slug }, index) => (
-            <Link
-              key={id}
-              href={`/case-studies/${slug}`}
-              className="py-8 bg-transparent outline outline-foreground-300/10 grid grid-cols-subgrid col-start-1 col-span-4 transition-colors duration-500 relative"
-              style={{
-                outlineWidth: '1px',
-                outlineOffset: '-0.5px',
-              }}
-              onMouseEnter={() => setActiveStudy(index)}
-              onMouseLeave={() => setActiveStudy(null)}
-            >
-              <div
-                className={cn(
-                  'absolute inset-0 bg-background-100/25 shadow-inner -z-[1] duration-300',
-                  index === activeStudy ? 'opacity-100' : 'opacity-0',
-                )}
-              />
-
-              <div className="col-start-2 pr-8">
-                <div className="type-h3">{title}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
+      <div
+        className="grid grid-cols-[1fr,calc(var(--container-max-width)/5*2),calc(var(--container-max-width)/5*3),1fr]
+      
+      xl:grid-cols-[1fr,calc(var(--container-max-width)*0.5),calc(var(--container-max-width)*0.5),1fr] z-[1]"
+      >
+        <CaseStudyLinksWrapper
+          caseStudies={caseStudies}
+          activeStudy={activeStudy}
+          setActiveStudy={setActiveStudy}
+        />
         <div className="col-start-3 col-span-3 row-start-1 size-full relative pointer-events-none">
           {caseStudies.map(({ id, title, slug }, index) => (
             <motion.div
               key={id}
-              className="absolute inset-0 grid grid-cols-[70%,30%] gap-16 pl-0 p-32 will-change-transform"
+              className="absolute inset-0 grid grid-cols-[70%,30%] gap-8 lg:gap-16 pl-0 pr-32 xl:pr-64 pt-32 xl:pt-24 will-change-transform"
               initial={{ opacity: 0, y: 20 }}
               animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{
@@ -121,6 +106,64 @@ export function CaseStudiesDesktop({
           ))}
         </div>
       </div>
+    </div>
+  )
+}
+
+interface CaseStudyLinksWrapperProps {
+  caseStudies: CaseStudy[]
+  activeStudy: number | null
+  setActiveStudy: (index: number | null) => void
+}
+
+function CaseStudyLinksWrapper({
+  caseStudies,
+  activeStudy,
+  setActiveStudy,
+}: CaseStudyLinksWrapperProps) {
+  const linkWrapperRef = useRef<HTMLDivElement>(null)
+  const linkWrapperIsInView = useInView(linkWrapperRef, { once: false, amount: 0.3 })
+
+  useEffect(() => {
+    if (!linkWrapperRef.current) return
+
+    const children = Array.from(linkWrapperRef.current.children)
+
+    if (linkWrapperIsInView) {
+      animate(children, { opacity: 1, y: 0 }, springFadeUpStaggered)
+    } else {
+      animate(children, { opacity: 0, y: 40 }, springFadeUpStaggered)
+    }
+  }, [linkWrapperIsInView])
+
+  return (
+    <div ref={linkWrapperRef} className="grid grid-cols-subgrid col-start-1 col-span-4 row-start-1">
+      {caseStudies.map(({ id, title, slug }, index) => (
+        <Link
+          key={id}
+          href={`/case-studies/${slug}`}
+          className="py-8 bg-transparent outline outline-foreground-300/10 grid grid-cols-subgrid col-start-1 col-span-4 transition-colors duration-500 relative"
+          style={{
+            outlineWidth: '1px',
+            outlineOffset: '-0.5px',
+            opacity: 0,
+            transform: 'translateY(40px)',
+          }}
+          onMouseEnter={() => setActiveStudy(index)}
+          onMouseLeave={() => setActiveStudy(null)}
+        >
+          <div
+            className={cn(
+              'absolute inset-0 bg-background-100/25 shadow-inner -z-[1] duration-300',
+              index === activeStudy ? 'opacity-100' : 'opacity-0',
+            )}
+          />
+
+          <div className="col-start-2 pr-8">
+            <div className="type-h4 xl:type-h3">{title}</div>
+          </div>
+        </Link>
+      ))}
     </div>
   )
 }
