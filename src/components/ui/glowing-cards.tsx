@@ -44,7 +44,7 @@ export interface GlowingCardsProps {
     hoverBg?: string
   }
 }
-
+//--background-glow
 const defaultGlowColor = '#616f74'
 
 export const GlowingCard: React.FC<GlowingCardProps> = ({

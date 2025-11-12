@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Media } from '@/components/Media'
 import { Heading } from '@/components/Heading'
+import { cn } from '@/utilities/ui'
 
 interface CaseStudiesMobileProps {
   heading?: string | null
@@ -25,33 +26,34 @@ export function CaseStudiesMobile({
   if (!caseStudies || caseStudies.length === 0) return null
 
   return (
-    <div className={className}>
-      <motion.div
-        className=" absolute inset-0 z-[-1] blur-xl"
-        animate={{
-          rotateY: [14, -14, 14],
-          rotateX: [8, -8, 8],
-          // rotateX: [10, -10, 10],
-          translateY: [4, -4, 4],
-          translateX: [7, -7, 7],
-          opacity: [100, 80, 100],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        style={{
-          transformStyle: 'preserve-3d',
-        }}
-      >
-        <Media
-          resource={backgroundImage}
-          className=""
-          imgClassName="absolute inset-0 object-left-top top-[-120%] left-[-25%] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
-        />
-      </motion.div>
-
+    <div className={cn(className, 'relative')}>
+      <div className="absolute inset-0 z-[-1] overflow-hidden max-w-[100vw] ">
+        <motion.div
+          className="absolute inset-0 z-[-1] blur-xl "
+          animate={{
+            rotateY: [14, -14, 14],
+            rotateX: [8, -8, 8],
+            // rotateX: [10, -10, 10],
+            translateY: [4, -4, 4],
+            translateX: [7, -7, 7],
+            opacity: [100, 80, 100],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            transformStyle: 'preserve-3d',
+          }}
+        >
+          <Media
+            resource={backgroundImage}
+            className=""
+            imgClassName="absolute inset-0 object-right-top translate-x-[-1000px] max-w-[unset] size-[2000px] object-contain rotate-[200deg] scale-125"
+          />
+        </motion.div>
+      </div>
       {heading && <Heading heading={heading} className="container z-10" />}
 
       <div className="container grid gap-16">
@@ -71,7 +73,7 @@ export function CaseStudiesMobile({
             <Link href={`/case-studies/${slug}`} className="group">
               <Frame
                 resource={studyHero?.image}
-                className="w-full aspect-[5/3] mb-4"
+                className="w-full aspect-[5/3] transition-colors duration-300 mb-4 hover:border-[#616f74] "
                 imgClassName="w-full h-full object-cover"
               />
               <div className="flex items-center justify-between">
