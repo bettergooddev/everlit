@@ -22,7 +22,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
   const socials = (data?.socials ?? []) as NonNullable<FooterType['socials']>
 
   return (
-    <footer className="bg-background-500/35 pb-16 p-12 lg:p-16 lg:pb-20 border-t-foreground-300 border-t-[0.0625rem] relative overflow-hidden">
+    <footer className="bg-background-500/35 pb-16 p-12 lg:p-16 lg:pb-20 border-t-foreground-100/10 border-t-[0.0625rem] relative overflow-hidden">
       <div className="absolute inset-0 bg-background/5 backdrop-blur-sm z-[1]" />
 
       <motion.div
@@ -58,7 +58,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
           />
         </Link>
         <div className="w-full">
-          <div className="flex lg:flex-row flex-col w-full justify-between items-center pb-8 border-b-[0.0625rem] border-foreground-300 lg:gap-0 gap-8">
+          <div className="flex lg:flex-row flex-col w-full justify-between items-center pb-8 border-b-[0.0625rem] border-foreground-100/10 lg:gap-0 gap-8">
             <FooterLinks links={links} className="" />
             <FooterButtons buttons={buttons} className="lg:flex-row flex-col lg:w-min w-full" />
           </div>

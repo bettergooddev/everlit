@@ -9,5 +9,5 @@ export interface FrameProps extends Props {
 }
 
 export const Frame: React.FC<FrameProps> = ({ className, ...props }) => {
-  return <Media {...props} className={cn('border-foreground-300 border', className)} />
+  return <Media {...props} className={cn('border-foreground-100/10 border', className)} />
 }

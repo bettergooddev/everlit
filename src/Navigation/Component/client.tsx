@@ -123,7 +123,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
               layout
               transition={transition}
               className={cn(
-                'absolute inset-0 w-full pointer-events-none transition-opacity duration-300 bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10.3px] border border-foreground-300 z-[-1]',
+                'absolute inset-0 w-full pointer-events-none transition-opacity duration-300 bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10.3px] border border-foreground-100/10 z-[-1]',
                 classes.visible({ collapsed }),
               )}
             ></motion.div>
