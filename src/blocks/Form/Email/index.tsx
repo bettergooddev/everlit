@@ -16,7 +16,10 @@ export const Email: React.FC<
     wrapperClassName?: string
     inputClassName?: string
     placeholder?: string
-  }
+    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  } & React.HTMLAttributes<HTMLDivElement>
 > = ({
   name,
   defaultValue,
@@ -28,9 +31,15 @@ export const Email: React.FC<
   wrapperClassName,
   inputClassName,
   placeholder,
+  onFocus,
+  onBlur,
+  onChange,
+  ...props
 }) => {
+  const registerProps = register(name, { pattern: /^\S[^\s@]*@\S+$/, required })
+
   return (
-    <Width width={width} className={wrapperClassName}>
+    <Width width={width} className={wrapperClassName} {...props}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
         className={cn(
@@ -41,7 +50,16 @@ export const Email: React.FC<
         id={name}
         placeholder={placeholder !== undefined ? placeholder : label}
         type="text"
-        {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
+        {...registerProps}
+        onFocus={onFocus}
+        onBlur={(e) => {
+          registerProps.onBlur?.(e)
+          onBlur?.(e)
+        }}
+        onChange={(e) => {
+          registerProps.onChange?.(e)
+          onChange?.(e)
+        }}
       />
 
       {errors?.[name] && <Error name={name} />}

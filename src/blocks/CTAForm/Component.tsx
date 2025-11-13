@@ -2,7 +2,7 @@
 import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   useForm,
   FormProvider,
@@ -23,6 +23,7 @@ import { Textarea } from '../Form/Textarea'
 import type { CallToActionBlock as CallToActionBlockPayloadType } from '@/payload-types'
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { Checkbox } from '@/components/ui/checkbox'
+import { isFieldFull } from './actions/isFieldFull'
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -56,7 +57,14 @@ export const CallToActionBlock: React.FC<
   const [error, setError] = useState<{ message: string; status?: string } | undefined>()
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [showMessage, setShowMessage] = useState(false)
+  const [formProgress, setFormProgress] = useState(0)
+  const [filledFields, setFilledFields] = useState<Set<string>>(new Set())
+  const [hoveredFields, setHoveredFields] = useState<Set<string>>(new Set())
+  const [focusedFields, setFocusedFields] = useState<Set<string>>(new Set())
   const router = useRouter()
+
+  const hasFields = formFromProps && formFromProps.fields
+  const fields = formFromProps.fields
 
   const onSubmit = useCallback(
     createOnCTASubmit({
@@ -71,8 +79,126 @@ export const CallToActionBlock: React.FC<
     [router, formID, redirect, confirmationType],
   )
 
-  const hasFields = formFromProps && formFromProps.fields
-  const fields = formFromProps.fields
+  const incrementFormProgress = useCallback((amount: number = 1) => {
+    setFormProgress((currentProgress) => currentProgress + amount)
+  }, [])
+
+  const decrementFormProgress = useCallback((amount: number = 1) => {
+    setFormProgress((currentProgress) => Math.max(0, currentProgress - amount))
+  }, [])
+
+  const getFormAttentionHandlers = useCallback(
+    (fieldName: string, amount: number = 1) => {
+      return {
+        onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+          console.log('Mouse enter triggered by:', e.currentTarget)
+          // Check state before updating
+          const wasHovered = hoveredFields.has(fieldName)
+          const isFocused = focusedFields.has(fieldName)
+          const wasActive = wasHovered || isFocused
+
+          setHoveredFields((prev) => new Set(prev).add(fieldName))
+
+          // Only update if field hasn't been filled yet
+          if (!filledFields.has(fieldName) && !wasActive) {
+            // Field became active (hovered)
+            incrementFormProgress(amount)
+          }
+        },
+        onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
+          console.log('Mouse leave triggered by:', e.currentTarget)
+          // Check state before updating
+          const wasHovered = hoveredFields.has(fieldName)
+          const isFocused = focusedFields.has(fieldName)
+          const wasActive = wasHovered || isFocused
+
+          setHoveredFields((prev) => {
+            const newSet = new Set(prev)
+            newSet.delete(fieldName)
+            return newSet
+          })
+
+          // Only update if field hasn't been filled yet
+          if (!filledFields.has(fieldName) && wasActive && !isFocused) {
+            // Field became inactive (lost both hover and focus)
+            decrementFormProgress(amount)
+          }
+        },
+        onFocus: (e: React.FocusEvent<HTMLElement>) => {
+          console.log('Focus triggered by:', e.currentTarget)
+          // Check state before updating
+          const wasFocused = focusedFields.has(fieldName)
+          const isHovered = hoveredFields.has(fieldName)
+          const wasActive = wasFocused || isHovered
+
+          setFocusedFields((prev) => new Set(prev).add(fieldName))
+
+          // Only update if field hasn't been filled yet
+          if (!filledFields.has(fieldName) && !wasActive) {
+            // Field became active (focused)
+            incrementFormProgress(amount)
+          }
+        },
+        onBlur: (e: React.FocusEvent<HTMLElement>) => {
+          console.log('Blur triggered by:', e.currentTarget)
+          // Check state before updating
+          const wasFocused = focusedFields.has(fieldName)
+          const isHovered = hoveredFields.has(fieldName)
+          const wasActive = wasFocused || isHovered
+
+          setFocusedFields((prev) => {
+            const newSet = new Set(prev)
+            newSet.delete(fieldName)
+            return newSet
+          })
+
+          // Only update if field hasn't been filled yet
+          if (!filledFields.has(fieldName) && wasActive && !isHovered) {
+            // Field became inactive (lost both hover and focus)
+            decrementFormProgress(amount)
+          }
+        },
+      }
+    },
+    [incrementFormProgress, decrementFormProgress, filledFields, hoveredFields, focusedFields],
+  )
+
+  const getFormChangeHandlers = useCallback(
+    (fieldName: string, amount: number = 1) => {
+      return {
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+          console.log('Change triggered by:', e.currentTarget)
+          // Get the current value when change happens
+          const fieldValue = e.target.value
+          const isFull = isFieldFull(fieldValue)
+          const wasFilled = filledFields.has(fieldName)
+
+          if (isFull === 1 && !wasFilled) {
+            // Field is now filled and hasn't been counted yet
+            setFilledFields((prev) => new Set(prev).add(fieldName))
+            incrementFormProgress(amount)
+          } else if (isFull === 0 && wasFilled) {
+            // Field was filled but is now empty - remove it and decrement
+            setFilledFields((prev) => {
+              const newSet = new Set(prev)
+              newSet.delete(fieldName)
+              return newSet
+            })
+            decrementFormProgress(amount)
+          }
+        },
+      }
+    },
+    [filledFields, incrementFormProgress, decrementFormProgress],
+  )
+
+  // useEffect(() => {
+  //   console.log('Form progress value:', formProgress)
+  // }, [formProgress])
+
+  useEffect(() => {
+    console.log('Filled fields:', Array.from(filledFields))
+  }, [filledFields])
 
   return (
     <div className="container">
@@ -116,11 +242,14 @@ export const CallToActionBlock: React.FC<
                         width={100}
                         // errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
                         register={register as unknown as UseFormRegister<FieldValues>}
+                        {...getFormAttentionHandlers('email', 1)}
+                        {...getFormChangeHandlers('email', 1)}
                       />
                       <Button
                         variant={'default'}
                         className="px-6 flex h-full"
                         type="button"
+                        {...getFormAttentionHandlers('continue-button', 2)}
                         onClick={async (e) => {
                           e.preventDefault()
                           const emailValue = watch('email' as any)
@@ -163,6 +292,7 @@ export const CallToActionBlock: React.FC<
                               errors={errors}
                               register={register}
                               inputClassName="mt-1"
+                              // {...getFormAttentionHandlers(1)}
                             />
                           </div>
                         )
@@ -203,6 +333,17 @@ export const CallToActionBlock: React.FC<
           </form>
         )}
       </FormProvider>
+
+      {!hasSubmitted && (
+        <div className="flex justify-center mt-8">
+          <div
+            className="w-16 h-16 bg-red-500 rounded-full transition-transform duration-300 ease-out"
+            style={{
+              transform: `scale(${1 + formProgress * 0.1})`,
+            }}
+          />
+        </div>
+      )}
     </div>
   )
 }

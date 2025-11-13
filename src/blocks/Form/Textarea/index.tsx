@@ -17,13 +17,27 @@ export const Textarea: React.FC<
     wrapperClassName?: string
     inputClassName?: string
   }
-> = ({ name, defaultValue, errors, label, register, required, rows = 3, width, wrapperClassName, inputClassName }) => {
+> = ({
+  name,
+  defaultValue,
+  errors,
+  label,
+  register,
+  required,
+  rows = 3,
+  width,
+  wrapperClassName,
+  inputClassName,
+}) => {
   return (
     <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
 
       <TextAreaComponent
-        className={cn('rounded-none border-none bg-card shadow-md type-body placeholder:opacity-50 min-h-32', inputClassName)}
+        className={cn(
+          'rounded-none border-none bg-card shadow-md type-body placeholder:opacity-50 min-h-32',
+          inputClassName,
+        )}
         defaultValue={defaultValue}
         id={name}
         placeholder={label}
