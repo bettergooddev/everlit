@@ -50,6 +50,7 @@ export const CallToActionBlock: React.FC<
     register,
     trigger,
     watch,
+    setValue,
   } = formMethods
 
   const [isLoading, setIsLoading] = useState(false)
@@ -166,7 +167,7 @@ export const CallToActionBlock: React.FC<
   const getFormChangeHandlers = useCallback(
     (fieldName: string, amount: number = 1) => {
       return {
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           console.log('Change triggered by:', e.currentTarget)
           // Get the current value when change happens
           const fieldValue = e.target.value
@@ -192,9 +193,9 @@ export const CallToActionBlock: React.FC<
     [filledFields, incrementFormProgress, decrementFormProgress],
   )
 
-  // useEffect(() => {
-  //   console.log('Form progress value:', formProgress)
-  // }, [formProgress])
+  useEffect(() => {
+    console.log('Form progress value:', formProgress)
+  }, [formProgress])
 
   useEffect(() => {
     console.log('Filled fields:', Array.from(filledFields))
@@ -243,7 +244,7 @@ export const CallToActionBlock: React.FC<
                         // errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
                         register={register as unknown as UseFormRegister<FieldValues>}
                         {...getFormAttentionHandlers('email', 1)}
-                        {...getFormChangeHandlers('email', 1)}
+                        {...(getFormChangeHandlers('email', 1) as any)}
                       />
                       <Button
                         variant={'default'}
@@ -282,6 +283,11 @@ export const CallToActionBlock: React.FC<
                           fieldComponents?.[field.blockType as keyof typeof fieldComponents]
 
                         if (!Field) return null
+
+                        // Message fields are display-only and don't have a name property
+                        const fieldName =
+                          field.blockType === 'message' || !('name' in field) ? null : field.name
+
                         return (
                           <div className="" key={index}>
                             <Field
@@ -292,7 +298,8 @@ export const CallToActionBlock: React.FC<
                               errors={errors}
                               register={register}
                               inputClassName="mt-1"
-                              // {...getFormAttentionHandlers(1)}
+                              {...(fieldName ? getFormAttentionHandlers(fieldName, 1) : {})}
+                              {...(fieldName ? getFormChangeHandlers(fieldName, 1) : {})}
                             />
                           </div>
                         )
@@ -303,6 +310,10 @@ export const CallToActionBlock: React.FC<
                         checked={showMessage}
                         onCheckedChange={(checked) => {
                           setShowMessage(checked === true)
+                          if (checked === false) {
+                            // Clear the message field when unchecked
+                            ;(setValue as any)('message', '')
+                          }
                         }}
                       />
                       <FormLabel htmlFor="write-message" label="Write a Message" required={false} />
@@ -314,12 +325,14 @@ export const CallToActionBlock: React.FC<
                           blockType="text"
                           defaultValue=""
                           label="Message"
-                          name="Message"
+                          name="message"
                           required={false}
                           width={100}
                           errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
                           register={register as unknown as UseFormRegister<FieldValues>}
                           inputClassName="mt-1"
+                          {...getFormAttentionHandlers('message', 1)}
+                          {...(getFormChangeHandlers('message', 1) as any)}
                         />
                       </div>
                     )}

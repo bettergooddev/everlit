@@ -14,10 +14,29 @@ export const Number: React.FC<
     register: UseFormRegister<FieldValues>
     wrapperClassName?: string
     inputClassName?: string
-  }
-> = ({ name, defaultValue, errors, label, register, required, width, wrapperClassName, inputClassName }) => {
+    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void
+    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  } & React.HTMLAttributes<HTMLDivElement>
+> = ({
+  name,
+  defaultValue,
+  errors,
+  label,
+  register,
+  required,
+  width,
+  wrapperClassName,
+  inputClassName,
+  onFocus,
+  onBlur,
+  onChange,
+  ...props
+}) => {
+  const registerProps = register(name, { required })
+
   return (
-    <Width width={width} className={wrapperClassName}>
+    <Width width={width} className={wrapperClassName} {...props}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
         className={cn('border-none shadow-md bg-card type-body placeholder:opacity-50', inputClassName)}
@@ -25,7 +44,16 @@ export const Number: React.FC<
         id={name}
         placeholder={label}
         type="number"
-        {...register(name, { required })}
+        {...registerProps}
+        onFocus={onFocus}
+        onBlur={(e) => {
+          registerProps.onBlur?.(e)
+          onBlur?.(e)
+        }}
+        onChange={(e) => {
+          registerProps.onChange?.(e)
+          onChange?.(e)
+        }}
       />
       {errors[name] && <Error name={name} />}
     </Width>

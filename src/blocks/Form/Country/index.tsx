@@ -23,10 +23,20 @@ export const Country: React.FC<
     errors: Partial<FieldErrorsImpl>
     wrapperClassName?: string
     inputClassName?: string
-  }
-> = ({ name, control, errors, label, required, width, wrapperClassName, inputClassName }) => {
+  } & React.HTMLAttributes<HTMLDivElement>
+> = ({
+  name,
+  control,
+  errors,
+  label,
+  required,
+  width,
+  wrapperClassName,
+  inputClassName,
+  ...props
+}) => {
   return (
-    <Width width={width} className={wrapperClassName}>
+    <Width width={width} className={wrapperClassName} {...props}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Controller
         control={control}

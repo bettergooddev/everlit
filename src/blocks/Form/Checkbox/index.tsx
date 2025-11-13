@@ -17,20 +17,31 @@ export const Checkbox: React.FC<
     register: UseFormRegister<FieldValues>
     wrapperClassName?: string
     inputClassName?: string
-  }
-> = ({ name, defaultValue, errors, label, register, required, width, wrapperClassName, inputClassName }) => {
-  const props = register(name, { required: required })
+  } & React.HTMLAttributes<HTMLDivElement>
+> = ({
+  name,
+  defaultValue,
+  errors,
+  label,
+  register,
+  required,
+  width,
+  wrapperClassName,
+  inputClassName,
+  ...props
+}) => {
+  const registerProps = register(name, { required: required })
   const { setValue } = useFormContext()
 
   return (
-    <Width width={width} className={wrapperClassName}>
+    <Width width={width} className={wrapperClassName} {...props}>
       <div className={cn('flex items-center gap-2', inputClassName)}>
         <CheckboxUi
           defaultChecked={defaultValue}
           id={name}
-          {...props}
+          {...registerProps}
           onCheckedChange={(checked) => {
-            setValue(props.name, checked)
+            setValue(registerProps.name, checked)
           }}
         />
         {label && <FormLabel htmlFor={name} label={label} required={required} />}

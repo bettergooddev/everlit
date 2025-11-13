@@ -29,10 +29,18 @@ export function createOnCTASubmit({
     const submitForm = async () => {
       setError(undefined)
 
-      const dataToSend = Object.entries(data).map(([name, value]) => ({
-        field: name,
-        value,
-      }))
+      const dataToSend = Object.entries(data)
+        .filter(([name, value]) => {
+          // Exclude message field if it's empty or undefined
+          if (name === 'message' && (!value || (value as unknown as string) === '')) {
+            return false
+          }
+          return true
+        })
+        .map(([name, value]) => ({
+          field: name,
+          value,
+        }))
 
       console.log('Form data to send:', dataToSend)
 

@@ -16,7 +16,10 @@ export const Textarea: React.FC<
     rows?: number
     wrapperClassName?: string
     inputClassName?: string
-  }
+    onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void
+    onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void
+    onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  } & React.HTMLAttributes<HTMLDivElement>
 > = ({
   name,
   defaultValue,
@@ -28,9 +31,15 @@ export const Textarea: React.FC<
   width,
   wrapperClassName,
   inputClassName,
+  onFocus,
+  onBlur,
+  onChange,
+  ...props
 }) => {
+  const registerProps = register(name, { required: required })
+
   return (
-    <Width width={width} className={wrapperClassName}>
+    <Width width={width} className={wrapperClassName} {...props}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
 
       <TextAreaComponent
@@ -42,7 +51,16 @@ export const Textarea: React.FC<
         id={name}
         placeholder={label}
         rows={rows}
-        {...register(name, { required: required })}
+        {...registerProps}
+        onFocus={onFocus}
+        onBlur={(e) => {
+          registerProps.onBlur?.(e)
+          onBlur?.(e)
+        }}
+        onChange={(e) => {
+          registerProps.onChange?.(e)
+          onChange?.(e)
+        }}
       />
 
       {errors[name] && <Error name={name} />}
