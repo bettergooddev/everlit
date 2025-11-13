@@ -1,5 +1,7 @@
 'use client'
 
+// TODO: Create 2 navbars, one thats only on the homepage and is flush with the top of the page, and then the glass contained one, and have it pop out when you scroll down.
+
 import React, { useEffect, useRef, useState } from 'react'
 import { NavLogo } from './logo'
 import { renderNavigationItem } from './renderNavigationItem'
@@ -42,15 +44,6 @@ const classes = {
       },
     },
   }),
-  inner: tv({
-    base: '',
-    variants: {
-      collapsed: {
-        true: '',
-        false: '',
-      },
-    },
-  }),
   visible: tv({
     base: '',
     variants: {
@@ -65,6 +58,7 @@ const classes = {
 export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   const pathname = usePathname()
   const isCaseStudy = pathname.includes('case-studies/')
+  const isHome = pathname === '/'
 
   const [{ y }] = useWindowScroll()
 
@@ -72,12 +66,17 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
 
   useEffect(() => {
-    if (y === null) setHasScroll(false)
-    else setHasScroll(true)
+    if (isHome) {
+      if (y === null) setHasScroll(false)
+      else setHasScroll(true)
 
-    if (y && y > 50) setCollapsed(true)
-    else setCollapsed(false)
-  }, [y])
+      if (y && y > 50) setCollapsed(true)
+      else setCollapsed(false)
+    } else {
+      setHasScroll(true)
+      setCollapsed(true)
+    }
+  }, [y, isHome])
 
   const navItems = (data?.navItems ?? []) as NonNullable<NavigationType['navItems']>
   const actions = (data?.actions ?? []) as NonNullable<NavigationType['actions']>
@@ -106,17 +105,15 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
 
   return (
     <motion.nav
-      className={cn('fixed top-0 left-0 right-0 z-50', classes.header({ hasScroll, collapsed }))}
+      layoutScroll
+      className={cn('sticky top-0 left-0 right-0 z-50', classes.header({ hasScroll, collapsed }))}
       transition={transition}
     >
       <AnimatePresence>
         <motion.div
           layout="position"
           transition={transition}
-          className={cn(
-            'flex mx-auto p-[0.9rem] items-center justify-between w-full relative',
-            classes.inner({ collapsed }),
-          )}
+          className={cn('flex mx-auto p-[0.9rem] items-center justify-between w-full relative')}
         >
           <AnimatePresence>
             <motion.div

@@ -26,6 +26,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/home',
+        destination: '/',
+      },
+      {
         source: '/relay-zXAU/static/:path*',
         destination: 'https://us-assets.i.posthog.com/static/:path*',
       },

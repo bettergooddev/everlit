@@ -6,3 +6,4 @@ export const springFadeUpStaggered = {
   damping: 20,
   delay: stagger(0.1),
 }
+

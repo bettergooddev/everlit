@@ -1,4 +1,11 @@
 const redirects = async () => {
+  // Redirect /home to /
+  const homeRedirect = {
+    source: '/home',
+    destination: '/',
+    permanent: true,
+  }
+
   const internetExplorerRedirect = {
     destination: '/ie-incompatible.html',
     has: [
@@ -60,7 +67,7 @@ const redirects = async () => {
     },
   ]
 
-  const redirects = [internetExplorerRedirect, ...domainRedirects]
+  const redirects = [homeRedirect, internetExplorerRedirect, ...domainRedirects]
 
   return redirects
 }
