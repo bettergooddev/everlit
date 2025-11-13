@@ -62,6 +62,7 @@ export const CallToActionBlock: React.FC<
   const [filledFields, setFilledFields] = useState<Set<string>>(new Set())
   const [hoveredFields, setHoveredFields] = useState<Set<string>>(new Set())
   const [focusedFields, setFocusedFields] = useState<Set<string>>(new Set())
+  const [formPhase, setFormPhase] = useState(0)
   const router = useRouter()
 
   const hasFields = formFromProps && formFromProps.fields
@@ -88,11 +89,21 @@ export const CallToActionBlock: React.FC<
     setFormProgress((currentProgress) => Math.max(0, currentProgress - amount))
   }, [])
 
+  const incrementFormPhase = useCallback((amount: number = 1) => {
+    setFormPhase((currentPhase) => currentPhase + amount)
+  }, [])
+
+  const handleFormPhaseClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      incrementFormPhase(1)
+    },
+    [incrementFormPhase],
+  )
+
   const getFormAttentionHandlers = useCallback(
     (fieldName: string, amount: number = 1) => {
       return {
         onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
-          console.log('Mouse enter triggered by:', e.currentTarget)
           // Check state before updating
           const wasHovered = hoveredFields.has(fieldName)
           const isFocused = focusedFields.has(fieldName)
@@ -107,7 +118,6 @@ export const CallToActionBlock: React.FC<
           }
         },
         onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
-          console.log('Mouse leave triggered by:', e.currentTarget)
           // Check state before updating
           const wasHovered = hoveredFields.has(fieldName)
           const isFocused = focusedFields.has(fieldName)
@@ -126,7 +136,6 @@ export const CallToActionBlock: React.FC<
           }
         },
         onFocus: (e: React.FocusEvent<HTMLElement>) => {
-          console.log('Focus triggered by:', e.currentTarget)
           // Check state before updating
           const wasFocused = focusedFields.has(fieldName)
           const isHovered = hoveredFields.has(fieldName)
@@ -141,7 +150,6 @@ export const CallToActionBlock: React.FC<
           }
         },
         onBlur: (e: React.FocusEvent<HTMLElement>) => {
-          console.log('Blur triggered by:', e.currentTarget)
           // Check state before updating
           const wasFocused = focusedFields.has(fieldName)
           const isHovered = hoveredFields.has(fieldName)
@@ -168,7 +176,6 @@ export const CallToActionBlock: React.FC<
     (fieldName: string, amount: number = 1) => {
       return {
         onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-          console.log('Change triggered by:', e.currentTarget)
           // Get the current value when change happens
           const fieldValue = e.target.value
           const isFull = isFieldFull(fieldValue)
@@ -194,12 +201,8 @@ export const CallToActionBlock: React.FC<
   )
 
   useEffect(() => {
-    console.log('Form progress value:', formProgress)
-  }, [formProgress])
-
-  useEffect(() => {
-    console.log('Filled fields:', Array.from(filledFields))
-  }, [filledFields])
+    console.log('formPhase:', formPhase, 'formProgress:', formProgress)
+  }, [formPhase, formProgress])
 
   return (
     <div className="container">
@@ -253,8 +256,7 @@ export const CallToActionBlock: React.FC<
                         {...getFormAttentionHandlers('continue-button', 2)}
                         onClick={async (e) => {
                           e.preventDefault()
-                          const emailValue = watch('email' as any)
-                          console.log('Email data:', emailValue)
+                          handleFormPhaseClick(e)
                           const isValid = await trigger('email' as any)
                           if (isValid && carouselApi) {
                             carouselApi.scrollNext()
@@ -336,7 +338,13 @@ export const CallToActionBlock: React.FC<
                         />
                       </div>
                     )}
-                    <Button className="w-full mt-4" form={formID} type="submit" variant="default">
+                    <Button
+                      className="w-full mt-4"
+                      form={formID}
+                      type="submit"
+                      variant="default"
+                      onClick={handleFormPhaseClick}
+                    >
                       {submitButtonLabel}
                     </Button>
                   </div>
