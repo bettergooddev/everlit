@@ -2,39 +2,49 @@ import type { EmailField } from '@payloadcms/plugin-form-builder/types'
 import type { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form'
 
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Error } from '../Error'
+import { FormLabel } from '../FormLabel'
 import { Width } from '../Width'
 
 export const Email: React.FC<
   EmailField & {
-    errors: Partial<FieldErrorsImpl>
+    errors?: Partial<FieldErrorsImpl>
     register: UseFormRegister<FieldValues>
+    wrapperClassName?: string
+    inputClassName?: string
+    placeholder?: string
   }
-> = ({ name, defaultValue, errors, label, register, required, width }) => {
+> = ({
+  name,
+  defaultValue,
+  errors,
+  label,
+  register,
+  required,
+  width,
+  wrapperClassName,
+  inputClassName,
+  placeholder,
+}) => {
   return (
-    <Width width={width}>
-      <Label className="type-body" htmlFor={name}>
-        {label}
-
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
-      </Label>
+    <Width width={width} className={wrapperClassName}>
+      {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
-        className="border-none shadow-md bg-card type-body placeholder:opacity-50"
+        className={cn(
+          'border-none shadow-md bg-card type-body placeholder:opacity-50',
+          inputClassName,
+        )}
         defaultValue={defaultValue}
         id={name}
-        placeholder={label}
+        placeholder={placeholder !== undefined ? placeholder : label}
         type="text"
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
       />
 
-      {errors[name] && <Error name={name} />}
+      {errors?.[name] && <Error name={name} />}
     </Width>
   )
 }

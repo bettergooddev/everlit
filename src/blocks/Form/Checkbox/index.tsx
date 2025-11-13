@@ -4,24 +4,27 @@ import type { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-f
 import { useFormContext } from 'react-hook-form'
 
 import { Checkbox as CheckboxUi } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
+import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Error } from '../Error'
+import { FormLabel } from '../FormLabel'
 import { Width } from '../Width'
 
 export const Checkbox: React.FC<
   CheckboxField & {
     errors: Partial<FieldErrorsImpl>
     register: UseFormRegister<FieldValues>
+    wrapperClassName?: string
+    inputClassName?: string
   }
-> = ({ name, defaultValue, errors, label, register, required, width }) => {
+> = ({ name, defaultValue, errors, label, register, required, width, wrapperClassName, inputClassName }) => {
   const props = register(name, { required: required })
   const { setValue } = useFormContext()
 
   return (
-    <Width width={width}>
-      <div className="flex items-center gap-2">
+    <Width width={width} className={wrapperClassName}>
+      <div className={cn('flex items-center gap-2', inputClassName)}>
         <CheckboxUi
           defaultChecked={defaultValue}
           id={name}
@@ -30,14 +33,7 @@ export const Checkbox: React.FC<
             setValue(props.name, checked)
           }}
         />
-        <Label className="type-body" htmlFor={name}>
-          {required && (
-            <span className="required">
-              * <span className="sr-only">(required)</span>
-            </span>
-          )}
-          {label}
-        </Label>
+        {label && <FormLabel htmlFor={name} label={label} required={required} />}
       </div>
       {errors[name] && <Error name={name} />}
     </Width>

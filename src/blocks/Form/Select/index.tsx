@@ -1,7 +1,6 @@
 import type { SelectField } from '@payloadcms/plugin-form-builder/types'
 import type { Control, FieldErrorsImpl } from 'react-hook-form'
 
-import { Label } from '@/components/ui/label'
 import {
   Select as SelectComponent,
   SelectContent,
@@ -9,28 +8,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { cn } from '@/utilities/ui'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
 import { Error } from '../Error'
+import { FormLabel } from '../FormLabel'
 import { Width } from '../Width'
 
 export const Select: React.FC<
   SelectField & {
     control: Control
     errors: Partial<FieldErrorsImpl>
+    wrapperClassName?: string
+    inputClassName?: string
   }
-> = ({ name, control, errors, label, options, required, width, defaultValue }) => {
+> = ({ name, control, errors, label, options, required, width, defaultValue, wrapperClassName, inputClassName }) => {
   return (
-    <Width width={width}>
-      <Label className="type-body" htmlFor={name}>
-        {label}
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
-      </Label>
+    <Width width={width} className={wrapperClassName}>
+      {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Controller
         control={control}
         defaultValue={defaultValue}
@@ -40,7 +36,7 @@ export const Select: React.FC<
 
           return (
             <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className="w-full type-body" id={name}>
+              <SelectTrigger className={cn('w-full type-body', inputClassName)} id={name}>
                 <SelectValue placeholder={label} />
               </SelectTrigger>
               <SelectContent>

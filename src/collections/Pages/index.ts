@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { CallToAction } from '../../blocks/CallToAction/config'
+import { CallToAction } from '../../blocks/CTAForm/config'
 import { Content } from '@/blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 // import { MediaBlock } from '../../blocks/MediaBlock/config'

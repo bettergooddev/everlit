@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { CallToActionBlock } from '@/blocks/CTAForm/Component'
 // import { ColumnsBlock } from '@/blocks/Columns/Component'
 import { RenderContent } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -43,7 +43,7 @@ export const RenderBlocks: React.FC<{
 
   if (hasBlocks) {
     return (
-      <div className="overflow-hidden">
+      <div className="overflow-hidden flex flex-col">
         <Fragment>
           {blocks.map((block, index) => {
             const { blockType } = block
