@@ -56,7 +56,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
             {/* Left Column - Description */}
             {description && !isRichTextEmpty(description) && (
               <div>
-                <RichText data={description} enableGutter={false} />
+                <RichText className="[&_*]:max-w-[48ch]" data={description} enableGutter={false} />
               </div>
             )}
 
