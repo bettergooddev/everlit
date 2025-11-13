@@ -354,17 +354,6 @@ export const CallToActionBlock: React.FC<
           </form>
         )}
       </FormProvider>
-
-      {!hasSubmitted && (
-        <div className="flex justify-center mt-8">
-          <div
-            className="w-16 h-16 bg-red-500 rounded-full transition-transform duration-300 ease-out"
-            style={{
-              transform: `scale(${1 + formProgress * 0.1})`,
-            }}
-          />
-        </div>
-      )}
     </div>
   )
 }
