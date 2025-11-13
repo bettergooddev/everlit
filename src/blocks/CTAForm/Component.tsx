@@ -19,8 +19,10 @@ import { getClientSideURL } from '@/utilities/getURL'
 import { Email } from '../Form/Email'
 import { Error as FormError } from '../Form/Error'
 import { FormLabel } from '../Form/FormLabel'
+import { Textarea } from '../Form/Textarea'
 import type { CallToActionBlock as CallToActionBlockPayloadType } from '@/payload-types'
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -46,17 +48,20 @@ export const CallToActionBlock: React.FC<
     handleSubmit,
     register,
     trigger,
+    watch,
   } = formMethods
 
   const [isLoading, setIsLoading] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState<boolean>()
   const [error, setError] = useState<{ message: string; status?: string } | undefined>()
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [showMessage, setShowMessage] = useState(false)
   const router = useRouter()
 
   const onSubmit = useCallback(
     (data: FormFieldBlock[]) => {
       console.log('Submitted form data:', data)
+      console.log('Email data:', (data as any).email)
       let loadingTimerID: ReturnType<typeof setTimeout>
       const submitForm = async () => {
         setError(undefined)
@@ -156,7 +161,7 @@ export const CallToActionBlock: React.FC<
               <CarouselContent className="w-full ">
                 <CarouselItem className="w-full flex flex-col ">
                   <div className="relative p-2">
-                    <FormLabel htmlFor={'Email'} label={'Email'} required={true} />
+                    <FormLabel htmlFor={'email'} label={'Email'} required={true} />
                     <div className="grid grid-cols-[1fr,auto] gap-4 mt-2">
                       <Email
                         blockName={'email'}
@@ -164,7 +169,7 @@ export const CallToActionBlock: React.FC<
                         defaultValue=""
                         placeholder="Email"
                         label={''}
-                        name="Email"
+                        name="email"
                         required={true}
                         width={100}
                         // errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
@@ -176,7 +181,9 @@ export const CallToActionBlock: React.FC<
                         type="button"
                         onClick={async (e) => {
                           e.preventDefault()
-                          const isValid = await trigger('Email' as any)
+                          const emailValue = watch('email' as any)
+                          console.log('Email data:', emailValue)
+                          const isValid = await trigger('email' as any)
                           if (isValid && carouselApi) {
                             carouselApi.scrollNext()
                           }
@@ -185,9 +192,9 @@ export const CallToActionBlock: React.FC<
                         Continue
                       </Button>
                     </div>
-                    {errors?.['Email' as keyof typeof errors] && (
+                    {errors?.['email' as keyof typeof errors] && (
                       <FormError
-                        name="Email"
+                        name="email"
                         className="absolute top-full mt-0"
                         defaultMessage="Invalid Email Address"
                       />
@@ -195,8 +202,8 @@ export const CallToActionBlock: React.FC<
                   </div>
                 </CarouselItem>
 
-                <CarouselItem className="w-full flex flex-col justify-center">
-                  <div className="p-2">
+                <CarouselItem className="w-full flex flex-col justify-center ">
+                  <div className="p-2 flex flex-col space-y-8">
                     {hasFields &&
                       fields?.map((field, index) => {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -205,7 +212,7 @@ export const CallToActionBlock: React.FC<
 
                         if (!Field) return null
                         return (
-                          <div className="mb-6 last:mb-0" key={index}>
+                          <div className="" key={index}>
                             <Field
                               form={formFromProps}
                               {...field}
@@ -218,6 +225,32 @@ export const CallToActionBlock: React.FC<
                           </div>
                         )
                       })}
+                    <div className="flex items-center gap-2 mb-4">
+                      <Checkbox
+                        id="write-message"
+                        checked={showMessage}
+                        onCheckedChange={(checked) => {
+                          setShowMessage(checked === true)
+                        }}
+                      />
+                      <FormLabel htmlFor="write-message" label="Write a Message" required={false} />
+                    </div>
+                    {showMessage && (
+                      <div className="mt-2">
+                        <Textarea
+                          blockName="message"
+                          blockType="text"
+                          defaultValue=""
+                          label="Message"
+                          name="Message"
+                          required={false}
+                          width={100}
+                          errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
+                          register={register as unknown as UseFormRegister<FieldValues>}
+                          inputClassName="mt-1"
+                        />
+                      </div>
+                    )}
                     <Button className="w-full mt-4" form={formID} type="submit" variant="default">
                       {submitButtonLabel}
                     </Button>
