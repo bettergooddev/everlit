@@ -24,6 +24,7 @@ import type { CallToActionBlock as CallToActionBlockPayloadType } from '@/payloa
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { Checkbox } from '@/components/ui/checkbox'
 import { isFieldFull } from './actions/isFieldFull'
+import { Media } from '@/components/Media'
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -38,6 +39,7 @@ export const CallToActionBlock: React.FC<
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
     heading,
+    backgroundImage,
   } = props
 
   const formMethods = useForm({
@@ -205,13 +207,16 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="container">
+    <div className="container relative">
       {heading && !hasSubmitted && (
         <div className="flex w-full text-center">
-          <RichText className="[&_*]:!type-h1 mb-8 lg:mb-12" data={heading} enableGutter={false} />
+          <RichText
+            className="[&_*]:!type-h1 mb-8 lg:mb-12 text-foreground-900"
+            data={heading}
+            enableGutter={false}
+          />
         </div>
       )}
-
       <FormProvider {...formMethods}>
         {!isLoading && hasSubmitted && confirmationType === 'message' && (
           <RichText
@@ -244,7 +249,6 @@ export const CallToActionBlock: React.FC<
                         name="email"
                         required={true}
                         width={100}
-                        // errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
                         register={register as unknown as UseFormRegister<FieldValues>}
                         {...getFormAttentionHandlers('email', 1)}
                         {...(getFormChangeHandlers('email', 1) as any)}
@@ -275,7 +279,6 @@ export const CallToActionBlock: React.FC<
                     )}
                   </div>
                 </CarouselItem>
-
                 <CarouselItem className="w-full flex flex-col justify-center ">
                   <div className="p-2 flex flex-col space-y-8">
                     {hasFields &&
@@ -354,6 +357,10 @@ export const CallToActionBlock: React.FC<
           </form>
         )}
       </FormProvider>
+
+      <div className="absolute inset-0 z-[-1] size-[3000px] left-1/2 top-[150%] -translate-x-1/2 -translate-y-1/2 ">
+        <Media resource={backgroundImage} className="absolute inset-0 z-[0] blur-xl " />
+      </div>
     </div>
   )
 }

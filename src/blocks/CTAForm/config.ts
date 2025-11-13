@@ -20,6 +20,14 @@ export const CallToAction: Block = {
       relationTo: 'forms',
       required: true,
     },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      defaultValue: '6915cd5c765fbb41ce17e08e',
+      required: true,
+      // hidden: true,
+    },
   ],
   graphQL: {
     singularName: 'CallToActionBlock',

@@ -534,6 +534,7 @@ export interface CallToActionBlock {
     [k: string]: unknown;
   };
   form: string | Form;
+  backgroundImage: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -1327,6 +1328,7 @@ export interface PagesSelect<T extends boolean = true> {
 export interface CallToActionBlockSelect<T extends boolean = true> {
   heading?: T;
   form?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
