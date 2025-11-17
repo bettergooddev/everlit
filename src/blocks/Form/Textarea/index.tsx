@@ -64,8 +64,8 @@ export const Textarea: React.FC<
           registerProps.onChange?.(e)
           onChange?.(e)
         }}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        onMouseEnter={onMouseEnter as React.MouseEventHandler<HTMLTextAreaElement> | undefined}
+        onMouseLeave={onMouseLeave as React.MouseEventHandler<HTMLTextAreaElement> | undefined}
       />
 
       {errors[name] && <Error name={name} />}

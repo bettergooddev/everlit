@@ -210,10 +210,10 @@ export const CallToActionBlock: React.FC<
 
   return (
     <div className="relative overflow-hidden">
-      <div className="absolute z-[1] md:h-48 h-[6rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
+      <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>
-        <div className="container pt-8">
+        <div className="container pt-24">
           {heading && !hasSubmitted && (
             <div className="flex w-full text-center">
               <RichText
@@ -224,168 +224,189 @@ export const CallToActionBlock: React.FC<
             </div>
           )}
           <FormProvider {...formMethods}>
-            {!isLoading && hasSubmitted && confirmationType === 'message' && (
-              <RichText
-                className="[&_*]:!text-foreground-100 text-center [&_h2]:mb-6 [&_p]:opacity-75"
-                data={confirmationMessage}
-              />
-            )}
+            <AnimatePresence>
+              {!isLoading && hasSubmitted && confirmationType === 'message' && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 1.3, delay: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                >
+                  <RichText
+                    className="-mb-64 mt-64 [&_*]:!text-foreground-500 text-center [&_h2]:mb-6 [&_p]:opacity-75 [&_*]:max-w-[48ch] "
+                    data={confirmationMessage}
+                    enableGutter={false}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {isLoading && !hasSubmitted && <Loading />}
             {error && <Error error={error} />}
 
-            {!hasSubmitted && (
-              <form id={formID} onSubmit={handleSubmit(onSubmit)}>
-                <Carousel
-                  className="mt-8 last:mb-0 mx-auto flex flex-row w-full [&>*]:w-full max-w-screen-sm"
-                  opts={{ watchDrag: false }}
-                  setApi={setCarouselApi}
-                >
-                  <CarouselContent className="w-full ">
-                    <CarouselItem className="w-full flex flex-col ">
-                      <div className="relative p-2">
-                        <FormLabel htmlFor={'email'} label={'Email'} required={true} />
-                        <div className="grid grid-cols-[1fr,auto] gap-4 mt-2">
-                          <Email
-                            blockName={'email'}
-                            blockType="email"
-                            defaultValue=""
-                            placeholder="Email"
-                            label={''}
-                            name="email"
-                            required={true}
-                            width={100}
-                            register={register as unknown as UseFormRegister<FieldValues>}
-                            {...getFormAttentionHandlers('email', 1)}
-                            {...(getFormChangeHandlers('email', 1) as any)}
-                          />
-                          <Button
-                            variant={'default'}
-                            className="px-6 flex h-full"
-                            type="button"
-                            {...getFormAttentionHandlers('continue-button', 2)}
-                            onClick={async (e) => {
-                              e.preventDefault()
-                              handleFormPhaseClick(e)
-                              const isValid = await trigger('email' as any)
-                              if (isValid && carouselApi) {
-                                carouselApi.scrollNext()
-                              }
-                            }}
-                          >
-                            Continue
-                          </Button>
-                        </div>
-                        {errors?.['email' as keyof typeof errors] && (
-                          <FormError
-                            name="email"
-                            className="absolute top-full mt-0"
-                            defaultMessage="Invalid Email Address"
-                          />
-                        )}
-                      </div>
-                    </CarouselItem>
-                    <CarouselItem className="w-full flex flex-col justify-center ">
-                      <div className="p-2 flex flex-col space-y-8">
-                        {hasFields &&
-                          fields?.map((field, index) => {
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            const Field: React.FC<any> =
-                              fieldComponents?.[field.blockType as keyof typeof fieldComponents]
-
-                            if (!Field) return null
-
-                            // Message fields are display-only and don't have a name property
-                            const fieldName =
-                              field.blockType === 'message' || !('name' in field)
-                                ? null
-                                : field.name
-
-                            return (
-                              <div className="" key={index}>
-                                <Field
-                                  form={formFromProps}
-                                  {...field}
-                                  {...formMethods}
-                                  control={control}
-                                  errors={errors}
-                                  register={register}
-                                  inputClassName="mt-1"
-                                  {...(fieldName ? getFormAttentionHandlers(fieldName, 1) : {})}
-                                  {...(fieldName ? getFormChangeHandlers(fieldName, 1) : {})}
-                                />
-                              </div>
-                            )
-                          })}
-                        <div className="flex items-center gap-2 mb-4">
-                          <Checkbox
-                            id="write-message"
-                            checked={showMessage}
-                            onCheckedChange={(checked) => {
-                              setShowMessage(checked === true)
-                              if (checked === false) {
-                                // Clear the message field when unchecked
-                                ;(setValue as any)('message', '')
-                              }
-                            }}
-                          />
-                          <FormLabel
-                            htmlFor="write-message"
-                            label="Write a Message"
-                            required={false}
-                          />
-                        </div>
-                        {showMessage && (
-                          <div className="mt-2">
-                            <Textarea
-                              blockName="message"
-                              blockType="text"
-                              defaultValue=""
-                              label="Message"
-                              name="message"
-                              required={false}
-                              width={100}
-                              errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
-                              register={register as unknown as UseFormRegister<FieldValues>}
-                              inputClassName="mt-1"
-                              {...getFormAttentionHandlers('message', 1)}
-                              {...(getFormChangeHandlers('message', 1) as any)}
-                            />
-                          </div>
-                        )}
+            <form
+              id={formID}
+              onSubmit={handleSubmit(onSubmit)}
+              className={hasSubmitted ? 'opacity-0 pointer-events-none invisible' : ''}
+            >
+              <Carousel
+                className="mt-8 last:mb-0 mx-auto flex flex-row w-full [&>*]:w-full max-w-screen-sm"
+                opts={{ watchDrag: false }}
+                setApi={setCarouselApi}
+              >
+                <CarouselContent className="w-full ">
+                  <CarouselItem className="w-full flex flex-col ">
+                    <div className="relative p-2">
+                      <FormLabel htmlFor={'email'} label={'Email'} required={true} />
+                      <div className="grid grid-cols-[1fr,auto] gap-4 mt-2">
+                        <Email
+                          blockName={'email'}
+                          blockType="email"
+                          defaultValue=""
+                          placeholder="Email"
+                          label={''}
+                          name="email"
+                          required={true}
+                          width={100}
+                          register={register as unknown as UseFormRegister<FieldValues>}
+                          {...getFormAttentionHandlers('email', 1)}
+                          {...(getFormChangeHandlers('email', 1) as any)}
+                        />
                         <Button
-                          className="w-full mt-4"
-                          form={formID}
-                          type="submit"
-                          variant="default"
-                          {...getFormAttentionHandlers('submit-button', 2)}
-                          onClick={handleFormPhaseClick}
+                          variant={'default'}
+                          className="px-6 flex h-full"
+                          type="button"
+                          {...getFormAttentionHandlers('continue-button', 2)}
+                          onClick={async (e) => {
+                            e.preventDefault()
+                            handleFormPhaseClick(e)
+                            const isValid = await trigger('email' as any)
+                            if (isValid && carouselApi) {
+                              carouselApi.scrollNext()
+                            }
+                          }}
                         >
-                          {submitButtonLabel}
+                          Continue
                         </Button>
                       </div>
-                    </CarouselItem>
-                  </CarouselContent>
-                </Carousel>
-              </form>
-            )}
+                      {errors?.['email' as keyof typeof errors] && (
+                        <FormError
+                          name="email"
+                          className="absolute top-full mt-0"
+                          defaultMessage="Invalid Email Address"
+                        />
+                      )}
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem className="w-full flex flex-col justify-center ">
+                    <div className="p-2 flex flex-col space-y-8">
+                      {hasFields &&
+                        fields?.map((field, index) => {
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          const Field: React.FC<any> =
+                            fieldComponents?.[field.blockType as keyof typeof fieldComponents]
+
+                          if (!Field) return null
+
+                          // Message fields are display-only and don't have a name property
+                          const fieldName =
+                            field.blockType === 'message' || !('name' in field) ? null : field.name
+
+                          return (
+                            <div className="" key={index}>
+                              <Field
+                                form={formFromProps}
+                                {...field}
+                                {...formMethods}
+                                control={control}
+                                errors={errors}
+                                register={register}
+                                inputClassName="mt-1"
+                                {...(fieldName ? getFormAttentionHandlers(fieldName, 1) : {})}
+                                {...(fieldName ? getFormChangeHandlers(fieldName, 1) : {})}
+                              />
+                            </div>
+                          )
+                        })}
+                      <div className="flex items-center gap-2 mb-4">
+                        <Checkbox
+                          id="write-message"
+                          checked={showMessage}
+                          onCheckedChange={(checked) => {
+                            setShowMessage(checked === true)
+                            if (checked === false) {
+                              // Clear the message field when unchecked
+                              ;(setValue as any)('message', '')
+                            }
+                          }}
+                        />
+                        <FormLabel
+                          htmlFor="write-message"
+                          label="Write a Message"
+                          required={false}
+                        />
+                      </div>
+                      {showMessage && (
+                        <div className="mt-2">
+                          <Textarea
+                            blockName="message"
+                            blockType="text"
+                            defaultValue=""
+                            label="Message"
+                            name="message"
+                            required={false}
+                            width={100}
+                            errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
+                            register={register as unknown as UseFormRegister<FieldValues>}
+                            inputClassName="mt-1"
+                            {...getFormAttentionHandlers('message', 1)}
+                            {...(getFormChangeHandlers('message', 1) as any)}
+                          />
+                        </div>
+                      )}
+                      <Button
+                        className="w-full mt-4"
+                        form={formID}
+                        type="submit"
+                        variant="default"
+                        {...getFormAttentionHandlers('submit-button', 2)}
+                        onClick={handleFormPhaseClick}
+                      >
+                        {submitButtonLabel}
+                      </Button>
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
+            </form>
           </FormProvider>
 
           <AnimatePresence>
             {formPhase === 0 && (
               <motion.div
-                initial={{ opacity: 1 }}
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: Math.min(Math.max(0.5 + (formProgress / 4) * 0.5, 0.5), 1) }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1, ease: 'easeInOut' }}
-                className="absolute inset-0 z-[-1] size-[3000px] left-1/2 top-[80%] -translate-x-1/2 -translate-y-1/2 "
+                transition={{ duration: 1.3, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute inset-0 z-[-1]"
               >
                 <motion.div
-                  initial={{ opacity: 0.5 }}
-                  animate={{ opacity: Math.min(0.5 + (formProgress / 4) * 0.5, 1) }}
-                  transition={{ duration: 0.7 }}
-                  className="absolute inset-0"
+                  animate={{
+                    rotate: 0,
+                    top: '50%',
+                    left: '50%',
+                    y: '-44%',
+                    x: '-53%',
+                    width: '3000px',
+                    height: '3000px',
+                  }}
+                  className="absolute left-0 z-[0]"
                 >
-                  <Media resource={backgroundImage} className="absolute inset-0 z-[0] blur-xl " />
+                  <Media
+                    resource={backgroundImage}
+                    className="blur-xl object-left"
+                    imgClassName="size-full object-left"
+                  />
                 </motion.div>
               </motion.div>
             )}
@@ -396,7 +417,7 @@ export const CallToActionBlock: React.FC<
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1, ease: 'easeInOut', delay: 0.2 }}
+                transition={{ duration: 1.3, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
                 className="absolute inset-0 z-[-1]"
               >
                 <motion.div
@@ -412,9 +433,9 @@ export const CallToActionBlock: React.FC<
                       rotate: 90,
                       top: '50%',
                       y: '-50%',
-                      x: '-1600px',
-                      width: '3000px',
-                      height: '3000px',
+                      x: '-2000px',
+                      width: '3800px',
+                      height: '3800px',
                     }}
                     className="absolute left-0 z-[0]"
                   >
@@ -430,9 +451,9 @@ export const CallToActionBlock: React.FC<
                       right: 0,
                       top: '50%',
                       y: '-50%',
-                      x: '1600px',
-                      width: '3000px',
-                      height: '3000px',
+                      x: '2000px',
+                      width: '3800px',
+                      height: '3800px',
                     }}
                     className="absolute z-[0]"
                   >
@@ -442,6 +463,89 @@ export const CallToActionBlock: React.FC<
                       imgClassName="size-full object-left"
                     />
                   </motion.div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {formPhase === 2 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.3, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+                className="absolute inset-0 z-[-1]"
+              >
+                <motion.div
+                  animate={{
+                    rotate: 180,
+                    top: '-20%',
+                    left: '50%',
+                    y: '-40%',
+                    x: '-53%',
+                    width: '3800px',
+                    height: '3800px',
+                  }}
+                  className="absolute left-0 z-[0]"
+                >
+                  <Media
+                    resource={backgroundImage}
+                    className="blur-xl object-left"
+                    imgClassName="size-full object-left"
+                  />
+                </motion.div>
+                <motion.div
+                  animate={{
+                    rotate: 0,
+                    top: '50%',
+                    left: '50%',
+                    y: '-40%',
+                    x: '-53%',
+                    width: '3800px',
+                    height: '3800px',
+                  }}
+                  className="absolute left-0 z-[0]"
+                >
+                  <Media
+                    resource={backgroundImage}
+                    className="blur-xl object-left"
+                    imgClassName="size-full object-left"
+                  />
+                </motion.div>
+                <motion.div
+                  animate={{
+                    rotate: 90,
+                    top: '50%',
+                    y: '-70%',
+                    x: '-2000px',
+                    width: '3800px',
+                    height: '3800px',
+                  }}
+                  className="absolute left-0 z-[0]"
+                >
+                  <Media
+                    resource={backgroundImage}
+                    className="blur-xl object-left"
+                    imgClassName="size-full object-left"
+                  />
+                </motion.div>
+                <motion.div
+                  animate={{
+                    rotate: -90,
+                    right: 0,
+                    top: '50%',
+                    y: '-70%',
+                    x: '2000px',
+                    width: '3800px',
+                    height: '3800px',
+                  }}
+                  className="absolute z-[0]"
+                >
+                  <Media
+                    resource={backgroundImage}
+                    className="blur-xl object-right"
+                    imgClassName="size-full object-left"
+                  />
                 </motion.div>
               </motion.div>
             )}
