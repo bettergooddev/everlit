@@ -7,8 +7,9 @@ import { RxChevronRight } from 'react-icons/rx'
 import * as motion from 'motion/react-client'
 import { useScroll, useSpring, useTransform } from 'motion/react'
 import type { Rolodex as RolodexBlockType } from '@/payload-types'
+import Section from '@/components/Section'
+import { Badge } from '@/components/ui/badge'
 
-// export const Layout486 = (props) => {
 export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights }) => {
   const ref = useRef<HTMLDivElement>(null)
   const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 991px)')
@@ -21,31 +22,31 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights }) => {
   const highlightCount = highlights.length
   const numbers = Array.from({ length: highlightCount }, (_, index) => index + 1)
 
-  // const y = isTablet
-  //   ? useTransform(
-  //       scrollYProgress,
-  //       [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-  //       ['0%', '-25%', '-25%', '-50%', '-50%', '-75%'],
-  //     )
-  //   : useTransform(
-  //       scrollYProgress,
-  //       [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-  //       ['0%', '0%', '-25%', '-35%', '-50%', '-75%'],
-  //     )
+  const yTablet = useTransform(
+    scrollYProgress,
+    [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+    ['0%', '-25%', '-25%', '-50%', '-50%', '-75%'],
+  )
+  const yDesktop = useTransform(
+    scrollYProgress,
+    [0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+    ['0%', '0%', '-25%', '-35%', '-50%', '-75%'],
+  )
+  const y = isTablet ? yTablet : yDesktop
 
   return (
-    <section id="relume" ref={ref} className="px-[5%] py-16 md:py-24 lg:py-28">
+    <Section id="relume" ref={ref} className="px-[5%] py-16 md:py-24 lg:py-28">
       <div className="container">
         <div className="relative grid auto-cols-fr grid-cols-1 items-start gap-x-8 gap-y-12 md:grid-cols-[0.75fr_1fr] md:gap-y-16 lg:grid-cols-[max-content_1fr] lg:gap-x-20">
           <div className="static top-[20%] hidden h-56 overflow-hidden md:sticky md:flex md:items-start">
             <h1 className="text-[6rem] font-bold leading-[1] md:text-[14rem]">0</h1>
-            {/* <motion.div className="text-center" style={{ y }}>
+            <motion.div className="text-center" style={{ y }}>
               {numbers.map((number, index) => (
                 <h1 key={index} className="text-[6rem] font-bold leading-[1] md:text-[14rem]">
                   {number}
                 </h1>
               ))}
-            </motion.div> */}
+            </motion.div>
           </div>
           <div className="grid auto-cols-fr grid-cols-1 gap-x-12 gap-y-12 md:gap-x-28 md:gap-y-28">
             {highlights.map((highlight, index) => (
@@ -54,7 +55,7 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights }) => {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
 
@@ -80,82 +81,17 @@ const HighlightCard = ({
         <motion.div className="h-0.5 w-8 bg-neutral-black" style={width} />
       </div>
       {/* <p className="mb-3 font-semibold md:mb-4">{highlight.tagline}</p> */}
-      <h2 className="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
-        {highlight.heading}
-      </h2>
+      <h2 className="rb-5 mb-5 type-h2">{highlight.heading}</h2>
+      {highlight.tags && highlight.tags.length > 0 && (
+        <ul className="flex flex-row gap-2 flex-wrap mb-5">
+          {highlight.tags.map(({ tag }, index) => (
+            <li key={index}>
+              <Badge>{tag}</Badge>
+            </li>
+          ))}
+        </ul>
+      )}
       <p className="md:text-md">{highlight.description}</p>
-      {/* <div className="mt-6 flex flex-wrap items-center gap-4 md:mt-8">
-        {highlight.buttons.map((button, index) => (
-          <Button key={index} {...button}>
-            {button.title}
-          </Button>
-        ))}
-      </div> */}
     </div>
   )
-}
-
-export const Layout486Defaults = {
-  highlights: [
-    {
-      tagline: 'Tagline',
-      heading: 'Medium length section heading goes here',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.',
-      buttons: [
-        { title: 'Button', variant: 'secondary' },
-        {
-          title: 'Button',
-          variant: 'link',
-          size: 'link',
-          iconRight: <RxChevronRight />,
-        },
-      ],
-    },
-    {
-      tagline: 'Tagline',
-      heading: 'Medium length section heading goes here',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.',
-      buttons: [
-        { title: 'Button', variant: 'secondary' },
-        {
-          title: 'Button',
-          variant: 'link',
-          size: 'link',
-          iconRight: <RxChevronRight />,
-        },
-      ],
-    },
-    {
-      tagline: 'Tagline',
-      heading: 'Medium length section heading goes here',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.',
-      buttons: [
-        { title: 'Button', variant: 'secondary' },
-        {
-          title: 'Button',
-          variant: 'link',
-          size: 'link',
-          iconRight: <RxChevronRight />,
-        },
-      ],
-    },
-    {
-      tagline: 'Tagline',
-      heading: 'Medium length section heading goes here',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.',
-      buttons: [
-        { title: 'Button', variant: 'secondary' },
-        {
-          title: 'Button',
-          variant: 'link',
-          size: 'link',
-          iconRight: <RxChevronRight />,
-        },
-      ],
-    },
-  ],
 }

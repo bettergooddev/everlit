@@ -14,7 +14,7 @@ import { FlairBlock } from '@/blocks/Flair/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
 import { Tabs } from '@/blocks/Tabs/Component'
-// import { Rolodex } from '@/blocks/Rolodex/Component'
+import { RolodexBlock } from '@/blocks/Rolodex/Component'
 import { Quote } from '@/blocks/Quote/Component'
 
 const blockComponents = {
@@ -29,7 +29,7 @@ const blockComponents = {
   gallery: GalleryBlock,
   'case-studies': CaseStudiesBlock,
   tabs: Tabs,
-  // rolodex: Rolodex,
+  rolodex: RolodexBlock,
   quote: Quote,
 }
 

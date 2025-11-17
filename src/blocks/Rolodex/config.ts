@@ -30,6 +30,11 @@ export const Rolodex: Block = {
       ],
       required: true,
       minRows: 1,
+      admin: {
+        components: {
+          RowLabel: '@/blocks/Rolodex/HighlightsRowLabel#HighlightsRowLabel',
+        },
+      },
     },
   ],
 }
