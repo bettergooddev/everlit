@@ -6,7 +6,7 @@ const Section = React.forwardRef<
   { children: React.ReactNode; className?: string; id?: string }
 >(({ children, className, id }, ref) => {
   return (
-    <div ref={ref} id={id} className={cn('md:my-24 my-36', className)}>
+    <div ref={ref} id={id} className={cn('md:my-48 my-36', className)}>
       {children}
     </div>
   )

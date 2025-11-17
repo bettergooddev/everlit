@@ -15,7 +15,6 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   const isCaseStudy = pathname.includes('case-studies/')
   const isHome = pathname === '/'
 
-  console.log(isHome)
   const [scrollY, setScrollY] = useState(0)
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down')
   const lastScrollYRef = useRef(0)

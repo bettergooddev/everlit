@@ -209,7 +209,7 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden -mb-36">
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>
@@ -230,7 +230,7 @@ export const CallToActionBlock: React.FC<
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 1.3, delay: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                  transition={{ duration: 1.5, delay: 0.6, ease: [0.33, 1, 0.68, 1] }}
                 >
                   <RichText
                     className="-mb-64 mt-64 [&_*]:!text-foreground-500 text-center [&_h2]:mb-6 [&_p]:opacity-75 [&_*]:max-w-[48ch] "
@@ -387,7 +387,7 @@ export const CallToActionBlock: React.FC<
                 initial={{ opacity: 0.5 }}
                 animate={{ opacity: Math.min(Math.max(0.5 + (formProgress / 4) * 0.5, 0.5), 1) }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1.3, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                 className="absolute inset-0 z-[-1]"
               >
                 <motion.div
@@ -417,7 +417,7 @@ export const CallToActionBlock: React.FC<
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1.3, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+                transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
                 className="absolute inset-0 z-[-1]"
               >
                 <motion.div
@@ -473,7 +473,7 @@ export const CallToActionBlock: React.FC<
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1.3, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+                transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
                 className="absolute inset-0 z-[-1]"
               >
                 <motion.div

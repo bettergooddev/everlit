@@ -13,6 +13,13 @@ export const Quote: Block = {
       type: 'textarea',
       required: true,
     },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      defaultValue: '6917054b9b5961a96f5e0173',
+      required: true,
+    },
   ],
 }
 

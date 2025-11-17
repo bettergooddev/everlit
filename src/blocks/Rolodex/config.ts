@@ -36,5 +36,12 @@ export const Rolodex: Block = {
         },
       },
     },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      defaultValue: '691b3e3f98296faf9ec69eb8',
+      required: true,
+    },
   ],
 }

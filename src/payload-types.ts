@@ -935,6 +935,7 @@ export interface Rolodex {
     description?: string | null;
     id?: string | null;
   }[];
+  backgroundImage: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'rolodex';
@@ -945,6 +946,7 @@ export interface Rolodex {
  */
 export interface Quote {
   quote: string;
+  backgroundImage: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'quote';
@@ -1511,6 +1513,7 @@ export interface RolodexSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
@@ -1520,6 +1523,7 @@ export interface RolodexSelect<T extends boolean = true> {
  */
 export interface QuoteSelect<T extends boolean = true> {
   quote?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
