@@ -26,7 +26,6 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/com
 import { Checkbox } from '@/components/ui/checkbox'
 import { isFieldFull } from './actions/isFieldFull'
 import { Media } from '@/components/Media'
-import { motionConfig } from './motion'
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -391,16 +390,41 @@ export const CallToActionBlock: React.FC<
           transition={{ duration: 1, ease: 'easeInOut' }}
           className="absolute inset-0 z-[-1]"
         >
-          <Media
-            resource={backgroundImage}
-            className="absolute z-[0] blur-xl rotate-90 left-0 top-1/2 -translate-y-1/2 size-[2000px] object-left -ml-[700px]"
-            imgClassName="size-full object-left"
-          />
-          <Media
-            resource={backgroundImage}
-            className="absolute z-[0] blur-xl -rotate-90 right-0 top-1/2 -translate-y-1/2 size-[2000px] object-left -mr-[700px]"
-            imgClassName="size-full object-left"
-          />
+          <motion.div
+            animate={{
+              rotate: 90,
+              top: '50%',
+              y: '-50%',
+              x: '-1200px',
+              width: '2000px',
+              height: '2000px',
+            }}
+            className="absolute left-0 z-[0]"
+          >
+            <Media
+              resource={backgroundImage}
+              className="blur-xl object-left"
+              imgClassName="size-full object-left"
+            />
+          </motion.div>
+          <motion.div
+            animate={{
+              rotate: -90,
+              right: 0,
+              top: '50%',
+              y: '-50%',
+              x: '1200px',
+              width: '2000px',
+              height: '2000px',
+            }}
+            className="absolute z-[0]"
+          >
+            <Media
+              resource={backgroundImage}
+              className="blur-xl object-right"
+              imgClassName="size-full object-left"
+            />
+          </motion.div>
         </motion.div>
       </div>
     </div>
