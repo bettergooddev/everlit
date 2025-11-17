@@ -36,11 +36,7 @@ export const Number: React.FC<
   const registerProps = register(name, { required })
 
   // Extract event handlers from props that should go to the input
-  const {
-    onMouseEnter,
-    onMouseLeave,
-    ...widthProps
-  } = props
+  const { onMouseEnter, onMouseLeave, ...widthProps } = props
 
   return (
     <Width width={width} className={wrapperClassName}>

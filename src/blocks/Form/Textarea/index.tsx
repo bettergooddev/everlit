@@ -39,11 +39,7 @@ export const Textarea: React.FC<
   const registerProps = register(name, { required: required })
 
   // Extract event handlers from props that should go to the textarea
-  const {
-    onMouseEnter,
-    onMouseLeave,
-    ...widthProps
-  } = props
+  const { onMouseEnter, onMouseLeave, ...widthProps } = props
 
   return (
     <Width width={width} className={wrapperClassName}>
