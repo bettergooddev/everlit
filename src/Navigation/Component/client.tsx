@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { NavigationNav } from './nav'
 import type { Navigation as NavigationType } from '@/payload-types'
 import { usePathname } from 'next/navigation'
@@ -17,10 +17,22 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
 
   console.log(isHome)
   const [scrollY, setScrollY] = useState(0)
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down')
+  const lastScrollYRef = useRef(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
+      const currentScrollY = window.scrollY
+
+      // Determine scroll direction
+      if (currentScrollY > lastScrollYRef.current) {
+        setScrollDirection('down')
+      } else if (currentScrollY < lastScrollYRef.current) {
+        setScrollDirection('up')
+      }
+
+      setScrollY(currentScrollY)
+      lastScrollYRef.current = currentScrollY
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -29,7 +41,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const showStickyNav = !isHome || scrollY > 50
+  const showStickyNav = !isHome || (scrollDirection === 'down' ? scrollY > 50 : scrollY > 500)
 
   return (
     <>

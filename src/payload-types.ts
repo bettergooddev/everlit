@@ -243,6 +243,7 @@ export interface Page {
       heading: string;
       description?: string | null;
       image?: (string | null) | Media;
+      backgroundImage?: (string | null) | Media;
     };
   };
   layout: (
@@ -1288,6 +1289,7 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               description?: T;
               image?: T;
+              backgroundImage?: T;
             };
       };
   layout?:

@@ -40,6 +40,7 @@ function Inner({ desktopLogo, mobileLogo }: InnerProps) {
           className="hidden md:block size-full w-auto"
           imgClassName="h-full w-auto"
           alt="logo"
+          priority={true}
         />
       )}
       {mobileLogo && (
@@ -48,6 +49,7 @@ function Inner({ desktopLogo, mobileLogo }: InnerProps) {
           className="block md:hidden size-full w-auto"
           imgClassName="h-full w-auto"
           alt="logo"
+          priority={true}
         />
       )}
     </>

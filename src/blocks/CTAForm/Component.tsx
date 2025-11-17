@@ -207,7 +207,7 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="container relative">
+    <div className="container relative pb-[6rem] md:pb-48">
       {heading && !hasSubmitted && (
         <div className="flex w-full text-center">
           <RichText

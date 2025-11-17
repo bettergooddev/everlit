@@ -142,6 +142,7 @@ function BackgroundGlow({ backgroundImage }: { backgroundImage: MediaType }) {
 
   return (
     <motion.div
+      className="pointer-events-none"
       ref={backgroundRef}
       initial={{ opacity: 0 }}
       animate={{ opacity: backgroundIsInView ? 1 : 0 }}
@@ -151,7 +152,7 @@ function BackgroundGlow({ backgroundImage }: { backgroundImage: MediaType }) {
       }}
     >
       <motion.div
-        className=" absolute inset-0 z-[-1] blur-xl"
+        className="absolute inset-0 z-[-1] blur-xl"
         animate={{
           rotateY: [14, -14, 14],
           //   rotateX: [8, -8, 8],

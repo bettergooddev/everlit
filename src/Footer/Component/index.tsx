@@ -10,7 +10,7 @@ import { FooterClient } from './client'
 export async function Footer() {
   const footerData = (await getCachedGlobal('footer', 1)()) as FooterType
 
-  const payload = await getPayload({ config: configPromise })
+  // const payload = await getPayload({ config: configPromise })
 
   return <FooterClient data={footerData}></FooterClient>
 }

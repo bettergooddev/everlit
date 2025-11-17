@@ -13,7 +13,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
     props.study
 
   return (
-    <section className="w-full">
+    <section className="w-full pt-36">
       {/* Hero Image */}
       {image && (
         <div className="relative w-full aspect-[21/7] md:aspect-[21/8] overflow-hidden">
