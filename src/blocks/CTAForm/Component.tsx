@@ -3,6 +3,7 @@ import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-b
 
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import {
   useForm,
   FormProvider,
@@ -25,6 +26,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/com
 import { Checkbox } from '@/components/ui/checkbox'
 import { isFieldFull } from './actions/isFieldFull'
 import { Media } from '@/components/Media'
+import { motionConfig } from './motion'
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -207,159 +209,199 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="container relative pb-[6rem] md:pb-48">
-      {heading && !hasSubmitted && (
-        <div className="flex w-full text-center">
-          <RichText
-            className="[&_*]:!type-h1 mb-8 lg:mb-12 text-foreground-900"
-            data={heading}
-            enableGutter={false}
-          />
-        </div>
-      )}
-      <FormProvider {...formMethods}>
-        {!isLoading && hasSubmitted && confirmationType === 'message' && (
-          <RichText
-            className="[&_*]:!text-foreground-100 text-center [&_h2]:mb-6 [&_p]:opacity-75"
-            data={confirmationMessage}
-          />
+    <div className="relative">
+      <div className="container">
+        {heading && !hasSubmitted && (
+          <div className="flex w-full text-center">
+            <RichText
+              className="[&_*]:!type-h1 mb-8 lg:mb-12 text-foreground-900"
+              data={heading}
+              enableGutter={false}
+            />
+          </div>
         )}
+        <FormProvider {...formMethods}>
+          {!isLoading && hasSubmitted && confirmationType === 'message' && (
+            <RichText
+              className="[&_*]:!text-foreground-100 text-center [&_h2]:mb-6 [&_p]:opacity-75"
+              data={confirmationMessage}
+            />
+          )}
 
-        {isLoading && !hasSubmitted && <Loading />}
-        {error && <Error error={error} />}
+          {isLoading && !hasSubmitted && <Loading />}
+          {error && <Error error={error} />}
 
-        {!hasSubmitted && (
-          <form id={formID} onSubmit={handleSubmit(onSubmit)}>
-            <Carousel
-              className="mt-8 last:mb-0 mx-auto flex flex-row w-full [&>*]:w-full max-w-screen-sm"
-              opts={{ watchDrag: false }}
-              setApi={setCarouselApi}
-            >
-              <CarouselContent className="w-full ">
-                <CarouselItem className="w-full flex flex-col ">
-                  <div className="relative p-2">
-                    <FormLabel htmlFor={'email'} label={'Email'} required={true} />
-                    <div className="grid grid-cols-[1fr,auto] gap-4 mt-2">
-                      <Email
-                        blockName={'email'}
-                        blockType="email"
-                        defaultValue=""
-                        placeholder="Email"
-                        label={''}
-                        name="email"
-                        required={true}
-                        width={100}
-                        register={register as unknown as UseFormRegister<FieldValues>}
-                        {...getFormAttentionHandlers('email', 1)}
-                        {...(getFormChangeHandlers('email', 1) as any)}
-                      />
-                      <Button
-                        variant={'default'}
-                        className="px-6 flex h-full"
-                        type="button"
-                        {...getFormAttentionHandlers('continue-button', 2)}
-                        onClick={async (e) => {
-                          e.preventDefault()
-                          handleFormPhaseClick(e)
-                          const isValid = await trigger('email' as any)
-                          if (isValid && carouselApi) {
-                            carouselApi.scrollNext()
-                          }
-                        }}
-                      >
-                        Continue
-                      </Button>
-                    </div>
-                    {errors?.['email' as keyof typeof errors] && (
-                      <FormError
-                        name="email"
-                        className="absolute top-full mt-0"
-                        defaultMessage="Invalid Email Address"
-                      />
-                    )}
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="w-full flex flex-col justify-center ">
-                  <div className="p-2 flex flex-col space-y-8">
-                    {hasFields &&
-                      fields?.map((field, index) => {
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        const Field: React.FC<any> =
-                          fieldComponents?.[field.blockType as keyof typeof fieldComponents]
-
-                        if (!Field) return null
-
-                        // Message fields are display-only and don't have a name property
-                        const fieldName =
-                          field.blockType === 'message' || !('name' in field) ? null : field.name
-
-                        return (
-                          <div className="" key={index}>
-                            <Field
-                              form={formFromProps}
-                              {...field}
-                              {...formMethods}
-                              control={control}
-                              errors={errors}
-                              register={register}
-                              inputClassName="mt-1"
-                              {...(fieldName ? getFormAttentionHandlers(fieldName, 1) : {})}
-                              {...(fieldName ? getFormChangeHandlers(fieldName, 1) : {})}
-                            />
-                          </div>
-                        )
-                      })}
-                    <div className="flex items-center gap-2 mb-4">
-                      <Checkbox
-                        id="write-message"
-                        checked={showMessage}
-                        onCheckedChange={(checked) => {
-                          setShowMessage(checked === true)
-                          if (checked === false) {
-                            // Clear the message field when unchecked
-                            ;(setValue as any)('message', '')
-                          }
-                        }}
-                      />
-                      <FormLabel htmlFor="write-message" label="Write a Message" required={false} />
-                    </div>
-                    {showMessage && (
-                      <div className="mt-2">
-                        <Textarea
-                          blockName="message"
-                          blockType="text"
+          {!hasSubmitted && (
+            <form id={formID} onSubmit={handleSubmit(onSubmit)}>
+              <Carousel
+                className="mt-8 last:mb-0 mx-auto flex flex-row w-full [&>*]:w-full max-w-screen-sm"
+                opts={{ watchDrag: false }}
+                setApi={setCarouselApi}
+              >
+                <CarouselContent className="w-full ">
+                  <CarouselItem className="w-full flex flex-col ">
+                    <div className="relative p-2">
+                      <FormLabel htmlFor={'email'} label={'Email'} required={true} />
+                      <div className="grid grid-cols-[1fr,auto] gap-4 mt-2">
+                        <Email
+                          blockName={'email'}
+                          blockType="email"
                           defaultValue=""
-                          label="Message"
-                          name="message"
-                          required={false}
+                          placeholder="Email"
+                          label={''}
+                          name="email"
+                          required={true}
                           width={100}
-                          errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
                           register={register as unknown as UseFormRegister<FieldValues>}
-                          inputClassName="mt-1"
-                          {...getFormAttentionHandlers('message', 1)}
-                          {...(getFormChangeHandlers('message', 1) as any)}
+                          {...getFormAttentionHandlers('email', 1)}
+                          {...(getFormChangeHandlers('email', 1) as any)}
+                        />
+                        <Button
+                          variant={'default'}
+                          className="px-6 flex h-full"
+                          type="button"
+                          {...getFormAttentionHandlers('continue-button', 2)}
+                          onClick={async (e) => {
+                            e.preventDefault()
+                            handleFormPhaseClick(e)
+                            const isValid = await trigger('email' as any)
+                            if (isValid && carouselApi) {
+                              carouselApi.scrollNext()
+                            }
+                          }}
+                        >
+                          Continue
+                        </Button>
+                      </div>
+                      {errors?.['email' as keyof typeof errors] && (
+                        <FormError
+                          name="email"
+                          className="absolute top-full mt-0"
+                          defaultMessage="Invalid Email Address"
+                        />
+                      )}
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem className="w-full flex flex-col justify-center ">
+                    <div className="p-2 flex flex-col space-y-8">
+                      {hasFields &&
+                        fields?.map((field, index) => {
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          const Field: React.FC<any> =
+                            fieldComponents?.[field.blockType as keyof typeof fieldComponents]
+
+                          if (!Field) return null
+
+                          // Message fields are display-only and don't have a name property
+                          const fieldName =
+                            field.blockType === 'message' || !('name' in field) ? null : field.name
+
+                          return (
+                            <div className="" key={index}>
+                              <Field
+                                form={formFromProps}
+                                {...field}
+                                {...formMethods}
+                                control={control}
+                                errors={errors}
+                                register={register}
+                                inputClassName="mt-1"
+                                {...(fieldName ? getFormAttentionHandlers(fieldName, 1) : {})}
+                                {...(fieldName ? getFormChangeHandlers(fieldName, 1) : {})}
+                              />
+                            </div>
+                          )
+                        })}
+                      <div className="flex items-center gap-2 mb-4">
+                        <Checkbox
+                          id="write-message"
+                          checked={showMessage}
+                          onCheckedChange={(checked) => {
+                            setShowMessage(checked === true)
+                            if (checked === false) {
+                              // Clear the message field when unchecked
+                              ;(setValue as any)('message', '')
+                            }
+                          }}
+                        />
+                        <FormLabel
+                          htmlFor="write-message"
+                          label="Write a Message"
+                          required={false}
                         />
                       </div>
-                    )}
-                    <Button
-                      className="w-full mt-4"
-                      form={formID}
-                      type="submit"
-                      variant="default"
-                      onClick={handleFormPhaseClick}
-                    >
-                      {submitButtonLabel}
-                    </Button>
-                  </div>
-                </CarouselItem>
-              </CarouselContent>
-            </Carousel>
-          </form>
-        )}
-      </FormProvider>
+                      {showMessage && (
+                        <div className="mt-2">
+                          <Textarea
+                            blockName="message"
+                            blockType="text"
+                            defaultValue=""
+                            label="Message"
+                            name="message"
+                            required={false}
+                            width={100}
+                            errors={errors as unknown as Partial<FieldErrorsImpl<FieldValues>>}
+                            register={register as unknown as UseFormRegister<FieldValues>}
+                            inputClassName="mt-1"
+                            {...getFormAttentionHandlers('message', 1)}
+                            {...(getFormChangeHandlers('message', 1) as any)}
+                          />
+                        </div>
+                      )}
+                      <Button
+                        className="w-full mt-4"
+                        form={formID}
+                        type="submit"
+                        variant="default"
+                        onClick={handleFormPhaseClick}
+                      >
+                        {submitButtonLabel}
+                      </Button>
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
+            </form>
+          )}
+        </FormProvider>
 
-      <div className="absolute inset-0 z-[-1] size-[3000px] left-1/2 top-[150%] -translate-x-1/2 -translate-y-1/2 ">
-        <Media resource={backgroundImage} className="absolute inset-0 z-[0] blur-xl " />
+        {/* <AnimatePresence>
+          {formPhase === 0 && (
+            <motion.div
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1, ease: 'easeInOut' }}
+              className="absolute inset-0 z-[-1] size-[3000px] left-1/2 top-[80%] -translate-x-1/2 -translate-y-1/2 "
+            >
+              <motion.div
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: Math.min(0.5 + (formProgress / 4) * 0.5, 1) }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0"
+              >
+                <Media resource={backgroundImage} className="absolute inset-0 z-[0] blur-xl " />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence> */}
+
+        <motion.div
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1, ease: 'easeInOut' }}
+          className="absolute inset-0 z-[-1]"
+        >
+          <Media
+            resource={backgroundImage}
+            className="absolute z-[0] blur-xl rotate-90 left-0 top-1/2 -translate-y-1/2 size-[2000px] object-left -ml-[700px]"
+            imgClassName="size-full object-left"
+          />
+          <Media
+            resource={backgroundImage}
+            className="absolute z-[0] blur-xl -rotate-90 right-0 top-1/2 -translate-y-1/2 size-[2000px] object-left -mr-[700px]"
+            imgClassName="size-full object-left"
+          />
+        </motion.div>
       </div>
     </div>
   )
