@@ -42,7 +42,7 @@ export const RenderBlocks: React.FC<{
 
   if (hasBlocks) {
     return (
-      <div className="overflow-hidden flex flex-col">
+      <div className="flex flex-col">
         <Fragment>
           {blocks.map((block, index) => {
             const { blockType } = block

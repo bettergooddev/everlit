@@ -47,7 +47,7 @@ export default async function Page() {
   const { hero, layout } = page || {}
 
   return (
-    <div className="overflow-hidden">
+    <div>
       <PageClient />
 
       {hero && <RenderHero {...hero} />}

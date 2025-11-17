@@ -28,7 +28,8 @@ export const DualImage: React.FC<ContentBlock> = ({
     <Section>
       <div
         className={cn(
-          'container flex gap-16 flex-col-reverse',
+          'container flex gap-16 flex-col',
+          reverseLayout ? 'lg:flex-col' : 'lg:flex-col-reverse',
           reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
