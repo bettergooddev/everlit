@@ -34,17 +34,10 @@ export const Checkbox: React.FC<
   const { setValue } = useFormContext()
 
   // Extract event handlers from props that should go to the checkbox
-  const {
-    onMouseEnter,
-    onMouseLeave,
-    onFocus,
-    onBlur,
-    onChange,
-    ...widthProps
-  } = props
+  const { onMouseEnter, onMouseLeave, onFocus, onBlur, onChange, ...widthProps } = props
 
   return (
-    <Width width={width} className={wrapperClassName}>
+    <Width width={width} className={wrapperClassName} {...widthProps}>
       <div className={cn('flex items-center gap-2', inputClassName)}>
         <CheckboxUi
           defaultChecked={defaultValue}
@@ -53,10 +46,10 @@ export const Checkbox: React.FC<
           onCheckedChange={(checked) => {
             setValue(registerProps.name, checked)
           }}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          onFocus={onFocus as React.FocusEventHandler<HTMLButtonElement> | undefined}
+          onBlur={onBlur as React.FocusEventHandler<HTMLButtonElement> | undefined}
+          onMouseEnter={onMouseEnter as React.MouseEventHandler<HTMLButtonElement> | undefined}
+          onMouseLeave={onMouseLeave as React.MouseEventHandler<HTMLButtonElement> | undefined}
         />
         {label && <FormLabel htmlFor={name} label={label} required={required} />}
       </div>
