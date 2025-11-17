@@ -5,6 +5,7 @@ import type { GalleryBlock as GalleryBlockType } from '@/payload-types'
 import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { Frame } from '@/components/Frame'
+import Section from '@/components/Section'
 
 export const GalleryBlock: React.FC<GalleryBlockType> = ({ images }) => {
   if (!images || images.length === 0) return null
@@ -56,17 +57,19 @@ export const GalleryBlock: React.FC<GalleryBlockType> = ({ images }) => {
   }
 
   return (
-    <div className="container-full px-6">
-      <div className="flex flex-col gap-6">
-        {rows.map((row, rowIndex) =>
-          row.isSingle ? (
-            <SingleColumnRow key={rowIndex} images={row.images} startIndex={rowIndex} />
-          ) : (
-            <DoubleColumnRow key={rowIndex} images={row.images} startIndex={rowIndex} />
-          ),
-        )}
+    <Section>
+      <div className="container-full px-6">
+        <div className="flex flex-col gap-6">
+          {rows.map((row, rowIndex) =>
+            row.isSingle ? (
+              <SingleColumnRow key={rowIndex} images={row.images} startIndex={rowIndex} />
+            ) : (
+              <DoubleColumnRow key={rowIndex} images={row.images} startIndex={rowIndex} />
+            ),
+          )}
+        </div>
       </div>
-    </div>
+    </Section>
   )
 }
 

@@ -16,7 +16,6 @@ import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
 import { Tabs } from '@/blocks/Tabs/Component'
 // import { Rolodex } from '@/blocks/Rolodex/Component'
 import { Quote } from '@/blocks/Quote/Component'
-import Section from '@/components/Section'
 
 const blockComponents = {
   content: RenderContent,
@@ -53,14 +52,14 @@ export const RenderBlocks: React.FC<{
 
               if (Block) {
                 return (
-                  <Section key={index}>
+                  <React.Fragment key={index}>
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
                     <Block
                       {...block}
                       // TODO: bring this back when needed on blocks that go inside rich text like columns or media, i believe
                       //  disableInnerContainer
                     />
-                  </Section>
+                  </React.Fragment>
                 )
               }
             }

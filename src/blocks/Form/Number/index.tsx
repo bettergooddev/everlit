@@ -35,8 +35,15 @@ export const Number: React.FC<
 }) => {
   const registerProps = register(name, { required })
 
+  // Extract event handlers from props that should go to the input
+  const {
+    onMouseEnter,
+    onMouseLeave,
+    ...widthProps
+  } = props
+
   return (
-    <Width width={width} className={wrapperClassName} {...props}>
+    <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
         className={cn(
@@ -57,6 +64,8 @@ export const Number: React.FC<
           registerProps.onChange?.(e)
           onChange?.(e)
         }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
       {errors[name] && <Error name={name} />}
     </Width>

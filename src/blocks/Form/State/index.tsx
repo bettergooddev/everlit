@@ -35,19 +35,33 @@ export const State: React.FC<
   inputClassName,
   ...props
 }) => {
+  // Extract event handlers from props that should go to the select trigger
+  const { onMouseEnter, onMouseLeave, onFocus, onBlur, onChange, ...widthProps } = props
+
   return (
-    <Width width={width} className={wrapperClassName} {...props}>
+    <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Controller
         control={control}
         defaultValue=""
         name={name}
-        render={({ field: { onChange, value } }) => {
+        render={({ field: { onChange: controllerOnChange, value } }) => {
           const controlledValue = stateOptions.find((t) => t.value === value)
 
           return (
-            <Select onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className={cn('w-full type-body', inputClassName)} id={name}>
+            <Select onValueChange={(val) => controllerOnChange(val)} value={controlledValue?.value}>
+              <SelectTrigger
+                className={cn('w-full type-body', inputClassName)}
+                id={name}
+                onFocus={onFocus as React.FocusEventHandler<HTMLButtonElement> | undefined}
+                onBlur={onBlur as React.FocusEventHandler<HTMLButtonElement> | undefined}
+                onMouseEnter={
+                  onMouseEnter as React.MouseEventHandler<HTMLButtonElement> | undefined
+                }
+                onMouseLeave={
+                  onMouseLeave as React.MouseEventHandler<HTMLButtonElement> | undefined
+                }
+              >
                 <SelectValue placeholder={label} />
               </SelectTrigger>
               <SelectContent>

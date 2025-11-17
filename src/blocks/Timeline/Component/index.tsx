@@ -3,19 +3,22 @@ import { Heading } from '@/components/Heading'
 import React from 'react'
 import { DesktopCarousel } from './desktop'
 import { MobileTimeline } from './mobile'
+import Section from '@/components/Section'
 
 export const TimelineBlock: React.FC<TimelineBlockProps> = ({ heading, subheading, events }) => {
   if (!events || events.length === 0) return null
 
   return (
-    <div className="container">
-      {/* <Heading heading={heading} subheading={subheading} /> */}
+    <Section>
+      <div className="container">
+        {/* <Heading heading={heading} subheading={subheading} /> */}
 
-      {/* Mobile (vertical list) */}
-      <MobileTimeline events={events} className="md:hidden" />
+        {/* Mobile (vertical list) */}
+        <MobileTimeline events={events} className="md:hidden" />
 
-      {/* Desktop (carousel) */}
-      <DesktopCarousel events={events} className="hidden md:block" />
-    </div>
+        {/* Desktop (carousel) */}
+        <DesktopCarousel events={events} className="hidden md:block" />
+      </div>
+    </Section>
   )
 }

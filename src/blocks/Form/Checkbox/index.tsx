@@ -33,8 +33,18 @@ export const Checkbox: React.FC<
   const registerProps = register(name, { required: required })
   const { setValue } = useFormContext()
 
+  // Extract event handlers from props that should go to the checkbox
+  const {
+    onMouseEnter,
+    onMouseLeave,
+    onFocus,
+    onBlur,
+    onChange,
+    ...widthProps
+  } = props
+
   return (
-    <Width width={width} className={wrapperClassName} {...props}>
+    <Width width={width} className={wrapperClassName}>
       <div className={cn('flex items-center gap-2', inputClassName)}>
         <CheckboxUi
           defaultChecked={defaultValue}
@@ -43,6 +53,10 @@ export const Checkbox: React.FC<
           onCheckedChange={(checked) => {
             setValue(registerProps.name, checked)
           }}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
         />
         {label && <FormLabel htmlFor={name} label={label} required={required} />}
       </div>

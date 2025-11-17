@@ -14,6 +14,7 @@ import { Media } from '@/components/Media'
 import type { TestimonialsBlock as TestimonialsBlockType, Testimonial } from '@/payload-types'
 import { Frame } from '@/components/Frame'
 import { Button } from '@/components/ui/button'
+import Section from '@/components/Section'
 
 interface ImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
@@ -37,46 +38,48 @@ export const Image: React.FC<ImageProps> = ({ testimonials }) => {
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <div className="container">
-      {isCarousel ? (
-        <Carousel
-          setApi={setApi}
-          opts={{
-            // loop: true,
-            align: 'start',
-          }}
-          className="pb-24"
-        >
-          <div className="relative">
-            <CarouselContent className="-ml-32">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-32">
-                  <TestimonialCard testimonial={testimonial} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="absolute top-full pt-12 flex w-full items-end justify-between">
-              <div className="mb-2.5 flex w-full items-start justify-start">
-                {testimonials.map((_, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => api?.scrollTo(index)}
-                    variant={current === index + 1 ? 'default' : 'secondary'}
-                    className={'mr-3 inline-block size-4 rounded-xs p-0'}
-                  />
+    <Section>
+      <div className="container">
+        {isCarousel ? (
+          <Carousel
+            setApi={setApi}
+            opts={{
+              // loop: true,
+              align: 'start',
+            }}
+            className="pb-24"
+          >
+            <div className="relative">
+              <CarouselContent className="-ml-32">
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="pl-32">
+                    <TestimonialCard testimonial={testimonial} />
+                  </CarouselItem>
                 ))}
-              </div>
-              <div className="flex items-end justify-end gap-4">
-                <CarouselPrevious className="static right-0 top-0 size-12 -translate-y-0" />
-                <CarouselNext className="static right-0 top-0 size-12 -translate-y-0" />
+              </CarouselContent>
+              <div className="absolute top-full pt-12 flex w-full items-end justify-between">
+                <div className="mb-2.5 flex w-full items-start justify-start">
+                  {testimonials.map((_, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => api?.scrollTo(index)}
+                      variant={current === index + 1 ? 'default' : 'secondary'}
+                      className={'mr-3 inline-block size-4 rounded-xs p-0'}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-end justify-end gap-4">
+                  <CarouselPrevious className="static right-0 top-0 size-12 -translate-y-0" />
+                  <CarouselNext className="static right-0 top-0 size-12 -translate-y-0" />
+                </div>
               </div>
             </div>
-          </div>
-        </Carousel>
-      ) : (
-        <TestimonialCard testimonial={testimonials[0]!} />
-      )}
-    </div>
+          </Carousel>
+        ) : (
+          <TestimonialCard testimonial={testimonials[0]!} />
+        )}
+      </div>
+    </Section>
   )
 }
 

@@ -12,6 +12,7 @@ import {
 import { Media } from '@/components/Media'
 import type { TestimonialsBlock as TestimonialsBlockType, Testimonial } from '@/payload-types'
 import { Button } from '@/components/ui/button'
+import Section from '@/components/Section'
 
 interface NoImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
@@ -35,8 +36,8 @@ export const NoImage: React.FC<NoImageProps> = ({ testimonials }) => {
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28">
-      <div className="container">
+    <Section>
+      <div className="container overflow-hidden px-[5%] py-16 md:py-24 lg:py-28">
         {isCarousel ? (
           <Carousel
             setApi={setApi}
@@ -75,7 +76,7 @@ export const NoImage: React.FC<NoImageProps> = ({ testimonials }) => {
           <TestimonialCard testimonial={testimonials[0]!} />
         )}
       </div>
-    </section>
+    </Section>
   )
 }
 
@@ -112,4 +113,3 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
     </div>
   )
 }
-

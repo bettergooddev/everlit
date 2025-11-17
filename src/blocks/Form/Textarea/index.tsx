@@ -38,8 +38,15 @@ export const Textarea: React.FC<
 }) => {
   const registerProps = register(name, { required: required })
 
+  // Extract event handlers from props that should go to the textarea
+  const {
+    onMouseEnter,
+    onMouseLeave,
+    ...widthProps
+  } = props
+
   return (
-    <Width width={width} className={wrapperClassName} {...props}>
+    <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
 
       <TextAreaComponent
@@ -61,6 +68,8 @@ export const Textarea: React.FC<
           registerProps.onChange?.(e)
           onChange?.(e)
         }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
 
       {errors[name] && <Error name={name} />}

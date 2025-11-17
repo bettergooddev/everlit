@@ -38,8 +38,15 @@ export const Email: React.FC<
 }) => {
   const registerProps = register(name, { pattern: /^\S[^\s@]*@\S+$/, required })
 
+  // Extract event handlers from props that should go to the input
+  const {
+    onMouseEnter,
+    onMouseLeave,
+    ...widthProps
+  } = props
+
   return (
-    <Width width={width} className={wrapperClassName} {...props}>
+    <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
         className={cn(
@@ -60,6 +67,8 @@ export const Email: React.FC<
           registerProps.onChange?.(e)
           onChange?.(e)
         }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
 
       {errors?.[name] && <Error name={name} />}

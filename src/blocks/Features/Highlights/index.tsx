@@ -5,6 +5,7 @@ import type { FeaturesBlock } from '@/payload-types'
 import { Heading } from '@/components/Heading'
 import { Media } from '@/components/Media'
 import { GlowingCards, GlowingCard } from '@/components/ui/glowing-cards'
+import Section from '@/components/Section'
 
 export const Highlights: React.FC<FeaturesBlock> = ({
   heading,
@@ -14,19 +15,21 @@ export const Highlights: React.FC<FeaturesBlock> = ({
 }) => {
   const hasHighlights = highlights && highlights.length > 0
   return (
-    <div className="container">
-      <Heading heading={heading} subheading={subheading} actions={actions} />
+    <Section>
+      <div className="container">
+        <Heading heading={heading} subheading={subheading} actions={actions} />
 
-      {hasHighlights && (
-        <GlowingCards className="mt-12">
-          {highlights.map((highlight, index) => (
-            <GlowingCard key={index} className="rounded-xs">
-              <HighlightCardContent highlight={highlight} />
-            </GlowingCard>
-          ))}
-        </GlowingCards>
-      )}
-    </div>
+        {hasHighlights && (
+          <GlowingCards className="mt-12">
+            {highlights.map((highlight, index) => (
+              <GlowingCard key={index} className="rounded-xs">
+                <HighlightCardContent highlight={highlight} />
+              </GlowingCard>
+            ))}
+          </GlowingCards>
+        )}
+      </div>
+    </Section>
   )
 }
 
