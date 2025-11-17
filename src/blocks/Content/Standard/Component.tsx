@@ -50,9 +50,9 @@ export const Standard: React.FC<ContentBlock> = ({
             )}
 
             {hasBullets && (
-              <ul className="list-disc list-inside mt-8 mb-2 space-y-4">
+              <ul className="list-disc list-outside mt-8 mb-2 space-y-4 pl-6">
                 {bullets.map(({ bullet }, index) => (
-                  <li key={index} className="type-h4 text-foreground-100">
+                  <li key={index} className="type-h4 text-foreground-100 pl-2">
                     {bullet}
                   </li>
                 ))}

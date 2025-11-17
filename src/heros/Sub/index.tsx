@@ -19,9 +19,9 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
             opacity: 0,
             rotate: 0,
             right: '-10%',
-            top: '-140px',
+            top: '-80px',
             y: '0%',
-            x: '40px',
+            x: '120px',
             width: '1100px',
             height: '1100px',
           }}
