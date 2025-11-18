@@ -9,6 +9,8 @@ import {
 
 import { link } from '@/fields/link'
 
+import { defaults } from './defaults'
+
 const columnFields: Field[] = [
   {
     name: 'type',

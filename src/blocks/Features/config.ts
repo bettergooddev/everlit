@@ -2,6 +2,8 @@ import type { Block } from 'payload'
 
 import { linkGroup } from '@/fields/linkGroup'
 
+import { defaults } from './defaults'
+
 export const Features: Block = {
   slug: 'features',
   interfaceName: 'FeaturesBlock',

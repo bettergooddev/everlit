@@ -5,6 +5,8 @@ import { dualImageFields } from './DualImage/fields'
 import { gridFields } from './Grid/fields'
 import { standardFields } from './Standard/fields'
 
+import { defaults } from './defaults'
+
 export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',

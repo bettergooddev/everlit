@@ -2,6 +2,8 @@ import type { Block } from 'payload'
 
 import { lexicalEditor, ParagraphFeature } from '@payloadcms/richtext-lexical'
 
+import { defaults } from './defaults'
+
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',

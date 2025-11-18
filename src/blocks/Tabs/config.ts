@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { defaults } from './defaults'
+
 export const Tabs: Block = {
   slug: 'tabs',
   interfaceName: 'Tabs',

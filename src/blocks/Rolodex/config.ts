@@ -2,6 +2,8 @@ import type { Block } from 'payload'
 
 import { tags } from '@/fields/tags'
 
+import { defaults } from './defaults'
+
 export const Rolodex: Block = {
   slug: 'rolodex',
   interfaceName: 'Rolodex',
