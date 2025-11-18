@@ -253,7 +253,6 @@ export interface Page {
         | FormBlock
         | FeaturesBlock
         | TestimonialsBlock
-        | TimelineBlock
         | FlairBlock
         | GalleryBlock
         | CaseStudiesBlock
@@ -844,37 +843,6 @@ export interface TestimonialsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TimelineBlock".
- */
-export interface TimelineBlock {
-  heading?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  subheading?: string | null;
-  events: {
-    year: number;
-    description: string;
-    image: string | Media;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'timeline';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FlairBlock".
  */
 export interface FlairBlock {
@@ -1304,7 +1272,6 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         features?: T | FeaturesBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
-        timeline?: T | TimelineBlockSelect<T>;
         flair?: T | FlairBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
         'case-studies'?: T | CaseStudiesBlockSelect<T>;
@@ -1428,24 +1395,6 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
 export interface TestimonialsBlockSelect<T extends boolean = true> {
   variant?: T;
   testimonials?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TimelineBlock_select".
- */
-export interface TimelineBlockSelect<T extends boolean = true> {
-  heading?: T;
-  subheading?: T;
-  events?:
-    | T
-    | {
-        year?: T;
-        description?: T;
-        image?: T;
-        id?: T;
-      };
   id?: T;
   blockName?: T;
 }

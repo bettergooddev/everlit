@@ -9,7 +9,6 @@ import { FormBlock } from '@/blocks/Form/Component'
 // import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RenderFeatures } from '@/blocks/Features/RenderFeatures'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
-import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { FlairBlock } from '@/blocks/Flair/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
@@ -24,7 +23,6 @@ const blockComponents = {
   // mediaBlock: MediaBlock,
   features: RenderFeatures,
   testimonials: TestimonialsBlock,
-  timeline: TimelineBlock,
   flair: FlairBlock,
   gallery: GalleryBlock,
   'case-studies': CaseStudiesBlock,
