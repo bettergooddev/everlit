@@ -12,16 +12,19 @@ export const Features: Block = {
     {
       name: 'heading',
       type: 'text',
+      defaultValue: defaults.heading,
     },
     {
       name: 'subheading',
       type: 'textarea',
+      defaultValue: defaults.subheading,
     },
     linkGroup({
       overrides: {
         label: 'Actions',
         name: 'actions',
         maxRows: 2,
+        defaultValue: () => JSON.parse(JSON.stringify(defaults.actions)),
       },
     }),
     {
@@ -47,6 +50,7 @@ export const Features: Block = {
       required: true,
       minRows: 1,
       maxRows: 3,
+      defaultValue: () => JSON.parse(JSON.stringify(defaults.highlights)),
       admin: {
         components: {
           RowLabel: '@/blocks/Features/Highlights/HighlightsRowLabel#HighlightsRowLabel',
