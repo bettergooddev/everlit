@@ -61,7 +61,11 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
           />
         </motion.div>
 
-        <Frame resource={image} className=" size-full object-cover" />
+        <Frame
+          resource={image}
+          className="size-full object-cover aspect-[4/3]"
+          imgClassName="size-full object-cover"
+        />
 
         <div className="h-full flex flex-col-reverse lg:flex-col justify-between gap-8 xl:gap-0">
           <p className="max-w-[48ch]">{description}</p>

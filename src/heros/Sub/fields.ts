@@ -1,24 +1,29 @@
 import type { Field } from 'payload'
 
+import { defaults } from './defaults'
+
 export const subHeroFields: Field[] = [
   {
     name: 'heading',
     type: 'text',
     required: true,
+    defaultValue: defaults.heading,
   },
   {
     name: 'description',
     type: 'textarea',
+    defaultValue: defaults.description,
   },
   {
     name: 'image',
     type: 'upload',
     relationTo: 'media',
+    defaultValue: defaults.image,
   },
   {
     name: 'backgroundImage',
     type: 'upload',
     relationTo: 'media',
-    defaultValue: '6917054b9b5961a96f5e0173',
+    defaultValue: defaults.backgroundImage,
   },
 ]
