@@ -248,17 +248,16 @@ export interface Page {
   };
   layout?:
     | (
-        | CallToActionBlock
         | ContentBlock
-        | FormBlock
         | FeaturesBlock
-        | TestimonialsBlock
-        | FlairBlock
         | GalleryBlock
-        | CaseStudiesBlock
+        | Quote
+        | TestimonialsBlock
         | Tabs
         | Rolodex
-        | Quote
+        | CaseStudiesBlock
+        | FormBlock
+        | CallToActionBlock
       )[]
     | null;
   meta?: {
@@ -517,9 +516,10 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
+ * via the `definition` "ContentBlock".
  */
-export interface CallToActionBlock {
+export interface ContentBlock {
+  variant: 'standard' | 'dualImage' | 'grid';
   heading: {
     root: {
       type: string;
@@ -535,11 +535,180 @@ export interface CallToActionBlock {
     };
     [k: string]: unknown;
   };
-  form: string | Form;
+  description?: string | null;
+  standard?: {
+    image: string | Media;
+    tags?:
+      | {
+          tag: string;
+          id?: string | null;
+        }[]
+      | null;
+    bullets?:
+      | {
+          bullet: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  dualImage?: {
+    images: (string | Media)[];
+  };
+  grid?: {
+    image: string | Media;
+  };
+  reverseLayout?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock".
+ */
+export interface FeaturesBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  actions?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'media';
+                value: string | Media;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how this item should be rendered.
+           */
+          appearance?: ('default' | 'outline' | 'secondary') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  highlights: {
+    image: string | Media;
+    heading: string;
+    subheading?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  images?: (string | Media)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Quote".
+ */
+export interface Quote {
+  quote: string;
   backgroundImage: string | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'cta';
+  blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  variant: 'image' | 'noImage';
+  testimonials: (string | Testimonial)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Tabs".
+ */
+export interface Tabs {
+  heading: string;
+  description?: string | null;
+  highlights: {
+    media: string | Media;
+    heading: string;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  reverseLayout?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Rolodex".
+ */
+export interface Rolodex {
+  highlights: {
+    heading: string;
+    tags: {
+      tag: string;
+      id?: string | null;
+    }[];
+    description?: string | null;
+    id?: string | null;
+  }[];
+  backgroundImage: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'rolodex';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseStudiesBlock".
+ */
+export interface CaseStudiesBlock {
+  heading?: string | null;
+  backgroundImage: string | Media;
+  caseStudies: (string | CaseStudy)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'case-studies';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  form: string | Form;
+  enableIntro?: boolean | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'formBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -717,10 +886,9 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
+ * via the `definition` "CallToActionBlock".
  */
-export interface ContentBlock {
-  variant: 'standard' | 'dualImage' | 'grid';
+export interface CallToActionBlock {
   heading: {
     root: {
       type: string;
@@ -736,190 +904,11 @@ export interface ContentBlock {
     };
     [k: string]: unknown;
   };
-  description?: string | null;
-  standard?: {
-    image: string | Media;
-    tags?:
-      | {
-          tag: string;
-          id?: string | null;
-        }[]
-      | null;
-    bullets?:
-      | {
-          bullet: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  dualImage?: {
-    images: (string | Media)[];
-  };
-  grid?: {
-    image: string | Media;
-  };
-  reverseLayout?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
- */
-export interface FormBlock {
   form: string | Form;
-  enableIntro?: boolean | null;
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'formBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturesBlock".
- */
-export interface FeaturesBlock {
-  heading?: string | null;
-  subheading?: string | null;
-  actions?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: string | Page;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: string | Media;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how this item should be rendered.
-           */
-          appearance?: ('default' | 'outline' | 'secondary') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  highlights: {
-    image: string | Media;
-    heading: string;
-    subheading?: string | null;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'features';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialsBlock".
- */
-export interface TestimonialsBlock {
-  variant: 'image' | 'noImage';
-  testimonials: (string | Testimonial)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'testimonials';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FlairBlock".
- */
-export interface FlairBlock {
-  image: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'flair';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryBlock".
- */
-export interface GalleryBlock {
-  images?: (string | Media)[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gallery';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CaseStudiesBlock".
- */
-export interface CaseStudiesBlock {
-  heading?: string | null;
-  backgroundImage: string | Media;
-  caseStudies: (string | CaseStudy)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'case-studies';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Tabs".
- */
-export interface Tabs {
-  heading: string;
-  description?: string | null;
-  highlights: {
-    media: string | Media;
-    heading: string;
-    description?: string | null;
-    id?: string | null;
-  }[];
-  reverseLayout?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tabs';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Rolodex".
- */
-export interface Rolodex {
-  highlights: {
-    heading: string;
-    tags: {
-      tag: string;
-      id?: string | null;
-    }[];
-    description?: string | null;
-    id?: string | null;
-  }[];
   backgroundImage: string | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'rolodex';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Quote".
- */
-export interface Quote {
-  quote: string;
-  backgroundImage: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'quote';
+  blockType: 'cta';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1267,17 +1256,16 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
         features?: T | FeaturesBlockSelect<T>;
-        testimonials?: T | TestimonialsBlockSelect<T>;
-        flair?: T | FlairBlockSelect<T>;
         gallery?: T | GalleryBlockSelect<T>;
-        'case-studies'?: T | CaseStudiesBlockSelect<T>;
+        quote?: T | QuoteSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
         tabs?: T | TabsSelect<T>;
         rolodex?: T | RolodexSelect<T>;
-        quote?: T | QuoteSelect<T>;
+        'case-studies'?: T | CaseStudiesBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1293,17 +1281,6 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock_select".
- */
-export interface CallToActionBlockSelect<T extends boolean = true> {
-  heading?: T;
-  form?: T;
-  backgroundImage?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1346,17 +1323,6 @@ export interface ContentBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
- */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
-  enableIntro?: T;
-  introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FeaturesBlock_select".
  */
 export interface FeaturesBlockSelect<T extends boolean = true> {
@@ -1390,25 +1356,6 @@ export interface FeaturesBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialsBlock_select".
- */
-export interface TestimonialsBlockSelect<T extends boolean = true> {
-  variant?: T;
-  testimonials?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FlairBlock_select".
- */
-export interface FlairBlockSelect<T extends boolean = true> {
-  image?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "GalleryBlock_select".
  */
 export interface GalleryBlockSelect<T extends boolean = true> {
@@ -1418,12 +1365,21 @@ export interface GalleryBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CaseStudiesBlock_select".
+ * via the `definition` "Quote_select".
  */
-export interface CaseStudiesBlockSelect<T extends boolean = true> {
-  heading?: T;
+export interface QuoteSelect<T extends boolean = true> {
+  quote?: T;
   backgroundImage?: T;
-  caseStudies?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  variant?: T;
+  testimonials?: T;
   id?: T;
   blockName?: T;
 }
@@ -1470,10 +1426,33 @@ export interface RolodexSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Quote_select".
+ * via the `definition` "CaseStudiesBlock_select".
  */
-export interface QuoteSelect<T extends boolean = true> {
-  quote?: T;
+export interface CaseStudiesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  backgroundImage?: T;
+  caseStudies?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock_select".
+ */
+export interface FormBlockSelect<T extends boolean = true> {
+  form?: T;
+  enableIntro?: T;
+  introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionBlock_select".
+ */
+export interface CallToActionBlockSelect<T extends boolean = true> {
+  heading?: T;
+  form?: T;
   backgroundImage?: T;
   id?: T;
   blockName?: T;

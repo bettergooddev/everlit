@@ -8,7 +8,6 @@ import { FormBlock } from '../../blocks/Form/config'
 // import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Features } from '@/blocks/Features/config'
 import { Testimonials } from '@/blocks/Testimonials/config'
-import { Flair } from '@/blocks/Flair/config'
 import { Gallery } from '@/blocks/Gallery/config'
 import { CaseStudies } from '@/blocks/CaseStudies/config'
 import { Tabs } from '@/blocks/Tabs/config'
@@ -83,18 +82,16 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                CallToAction,
                 Content,
-                // MediaBlock,
-                FormBlock,
                 Features,
-                Testimonials,
-                Flair,
                 Gallery,
-                CaseStudies,
+                Quote,
+                Testimonials,
                 Tabs,
                 Rolodex,
-                Quote,
+                CaseStudies,
+                FormBlock,
+                CallToAction,
               ],
               required: false,
               admin: {
