@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const CaseStudies: Block = {
   slug: 'case-studies',
   interfaceName: 'CaseStudiesBlock',
+  imageURL: '/api/media/file/thumbnail-case-study.png',
   labels: {
     plural: 'Case Studies',
     singular: 'Case Study',

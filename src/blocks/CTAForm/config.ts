@@ -5,6 +5,7 @@ import { lexicalEditor, ParagraphFeature } from '@payloadcms/richtext-lexical'
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
+  imageURL: '/api/media/file/thumbnail-cta-form.png',
   fields: [
     {
       name: 'heading',

@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const Quote: Block = {
   slug: 'quote',
   interfaceName: 'Quote',
+  imageURL: '/api/media/file/thumbnail-quote.png',
   labels: {
     plural: 'Quotes',
     singular: 'Quote',
@@ -22,4 +23,3 @@ export const Quote: Block = {
     },
   ],
 }
-

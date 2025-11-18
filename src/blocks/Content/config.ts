@@ -8,6 +8,7 @@ import { standardFields } from './Standard/fields'
 export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
+  imageURL: '/api/media/file/thumbnail-content.png',
   fields: [
     {
       name: 'variant',

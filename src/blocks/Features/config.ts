@@ -5,6 +5,7 @@ import { linkGroup } from '@/fields/linkGroup'
 export const Features: Block = {
   slug: 'features',
   interfaceName: 'FeaturesBlock',
+  imageURL: '/api/media/file/thumbnail-feature.png',
   fields: [
     {
       name: 'heading',

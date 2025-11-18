@@ -5,6 +5,7 @@ import { tags } from '@/fields/tags'
 export const Rolodex: Block = {
   slug: 'rolodex',
   interfaceName: 'Rolodex',
+  imageURL: '/api/media/file/thumbnail-rolodex.png',
   labels: {
     plural: 'Rolodex',
     singular: 'Rolodex',

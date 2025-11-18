@@ -3,6 +3,7 @@ import type { Block } from 'payload'
 export const Tabs: Block = {
   slug: 'tabs',
   interfaceName: 'Tabs',
+  imageURL: '/api/media/file/thumbnail-tabs.png',
   labels: {
     plural: 'Tabs',
     singular: 'Tabs',
