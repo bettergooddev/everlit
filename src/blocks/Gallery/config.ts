@@ -12,6 +12,7 @@ export const Gallery: Block = {
       type: 'upload',
       relationTo: 'media',
       hasMany: true,
+      defaultValue: () => JSON.parse(JSON.stringify(defaults.images)),
     },
   ],
   labels: {

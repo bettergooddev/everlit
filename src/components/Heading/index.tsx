@@ -24,13 +24,11 @@ export const Heading = ({
         {heading && <h2 className="type-h2 text-left text-foreground-100">{heading}</h2>}
 
         {subheading && (
-          <p className="opacity-75 type-body text-foreground-100 mx-auto max-w-[52ch] mt-4">
-            {subheading}
-          </p>
+          <p className="opacity-75 type-body text-foreground-100 max-w-[52ch] mt-4">{subheading}</p>
         )}
       </div>
       {actions && (
-        <div className="flex flex-col sm:flex-row gap-4 lg:justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 lg:justify-center mt-auto">
           {actions.map((action) => (
             <CMSLink key={action.id} {...action.link} />
           ))}
