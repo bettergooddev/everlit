@@ -34,7 +34,7 @@ export const RenderBlocks: React.FC<{
   const { blocks } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
-
+  //
   if (hasBlocks) {
     return (
       <div className="flex flex-col">
