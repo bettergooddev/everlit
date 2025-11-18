@@ -15,20 +15,41 @@ export const TestimonialsBlock: React.FC<TestimonialsBlockType> = async (props) 
       typeof testimonial === 'object' && testimonial?.id ? testimonial.id : testimonial,
     )
 
+    // Get unique IDs to fetch
+    const uniqueIds = Array.from(
+      new Set(testimonialIds.filter((id): id is string => typeof id === 'string')),
+    )
+
     const testimonialsResult = await payload.find({
       collection: 'testimonials',
       depth: 2,
-      limit: testimonialIds.length,
+      limit: uniqueIds.length,
       pagination: false,
       overrideAccess: false,
       where: {
         id: {
-          in: testimonialIds.filter((id): id is string => typeof id === 'string'),
+          in: uniqueIds,
         },
       },
     })
 
-    populatedTestimonials = testimonialsResult.docs
+    // Create a map of fetched testimonials by ID for quick lookup
+    const testimonialsMap = new Map<string, Testimonial>()
+    testimonialsResult.docs.forEach((testimonial) => {
+      if (testimonial.id) {
+        testimonialsMap.set(testimonial.id, testimonial)
+      }
+    })
+
+    // Map over original array to preserve order and duplicates
+    populatedTestimonials = testimonialIds
+      .map((id) => {
+        if (typeof id === 'string') {
+          return testimonialsMap.get(id)
+        }
+        return null
+      })
+      .filter((testimonial): testimonial is Testimonial => testimonial !== null)
   }
 
   return <RenderTestimonials {...props} testimonials={populatedTestimonials} />

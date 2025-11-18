@@ -31,6 +31,7 @@ export const Testimonials: Block = {
       relationTo: 'testimonials',
       hasMany: true,
       required: true,
+      defaultValue: () => JSON.parse(JSON.stringify(defaults.testimonials)),
     },
   ],
 }
