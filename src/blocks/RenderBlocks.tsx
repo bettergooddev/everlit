@@ -10,7 +10,7 @@ import { RenderFeatures } from '@/blocks/Features/RenderFeatures'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { CaseStudiesBlock } from '@/blocks/CaseStudies/Component'
-import { Tabs } from '@/blocks/Tabs/Component'
+import { TabsBlock } from '@/blocks/Tabs/Component'
 import { RolodexBlock } from '@/blocks/Rolodex/Component'
 import { Quote } from '@/blocks/Quote/Component'
 
@@ -23,13 +23,13 @@ const blockComponents = {
   testimonials: TestimonialsBlock,
   gallery: GalleryBlock,
   'case-studies': CaseStudiesBlock,
-  tabs: Tabs,
+  tabs: TabsBlock,
   rolodex: RolodexBlock,
   quote: Quote,
 }
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: Page['layout']
 }> = (props) => {
   const { blocks } = props
 

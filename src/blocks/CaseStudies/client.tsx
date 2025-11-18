@@ -11,7 +11,7 @@ export function CaseStudiesClient(props: CaseStudiesBlockProps) {
 
   return (
     <div className="-my-[28rem] overflow-hidden">
-      <Section className="!my-[28rem]">
+      <Section className="!my-[28rem] md:py-48 py-36">
         <CaseStudiesMobile {...props} className="block md:hidden" />
         <CaseStudiesDesktop {...props} className="hidden md:block" />
       </Section>
