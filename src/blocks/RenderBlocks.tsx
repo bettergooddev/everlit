@@ -3,7 +3,6 @@ import React, { Fragment } from 'react'
 import type { Page } from '@/payload-types'
 
 import { CallToActionBlock } from '@/blocks/CTAForm/Component'
-// import { ColumnsBlock } from '@/blocks/Columns/Component'
 import { RenderContent } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 // import { MediaBlock } from '@/blocks/MediaBlock/Component'
@@ -52,7 +51,7 @@ export const RenderBlocks: React.FC<{
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
                     <Block
                       {...block}
-                      // TODO: bring this back when needed on blocks that go inside rich text like columns or media, i believe
+                      // TODO: bring this back when needed on blocks that go inside rich text like media, i believe
                       //  disableInnerContainer
                     />
                   </React.Fragment>
