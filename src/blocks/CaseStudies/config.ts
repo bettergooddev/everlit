@@ -15,12 +15,13 @@ export const CaseStudies: Block = {
       name: 'heading',
       type: 'text',
       required: false,
+      defaultValue: defaults.heading,
     },
     {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',
-      defaultValue: '69135116854935e5aa5fbfdc',
+      defaultValue: defaults.backgroundImage,
       required: true,
       // hidden: true,
     },
@@ -30,6 +31,7 @@ export const CaseStudies: Block = {
       relationTo: 'case-studies',
       hasMany: true,
       required: true,
+      defaultValue: defaults.caseStudies,
     },
   ],
 }
