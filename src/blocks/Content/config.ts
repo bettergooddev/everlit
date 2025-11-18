@@ -37,6 +37,7 @@ export const Content: Block = {
       name: 'heading',
       type: 'richText',
       required: true,
+      defaultValue: defaults.base.heading,
       editor: lexicalEditor({
         features: [ParagraphFeature()],
       }),
@@ -44,6 +45,7 @@ export const Content: Block = {
     {
       name: 'description',
       type: 'textarea',
+      defaultValue: defaults.base.desc,
     },
     {
       name: 'standard',

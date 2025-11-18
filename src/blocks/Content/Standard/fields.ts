@@ -2,14 +2,21 @@ import type { Field } from 'payload'
 
 import { tags } from '@/fields/tags'
 
+import { defaults } from '../defaults'
+
 export const standardFields: Field[] = [
   {
     name: 'image',
     type: 'upload',
     relationTo: 'media',
     required: true,
+    defaultValue: defaults.standard.image,
   },
-  tags(),
+  tags({
+    overrides: {
+      defaultValue: () => JSON.parse(JSON.stringify(defaults.standard.tags)),
+    },
+  }),
   {
     name: 'bullets',
     type: 'array',
@@ -21,6 +28,7 @@ export const standardFields: Field[] = [
         required: true,
       },
     ],
+    defaultValue: () => JSON.parse(JSON.stringify(defaults.standard.bullets)),
     admin: {
       components: {
         RowLabel: '@/blocks/Content/Standard/BulletsRowLabel#BulletsRowLabel',
