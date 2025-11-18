@@ -209,7 +209,7 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="relative overflow-hidden -mb-36">
+    <div className="relative overflow-hidden -mb-[10rem] -mt-[12rem]">
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>
@@ -422,7 +422,7 @@ export const CallToActionBlock: React.FC<
               >
                 <motion.div
                   animate={{
-                    rotate: Math.min(Math.max(-45 + ((formProgress - 3) / 9) * 45, -45), 0),
+                    rotate: Math.min(Math.max(-65 + ((formProgress - 3) / 9) * 65, -65), 0),
                     opacity: Math.min(Math.max(0.5 + ((formProgress - 3) / 9) * 0.5, 0.5), 1),
                   }}
                   transition={{ duration: 0.7 }}

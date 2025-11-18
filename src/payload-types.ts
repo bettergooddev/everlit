@@ -246,20 +246,22 @@ export interface Page {
       backgroundImage?: (string | null) | Media;
     };
   };
-  layout: (
-    | CallToActionBlock
-    | ContentBlock
-    | FormBlock
-    | FeaturesBlock
-    | TestimonialsBlock
-    | TimelineBlock
-    | FlairBlock
-    | GalleryBlock
-    | CaseStudiesBlock
-    | Tabs
-    | Rolodex
-    | Quote
-  )[];
+  layout?:
+    | (
+        | CallToActionBlock
+        | ContentBlock
+        | FormBlock
+        | FeaturesBlock
+        | TestimonialsBlock
+        | TimelineBlock
+        | FlairBlock
+        | GalleryBlock
+        | CaseStudiesBlock
+        | Tabs
+        | Rolodex
+        | Quote
+      )[]
+    | null;
   meta?: {
     title?: string | null;
     ignoreSuffix?: boolean | null;

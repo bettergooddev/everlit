@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { Page } from '@/payload-types'
-import { Media } from '@/components/Media'
+import { Frame } from '@/components/Frame'
 import RichText from '@/components/RichText'
 import { Badge } from '@/components/ui/badge'
 import { isRichTextEmpty } from '@/utilities/richtext'
@@ -13,11 +13,11 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
     props.study
 
   return (
-    <section className="w-full pt-36">
+    <section className="w-full">
       {/* Hero Image */}
       {image && (
         <div className="relative w-full aspect-[21/7] md:aspect-[21/8] overflow-hidden">
-          <Media resource={image} className="size-full" imgClassName="size-full object-cover" />
+          <Frame resource={image} className="size-full" imgClassName="size-full object-cover" />
         </div>
       )}
 

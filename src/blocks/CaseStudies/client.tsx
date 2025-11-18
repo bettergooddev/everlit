@@ -10,9 +10,11 @@ export function CaseStudiesClient(props: CaseStudiesBlockProps) {
   if (!props.caseStudies || props.caseStudies.length === 0) return null
 
   return (
-    <Section>
-      <CaseStudiesMobile {...props} className="block md:hidden" />
-      <CaseStudiesDesktop {...props} className="hidden md:block" />
-    </Section>
+    <div className="-my-[28rem] overflow-hidden">
+      <Section className="!my-[28rem]">
+        <CaseStudiesMobile {...props} className="block md:hidden" />
+        <CaseStudiesDesktop {...props} className="hidden md:block" />
+      </Section>
+    </div>
   )
 }

@@ -6,7 +6,12 @@ export interface GraphicDoubleQuoteProps extends Omit<React.SVGProps<SVGSVGEleme
   img?: boolean
 }
 
-export function GraphicDoubleQuote({ className, viewBox = true, img = false, ...props }: GraphicDoubleQuoteProps) {
+export function GraphicDoubleQuote({
+  className,
+  viewBox = true,
+  img = false,
+  ...props
+}: GraphicDoubleQuoteProps) {
   if (img) {
     return (
       <img
@@ -37,4 +42,3 @@ export function GraphicDoubleQuote({ className, viewBox = true, img = false, ...
     </svg>
   )
 }
-

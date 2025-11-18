@@ -98,7 +98,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Rolodex,
                 Quote,
               ],
-              required: true,
+              required: false,
               admin: {
                 initCollapsed: true,
               },
