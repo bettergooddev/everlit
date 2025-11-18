@@ -13,6 +13,7 @@ export const CallToAction: Block = {
       name: 'heading',
       type: 'richText',
       required: true,
+      defaultValue: defaults.heading,
       editor: lexicalEditor({
         features: [ParagraphFeature()],
       }),
@@ -22,12 +23,13 @@ export const CallToAction: Block = {
       type: 'relationship',
       relationTo: 'forms',
       required: true,
+      defaultValue: defaults.form,
     },
     {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',
-      defaultValue: '6915cd5c765fbb41ce17e08e',
+      defaultValue: defaults.backgroundImage,
       required: true,
       // hidden: true,
     },
