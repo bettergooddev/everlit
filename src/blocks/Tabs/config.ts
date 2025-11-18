@@ -15,10 +15,12 @@ export const Tabs: Block = {
       name: 'heading',
       type: 'text',
       required: true,
+      defaultValue: defaults.heading,
     },
     {
       name: 'description',
       type: 'textarea',
+      defaultValue: defaults.description,
     },
     {
       name: 'highlights',
@@ -42,6 +44,12 @@ export const Tabs: Block = {
       ],
       required: true,
       minRows: 1,
+      defaultValue: () => JSON.parse(JSON.stringify(defaults.highlights)),
+      admin: {
+        components: {
+          RowLabel: '@/blocks/Tabs/HighlightsRowLabel#HighlightsRowLabel',
+        },
+      },
     },
     {
       name: 'reverseLayout',

@@ -11,6 +11,7 @@ import { TagsRowLabel as TagsRowLabel_74a6e64534590a96f0b80c054769683a } from '@
 import { BulletsRowLabel as BulletsRowLabel_73ababdc3a5879033d699243feeef95b } from '@/blocks/Content/Standard/BulletsRowLabel'
 import { RowLabel as RowLabel_42fef87c714ad4dfcd30265dd529cda0 } from '@/fields/linkGroup/RowLabel'
 import { HighlightsRowLabel as HighlightsRowLabel_76c3f7a131e77a00b698b551f65ce104 } from '@/blocks/Features/Highlights/HighlightsRowLabel'
+import { HighlightsRowLabel as HighlightsRowLabel_a8a79c25c1732a77437869f7d6fb6d50 } from '@/blocks/Tabs/HighlightsRowLabel'
 import { HighlightsRowLabel as HighlightsRowLabel_d19bc0739a9496b00bdf1d2ad798d369 } from '@/blocks/Rolodex/HighlightsRowLabel'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { FixedToolbarFeatureClient as FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
@@ -43,6 +44,7 @@ export const importMap = {
   "@/blocks/Content/Standard/BulletsRowLabel#BulletsRowLabel": BulletsRowLabel_73ababdc3a5879033d699243feeef95b,
   "@/fields/linkGroup/RowLabel#RowLabel": RowLabel_42fef87c714ad4dfcd30265dd529cda0,
   "@/blocks/Features/Highlights/HighlightsRowLabel#HighlightsRowLabel": HighlightsRowLabel_76c3f7a131e77a00b698b551f65ce104,
+  "@/blocks/Tabs/HighlightsRowLabel#HighlightsRowLabel": HighlightsRowLabel_a8a79c25c1732a77437869f7d6fb6d50,
   "@/blocks/Rolodex/HighlightsRowLabel#HighlightsRowLabel": HighlightsRowLabel_d19bc0739a9496b00bdf1d2ad798d369,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#FixedToolbarFeatureClient": FixedToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
