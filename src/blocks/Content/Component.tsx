@@ -13,7 +13,6 @@ const content = {
 }
 
 export const RenderContent: React.FC<ContentBlock> = (props) => {
-  console.log('Content props:', props)
   const { variant } = props || {}
 
   if (!variant) return null
