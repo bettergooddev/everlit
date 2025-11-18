@@ -33,6 +33,7 @@ export const Rolodex: Block = {
       ],
       required: true,
       minRows: 1,
+      defaultValue: () => JSON.parse(JSON.stringify(defaults.highlights)),
       admin: {
         components: {
           RowLabel: '@/blocks/Rolodex/HighlightsRowLabel#HighlightsRowLabel',
@@ -43,7 +44,7 @@ export const Rolodex: Block = {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',
-      defaultValue: '691b3e3f98296faf9ec69eb8',
+      defaultValue: defaults.backgroundImage,
       required: true,
     },
   ],
