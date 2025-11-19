@@ -907,6 +907,52 @@ export interface CallToActionBlock {
   };
   form: string | Form;
   backgroundImage: string | Media;
+  dedicatedPage?: boolean | null;
+  phone?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'media';
+          value: string | Media;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  email?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'media';
+          value: string | Media;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
+  address?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: string | Page;
+        } | null)
+      | ({
+          relationTo: 'media';
+          value: string | Media;
+        } | null);
+    url?: string | null;
+    label: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -1456,6 +1502,34 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
   heading?: T;
   form?: T;
   backgroundImage?: T;
+  dedicatedPage?: T;
+  phone?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  email?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
+  address?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+      };
   id?: T;
   blockName?: T;
 }

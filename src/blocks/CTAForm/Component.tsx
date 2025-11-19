@@ -27,6 +27,9 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { isFieldFull } from './actions/isFieldFull'
 import { Media } from '@/components/Media'
 import Section from '@/components/Section'
+import { Mail, Phone, MapPin } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
+import { cn } from '@/utilities/ui'
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -42,6 +45,10 @@ export const CallToActionBlock: React.FC<
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
     heading,
     backgroundImage,
+    dedicatedPage,
+    phone,
+    email: emailLink,
+    address,
   } = props
 
   const formMethods = useForm({
@@ -209,7 +216,12 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="relative overflow-hidden -mb-[10rem] -mt-[12rem] z-0">
+    <div
+      className={cn(
+        'relative overflow-hidden -mb-[10rem] z-0',
+        dedicatedPage ? 'mt-section-small' : '-mt-[12rem]',
+      )}
+    >
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>
@@ -380,6 +392,44 @@ export const CallToActionBlock: React.FC<
               </Carousel>
             </form>
           </FormProvider>
+
+          {dedicatedPage && (emailLink || phone || address) && (
+            <div className="mt-48 pb-12 flex flex-col md:flex-row items-center md:items-start gap-16 md:gap-32 justify-center">
+              {emailLink && (
+                <div className="flex flex-col items-center md:items-start">
+                  <Mail className="w-6 h-6 mb-3" />
+                  <h4 className="type-h4 font-medium mb-2">Email</h4>
+                  <CMSLink
+                    {...emailLink}
+                    appearance="inline"
+                    className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
+                  />
+                </div>
+              )}
+              {phone && (
+                <div className="flex flex-col items-center md:items-start">
+                  <Phone className="w-6 h-6 mb-3" />
+                  <h4 className="type-h4 font-medium mb-2">Phone</h4>
+                  <CMSLink
+                    {...phone}
+                    appearance="inline"
+                    className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
+                  />
+                </div>
+              )}
+              {address && (
+                <div className="flex flex-col items-center md:items-start">
+                  <MapPin className="w-6 h-6 mb-3" />
+                  <h4 className="type-h4 font-medium mb-2">Office</h4>
+                  <CMSLink
+                    {...address}
+                    appearance="inline"
+                    className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
+                  />
+                </div>
+              )}
+            </div>
+          )}
 
           <AnimatePresence>
             {formPhase === 0 && (
