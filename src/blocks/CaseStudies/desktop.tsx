@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Heading } from '@/components/Heading'
-import { Media } from '@/components/Media'
 import type { CaseStudiesBlock, CaseStudy, Media as MediaType } from '@/payload-types'
 import Link from 'next/link'
 import { Frame } from '@/components/Frame'
@@ -10,6 +9,7 @@ import { motion, useInView, animate } from 'motion/react'
 import { cn } from '@/utilities/ui'
 import { springFadeUpStaggered } from './animations'
 import { CaseStudiesBlockProps } from './Component'
+import { GlowDesktop } from './glow'
 
 export function CaseStudiesDesktop({
   heading,
@@ -23,7 +23,7 @@ export function CaseStudiesDesktop({
 
   return (
     <div className={cn('relative', className)}>
-      <BackgroundGlow backgroundImage={backgroundImage} />
+      <GlowDesktop backgroundImage={backgroundImage} />
 
       {heading && <Heading heading={heading} className="container z-10" />}
 
@@ -135,50 +135,5 @@ function CaseStudyLinksWrapper({
         </Link>
       ))}
     </div>
-  )
-}
-
-function BackgroundGlow({ backgroundImage }: { backgroundImage: MediaType }) {
-  const backgroundRef = useRef<HTMLDivElement>(null)
-  const backgroundIsInView = useInView(backgroundRef, { once: false, amount: 0.4 })
-
-  return (
-    <motion.div
-      className="pointer-events-none"
-      ref={backgroundRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: backgroundIsInView ? 1 : 0 }}
-      transition={{
-        duration: 0.6,
-        ease: [0.4, 0, 0.2, 1],
-      }}
-    >
-      <motion.div
-        className="absolute inset-0 z-[-1] blur-xl"
-        animate={{
-          rotateY: [14, -14, 14],
-          //   rotateX: [8, -8, 8],
-          scaleY: [1.05, 1, 1.05],
-          // rotateX: [10, -10, 10],
-          //   translateY: [4, -4, 4],
-          //   translateX: [7, -7, 7],
-          opacity: [100, 80, 100],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-        style={{
-          transformStyle: 'preserve-3d',
-        }}
-      >
-        <Media
-          resource={backgroundImage}
-          className=""
-          imgClassName="absolute inset-0 object-left-top left-[-30rem] top-[-55rem] xl:left-[-20rem] max-w-[unset] size-[2000px] object-contain rotate-[-20deg] scale-125"
-        />
-      </motion.div>
-    </motion.div>
   )
 }

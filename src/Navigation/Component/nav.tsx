@@ -2,7 +2,7 @@
 
 // TODO: Create 2 navbars, one thats only on the homepage and is flush with the top of the page, and then the glass contained one, and have it pop out when you scroll down.
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { NavLogo } from './logo'
 import { renderNavigationItem } from './renderNavigationItem'
 import type { Navigation as NavigationType } from '@/payload-types'
@@ -22,6 +22,8 @@ import { tv } from 'tailwind-variants'
 import { cn } from '@/utilities/ui'
 import NavButton from './navButton'
 import Link from 'next/link'
+import { AnimatePresence, motion } from 'motion/react'
+import { useElementSize } from '@mantine/hooks'
 
 interface NavigationNavProps {
   data: NavigationType
@@ -51,6 +53,11 @@ const classes = {
   }),
 }
 
+// Persistent store for the last measured non-zero button width. Because this
+// file is a module, the value lives for the life of the page without the need
+// for context or localStorage.
+let globalLastButtonWidth = 0
+
 export const NavigationNav: React.FC<NavigationNavProps> = ({
   data,
   collapsed = false,
@@ -65,9 +72,29 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
     sheetCloseRef.current?.click()
   }
 
+  const { ref: buttonRef, width: buttonWidth } = useElementSize()
+
+  const [lastNonZeroWidth, setLastNonZeroWidth] = React.useState(globalLastButtonWidth)
+
+  useEffect(() => {
+    if (buttonWidth > 0 && buttonWidth !== globalLastButtonWidth) {
+      globalLastButtonWidth = buttonWidth
+      setLastNonZeroWidth(buttonWidth)
+    }
+  }, [buttonWidth])
+
+  const effectiveButtonWidth = buttonWidth || lastNonZeroWidth
+
+  useEffect(() => {
+    console.log(effectiveButtonWidth)
+  }, [effectiveButtonWidth])
   return (
     <nav className={cn('left-0 right-0 z-50', classes.header({ collapsed }), className)}>
-      <div className={cn('flex mx-auto p-[0.9rem] items-center justify-between w-full relative')}>
+      <div
+        className={cn(
+          'flex mx-auto p-[0.9rem] items-center justify-between w-full relative overflow-hidden',
+        )}
+      >
         <div
           className={cn(
             'absolute inset-0 w-full pointer-events-none bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10.3px] border border-foreground-100/10 z-[-1]',
@@ -76,18 +103,28 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
         ></div>
 
         {/* Logo – left aligned */}
-        <div className="flex h-min mr-12 gap-4">
-          {isCaseStudy && (
-            <Link href={'/home#case-studies'}>
-              <Button variant={'secondary'}>
-                <ArrowLeft />
-                Back Home
+        <motion.div
+          className="flex h-min mr-12"
+          initial={{
+            x: -effectiveButtonWidth,
+          }}
+          animate={{
+            x: isCaseStudy ? 0 : -effectiveButtonWidth,
+          }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+        >
+          {collapsed && (
+            <div ref={buttonRef}>
+              <Button variant={'secondary'} asChild className="mr-4">
+                <Link href={'/home#case-studies'}>
+                  <ArrowLeft />
+                  Back Home
+                </Link>
               </Button>
-            </Link>
+            </div>
           )}
-
           <NavLogo logo={data?.logo ?? null} />
-        </div>
+        </motion.div>
 
         {/* Actions – right aligned */}
         <div className="items-center gap-6 hidden lg:flex">

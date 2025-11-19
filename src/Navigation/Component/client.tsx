@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { NavigationNav } from './nav'
 import type { Navigation as NavigationType } from '@/payload-types'
 import { usePathname } from 'next/navigation'
-import { AnimatePresence, motion } from 'motion/react'
+import { motion } from 'motion/react'
 
 interface NavigationClientProps {
   data: NavigationType
@@ -45,19 +45,15 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   return (
     <>
       {isHome && <NavigationNav data={data} collapsed={false} isCaseStudy={isCaseStudy} />}
-      <AnimatePresence>
-        {showStickyNav && (
-          <motion.div
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            exit={{ y: -100 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed w-full top-8 z-50"
-          >
-            <NavigationNav data={data} collapsed={true} isCaseStudy={isCaseStudy} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={{ y: -100 }}
+        animate={showStickyNav ? { y: 0 } : { y: -100 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        className="fixed w-full top-8 z-50"
+        style={{ pointerEvents: showStickyNav ? 'auto' : 'none' }}
+      >
+        <NavigationNav data={data} collapsed={true} isCaseStudy={isCaseStudy} />
+      </motion.div>
     </>
   )
 }
