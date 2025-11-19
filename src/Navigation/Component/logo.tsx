@@ -5,6 +5,7 @@ import React from 'react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Navigation as NavigationType } from '@/payload-types'
+import Link from 'next/link'
 
 interface NavLogoProps {
   logo?: NavigationType['logo'] | null
@@ -17,9 +18,9 @@ export const NavLogo: React.FC<NavLogoProps> = ({ logo }) => {
 
   if (link) {
     return (
-      <CMSLink {...link} className="inline-block p-1" appearance="inline" label={''}>
+      <Link href="/" className="inline-block h-8">
         <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
-      </CMSLink>
+      </Link>
     )
   }
 

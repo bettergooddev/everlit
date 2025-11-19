@@ -29,7 +29,7 @@ function SecondaryButton({
           />
         </div>
 
-        <div className="relative z-10">{children}</div>
+        <div className="relative z-10 flex flex-row gap-1 items-center">{children}</div>
 
         <div className="border border-foreground-100/10 absolute inset-0" />
       </div>

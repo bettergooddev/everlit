@@ -94,7 +94,7 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
         >
           {collapsed && (
             <div ref={buttonRef}>
-              <Link href={'/home#case-studies'} className="mr-4">
+              <Link href={'/#case-studies'} className="mr-4">
                 <Button variant={'secondary'}>
                   <ArrowLeft />
                   Back Home
