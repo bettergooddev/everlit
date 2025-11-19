@@ -33,5 +33,12 @@ export const Testimonials: Block = {
       required: true,
       defaultValue: () => JSON.parse(JSON.stringify(defaults.testimonials)),
     },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      defaultValue: defaults.backgroundImage,
+      required: true,
+    },
   ],
 }

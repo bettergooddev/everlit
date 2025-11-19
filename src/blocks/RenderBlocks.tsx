@@ -5,7 +5,6 @@ import type { Page } from '@/payload-types'
 import { CallToActionBlock } from '@/blocks/CTAForm/Component'
 import { RenderContent } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
-// import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { RenderFeatures } from '@/blocks/Features/RenderFeatures'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
@@ -18,7 +17,6 @@ const blockComponents = {
   content: RenderContent,
   cta: CallToActionBlock,
   formBlock: FormBlock,
-  // mediaBlock: MediaBlock,
   features: RenderFeatures,
   testimonials: TestimonialsBlock,
   gallery: GalleryBlock,

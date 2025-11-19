@@ -631,6 +631,7 @@ export interface Quote {
 export interface TestimonialsBlock {
   variant: 'image' | 'noImage';
   testimonials: (string | Testimonial)[];
+  backgroundImage: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'testimonials';
@@ -1380,6 +1381,7 @@ export interface QuoteSelect<T extends boolean = true> {
 export interface TestimonialsBlockSelect<T extends boolean = true> {
   variant?: T;
   testimonials?: T;
+  backgroundImage?: T;
   id?: T;
   blockName?: T;
 }
