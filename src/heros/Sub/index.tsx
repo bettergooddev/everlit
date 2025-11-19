@@ -13,7 +13,7 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
 
   return (
     <Section className="!my-[unset] relative overflow-hidden">
-      <div className=" container lg:grid lg:grid-cols-[3fr,2fr] pt-36 pb-52 gap-16 flex flex-col">
+      <div className=" container lg:grid lg:grid-cols-[3fr,2fr] pt-section-mobile pb-52 gap-16 flex flex-col">
         <motion.div
           initial={{
             opacity: 0,

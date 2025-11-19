@@ -38,8 +38,8 @@ export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) =
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <div className="overflow-hidden -my-48">
-      <Section className="relative !my-48 md:py-48 py-36">
+    <div className="overflow-hidden -my-section">
+      <Section className="relative !my-section md:py-section py-section-mobile">
         <GlowDesktop className="hidden lg:block" backgroundImage={backgroundImage} />
         <GlowTablet className="hidden md:block lg:hidden" backgroundImage={backgroundImage} />
         <GlowMobile className="block md:hidden" backgroundImage={backgroundImage} />

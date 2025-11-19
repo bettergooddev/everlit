@@ -22,7 +22,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
   const socials = (data?.socials ?? []) as NonNullable<FooterType['socials']>
 
   return (
-    <footer className="bg-background-500/35 pb-16 p-12 mt-36 lg:p-16 lg:pb-20 border-t-foreground-100/10 border-t-[0.0625rem] relative overflow-hidden">
+    <footer className="bg-background-500/35 pb-16 p-12 mt-section-mobile lg:p-16 lg:pb-20 border-t-foreground-100/10 border-t-[0.0625rem] relative overflow-hidden">
       <div className="absolute inset-0 bg-background/5 backdrop-blur-sm z-[1]" />
 
       <motion.div

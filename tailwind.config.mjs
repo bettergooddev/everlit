@@ -68,6 +68,10 @@ const config = {
       // },
     },
     extend: {
+      spacing: {
+        section: '9rem', // 48 * 0.25rem = 12rem
+        'section-mobile': '9rem', // 36 * 0.25rem = 9rem
+      },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',

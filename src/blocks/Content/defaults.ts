@@ -34,7 +34,7 @@ export const defaults = {
     desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   },
   standard: {
-    image: '691c60ec07d04f1f438520c3',
+    image: '691c68822b8e4e51b55b601d',
     tags: [
       {
         tag: 'Tag 1',
