@@ -30,9 +30,9 @@ export const RelatedCaseStudies: React.FC<RelatedCaseStudiesProps> = ({
     <div className={cn('container py-section-mobile md:py-section', className)}>
       <div className="flex items-center justify-between mb-12">
         <h2 className="type-h2 text-foreground-100">Related Projects</h2>
-        <Button variant="secondary" asChild>
-          <Link href="/case-studies">View All</Link>
-        </Button>
+        <Link href="/case-studies">
+          <Button variant="secondary">View All</Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">

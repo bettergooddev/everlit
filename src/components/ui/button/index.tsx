@@ -1,20 +1,21 @@
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/utilities/ui'
+import { DefaultButton } from './default'
+import { SecondaryButton } from './secondary'
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xs text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xs type-body transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
-        default: 'bg-primary text-foreground-100 hover:bg-primary/90',
+        default: '[&_*]:text-no-underline',
+        secondary: '[&_*]:text-no-underline ',
         destructive:
           'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20',
         outline:
           'border-[0.0625rem] border-foreground-100 bg-foreground-100/5 shadow-xs hover:bg-accent hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-foreground-100 !type-caption font-light underline-offset-4 hover:underline',
         inline: '',
@@ -40,7 +41,6 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
   ref?: React.Ref<HTMLButtonElement>
 }
 
@@ -48,16 +48,18 @@ function Button({
   className,
   variant,
   size,
-  asChild = false,
   ...props
-}: React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : 'button'
+}: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants>) {
+  if (variant === 'default' || variant === undefined) {
+    return <DefaultButton className={className} size={size} {...props} />
+  }
+
+  if (variant === 'secondary') {
+    return <SecondaryButton className={className} size={size} {...props} />
+  }
 
   return (
-    <Comp
+    <button
       data-slot="button"
       className={cn(variant === 'none' ? className : buttonVariants({ variant, size, className }))}
       {...props}

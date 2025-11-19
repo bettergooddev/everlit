@@ -26,7 +26,7 @@ export const renderNavigationItem = (
         key={index}
         {...navItem.link}
         appearance={overrideAppearance ?? navItem.link.appearance ?? 'inline'}
-        className="type-button hover:underline theme-cafe"
+        className="type-button"
       />
     )
   }
@@ -58,7 +58,7 @@ const renderDropdown = (
       <Button
         className="flex items-center gap-1 type-button hover:text-primary underline-offset-4 transition-colors"
         variant={buttonVariant}
-        asChild
+        // asChild
       >
         <button>
           {navItem.dropdown.label}

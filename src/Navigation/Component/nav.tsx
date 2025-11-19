@@ -81,7 +81,6 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
             classes.visible({ collapsed }),
           )}
         ></div>
-
         {/* Logo – left aligned */}
         <motion.div
           className="flex h-min mr-12"
@@ -95,17 +94,16 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
         >
           {collapsed && (
             <div ref={buttonRef}>
-              <Button variant={'secondary'} asChild className="mr-4">
-                <Link href={'/home#case-studies'}>
+              <Link href={'/home#case-studies'} className="mr-4">
+                <Button variant={'secondary'}>
                   <ArrowLeft />
                   Back Home
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </div>
           )}
           <NavLogo logo={data?.logo ?? null} />
         </motion.div>
-
         {/* Actions – right aligned */}
         <div className="items-center gap-6 hidden lg:flex">
           <div className="flex-1 justify-end gap-6 hidden lg:flex">
@@ -116,7 +114,6 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
           </div>
           {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))}
         </div>
-
         {/* Mobile navigation – visible on small screens */}
         <div className="flex items-center lg:hidden">
           <Sheet>

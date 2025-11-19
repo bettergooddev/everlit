@@ -46,8 +46,8 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
     <>
       {isHome && <NavigationNav data={data} collapsed={false} isCaseStudy={isCaseStudy} />}
       <motion.div
-        initial={{ y: -100 }}
-        animate={showStickyNav ? { y: 0 } : { y: -100 }}
+        initial={{ y: -125 }}
+        animate={showStickyNav ? { y: 0 } : { y: -125 }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
         className="fixed w-full top-8 z-50"
         style={{ pointerEvents: showStickyNav ? 'auto' : 'none' }}

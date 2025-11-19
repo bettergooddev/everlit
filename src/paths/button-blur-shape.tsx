@@ -6,11 +6,16 @@ export interface ButtonBlurShapeProps extends Omit<React.SVGProps<SVGSVGElement>
   img?: boolean
 }
 
-export function ButtonBlurShape({ className, viewBox = true, img = false, ...props }: ButtonBlurShapeProps) {
+export function ButtonBlurShape({
+  className,
+  viewBox = true,
+  img = false,
+  ...props
+}: ButtonBlurShapeProps) {
   if (img) {
     return (
       <img
-        src="/paths/button-blur-shape.svg"
+        src="/paths/button-blur-shape.png"
         alt="Button blur shape"
         width="276"
         height="69"
@@ -24,7 +29,7 @@ export function ButtonBlurShape({ className, viewBox = true, img = false, ...pro
     <svg
       width="276"
       height="69"
-      {...(viewBox && { viewBox: "0 0 276 69" })}
+      {...(viewBox && { viewBox: '0 0 276 69' })}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -53,4 +58,3 @@ export function ButtonBlurShape({ className, viewBox = true, img = false, ...pro
     </svg>
   )
 }
-
