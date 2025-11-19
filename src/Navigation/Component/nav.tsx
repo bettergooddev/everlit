@@ -20,7 +20,6 @@ import { X } from 'lucide-react'
 import { renderMobileNavigationItem } from './renderMobileNavigationItem'
 import { tv } from 'tailwind-variants'
 import { cn } from '@/utilities/ui'
-import NavButton from './navButton'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'motion/react'
 import { useElementSize } from '@mantine/hooks'
@@ -53,11 +52,6 @@ const classes = {
   }),
 }
 
-// Persistent store for the last measured non-zero button width. Because this
-// file is a module, the value lives for the life of the page without the need
-// for context or localStorage.
-let globalLastButtonWidth = 0
-
 export const NavigationNav: React.FC<NavigationNavProps> = ({
   data,
   collapsed = false,
@@ -74,20 +68,6 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
 
   const { ref: buttonRef, width: buttonWidth } = useElementSize()
 
-  const [lastNonZeroWidth, setLastNonZeroWidth] = React.useState(globalLastButtonWidth)
-
-  useEffect(() => {
-    if (buttonWidth > 0 && buttonWidth !== globalLastButtonWidth) {
-      globalLastButtonWidth = buttonWidth
-      setLastNonZeroWidth(buttonWidth)
-    }
-  }, [buttonWidth])
-
-  const effectiveButtonWidth = buttonWidth || lastNonZeroWidth
-
-  useEffect(() => {
-    console.log(effectiveButtonWidth)
-  }, [effectiveButtonWidth])
   return (
     <nav className={cn('left-0 right-0 z-50', classes.header({ collapsed }), className)}>
       <div
@@ -106,10 +86,10 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
         <motion.div
           className="flex h-min mr-12"
           initial={{
-            x: -effectiveButtonWidth,
+            x: -(buttonWidth || 0),
           }}
           animate={{
-            x: isCaseStudy ? 0 : -effectiveButtonWidth,
+            x: isCaseStudy ? 0 : -(buttonWidth || 0),
           }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
         >
@@ -134,9 +114,7 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
               renderNavigationItem(item, index, { appearance: 'inline' }),
             )}
           </div>
-          {/* {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))} */}
-
-          <NavButton />
+          {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))}
         </div>
 
         {/* Mobile navigation – visible on small screens */}
