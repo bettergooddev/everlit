@@ -68,7 +68,7 @@ export const TabsBlock: React.FC<TabsBlockProps> = ({
                       'flex cursor-pointer items-center gap-4 border-b border-border-primary py-4',
                       {
                         'opacity-100': activeTab === index,
-                        'opacity-25': activeTab !== index,
+                        'opacity-50': activeTab !== index,
                       },
                     )}
                   >

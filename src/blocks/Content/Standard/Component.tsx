@@ -24,7 +24,7 @@ export const Standard: React.FC<ContentBlock> = ({
       <div
         className={cn(
           'container flex gap-16 flex-col',
-          reverseLayout ? 'flex-row-reverse' : 'flex-row',
+          reverseLayout ? ' lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
         <div className="w-full lg:w-1/3 flex flex-col justify-between gap-14 lg:gap-0">
