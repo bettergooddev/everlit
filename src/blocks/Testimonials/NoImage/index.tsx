@@ -36,7 +36,7 @@ export const NoImage: React.FC<NoImageProps> = ({ testimonials }) => {
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <Section>
+    <Section className="z-[1]">
       <div className="container overflow-hidden px-[5%] py-16 md:py-24 lg:py-28">
         {isCarousel ? (
           <Carousel

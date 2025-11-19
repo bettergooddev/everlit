@@ -15,7 +15,7 @@ export const Highlights: React.FC<FeaturesBlock> = ({
 }) => {
   const hasHighlights = highlights && highlights.length > 0
   return (
-    <Section>
+    <Section className="z-[1]">
       <div className="container">
         <Heading heading={heading} subheading={subheading} actions={actions} />
 

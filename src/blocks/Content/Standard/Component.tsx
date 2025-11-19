@@ -20,7 +20,7 @@ export const Standard: React.FC<ContentBlock> = ({
   const hasTags = tags && tags.length > 0
 
   return (
-    <Section>
+    <Section className="z-[1]">
       <div
         className={cn(
           'container flex gap-16 flex-col',

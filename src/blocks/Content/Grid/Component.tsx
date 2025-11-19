@@ -4,7 +4,7 @@ import Section from '@/components/Section'
 
 export const Grid: React.FC<ContentBlock> = () => {
   return (
-    <Section>
+    <Section className="z-[1]">
       <></>
     </Section>
   )

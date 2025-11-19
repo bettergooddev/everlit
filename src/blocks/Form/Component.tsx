@@ -115,7 +115,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <Section>
+    <Section className="z-[1]">
       <div className="container lg:max-w-[48rem] -mt-[6rem] md:-mt-section theme-sugar-shack">
         {enableIntro && introContent && !hasSubmitted && (
           <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />

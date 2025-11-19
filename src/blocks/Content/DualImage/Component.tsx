@@ -25,7 +25,7 @@ export const DualImage: React.FC<ContentBlock> = ({
   const image2 = validImages[1]
 
   return (
-    <Section>
+    <Section className="z-[1]">
       <div
         className={cn(
           'container flex gap-16 flex-col',

@@ -31,7 +31,7 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights, backgroun
   )
 
   return (
-    <Section id="relume" ref={ref} className="relative">
+    <Section id="relume" ref={ref} className="relative z-[1]">
       <motion.div
         ref={wrapperRef}
         className="absolute inset-0 z-[-1]"

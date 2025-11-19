@@ -7,7 +7,7 @@ import * as motion from 'motion/react-client'
 
 export const Quote: React.FC<QuoteType> = ({ quote, backgroundImage }) => {
   return (
-    <div className="-my-[25rem] overflow-hidden">
+    <div className="-my-[25rem] overflow-hidden z-[1]">
       <Section className="relative !my-[25rem]">
         <motion.div
           initial={{ opacity: 0 }}

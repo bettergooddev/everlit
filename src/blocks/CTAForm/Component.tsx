@@ -209,7 +209,7 @@ export const CallToActionBlock: React.FC<
   }, [formPhase, formProgress])
 
   return (
-    <div className="relative overflow-hidden -mb-[10rem] -mt-[12rem]">
+    <div className="relative overflow-hidden -mb-[10rem] -mt-[12rem] z-0">
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>

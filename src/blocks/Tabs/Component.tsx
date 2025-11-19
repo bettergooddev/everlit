@@ -21,7 +21,7 @@ export const TabsBlock: React.FC<TabsBlockProps> = ({
   const [activeTab, setActiveTab] = useState(0)
 
   return (
-    <Section>
+    <Section className="z-[1]">
       <div className="container">
         <div className="relative flex flex-col lg:flex-row">
           <div className="w-full lg:w-1/2 lg:pr-6 xl:pr-10">
