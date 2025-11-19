@@ -18,8 +18,8 @@ export const Frame: React.FC<FrameProps> = ({
   return (
     <Media
       {...props}
-      imgClassName={cn(inner ? 'border-foreground-100/10 border drop-shadow-xl' : '', imgClassName)}
-      className={cn(!inner ? 'border-foreground-100/10 border drop-shadow-xl' : '', className)}
+      imgClassName={cn(inner ? 'frame' : '', imgClassName)}
+      className={cn(!inner ? 'frame' : '', className)}
     />
   )
 }

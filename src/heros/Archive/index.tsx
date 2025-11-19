@@ -10,7 +10,7 @@ export const ArchiveHero: React.FC<Page['hero']> = (props) => {
   if (!heading) return null
 
   return (
-    <div className="container mx-auto pt-section-mobile pb-52">
+    <div className="container mx-auto pt-[12rem] pb-[1rem]">
       <div className="flex flex-col gap-6">
         {/* Breadcrumb */}
         <div className="flex justify-start">

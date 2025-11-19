@@ -183,3 +183,8 @@ html {
   }
 }
 
+
+
+.frame {
+   @apply border-foreground-100/10 border drop-shadow-xl;
+}
