@@ -15,6 +15,7 @@ import { Frame } from '@/components/Frame'
 import { Button } from '@/components/ui/button'
 import Section from '@/components/Section'
 import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
+import Link from 'next/link'
 
 interface ImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
@@ -92,7 +93,11 @@ export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) =
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   if (!testimonial) return null
 
-  const { image, description, author } = testimonial
+  const { image, description, author, caseStudy } = testimonial
+  const caseStudySlug =
+    typeof caseStudy === 'object' && caseStudy !== null && 'slug' in caseStudy
+      ? caseStudy.slug
+      : null
 
   return (
     <div className="lg:grid w-full lg:auto-cols-fr lg:grid-cols-2 items-center justify-center gap-12 md:gap-10 lg:gap-x-20 flex flex-col">
@@ -105,24 +110,26 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
       )}
       <div className="flex flex-col items-start h-full justify-between gap-12 xl:gap-0">
         <blockquote className="type-h4 xl:type-h3">{description}</blockquote>
-        <div className="flex flex-nowrap items-center gap-5 justify-between w-full">
-          <div>
+        <div className="flex flex-nowrap items-end gap-5 justify-between w-full">
+          <div className="flex flex-col">
             <p className="type-h4">{author.name}</p>
             <p className="[&_*]:type-body opacity-65 mt-1">
               <span>{author.position}</span>, <span>{author.company}</span>
             </p>
+            {caseStudySlug && (
+              <Link href={`/case-studies/${caseStudySlug}`} className="mt-6">
+                <Button variant={'secondary'}>View Case Study</Button>
+              </Link>
+            )}
           </div>
           {author.logo && (
-            <>
-              <div className="mx-4 w-px self-stretch bg-foreground-100/15 sm:mx-0" />
-              <div>
-                <Media
-                  resource={author.logo}
-                  className="h-8"
-                  imgClassName="size-full object-contain"
-                />
-              </div>
-            </>
+            <div>
+              <Media
+                resource={author.logo}
+                className="h-8"
+                imgClassName="size-full object-contain"
+              />
+            </div>
           )}
         </div>
       </div>
