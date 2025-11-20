@@ -15,7 +15,7 @@ const GlowDesktop = ({
   if (!backgroundImage) return null
 
   return (
-    <div className="absolute inset-0 overflow-hidden  -my-[28rem]">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
       <motion.div
         initial={{
           opacity: 0,

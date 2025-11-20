@@ -18,13 +18,17 @@ export const NavLogo: React.FC<NavLogoProps> = ({ logo }) => {
 
   if (link) {
     return (
-      <Link href="/" className="inline-block h-8">
+      <Link href="/" className="inline-block h-[2.65rem] p-1 -mt-1">
         <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
       </Link>
     )
   }
 
-  return <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
+  return (
+    <div className="inline-block h-[2.65rem] p-1 -mt-1">
+      <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
+    </div>
+  )
 }
 
 interface InnerProps {

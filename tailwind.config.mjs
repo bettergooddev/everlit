@@ -53,11 +53,11 @@ const config = {
       //   sm: '34rem',
       // },
       screens: {
-        '2xl': '82rem',
+        '2xl': '70rem',
+        xl: '68rem',
         lg: '64rem',
         md: '48rem',
         sm: '40rem',
-        xl: '80rem',
       },
       // screens: {
       //   '2xl': '86rem',

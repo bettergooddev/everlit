@@ -33,7 +33,7 @@ export const DualImage: React.FC<ContentBlock> = ({
           reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
-        <div className="w-full lg:w-1/3 flex flex-col justify-between gap-14 lg:gap-0">
+        <div className="w-full lg:w-2/5 flex flex-col justify-between gap-14 lg:gap-0">
           <div className="flex flex-col">
             {heading && (
               <div className="[&_*]:!type-h3 text-foreground-100">
@@ -57,7 +57,7 @@ export const DualImage: React.FC<ContentBlock> = ({
         <Frame
           inner
           resource={image1}
-          className="w-full lg:w-2/3 aspect-[5/3] lg:aspect-square lg:mb-24 pl-16 lg:pl-0"
+          className="w-full lg:w-3/5 aspect-[5/3] lg:aspect-square lg:mb-24 pl-16 lg:pl-0"
           imgClassName="w-full h-full object-cover "
         />
       </div>

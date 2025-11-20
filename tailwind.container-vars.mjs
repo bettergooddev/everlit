@@ -3,12 +3,12 @@ export default function ({ addBase, theme }) {
   const containerScreens = theme('container.screens', {})
   const containerPadding = theme('container.padding', {})
   const defaultPadding = containerPadding.DEFAULT || containerPadding.default || '1rem'
-  
+
   // Helper function to get padding for a breakpoint
   const getPadding = (breakpointName) => {
     return containerPadding[breakpointName] || defaultPadding
   }
-  
+
   // Helper function to calculate content width (max-width - 2 * padding)
   const calculateContentWidth = (maxWidth, padding) => {
     const maxWidthValue = parseFloat(maxWidth)
@@ -16,7 +16,7 @@ export default function ({ addBase, theme }) {
     const totalPadding = paddingValue * 2 // left + right
     return `${maxWidthValue - totalPadding}rem`
   }
-  
+
   // Get all breakpoints sorted by value
   const breakpoints = Object.entries(containerScreens)
     .map(([name, value]) => {
@@ -61,4 +61,3 @@ export default function ({ addBase, theme }) {
     addBase(query)
   })
 }
-

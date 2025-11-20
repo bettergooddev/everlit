@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   h1,
   h2,
@@ -39,18 +38,18 @@
     /* Primary colors */
     --primary-900: 18.26 83.64% 21.57%;
     --primary-500: 18.04 83.61% 35.88%;
-    --primary-100: 18.10 73.66% 52.35%;
+    --primary-100: 18.1 73.66% 52.35%;
 
     /* Foreground colors */
     --foreground-900: 45.82 63.22% 82.94%;
-    --foreground-500: 45.00 100.00% 92.94%;
+    --foreground-500: 45 100% 92.94%;
     --foreground-300: 196.68 20.94% 16.86%;
     --foreground-100: 41.54 68.42% 96.27%;
 
     /* Background colors */
 
     --background-900: 198.95 82.61% 4.51%;
-    --background-500: 200.00 82.98% 9.22%;
+    --background-500: 200 82.98% 9.22%;
     --background-100: 199.15 59.49% 15.49%;
     --background-50: 0 0% 85.1%;
 
@@ -90,12 +89,11 @@
     /* Background gradient colors (gradient 1) */
     --gradient-background-start: 198.95 73.8% 16.5%; /* rgb(11, 53, 73) */
     --gradient-background-end: 198.95 73.8% 16.5%; /* same color, different opacity */
-    
+
     /* Foreground gradient colors (gradient 2) */
     --gradient-foreground-start: 0 0% 59.2%; /* rgb(151, 151, 151) */
     --gradient-foreground-end: 0 0% 59.2%; /* same color, different opacity */
   }
-
 }
 
 @layer base {
@@ -116,7 +114,7 @@ html {
   .type-h1,
   .prose h1 {
     font-family: var(--font-calvino);
-    font-size: 6.625rem;
+    font-size: clamp( 3.65rem,  3.65rem + ((100vw - 20rem) / 44) * 3.95, 6.95rem);
     font-style: normal;
     font-weight: 400;
     line-height: 105%;
@@ -127,9 +125,9 @@ html {
   .type-h2,
   .prose h2 {
     font-family: var(--font-calvino);
-    font-size: 4rem;
+    font-size: clamp(1.825rem, 1.825rem + ((100vw - 20rem) / 44) * 1.9, 3.65rem);
     font-style: normal;
-    font-weight: 350;
+    font-weight: 300;
     line-height: 115%;
   }
 
@@ -137,7 +135,7 @@ html {
   .type-h3,
   .prose h3 {
     font-family: var(--font-calvino);
-    font-size: 1.875rem;
+    font-size: clamp(1.25rem, 1.25rem + ((100vw - 20rem) / 44) * 0.7, 1.825rem);
     font-style: normal;
     font-weight: 200;
     line-height: 140%;
@@ -147,7 +145,8 @@ html {
   .type-h4,
   .prose h4 {
     font-family: var(--font-calvino);
-    font-size: 1.25rem;
+    font-size: clamp(0.9rem, 0.9rem + ((100vw - 20rem) / 44) * 0.25, 1.2rem);
+    font-size: clamp(0.9rem, 0.9rem + ((100vw - 20rem) / 44) * 0.25, 1.1rem);
     font-style: normal;
     font-weight: 350;
     line-height: 140%;
@@ -158,33 +157,34 @@ html {
   .type-body,
   .prose p,
   .prose span,
-  .prose a {
-    font-family: var(--font-figtree);
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
-  }
-
+  .prose a,
   .type-button {
     font-family: var(--font-figtree);
-    @apply text-sm font-medium;
+    font-size: clamp(0.95rem, 0.95rem + ((100vw - 20rem) / 44) * 0.025, 0.95rem);
+    font-style: normal;
+    font-weight: 300;
+    line-height: auto;
   }
 
-  h5,
+  /* h5,
   .type-h5,
-  .type-caption,
   .prose h5 {
     font-family: var(--font-figtree);
-    font-size: 0.75rem;
+    font-size: clamp(0.9rem, 0.9rem + ((100vw - 20rem) / 44) * 0.0625, 0.95rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
+  } */
+
+  .type-caption {
+    font-family: var(--font-figtree);
+    font-size: clamp(0.75rem, 0.75rem + ((100vw - 20rem) / 44) * 0.0625, 0.75rem);
     font-style: normal;
     font-weight: 400;
     line-height: 160%;
   }
 }
 
-
-
 .frame {
-   @apply border-foreground-100/10 border drop-shadow-xl;
+  @apply border-foreground-100/10 border drop-shadow-xl;
 }

@@ -160,7 +160,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
   glowOpacity = 1,
   animationDuration = 2000,
   enableHover = true,
-  gap = '2.5rem',
+  gap = '3.5rem',
   padding = '0rem 0rem',
   backgroundColor,
   borderRadius = '1rem',
@@ -224,10 +224,10 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
     <div className={cn('relative w-full', className)} style={containerStyle}>
       <div
         ref={containerRef}
-        className={cn('relative mx-auto', 'px-6 py-2')}
+        className={cn('relative mx-auto')}
         style={{ padding: 'var(--padding)' }} // String literal
       >
-        <div className={cn('flex justify-center flex-wrap gap-[var(--gap)] flex-col md:flex-row')}>
+        <div className={cn('flex justify-center flex-wrap gap-[var(--gap)] flex-col lg:flex-row')}>
           {React.Children.map(
             children as React.ReactElement<GlowingCardProps>[],
             (child: React.ReactElement<GlowingCardProps> | undefined) => {
@@ -259,7 +259,7 @@ export const GlowingCards: React.FC<GlowingCardsProps> = ({
             <div
               className={cn(
                 'flex justify-center flex-wrap gap-[var(--gap)] center mx-auto',
-                'flex-col md:flex-row relative',
+                'flex-col lg:flex-row relative',
               )}
               style={{ padding: 'var(--padding)' }} // String literal
             >

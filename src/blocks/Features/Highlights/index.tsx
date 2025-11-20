@@ -40,7 +40,9 @@ function HighlightCardContent({ highlight }: { highlight: HighlightType }) {
     <>
       <Media resource={highlight.image} className="size-24" />
       <h3 className="mt-12">{highlight.heading}</h3>
-      {highlight.subheading && <p className="type-body opacity-85 mt-2">{highlight.subheading}</p>}
+      {highlight.subheading && (
+        <p className="type-body opacity-85 mt-2 max-w-[30ch] text-pretty">{highlight.subheading}</p>
+      )}
     </>
   )
 }
