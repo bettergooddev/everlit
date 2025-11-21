@@ -76,7 +76,10 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
     if (!collapsed) {
       setNavButtonCalculated(true)
     } else if (buttonWidth > 0 && !navButtonCalculated) {
-      setNavButtonCalculated(true)
+      const timer = setTimeout(() => {
+        setNavButtonCalculated(true)
+      }, 500)
+      return () => clearTimeout(timer)
     }
   }, [buttonWidth, navButtonCalculated, collapsed, setNavButtonCalculated])
 
