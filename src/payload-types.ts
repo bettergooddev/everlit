@@ -553,6 +553,7 @@ export interface ContentBlock {
   };
   dualImage?: {
     images: (string | Media)[];
+    backgroundImage?: (string | null) | Media;
   };
   grid?: {
     image: string | Media;
@@ -1358,6 +1359,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | T
     | {
         images?: T;
+        backgroundImage?: T;
       };
   grid?:
     | T

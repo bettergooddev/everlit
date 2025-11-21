@@ -100,3 +100,15 @@
 - If found in the globals.css file, then use instead the convention `type-*` 
 - Ex. type-h1, type-h2, ..., type-body, type-caption, etc. 
 - The type classes are @utility definitions.  This means they can and often include multiple properties each via @apply. These include properties like font, and weight, and others which you may find while inspecting globals.css.  As such, do not define those either in place of these new classes.
+
+# Glow Components
+- Create separate components: GlowDesktop, GlowMobile, GlowTablet (all accept className and backgroundImage props).
+- Dedicated glow.tsx file in the same directory as the block/hero component.
+- Configure `backgroundImage` field in block/hero config/fields as upload type with `relationTo: 'media'` (see `src/blocks/CaseStudies/config.ts`, `src/heros/Sub/fields.ts`).
+- Glow components accept `backgroundImage: string | MediaType | null | undefined` prop and check `if (!backgroundImage) return null` before rendering.
+- External div wrapper with `pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]` for overflow containment and negative margin (no longer needed on Section or parent wrapper).
+- Placement config (right, top, left, width, height, etc.) defined in motion.div initial/animate props.
+- Breakpoint visibility handled in parent component via className (e.g., `hidden lg:block`, `hidden md:block lg:hidden`, `md:hidden`).
+- Dev mode: Comment out animated rotation/translation blocks; use `animate` with static positioning (opacity: 1, no transitions).
+- Prod mode: Uncomment animated rotation/translation; use `initial` with opacity: 0, then `animate` to opacity: 1 with continuous rotateY/translateY/translateX animations and transitions.
+- Reference implementations: `src/blocks/CaseStudies/glow.tsx`, `src/heros/Sub/glow.tsx`, `src/heros/Sub/index.tsx`, `src/blocks/CaseStudies/client.tsx`

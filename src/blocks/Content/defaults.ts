@@ -60,6 +60,7 @@ export const defaults = {
   },
   dualImage: {
     images: ['691c68822b8e4e51b55b601d', '691c68822b8e4e51b55b601d'],
+    backgroundImage: '691c9205bfc6beea4171cb26',
   },
   grid: {},
 }

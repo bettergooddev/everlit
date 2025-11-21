@@ -6,6 +6,7 @@ import { Frame } from '@/components/Frame'
 import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
 import Section from '@/components/Section'
+import { GlowDesktop, GlowMobile } from './glow'
 
 export const DualImage: React.FC<ContentBlock> = ({
   heading,
@@ -25,7 +26,9 @@ export const DualImage: React.FC<ContentBlock> = ({
   const image2 = validImages[1]
 
   return (
-    <Section className="z-[1]">
+    <Section className="z-[1] relative">
+      <GlowDesktop backgroundImage={dualImage?.backgroundImage} className="hidden lg:block" />
+      <GlowMobile backgroundImage={dualImage?.backgroundImage} className="lg:hidden" />
       <div
         className={cn(
           'container flex gap-16 flex-col',

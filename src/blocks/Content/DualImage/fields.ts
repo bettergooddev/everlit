@@ -13,4 +13,10 @@ export const dualImageFields: Field[] = [
     maxRows: 2,
     defaultValue: () => JSON.parse(JSON.stringify(defaults.dualImage.images)),
   },
+  {
+    name: 'backgroundImage',
+    type: 'upload',
+    relationTo: 'media',
+    defaultValue: defaults.dualImage.backgroundImage,
+  },
 ]
