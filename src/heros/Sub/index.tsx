@@ -12,8 +12,8 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
 
   return (
     <Section className="relative">
-      <GlowDesktop backgroundImage={backgroundImage} className="hidden lg:block" />
-      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block lg:hidden" />
+      <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
+      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block xl:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
       <div className="container xl:grid xl:grid-cols-[3fr,2fr] gap-16 flex flex-col">
         <Frame

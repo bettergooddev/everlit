@@ -184,7 +184,7 @@ const GlowTablet = ({
         style={{
           transformStyle: 'preserve-3d',
           right: '-250px',
-          top: '700px',
+          bottom: '0px',
           width: '1100px',
           height: '1100px',
         }}
