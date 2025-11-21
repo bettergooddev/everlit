@@ -17,6 +17,16 @@ const GlowDesktop = ({
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
       <motion.div
+        initial={{
+          opacity: 0,
+          rotate: 0,
+          left: '-700px',
+          top: '-800px',
+          y: '0%',
+          x: '0px',
+          width: '3000px',
+          height: '3000px',
+        }}
         animate={{
           opacity: 1,
           rotate: 0,
@@ -26,28 +36,28 @@ const GlowDesktop = ({
           x: '0px',
           width: '3000px',
           height: '3000px',
-          // rotateY: [14, -14, 14],
-          // translateY: [2, -2, 2],
-          // translateX: [5, -5, 5],
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
         }}
-        // transition={{
-        //   opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
-        //   rotateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateX: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        // }}
+        transition={{
+          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+        }}
         style={{
           transformStyle: 'preserve-3d',
         }}
@@ -75,6 +85,16 @@ const GlowMobile = ({
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
       <motion.div
+        initial={{
+          opacity: 0,
+          rotate: 180,
+          left: '-350%',
+          top: '75%',
+          y: '0%',
+          x: '120px',
+          width: '3000px',
+          height: '300px',
+        }}
         animate={{
           opacity: 1,
           rotate: 180,
@@ -84,28 +104,28 @@ const GlowMobile = ({
           x: '120px',
           width: '3000px',
           height: '300px',
-          // rotateY: [14, -14, 14],
-          // translateY: [2, -2, 2],
-          // translateX: [5, -5, 5],
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
         }}
-        // transition={{
-        //   opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
-        //   rotateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateX: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        // }}
+        transition={{
+          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+        }}
         style={{
           transformStyle: 'preserve-3d',
         }}
@@ -133,6 +153,16 @@ const GlowTablet = ({
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
       <motion.div
+        initial={{
+          opacity: 0,
+          rotate: 180,
+          left: '-250%',
+          top: '05%',
+          y: '0%',
+          x: '120px',
+          width: '4000px',
+          height: '4000px',
+        }}
         animate={{
           opacity: 1,
           rotate: 180,
@@ -142,6 +172,27 @@ const GlowTablet = ({
           x: '120px',
           width: '4000px',
           height: '4000px',
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
+        transition={{
+          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
           transformStyle: 'preserve-3d',

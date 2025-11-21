@@ -17,6 +17,16 @@ const GlowDesktop = ({
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
       <motion.div
+        initial={{
+          opacity: 0,
+          rotate: -90,
+          bottom: '200px',
+          left: '-400px',
+          y: '0px',
+          x: '0px',
+          width: '2000px',
+          height: '2000px',
+        }}
         animate={{
           opacity: 1,
           rotate: -90,
@@ -26,31 +36,28 @@ const GlowDesktop = ({
           x: '0px',
           width: '2000px',
           height: '2000px',
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
         }}
-        // animate={{
-        //   opacity: 1,
-        //   rotateY: [14, -14, 14],
-        //   translateY: [2, -2, 2],
-        //   translateX: [5, -5, 5],
-        // }}
-        // transition={{
-        //   opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
-        //   rotateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateX: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        // }}
+        transition={{
+          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+        }}
         style={{
           transformStyle: 'preserve-3d',
         }}
@@ -78,6 +85,16 @@ const GlowMobile = ({
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
       <motion.div
+        initial={{
+          opacity: 0,
+          rotate: -90,
+          bottom: '300px',
+          left: '-370px',
+          y: '0px',
+          x: '0px',
+          width: '1200px',
+          height: '1200px',
+        }}
         animate={{
           opacity: 1,
           rotate: -90,
@@ -87,31 +104,28 @@ const GlowMobile = ({
           x: '0px',
           width: '1200px',
           height: '1200px',
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
         }}
-        // animate={{
-        //   opacity: 1,
-        //   rotateY: [14, -14, 14],
-        //   translateY: [2, -2, 2],
-        //   translateX: [5, -5, 5],
-        // }}
-        // transition={{
-        //   opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
-        //   rotateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateY: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        //   translateX: {
-        //     duration: 4,
-        //     repeat: Infinity,
-        //     ease: 'easeInOut',
-        //   },
-        // }}
+        transition={{
+          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+        }}
         style={{
           transformStyle: 'preserve-3d',
         }}

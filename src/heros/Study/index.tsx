@@ -55,7 +55,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-8 md:gap-12">
             {/* Left Column - Description */}
             {description && !isRichTextEmpty(description) && (
-              <div>
+              <div className="mb-8 md:mb-0">
                 <RichText
                   className="[&_*]:max-w-[48ch] [&_br]:!block"
                   data={description}
@@ -65,11 +65,11 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
             )}
 
             {/* Right Column - Stacked Sections */}
-            <div className="flex flex-col gap-6 md:gap-8">
+            <div className="flex flex-col gap-12 md:gap-8">
               {/* Collaborators */}
               {collaborators && !isRichTextEmpty(collaborators) && (
                 <div>
-                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Collaborators</h2>
+                  <h2 className="type-h3 mb-6 md:mb-4 text-foreground-100">Collaborators</h2>
                   <RichText
                     data={collaborators}
                     className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75 [&_li::marker]:text-foreground-100/10 [&_br]:!block"
@@ -81,7 +81,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               {/* Scope */}
               {scope && !isRichTextEmpty(scope) && (
                 <div>
-                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Scope</h2>
+                  <h2 className="type-h3 mb-6 md:mb-4 text-foreground-100">Scope</h2>
                   <RichText
                     data={scope}
                     className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75 [&_li::marker]:text-foreground-100/10 [&_br]:!block"
@@ -93,7 +93,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
               {/* Features */}
               {features && !isRichTextEmpty(features) && (
                 <div>
-                  <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Features</h2>
+                  <h2 className="type-h3 mb-6 md:mb-4 text-foreground-100">Features</h2>
                   <RichText
                     data={features}
                     className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75 [&_li::marker]:text-foreground-100/10 [&_br]:!block"

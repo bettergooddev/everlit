@@ -20,7 +20,7 @@ const GlowDesktop = ({
     >
       {/* Top-right glow */}
       <motion.div
-        // initial={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: 15,
@@ -29,8 +29,8 @@ const GlowDesktop = ({
           width: '1200px',
           height: '1200px',
         }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
         className="absolute z-[-1]"
       >
         <Media
@@ -42,7 +42,7 @@ const GlowDesktop = ({
 
       {/* Bottom-left glow */}
       <motion.div
-        // initial={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: 195,
@@ -51,8 +51,8 @@ const GlowDesktop = ({
           width: '1200px',
           height: '1200px',
         }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
         className="absolute z-[-1]"
       >
         <Media
@@ -80,7 +80,7 @@ const GlowMobile = ({
     >
       {/* Top-right glow */}
       <motion.div
-        // initial={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: 15,
@@ -89,8 +89,8 @@ const GlowMobile = ({
           width: '600px',
           height: '600px',
         }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
         className="absolute z-[-1]"
       >
         <Media
@@ -102,7 +102,7 @@ const GlowMobile = ({
 
       {/* Bottom-left glow */}
       <motion.div
-        // initial={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: 195,
@@ -111,8 +111,8 @@ const GlowMobile = ({
           width: '600px',
           height: '600px',
         }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
         className="absolute z-[-1]"
       >
         <Media
@@ -140,7 +140,7 @@ const GlowTablet = ({
     >
       {/* Top-right glow */}
       <motion.div
-        // initial={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: 15,
@@ -149,8 +149,8 @@ const GlowTablet = ({
           width: '1200px',
           height: '1200px',
         }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
         className="absolute z-[-1]"
       >
         <Media
@@ -162,7 +162,7 @@ const GlowTablet = ({
 
       {/* Bottom-left glow */}
       <motion.div
-        // initial={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           rotate: 195,
@@ -171,8 +171,8 @@ const GlowTablet = ({
           width: '1200px',
           height: '1200px',
         }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
         className="absolute z-[-1]"
       >
         <Media
