@@ -29,7 +29,7 @@ export const renderMobileNavigationItem = (
           {...navItem.link}
           label={navItem.link.label}
           appearance={overrideAppearance ?? navItem.link.appearance ?? 'link'}
-          className="type-button py-2 w-full text-left"
+          className="type-button px-0 py-2 w-full"
         />
       </div>
     )

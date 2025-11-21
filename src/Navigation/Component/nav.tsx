@@ -123,42 +123,52 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="p-6 space-y-6" hideClose>
-              <div className="flex items-center justify-between mb-4">
-                <NavLogo logo={data?.logo ?? null} />
-                <SheetClose asChild>
-                  <Button variant="default" size="icon" aria-label="Close menu">
-                    <X className="h-5 w-5" />
-                  </Button>
-                </SheetClose>
+            <SheetContent
+              side="right"
+              className=" flex space-y-6 w-full bg-transparent border-none "
+              hideClose
+            >
+              <div className="rounded-xs  size-full relative p-6 overflow-hidden z-100">
+                <div className="absolute inset-0 border-[1px] border-foreground-100/10 bg-foreground-100/10 pointer-events-none" />
+
+                <div className="absolute inset-0 z-[-2] pointer-events-none" />
+
+                <div className="flex items-center justify-end mb-8">
+                  {/* <NavLogo logo={data?.logo ?? null} /> */}
+                  <SheetClose asChild>
+                    <Button variant="default" size="icon" aria-label="Close menu">
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </SheetClose>
+                </div>
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
+                </SheetHeader>
+                {/* Primary navigation items */}
+                <nav className="flex flex-col gap-6 w-full">
+                  {navItems.map((item, index) =>
+                    renderMobileNavigationItem(item, index, {
+                      appearance: 'outline',
+                      onItemClick: handleNavItemClick,
+                    }),
+                  )}
+                </nav>
+
+                {/* Divider */}
+                {/* <div className="border-t border-border pt-4" /> */}
+
+                {/* Actions */}
+                <div className="flex flex-col gap-4 mt-6">
+                  {actions.map((item, index) =>
+                    renderMobileNavigationItem(item, `action-mobile-${index}`, {
+                      onItemClick: handleNavItemClick,
+                    }),
+                  )}
+                </div>
+
+                {/* Hidden close button for programmatic closing */}
+                <SheetClose ref={sheetCloseRef} className="hidden" />
               </div>
-              <SheetHeader>
-                <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
-              </SheetHeader>
-              {/* Primary navigation items */}
-              <nav className="flex flex-col gap-4 w-full">
-                {navItems.map((item, index) =>
-                  renderMobileNavigationItem(item, index, {
-                    appearance: 'inline',
-                    onItemClick: handleNavItemClick,
-                  }),
-                )}
-              </nav>
-
-              {/* Divider */}
-              <div className="border-t border-border pt-4" />
-
-              {/* Actions */}
-              <div className="flex flex-col gap-4">
-                {actions.map((item, index) =>
-                  renderMobileNavigationItem(item, `action-mobile-${index}`, {
-                    onItemClick: handleNavItemClick,
-                  }),
-                )}
-              </div>
-
-              {/* Hidden close button for programmatic closing */}
-              <SheetClose ref={sheetCloseRef} className="hidden" />
             </SheetContent>
           </Sheet>
         </div>
