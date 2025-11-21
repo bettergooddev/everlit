@@ -40,7 +40,7 @@ export function CaseStudiesDesktop({
           {caseStudies.map(({ id, title, slug }, index) => (
             <motion.div
               key={id}
-              className="absolute inset-0 grid grid-cols-[70%,30%] gap-8 lg:gap-16 xl:pl-16 pr-32 xl:pr-64  pt-32 xl:pt-24 will-change-transform"
+              className="absolute inset-0 grid grid-cols-[70%,30%] gap-8 lg:gap-16 xl:pl-8 pr-24 xl:pr-48  pt-32 xl:pt-24 will-change-transform"
               initial={{ opacity: 0, y: 20 }}
               animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{
