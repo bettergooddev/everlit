@@ -39,54 +39,52 @@ export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) =
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <div className="overflow-hidden -my-section z-[1]">
-      <Section className="relative !my-section md:py-section py-section-mobile">
-        <GlowDesktop className="hidden lg:block" backgroundImage={backgroundImage} />
-        <GlowTablet className="hidden md:block lg:hidden" backgroundImage={backgroundImage} />
-        <GlowMobile className="block md:hidden" backgroundImage={backgroundImage} />
+    <Section className="relative z-[1]">
+      <GlowDesktop className="-z-[1] hidden lg:block" backgroundImage={backgroundImage} />
+      <GlowTablet className="-z-[1] hidden md:block lg:hidden" backgroundImage={backgroundImage} />
+      <GlowMobile className="-z-[1] md:hidden" backgroundImage={backgroundImage} />
 
-        <div className="container">
-          {isCarousel ? (
-            <Carousel
-              setApi={setApi}
-              opts={{
-                // loop: true,
-                align: 'start',
-              }}
-              className="pb-24"
-            >
-              <div className="relative">
-                <CarouselContent className="-ml-32">
-                  {testimonials.map((testimonial, index) => (
-                    <CarouselItem key={index} className="pl-32">
-                      <TestimonialCard testimonial={testimonial} />
-                    </CarouselItem>
+      <div className="container z-[1]">
+        {isCarousel ? (
+          <Carousel
+            setApi={setApi}
+            opts={{
+              // loop: true,
+              align: 'start',
+            }}
+            className="pb-24"
+          >
+            <div className="relative">
+              <CarouselContent className="-ml-32">
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="pl-32">
+                    <TestimonialCard testimonial={testimonial} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="absolute top-full pt-12 flex w-full items-end justify-between z-[1]">
+                <div className="mb-2.5 flex w-full items-start justify-start">
+                  {testimonials.map((_, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => api?.scrollTo(index)}
+                      variant={current === index + 1 ? 'default' : 'secondary'}
+                      className={'mr-3 inline-block size-4 rounded-xs p-0'}
+                    />
                   ))}
-                </CarouselContent>
-                <div className="absolute top-full pt-12 flex w-full items-end justify-between">
-                  <div className="mb-2.5 flex w-full items-start justify-start">
-                    {testimonials.map((_, index) => (
-                      <Button
-                        key={index}
-                        onClick={() => api?.scrollTo(index)}
-                        variant={current === index + 1 ? 'default' : 'secondary'}
-                        className={'mr-3 inline-block size-4 rounded-xs p-0'}
-                      />
-                    ))}
-                  </div>
-                  <div className="flex items-end justify-end gap-4">
-                    <CarouselPrevious className="static right-0 top-0 size-12 -translate-y-0" />
-                    <CarouselNext className="static right-0 top-0 size-12 -translate-y-0" />
-                  </div>
+                </div>
+                <div className="flex items-end justify-end gap-4">
+                  <CarouselPrevious className="static right-0 top-0 size-12 -translate-y-0" />
+                  <CarouselNext className="static right-0 top-0 size-12 -translate-y-0" />
                 </div>
               </div>
-            </Carousel>
-          ) : (
-            <TestimonialCard testimonial={testimonials[0]!} />
-          )}
-        </div>
-      </Section>
-    </div>
+            </div>
+          </Carousel>
+        ) : (
+          <TestimonialCard testimonial={testimonials[0]!} />
+        )}
+      </div>
+    </Section>
   )
 }
 

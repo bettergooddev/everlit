@@ -108,7 +108,9 @@
 - Glow components accept `backgroundImage: string | MediaType | null | undefined` prop and check `if (!backgroundImage) return null` before rendering.
 - External div wrapper with `pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]` for overflow containment and negative margin (no longer needed on Section or parent wrapper).
 - Placement config (right, top, left, width, height, etc.) defined in motion.div initial/animate props.
-- Breakpoint visibility handled in parent component via className (e.g., `hidden lg:block`, `hidden md:block lg:hidden`, `md:hidden`).
+- Use pixels (px) for all positioning values unless explicitly told to use percentages or other units.
+- No tablet component by default unless explicitly requested; mobile glow shows at tablet size (use `lg:hidden` for mobile/tablet, `hidden lg:block` for desktop).
+- Breakpoint visibility handled in parent component via className (e.g., `hidden lg:block`, `lg:hidden`).
 - Dev mode: Comment out animated rotation/translation blocks; use `animate` with static positioning (opacity: 1, no transitions).
 - Prod mode: Uncomment animated rotation/translation; use `initial` with opacity: 0, then `animate` to opacity: 1 with continuous rotateY/translateY/translateX animations and transitions.
 - Reference implementations: `src/blocks/CaseStudies/glow.tsx`, `src/heros/Sub/glow.tsx`, `src/heros/Sub/index.tsx`, `src/blocks/CaseStudies/client.tsx`
