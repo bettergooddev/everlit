@@ -79,19 +79,6 @@ export const CallToActionBlock: React.FC<
   const hasFields = formFromProps && formFromProps.fields
   const fields = formFromProps.fields
 
-  const onSubmit = useCallback(
-    createOnCTASubmit({
-      formID,
-      confirmationType,
-      redirect,
-      setIsLoading,
-      setHasSubmitted,
-      setError,
-      router,
-    }),
-    [router, formID, redirect, confirmationType],
-  )
-
   const incrementFormProgress = useCallback((amount: number = 1) => {
     setFormProgress((currentProgress) => currentProgress + amount)
   }, [])
@@ -103,6 +90,20 @@ export const CallToActionBlock: React.FC<
   const incrementFormPhase = useCallback((amount: number = 1) => {
     setFormPhase((currentPhase) => currentPhase + amount)
   }, [])
+
+  const onSubmit = useCallback(
+    createOnCTASubmit({
+      formID,
+      confirmationType,
+      redirect,
+      setIsLoading,
+      setHasSubmitted,
+      setError,
+      router,
+      incrementFormPhase,
+    }),
+    [router, formID, redirect, confirmationType, incrementFormPhase],
+  )
 
   const handleFormPhaseClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -291,9 +292,10 @@ export const CallToActionBlock: React.FC<
                           {...getFormAttentionHandlers('continue-button', 2)}
                           onClick={async (e) => {
                             e.preventDefault()
-                            handleFormPhaseClick(e)
+                            const emailValue = watch('email' as any)
                             const isValid = await trigger('email' as any)
-                            if (isValid && carouselApi) {
+                            if (isValid && emailValue && carouselApi) {
+                              handleFormPhaseClick(e)
                               carouselApi.scrollNext()
                             }
                           }}
@@ -382,7 +384,6 @@ export const CallToActionBlock: React.FC<
                         type="submit"
                         variant="default"
                         {...getFormAttentionHandlers('submit-button', 2)}
-                        onClick={handleFormPhaseClick}
                       >
                         {submitButtonLabel}
                       </Button>

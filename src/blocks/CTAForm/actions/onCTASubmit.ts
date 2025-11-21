@@ -11,6 +11,7 @@ interface OnSubmitParams {
   setHasSubmitted: (submitted: boolean) => void
   setError: (error: { message: string; status?: string } | undefined) => void
   router: ReturnType<typeof useRouter>
+  incrementFormPhase: (amount?: number) => void
 }
 
 export function createOnCTASubmit({
@@ -21,6 +22,7 @@ export function createOnCTASubmit({
   setHasSubmitted,
   setError,
   router,
+  incrementFormPhase,
 }: OnSubmitParams) {
   return (data: FormFieldBlock[]) => {
     console.log('Submitted form data:', data)
@@ -78,6 +80,7 @@ export function createOnCTASubmit({
 
         setIsLoading(false)
         setHasSubmitted(true)
+        incrementFormPhase(1)
 
         if (confirmationType === 'redirect' && redirect) {
           const { url } = redirect
