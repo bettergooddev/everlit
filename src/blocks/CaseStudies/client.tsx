@@ -13,8 +13,8 @@ export function CaseStudiesClient(props: CaseStudiesBlockProps) {
     <div className=" z-[1] relative">
       <div className="absolute inset-0 -mt-24" id="case-studies" />
       <Section className="">
-        <CaseStudiesMobile {...props} className="block md:hidden" />
-        <CaseStudiesDesktop {...props} className="hidden md:block" />
+        <CaseStudiesMobile {...props} className="block lg:hidden" />
+        <CaseStudiesDesktop {...props} className="hidden lg:block" />
       </Section>
     </div>
   )

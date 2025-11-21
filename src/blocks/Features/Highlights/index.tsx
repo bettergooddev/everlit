@@ -20,7 +20,7 @@ export const Highlights: React.FC<FeaturesBlock> = ({
         <Heading heading={heading} subheading={subheading} actions={actions} />
 
         {hasHighlights && (
-          <GlowingCards className="mt-12">
+          <GlowingCards className="mt-16">
             {highlights.map((highlight, index) => (
               <GlowingCard key={index} className="rounded-xs">
                 <HighlightCardContent highlight={highlight} />
@@ -38,7 +38,7 @@ type HighlightType = NonNullable<FeaturesBlock['highlights']>[number]
 function HighlightCardContent({ highlight }: { highlight: HighlightType }) {
   return (
     <>
-      <Media resource={highlight.image} className="size-24" />
+      <Media resource={highlight.image} className="size-24" imgClassName="size-full object-cover" />
       <h3 className="mt-12">{highlight.heading}</h3>
       {highlight.subheading && (
         <p className="type-body opacity-85 mt-2 max-w-[30ch] text-pretty">{highlight.subheading}</p>
