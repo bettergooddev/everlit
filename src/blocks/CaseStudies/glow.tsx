@@ -88,7 +88,7 @@ const GlowMobile = ({
         initial={{
           opacity: 0,
           rotate: 180,
-          left: '-350%',
+          right: '-700px',
           top: '75%',
           y: '0%',
           x: '120px',
@@ -98,7 +98,7 @@ const GlowMobile = ({
         animate={{
           opacity: 1,
           rotate: 180,
-          left: '-350%',
+          right: '-700px',
           top: '75%',
           y: '0%',
           x: '120px',
