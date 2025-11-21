@@ -29,6 +29,8 @@ interface NavigationNavProps {
   collapsed?: boolean
   className?: string
   isCaseStudy?: boolean
+  navButtonCalculated: boolean
+  setNavButtonCalculated: (value: boolean) => void
 }
 
 const classes = {
@@ -57,6 +59,8 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
   collapsed = false,
   className,
   isCaseStudy = false,
+  navButtonCalculated,
+  setNavButtonCalculated,
 }) => {
   const navItems = (data?.navItems ?? []) as NonNullable<NavigationType['navItems']>
   const actions = (data?.actions ?? []) as NonNullable<NavigationType['actions']>
@@ -67,6 +71,14 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
   }
 
   const { ref: buttonRef, width: buttonWidth } = useElementSize()
+
+  useEffect(() => {
+    if (!collapsed) {
+      setNavButtonCalculated(true)
+    } else if (buttonWidth > 0 && !navButtonCalculated) {
+      setNavButtonCalculated(true)
+    }
+  }, [buttonWidth, navButtonCalculated, collapsed, setNavButtonCalculated])
 
   return (
     <nav className={cn('left-0 right-0 z-50', classes.header({ collapsed }), className)}>

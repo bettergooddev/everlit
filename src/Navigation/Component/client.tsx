@@ -18,6 +18,7 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
   const [scrollY, setScrollY] = useState(0)
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down')
   const lastScrollYRef = useRef(0)
+  const [navButtonCalculated, setNavButtonCalculated] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,11 +41,20 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const showStickyNav = !isHome || (scrollDirection === 'down' ? scrollY > 50 : scrollY > 500)
+  const showStickyNav =
+    navButtonCalculated && (!isHome || (scrollDirection === 'down' ? scrollY > 50 : scrollY > 500))
 
   return (
     <>
-      {isHome && <NavigationNav data={data} collapsed={false} isCaseStudy={isCaseStudy} />}
+      {isHome && (
+        <NavigationNav
+          data={data}
+          collapsed={false}
+          isCaseStudy={isCaseStudy}
+          navButtonCalculated={navButtonCalculated}
+          setNavButtonCalculated={setNavButtonCalculated}
+        />
+      )}
       <motion.div
         initial={{ y: -125 }}
         animate={showStickyNav ? { y: 0 } : { y: -125 }}
@@ -52,7 +62,13 @@ export const NavigationClient: React.FC<NavigationClientProps> = ({ data }) => {
         className="fixed w-full top-8 z-50"
         style={{ pointerEvents: showStickyNav ? 'auto' : 'none' }}
       >
-        <NavigationNav data={data} collapsed={true} isCaseStudy={isCaseStudy} />
+        <NavigationNav
+          data={data}
+          collapsed={true}
+          isCaseStudy={isCaseStudy}
+          navButtonCalculated={navButtonCalculated}
+          setNavButtonCalculated={setNavButtonCalculated}
+        />
       </motion.div>
     </>
   )
