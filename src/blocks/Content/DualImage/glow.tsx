@@ -15,12 +15,12 @@ const GlowDesktop = ({
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[42rem]">
       <motion.div
         initial={{
           opacity: 0,
           rotate: -90,
-          bottom: '200px',
+          bottom: '424px',
           left: '-400px',
           y: '0px',
           x: '0px',
@@ -30,7 +30,7 @@ const GlowDesktop = ({
         animate={{
           opacity: 1,
           rotate: -90,
-          bottom: '200px',
+          bottom: '424px',
           left: '-400px',
           y: '0px',
           x: '0px',
@@ -83,12 +83,12 @@ const GlowMobile = ({
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[42rem]">
       <motion.div
         initial={{
           opacity: 0,
           rotate: -90,
-          bottom: '300px',
+          bottom: '524px',
           left: '-370px',
           y: '0px',
           x: '0px',
@@ -98,7 +98,7 @@ const GlowMobile = ({
         animate={{
           opacity: 1,
           rotate: -90,
-          bottom: '300px',
+          bottom: '524px',
           left: '-370px',
           y: '0px',
           x: '0px',
