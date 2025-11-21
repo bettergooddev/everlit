@@ -9,7 +9,6 @@ import { motion, useInView, animate } from 'motion/react'
 import { cn } from '@/utilities/ui'
 import { springFadeUpStaggered } from './animations'
 import { CaseStudiesBlockProps } from './Component'
-import { GlowDesktop } from './glow'
 
 export function CaseStudiesDesktop({
   heading,
@@ -22,9 +21,7 @@ export function CaseStudiesDesktop({
   if (!caseStudies || caseStudies.length === 0) return null
 
   return (
-    <div className={cn('relative', className)}>
-      <GlowDesktop backgroundImage={backgroundImage} />
-
+    <div className={cn(className)}>
       {heading && <Heading heading={heading} className="container z-10" />}
 
       <div

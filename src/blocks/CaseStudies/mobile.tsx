@@ -7,7 +7,6 @@ import { ArrowRight } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Heading } from '@/components/Heading'
 import { cn } from '@/utilities/ui'
-import { GlowMobile } from './glow'
 
 interface CaseStudiesMobileProps {
   heading?: string | null
@@ -26,8 +25,7 @@ export function CaseStudiesMobile({
   if (!caseStudies || caseStudies.length === 0) return null
 
   return (
-    <div className={cn(className, 'relative')}>
-      <GlowMobile backgroundImage={backgroundImage} />
+    <div className={cn(className)}>
       {heading && <Heading heading={heading} className="container z-10" />}
 
       <div className="relative container grid gap-16 z-10">
