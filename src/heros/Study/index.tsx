@@ -5,6 +5,7 @@ import { Frame } from '@/components/Frame'
 import RichText from '@/components/RichText'
 import { Badge } from '@/components/ui/badge'
 import { isRichTextEmpty } from '@/utilities/richtext'
+import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
 
 export const StudyHero: React.FC<Page['hero']> = (props) => {
   if (!props?.study) return null
@@ -12,17 +13,22 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
   const { image, heading, type, date, location, description, collaborators, scope, features } =
     props.study
 
+  const backgroundImage = (props.study as any).backgroundImage
+
   return (
-    <section className="w-full">
+    <section className="w-full relative">
+      <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
+      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block xl:hidden" />
+      <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
       {/* Hero Image */}
       {image && (
-        <div className="relative w-full aspect-[21/7] md:aspect-[21/8] overflow-hidden">
+        <div className="relative w-full aspect-square md:aspect-[21/8] overflow-hidden">
           <Frame resource={image} className="size-full" imgClassName="size-full object-cover" />
         </div>
       )}
 
       {/* Content Section */}
-      <div className="relative bg-background px-4 py-12 md:py-16 lg:py-24">
+      <div className="relative px-4 py-12 md:py-16 lg:py-24">
         <div className="container mx-auto">
           {/* Heading */}
           {heading && (
@@ -34,20 +40,14 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           {/* Metadata Row */}
           {(type || date || location) && (
             <>
-              <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+              <div className="flex items-center gap-4 md:gap-6">
                 {type && <Badge className="capitalize">{type}</Badge>}
                 {date && <span className="type-body text-foreground-100/75">{date}</span>}
                 {location && <span className="type-body text-foreground-100/75">{location}</span>}
               </div>
 
               {/* Separator */}
-              <div
-                className="w-full h-[2px] mb-8 md:mb-10"
-                style={{
-                  background:
-                    'radial-gradient(ellipse at center, hsl(var(--border)) 0%, transparent 80%)',
-                }}
-              />
+              <div className="w-full h-[1px] my-14 bg-foreground-100/5" />
             </>
           )}
 
@@ -56,7 +56,11 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
             {/* Left Column - Description */}
             {description && !isRichTextEmpty(description) && (
               <div>
-                <RichText className="[&_*]:max-w-[48ch]" data={description} enableGutter={false} />
+                <RichText
+                  className="[&_*]:max-w-[48ch] [&_br]:!block"
+                  data={description}
+                  enableGutter={false}
+                />
               </div>
             )}
 
@@ -68,7 +72,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
                   <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Collaborators</h2>
                   <RichText
                     data={collaborators}
-                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75"
+                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75 [&_li::marker]:text-foreground-100/10 [&_br]:!block"
                     enableGutter={false}
                   />
                 </div>
@@ -80,7 +84,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
                   <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Scope</h2>
                   <RichText
                     data={scope}
-                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75"
+                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75 [&_li::marker]:text-foreground-100/10 [&_br]:!block"
                     enableGutter={false}
                   />
                 </div>
@@ -92,7 +96,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
                   <h2 className="type-h3 mb-3 md:mb-4 text-foreground-100">Features</h2>
                   <RichText
                     data={features}
-                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75"
+                    className="[&_p]:type-body [&_p]:text-foreground-100/75 [&_ul]:type-body [&_li]:text-foreground-100/75 [&_li::marker]:text-foreground-100/10 [&_br]:!block"
                     enableGutter={false}
                   />
                 </div>

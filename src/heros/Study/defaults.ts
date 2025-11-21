@@ -83,9 +83,6 @@ export const defaults = {
   collaborators: defaultBulletList,
   scope: defaultBulletList,
   features: defaultBulletList,
-  testimonials: [
-    '69122c3d581433e6afea38b1',
-    '69122c3d581433e6afea38b1',
-  ],
+  testimonials: ['69122c3d581433e6afea38b1', '69122c3d581433e6afea38b1'],
+  backgroundImage: '69203ad68858f02bb2e58478',
 }
-

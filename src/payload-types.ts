@@ -234,6 +234,7 @@ export interface Page {
         [k: string]: unknown;
       } | null;
       testimonials?: (string | Testimonial)[] | null;
+      backgroundImage?: (string | null) | Media;
     };
     archive?: {
       heading: string;
@@ -465,6 +466,7 @@ export interface CaseStudy {
       [k: string]: unknown;
     } | null;
     testimonials?: (string | Testimonial)[] | null;
+    backgroundImage?: (string | null) | Media;
   };
   gallery: (string | Media)[];
   meta?: {
@@ -1285,6 +1287,7 @@ export interface PagesSelect<T extends boolean = true> {
               scope?: T;
               features?: T;
               testimonials?: T;
+              backgroundImage?: T;
             };
         archive?:
           | T
@@ -1554,6 +1557,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
         scope?: T;
         features?: T;
         testimonials?: T;
+        backgroundImage?: T;
       };
   gallery?: T;
   meta?:

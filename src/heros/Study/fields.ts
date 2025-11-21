@@ -87,4 +87,10 @@ export const studyHeroFields: Field[] = [
     hasMany: true,
     defaultValue: () => JSON.parse(JSON.stringify(defaults.testimonials)),
   },
+  {
+    name: 'backgroundImage',
+    type: 'upload',
+    relationTo: 'media',
+    defaultValue: defaults.backgroundImage,
+  },
 ]
