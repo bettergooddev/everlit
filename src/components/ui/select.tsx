@@ -14,19 +14,23 @@ const SelectValue = SelectPrimitive.Value
 const SelectTrigger: React.FC<
   { ref?: React.Ref<HTMLButtonElement> } & React.ComponentProps<typeof SelectPrimitive.Trigger>
 > = ({ children, className, ref, ...props }) => (
-  <SelectPrimitive.Trigger
-    className={cn(
-      'flex h-10 w-full items-center justify-between rounded border border-input bg-background px-3 py-2 text-inherit ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-      className,
-    )}
-    ref={ref}
-    {...props}
-  >
-    {children}
-    <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-5 w-5" />
-    </SelectPrimitive.Icon>
-  </SelectPrimitive.Trigger>
+  <div className={cn('relative group', className)}>
+    <div className="absolute inset-0 bg-gradient-to-br from-background-500/40 to-background-500/20 rounded-xs pointer-events-none transition-opacity duration-200 group-hover:opacity-0" />
+    <div className="absolute inset-0 bg-gradient-to-br from-background-500/60 to-background-500/40 rounded-xs pointer-events-none transition-opacity duration-200 opacity-0 group-hover:opacity-100" />
+    <SelectPrimitive.Trigger
+      className={cn(
+        'relative flex h-10 w-full items-center justify-between rounded-xs bg-transparent px-3 py-2 text-base ring-offset-background text-inherit placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground-500 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm [&>span]:line-clamp-1',
+      )}
+      ref={ref}
+      {...props}
+    >
+      {children}
+      <SelectPrimitive.Icon asChild>
+        <ChevronDown className="h-5 w-5" />
+      </SelectPrimitive.Icon>
+    </SelectPrimitive.Trigger>
+    <div className="absolute inset-0 border-[1px] border-foreground-100/10 rounded-xs pointer-events-none" />
+  </div>
 )
 
 const SelectScrollUpButton: React.FC<
@@ -63,7 +67,7 @@ const SelectContent: React.FC<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded border bg-card text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded backdrop-blur-md bg-background/50 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
         className,
@@ -72,6 +76,7 @@ const SelectContent: React.FC<
       ref={ref}
       {...props}
     >
+      <div className="absolute inset-0 border-[1px] border-foreground-500/10 rounded pointer-events-none" />
       <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(

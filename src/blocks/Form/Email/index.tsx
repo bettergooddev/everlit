@@ -45,10 +45,7 @@ export const Email: React.FC<
     <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
-        className={cn(
-          'border-none shadow-md bg-card type-body placeholder:opacity-50',
-          inputClassName,
-        )}
+        className={cn('border-none shadow-md type-body placeholder:opacity-50', inputClassName)}
         defaultValue={defaultValue}
         id={name}
         placeholder={placeholder !== undefined ? placeholder : label}

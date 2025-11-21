@@ -65,7 +65,7 @@ const renderDropdown = (
           <ChevronDown className="w-4 h-4" />
         </button>
       </Button>
-      <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-card border border-primary/25 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+      <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-primary/25 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
         <div className="py-0">
           {navItem.dropdown.items.map((dropdownItem, dropdownIndex) => (
             <CMSLink

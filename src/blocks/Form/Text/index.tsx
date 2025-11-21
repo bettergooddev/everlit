@@ -35,22 +35,15 @@ export const Text: React.FC<
   ...props
 }) => {
   const registerProps = register(name, { required })
-  
+
   // Extract event handlers from props that should go to the input
-  const {
-    onMouseEnter,
-    onMouseLeave,
-    ...widthProps
-  } = props
+  const { onMouseEnter, onMouseLeave, ...widthProps } = props
 
   return (
     <Width width={width} className={wrapperClassName}>
       {label && <FormLabel htmlFor={name} label={label} required={required} />}
       <Input
-        className={cn(
-          'border-none shadow-md bg-card type-body placeholder:opacity-50',
-          inputClassName,
-        )}
+        className={cn('border-none shadow-md type-body placeholder:opacity-50', inputClassName)}
         defaultValue={defaultValue}
         id={name}
         placeholder={label}

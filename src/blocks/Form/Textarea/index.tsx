@@ -47,7 +47,7 @@ export const Textarea: React.FC<
 
       <TextAreaComponent
         className={cn(
-          'rounded-none border-none bg-card shadow-md type-body placeholder:opacity-50 min-h-32',
+          'rounded-none border-none shadow-md type-body placeholder:opacity-50 min-h-32',
           inputClassName,
         )}
         defaultValue={defaultValue}
