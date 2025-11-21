@@ -27,6 +27,7 @@ import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from 
 import { LinkRowLabel as LinkRowLabel_bb1c4b965b7c07ad4b88efe6dc65271f } from '@/fields/dropdown/LinkRowLabel'
 import { RowLabel as RowLabel_2cfe2e364368a03eb7e153423c97fea0 } from '@/Navigation/RowLabel'
 import { Select as Select_120d363afd071dc9d3846e86a2a5d3db } from '@/fields/lucideIcon/Select'
+import { default as default_380afaeea2d45f396e81f036010b9e99 } from '@/components/AfterLogin'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
@@ -60,6 +61,7 @@ export const importMap = {
   "@/fields/dropdown/LinkRowLabel#LinkRowLabel": LinkRowLabel_bb1c4b965b7c07ad4b88efe6dc65271f,
   "@/Navigation/RowLabel#RowLabel": RowLabel_2cfe2e364368a03eb7e153423c97fea0,
   "@/fields/lucideIcon/Select#Select": Select_120d363afd071dc9d3846e86a2a5d3db,
+  "@/components/AfterLogin#default": default_380afaeea2d45f396e81f036010b9e99,
   "@/components/BeforeLogin#default": default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }
