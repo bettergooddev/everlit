@@ -19,14 +19,14 @@ function WebsiteTag({ className }: WebsiteTagProps) {
       </p>
       <p className="flex items-center gap-1 text-foreground-100 [&_*]:type-caption [&_*]:font-normal whitespace-nowrap">
         <span>Website By:</span>
-        {/* <Button
-          variant="link"
-          className="h-auto p-0 font-normal text-foreground-100 hover:text-foreground-100/80 underline underline-offset-4 whitespace-nowrap"
-        >
-          <Link href="https://bettergood.agency/" target="_blank" rel="noopener noreferrer">
+        <Link href="https://bettergoodagency.com" target="_blank" rel="noopener noreferrer">
+          <Button
+            variant="inline"
+            className="h-auto p-0 font-normal text-foreground-100 hover:text-foreground-100/80 underline underline-offset-4 whitespace-nowrap"
+          >
             Better Good
-          </Link>
-        </Button> */}
+          </Button>
+        </Link>
       </p>
     </div>
   )
