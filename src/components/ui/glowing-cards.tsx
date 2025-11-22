@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, stagger } from 'motion/react'
 
 import { cn } from '@/utilities/ui'
 import * as Path from '@/paths/paths'
+import { fadeUpInView } from '@/utilities/animations'
 
 export interface GlowingCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
@@ -13,6 +14,7 @@ export interface GlowingCardProps extends React.HTMLAttributes<HTMLDivElement> {
   hoverEffect?: boolean
   background?: boolean
   isOverlay?: boolean
+  index?: number
 }
 
 export interface GlowingCardsProps {
@@ -54,36 +56,49 @@ export const GlowingCard: React.FC<GlowingCardProps> = ({
   hoverEffect = true,
   background = false,
   isOverlay = false,
+  index = 0,
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <div
-      className={cn(
-        'relative flex-1 w-full p-9 overflow-hidden rounded-2xl text-black dark:text-white',
-        'border-[1px] border-white/10 border-solid hover:border-[var(--glow-color)]',
-        'transition-all duration-2000',
-        className,
-      )}
-      style={
-        {
-          '--glow-color': glowColor, // CSS variable definition
-          boxShadow: isHovered
-            ? `0 0 20px 5px ${glowColor}20, 0 0 40px 10px ${glowColor}10`
-            : 'none',
-          transition: 'all 1000ms ease-in-out',
-        } as React.CSSProperties
-      }
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      {...props}
+    <motion.div
+      className="flex flex-1"
+      initial={{ opacity: 0, y: +100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: 1,
+        delay: 0.3 * index,
+        ease: [0.77, 0, 0.175, 1],
+      }}
     >
-      {/* {children} */}
-      {background && <GlowingCardBackground isHovered={isHovered} isOverlay={isOverlay} />}
-      {/* <GlowingCardBackground isHovered={true} isOverlay={isOverlay} /> */}
-      {background ? <div className="relative z-[2]">{children}</div> : children}
-    </div>
+      <div
+        className={cn(
+          'relative flex-1 w-full p-9 overflow-hidden rounded-2xl text-black dark:text-white',
+          'border-[1px] border-white/10 border-solid hover:border-[var(--glow-color)]',
+          // 'transition-all duration-2000',
+          className,
+        )}
+        style={
+          {
+            '--glow-color': glowColor, // CSS variable definition
+            boxShadow: isHovered
+              ? `0 0 20px 5px ${glowColor}20, 0 0 40px 10px ${glowColor}10`
+              : 'none',
+            transition: 'all 1000ms ease-in-out',
+          } as React.CSSProperties
+        }
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        {...props}
+      >
+        {/* {children} */}
+        {background && <GlowingCardBackground isHovered={isHovered} isOverlay={isOverlay} />}
+        {/* <GlowingCardBackground isHovered={true} isOverlay={isOverlay} /> */}
+        {background ? <div className="relative z-[2]">{children}</div> : children}
+      </div>
+    </motion.div>
   )
 }
 
