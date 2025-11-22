@@ -5,20 +5,48 @@ import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
+const Wrapper = ({
+  children,
+  inView,
+  isTransitioning,
+}: {
+  children: React.ReactNode
+  inView: boolean
+  isTransitioning: boolean
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
+      transition={{
+        ease: [0.77, 0, 0.175, 1],
+        duration: 0.6,
+        delay: isTransitioning ? 1 : 0.7,
+      }}
+      className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem] -z-[1]"
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 const GlowDesktop = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 0,
           left: '-700px',
           top: '-800px',
@@ -28,7 +56,6 @@ const GlowDesktop = ({
           height: '3000px',
         }}
         animate={{
-          opacity: 1,
           rotate: 0,
           left: '-700px',
           top: '-800px',
@@ -41,7 +68,6 @@ const GlowDesktop = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -69,24 +95,27 @@ const GlowDesktop = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
 const GlowMobile = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 180,
           right: '-700px',
           top: '75%',
@@ -96,7 +125,6 @@ const GlowMobile = ({
           height: '300px',
         }}
         animate={{
-          opacity: 1,
           rotate: 180,
           right: '-700px',
           top: '75%',
@@ -109,7 +137,6 @@ const GlowMobile = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -137,24 +164,27 @@ const GlowMobile = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
 const GlowTablet = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 180,
           left: '-250%',
           top: '05%',
@@ -164,7 +194,6 @@ const GlowTablet = ({
           height: '4000px',
         }}
         animate={{
-          opacity: 1,
           rotate: 180,
           left: '-250%',
           top: '05%',
@@ -177,7 +206,6 @@ const GlowTablet = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -205,7 +233,7 @@ const GlowTablet = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 

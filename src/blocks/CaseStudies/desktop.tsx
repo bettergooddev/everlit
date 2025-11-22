@@ -5,7 +5,7 @@ import { Heading } from '@/components/Heading'
 import type { CaseStudiesBlock, CaseStudy, Media as MediaType } from '@/payload-types'
 import { Link } from '@/components/ui/link'
 import { Frame } from '@/components/Frame'
-import { motion, useInView, animate } from 'motion/react'
+import { motion, animate } from 'motion/react'
 import { cn } from '@/utilities/ui'
 import { springFadeUpStaggered } from './animations'
 import { CaseStudiesBlockProps } from './Component'
@@ -13,9 +13,9 @@ import { CaseStudiesBlockProps } from './Component'
 export function CaseStudiesDesktop({
   heading,
   caseStudies,
-  backgroundImage,
   className,
-}: CaseStudiesBlockProps) {
+  inView,
+}: CaseStudiesBlockProps & { inView: boolean }) {
   const [activeStudy, setActiveStudy] = useState<number | null>(null)
 
   if (!caseStudies || caseStudies.length === 0) return null
@@ -35,6 +35,7 @@ export function CaseStudiesDesktop({
           caseStudies={caseStudies}
           activeStudy={activeStudy}
           setActiveStudy={setActiveStudy}
+          inView={inView}
         />
         <div className="col-start-3 col-span-3 row-start-1 size-full relative pointer-events-none">
           {caseStudies.map(({ id, title, slug }, index) => (
@@ -59,7 +60,7 @@ export function CaseStudiesDesktop({
                 animate={index === activeStudy ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{
                   duration: 0.4,
-                  delay: 0.1,
+                  delay: 0.2,
                   ease: [0.4, 0, 0.2, 1],
                 }}
               >
@@ -81,27 +82,32 @@ interface CaseStudyLinksWrapperProps {
   caseStudies: CaseStudy[]
   activeStudy: number | null
   setActiveStudy: (index: number | null) => void
+  inView: boolean
 }
 
 function CaseStudyLinksWrapper({
   caseStudies,
   activeStudy,
   setActiveStudy,
+  inView,
 }: CaseStudyLinksWrapperProps) {
   const linkWrapperRef = useRef<HTMLDivElement>(null)
-  const linkWrapperIsInView = useInView(linkWrapperRef, { once: false, amount: 0.3 })
+  const hasAnimatedRef = useRef(false)
 
   useEffect(() => {
-    if (!linkWrapperRef.current) return
+    if (!linkWrapperRef.current || hasAnimatedRef.current) return
 
     const children = Array.from(linkWrapperRef.current.children)
 
-    if (linkWrapperIsInView) {
-      animate(children, { opacity: 1, y: 0 }, springFadeUpStaggered)
-    } else {
-      animate(children, { opacity: 0, y: 40 }, springFadeUpStaggered)
-    }
-  }, [linkWrapperIsInView])
+    const timeout = setTimeout(() => {
+      if (inView) {
+        hasAnimatedRef.current = true
+        animate(children, { opacity: 1, y: 0 }, springFadeUpStaggered)
+      }
+    }, 100)
+
+    return () => clearTimeout(timeout)
+  }, [inView])
 
   return (
     <div ref={linkWrapperRef} className="grid grid-cols-subgrid col-start-1 col-span-4 row-start-1">
