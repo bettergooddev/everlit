@@ -114,7 +114,7 @@ html {
   .type-h1,
   .prose h1 {
     font-family: var(--font-calvino);
-    font-size: clamp( 3.65rem,  3.65rem + ((100vw - 20rem) / 44) * 3.95, 6.95rem);
+    font-size: clamp( 3.285rem,  3.285rem + ((100vw - 20rem) / 44) * 3.95, 6.95rem);
     font-style: normal;
     font-weight: 400;
     line-height: 105%;
@@ -125,7 +125,7 @@ html {
   .type-h2,
   .prose h2 {
     font-family: var(--font-calvino);
-    font-size: clamp(1.825rem, 1.825rem + ((100vw - 20rem) / 44) * 1.9, 3.65rem);
+    font-size: clamp(2.0075rem, 2.0075rem + ((100vw - 20rem) / 44) * 1.9, 3.65rem);
     font-style: normal;
     font-weight: 300;
     line-height: 115%;
@@ -135,7 +135,7 @@ html {
   .type-h3,
   .prose h3 {
     font-family: var(--font-calvino);
-    font-size: clamp(1.25rem, 1.25rem + ((100vw - 20rem) / 44) * 0.7, 1.825rem);
+    font-size: clamp(1.375rem, 1.375rem + ((100vw - 20rem) / 44) * 0.7, 1.825rem);
     font-style: normal;
     font-weight: 200;
     line-height: 140%;
@@ -145,8 +145,7 @@ html {
   .type-h4,
   .prose h4 {
     font-family: var(--font-calvino);
-    font-size: clamp(0.9rem, 0.9rem + ((100vw - 20rem) / 44) * 0.25, 1.2rem);
-    font-size: clamp(0.9rem, 0.9rem + ((100vw - 20rem) / 44) * 0.25, 1.1rem);
+    font-size: clamp(0.99rem, 0.99rem + ((100vw - 20rem) / 44) * 0.25, 1.1rem);
     font-style: normal;
     font-weight: 350;
     line-height: 140%;
@@ -187,4 +186,24 @@ html {
 
 .frame {
   @apply border-foreground-100/10 border drop-shadow-xl;
+}
+
+::view-transition-group(root) {
+  z-index: auto !important;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+  will-change: transform, opacity, scale;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: none !important;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+  animation: none !important;
 }

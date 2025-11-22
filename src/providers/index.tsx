@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { HeaderThemeProvider } from './HeaderTheme'
+import { MotionConfigProvider } from './MotionConfig'
+import { PageTransitionProvider } from './PageTransition'
 import { PostHogProvider } from './PostHog'
 
 export const Providers: React.FC<{
@@ -8,7 +10,11 @@ export const Providers: React.FC<{
 }> = ({ children }) => {
   return (
     <PostHogProvider>
-      <HeaderThemeProvider>{children}</HeaderThemeProvider>
+      <MotionConfigProvider>
+        <PageTransitionProvider>
+          <HeaderThemeProvider>{children}</HeaderThemeProvider>
+        </PageTransitionProvider>
+      </MotionConfigProvider>
     </PostHogProvider>
   )
 }

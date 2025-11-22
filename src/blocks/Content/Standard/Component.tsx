@@ -1,4 +1,7 @@
-import React from 'react'
+'use client'
+
+import React, { useRef } from 'react'
+import { useInView, motion } from 'motion/react'
 import type { ContentBlock } from '@/payload-types'
 import { Frame } from '@/components/Frame'
 import RichText from '@/components/RichText'
@@ -12,6 +15,9 @@ export const Standard: React.FC<ContentBlock> = ({
   standard,
   reverseLayout,
 }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
+
   if (!standard?.image) return null
 
   const { image, bullets, tags } = standard
@@ -20,10 +26,10 @@ export const Standard: React.FC<ContentBlock> = ({
   const hasTags = tags && tags.length > 0
 
   return (
-    <Section className="z-[1]">
+    <Section ref={sectionRef} className="z-[1]">
       <div
         className={cn(
-          'container flex gap-16 flex-col',
+          'container flex gap-8 md:gap-16 flex-col',
           reverseLayout ? ' lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
@@ -60,12 +66,23 @@ export const Standard: React.FC<ContentBlock> = ({
             )}
           </div>
         </div>
-        <Frame
-          inner
-          resource={image}
-          className={cn('w-full lg:w-2/3 aspect-[5/3]')}
-          imgClassName="w-full h-full object-cover"
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
+          transition={{
+            duration: 1,
+            delay: 0.3 * 0,
+            ease: [0.77, 0, 0.175, 1],
+          }}
+          className="w-full lg:w-2/3 aspect-[5/3]"
+        >
+          <Frame
+            inner
+            resource={image}
+            className="size-full"
+            imgClassName="w-full h-full object-cover"
+          />
+        </motion.div>
       </div>
     </Section>
   )

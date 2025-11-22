@@ -5,20 +5,48 @@ import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
+const Wrapper = ({
+  children,
+  inView,
+  isTransitioning,
+}: {
+  children: React.ReactNode
+  inView: boolean
+  isTransitioning: boolean
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
+      transition={{
+        ease: [0.77, 0, 0.175, 1],
+        duration: 0.5,
+        delay: isTransitioning ? 1 : 0.7,
+      }}
+      className="pointer-events-none absolute inset-0 overflow-hidden -my-[42rem] -z-[1]"
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 const GlowDesktop = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[42rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: -90,
           bottom: '424px',
           left: '-400px',
@@ -28,7 +56,6 @@ const GlowDesktop = ({
           height: '2000px',
         }}
         animate={{
-          opacity: 1,
           rotate: -90,
           bottom: '424px',
           left: '-400px',
@@ -41,7 +68,6 @@ const GlowDesktop = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -69,24 +95,27 @@ const GlowDesktop = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
 const GlowMobile = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[42rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: -90,
           bottom: '524px',
           left: '-370px',
@@ -96,7 +125,6 @@ const GlowMobile = ({
           height: '1200px',
         }}
         animate={{
-          opacity: 1,
           rotate: -90,
           bottom: '524px',
           left: '-370px',
@@ -109,7 +137,6 @@ const GlowMobile = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -137,7 +164,7 @@ const GlowMobile = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 

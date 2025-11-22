@@ -20,7 +20,7 @@ import { X } from 'lucide-react'
 import { renderMobileNavigationItem } from './renderMobileNavigationItem'
 import { tv } from 'tailwind-variants'
 import { cn } from '@/utilities/ui'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 import { AnimatePresence, motion } from 'motion/react'
 import { useElementSize } from '@mantine/hooks'
 
@@ -98,7 +98,7 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
         ></div>
         {/* Logo – left aligned */}
         <motion.div
-          className="flex h-min mr-12"
+          className="flex h-min mr-4 md:mr-12"
           initial={{
             x: -(buttonWidth || 0),
           }}

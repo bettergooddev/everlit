@@ -20,9 +20,9 @@ export const Highlights: React.FC<FeaturesBlock> = ({
         <Heading heading={heading} subheading={subheading} actions={actions} />
 
         {hasHighlights && (
-          <GlowingCards className="mt-16">
+          <GlowingCards className="mt-16 ![--gap:1.5rem] md:![--gap:3.5rem]">
             {highlights.map((highlight, index) => (
-              <GlowingCard key={index} className="rounded-xs">
+              <GlowingCard key={index} index={index} className="rounded-xs">
                 <HighlightCardContent highlight={highlight} />
               </GlowingCard>
             ))}

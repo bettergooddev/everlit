@@ -70,7 +70,7 @@ const config = {
     extend: {
       spacing: {
         section: '10.35rem', // 48 * 0.25rem = 12rem
-        'section-mobile': '10.35rem', // 36 * 0.25rem = 9rem
+        'section-mobile': '5.35rem', // 36 * 0.25rem = 9rem
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',

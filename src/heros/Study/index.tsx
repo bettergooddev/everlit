@@ -40,10 +40,16 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
           {/* Metadata Row */}
           {(type || date || location) && (
             <>
-              <div className="flex items-center gap-4 md:gap-6">
-                {type && <Badge className="capitalize">{type}</Badge>}
-                {date && <span className="type-body text-foreground-100/75">{date}</span>}
-                {location && <span className="type-body text-foreground-100/75">{location}</span>}
+              <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                {type && <Badge className="capitalize whitespace-nowrap">{type}</Badge>}
+                {date && (
+                  <span className="type-body text-foreground-100/75 whitespace-nowrap">{date}</span>
+                )}
+                {location && (
+                  <span className="type-body text-foreground-100/75 whitespace-nowrap">
+                    {location}
+                  </span>
+                )}
               </div>
 
               {/* Separator */}

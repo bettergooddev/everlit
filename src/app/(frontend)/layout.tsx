@@ -10,6 +10,7 @@ import { Providers } from '@/providers'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { calvino, figtree } from '@/fonts/fonts'
+import { ViewTransitions } from 'next-view-transitions'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -18,31 +19,33 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled } = await draftMode()
 
   return (
-    <html
-      className={cn(calvino.variable, figtree.variable)}
-      lang="en"
-      suppressHydrationWarning
-      data-theme="dark"
-    >
-      <head>
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-        <meta name="apple-mobile-web-app-title" content="My-Chosen" />
-      </head>
-      <body className="relative">
-        <Providers>
-          {/* <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          /> */}
+    <ViewTransitions>
+      <html
+        className={cn(calvino.variable, figtree.variable)}
+        lang="en"
+        suppressHydrationWarning
+        data-theme="dark"
+      >
+        <head>
+          <link href="/favicon.ico" rel="icon" sizes="32x32" />
+          <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+          <meta name="apple-mobile-web-app-title" content="My-Chosen" />
+        </head>
+        <body className="relative">
+          <Providers>
+            {/* <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+                }}
+                /> */}
 
-          <Navigation />
-          {children}
-          <Footer />
-        </Providers>
-      </body>
-    </html>
+            <Navigation />
+            {children}
+            <Footer />
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   )
 }
 
