@@ -13,4 +13,3 @@ export const disableAnimationsOnMobile = () => {
     MotionGlobalConfig.skipAnimations = true
   }
 }
-

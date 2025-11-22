@@ -6,13 +6,10 @@ import type { LinkProps as NextLinkProps } from 'next/link'
 import { useTransitionRouter } from 'next-view-transitions'
 import { usePageTransition } from '@/providers/PageTransition'
 
-export interface LinkProps extends NextLinkProps {
-  children?: React.ReactNode
-  className?: string
+export interface LinkProps
+  extends NextLinkProps,
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof NextLinkProps> {
   isInternal?: boolean
-  target?: React.HTMLAttributeAnchorTarget
-  rel?: string
-  style?: React.CSSProperties
 }
 
 export function isInternalLink(href: string | undefined): boolean {
