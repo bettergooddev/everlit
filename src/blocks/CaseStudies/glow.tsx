@@ -127,7 +127,7 @@ const GlowMobile = ({
         animate={{
           rotate: 180,
           right: '-700px',
-          top: '75%',
+          top: '2500px',
           y: '0%',
           x: '120px',
           width: '3000px',
