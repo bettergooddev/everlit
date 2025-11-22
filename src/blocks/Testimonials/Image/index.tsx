@@ -15,7 +15,7 @@ import { Frame } from '@/components/Frame'
 import { Button } from '@/components/ui/button'
 import Section from '@/components/Section'
 import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 
 interface ImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]

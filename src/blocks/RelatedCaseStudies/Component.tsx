@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 import { ChevronRight } from 'lucide-react'
 import { Frame } from '@/components/Frame'
 import { cn } from '@/utilities/ui'

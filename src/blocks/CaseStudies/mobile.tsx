@@ -1,7 +1,7 @@
 'use client'
 
 import type { CaseStudy, Media as MediaType } from '@/payload-types'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 import { Frame } from '@/components/Frame'
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'motion/react'

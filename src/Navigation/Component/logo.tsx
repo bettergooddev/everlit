@@ -5,7 +5,7 @@ import React from 'react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import type { Navigation as NavigationType } from '@/payload-types'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 
 interface NavLogoProps {
   logo?: NavigationType['logo'] | null

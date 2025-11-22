@@ -20,7 +20,7 @@ import { X } from 'lucide-react'
 import { renderMobileNavigationItem } from './renderMobileNavigationItem'
 import { tv } from 'tailwind-variants'
 import { cn } from '@/utilities/ui'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 import { AnimatePresence, motion } from 'motion/react'
 import { useElementSize } from '@mantine/hooks'
 

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Heading } from '@/components/Heading'
 import type { CaseStudiesBlock, CaseStudy, Media as MediaType } from '@/payload-types'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 import { Frame } from '@/components/Frame'
 import { motion, useInView, animate } from 'motion/react'
 import { cn } from '@/utilities/ui'

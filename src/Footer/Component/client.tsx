@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
+import { Link } from '@/components/ui/link'
 import { motion } from 'motion/react'
 
 import type { Footer as FooterType } from '@/payload-types'
