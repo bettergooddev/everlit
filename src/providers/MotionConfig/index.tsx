@@ -7,9 +7,8 @@ export const MotionConfigProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   useEffect(() => {
-    disableAnimationsOnMobile()
+    // disableAnimationsOnMobile()
   }, [])
 
   return <>{children}</>
 }
-
