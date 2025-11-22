@@ -5,6 +5,23 @@ import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
+const Wrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        ease: [0.77, 0, 0.175, 1],
+        duration: 0.5,
+        delay: 1.5,
+      }}
+      className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]"
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 const GlowDesktop = ({
   backgroundImage,
   className,
@@ -15,10 +32,9 @@ const GlowDesktop = ({
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <Wrapper>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 0,
           right: '-250px',
           top: '300px',
@@ -28,7 +44,6 @@ const GlowDesktop = ({
           height: '1100px',
         }}
         animate={{
-          opacity: 1,
           rotate: 0,
           right: '-250px',
           top: '300px',
@@ -41,7 +56,6 @@ const GlowDesktop = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -69,7 +83,7 @@ const GlowDesktop = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
@@ -83,10 +97,9 @@ const GlowMobile = ({
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <Wrapper>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 0,
           right: '-280px',
           top: '600px',
@@ -96,7 +109,6 @@ const GlowMobile = ({
           height: '900px',
         }}
         animate={{
-          opacity: 1,
           rotate: 0,
           right: '-280px',
           top: '600px',
@@ -109,7 +121,6 @@ const GlowMobile = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -137,7 +148,7 @@ const GlowMobile = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
@@ -151,10 +162,9 @@ const GlowTablet = ({
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]">
+    <Wrapper>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 0,
           right: '-250px',
           bottom: '0px',
@@ -164,7 +174,6 @@ const GlowTablet = ({
           height: '1100px',
         }}
         animate={{
-          opacity: 1,
           rotate: 0,
           right: '-250px',
           bottom: '0px',
@@ -177,7 +186,6 @@ const GlowTablet = ({
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -205,7 +213,7 @@ const GlowTablet = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
