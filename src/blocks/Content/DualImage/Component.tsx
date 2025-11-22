@@ -48,12 +48,12 @@ export const DualImage: React.FC<ContentBlock> = ({
       />
       <div
         className={cn(
-          'container flex gap-16 flex-col',
+          'container flex gap-8 md:gap-16 flex-col',
           reverseLayout ? 'lg:flex-col' : 'lg:flex-col-reverse',
           reverseLayout ? 'lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
-        <div className="w-full lg:w-2/5 flex flex-col justify-between gap-14 lg:gap-0">
+        <div className="w-full lg:w-2/5 flex flex-col justify-between gap-8 md:gap-14 lg:gap-0">
           <div className="flex flex-col">
             {heading && (
               <div className="[&_*]:!type-h3 text-foreground-100">

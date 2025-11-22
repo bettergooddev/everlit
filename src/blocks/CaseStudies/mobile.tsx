@@ -28,7 +28,7 @@ export function CaseStudiesMobile({
     <div className={cn(className)}>
       {heading && <Heading heading={heading} className="container z-10" />}
 
-      <div className="relative container grid gap-16 z-10">
+      <div className="relative container grid gap-10 z-10">
         {caseStudies.map(({ id, title, slug, studyHero }, index) => (
           <motion.div
             key={id}

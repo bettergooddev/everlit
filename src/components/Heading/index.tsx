@@ -16,7 +16,7 @@ export const Heading = ({
   return (
     <div
       className={cn(
-        'mb-16 flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-0 gap-6 md:gap-10',
+        'mb-8 md:mb-16 flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-0 gap-6 md:gap-10',
         className,
       )}
     >

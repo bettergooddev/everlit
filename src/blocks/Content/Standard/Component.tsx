@@ -29,7 +29,7 @@ export const Standard: React.FC<ContentBlock> = ({
     <Section ref={sectionRef} className="z-[1]">
       <div
         className={cn(
-          'container flex gap-16 flex-col',
+          'container flex gap-8 md:gap-16 flex-col',
           reverseLayout ? ' lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
