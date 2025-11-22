@@ -10,6 +10,9 @@ export interface LinkProps extends NextLinkProps {
   children?: React.ReactNode
   className?: string
   isInternal?: boolean
+  target?: React.HTMLAttributeAnchorTarget
+  rel?: string
+  style?: React.CSSProperties
 }
 
 export function isInternalLink(href: string | undefined): boolean {
@@ -45,12 +48,14 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       })
     }
 
+    // Only use transition router for internal links without target prop
+    const shouldUseTransition = isInternal && !props.target
+
     return (
       <NextLink
         ref={ref}
         className={className}
-        onClick={handleClick}
-        // {...(isInternal ? { onClick: handleClick } : {})}
+        onClick={shouldUseTransition ? handleClick : undefined}
         href={href}
         {...props}
       >
