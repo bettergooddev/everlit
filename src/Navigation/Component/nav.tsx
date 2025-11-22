@@ -98,7 +98,7 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
         ></div>
         {/* Logo – left aligned */}
         <motion.div
-          className="flex h-min mr-12"
+          className="flex h-min mr-4 md:mr-12"
           initial={{
             x: -(buttonWidth || 0),
           }}

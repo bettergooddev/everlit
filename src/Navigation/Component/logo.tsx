@@ -18,14 +18,14 @@ export const NavLogo: React.FC<NavLogoProps> = ({ logo }) => {
 
   if (link) {
     return (
-      <Link href="/" className="inline-block h-[2.65rem] p-1 -mt-1">
+      <Link href="/" className="inline-block w-[7rem] h-[auto] md:h-[2.65rem] p-0 md:p-1 -mt-1">
         <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
       </Link>
     )
   }
 
   return (
-    <div className="inline-block h-[2.65rem] p-1 -mt-1">
+    <div className="inline-block w-[7rem] h-[auto] md:h-[2.65rem] p-0 md:p-1 -mt-1">
       <Inner desktopLogo={desktopLogo} mobileLogo={mobileLogo} />
     </div>
   )

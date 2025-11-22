@@ -14,7 +14,7 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
   const { heading, description, image, backgroundImage } = props.sub
 
   return (
-    <Section className="relative">
+    <Section className="relative ">
       <GlowDesktop backgroundImage={backgroundImage} className="hidden lg:block" />
       <GlowTablet backgroundImage={backgroundImage} className="hidden sm:block lg:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="sm:hidden" />
@@ -30,7 +30,7 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
         >
           <Frame
             resource={image}
-            className="size-full object-cover aspect-[4/3] md:aspect-auto"
+            className="size-full object-cover aspect-[4/3]"
             imgClassName="size-full object-cover"
           />
         </motion.div>
