@@ -4,6 +4,7 @@ import * as React from 'react'
 import NextLink from 'next/link'
 import type { LinkProps as NextLinkProps } from 'next/link'
 import { useTransitionRouter } from 'next-view-transitions'
+import { usePageTransition } from '@/providers/PageTransition'
 
 export interface LinkProps extends NextLinkProps {
   children?: React.ReactNode
@@ -31,8 +32,13 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         : isInternalLink(typeof href === 'string' ? href : undefined)
 
     const router = useTransitionRouter()
+    const { setTransitioning } = usePageTransition()
 
     const handleClick = (e: any) => {
+      setTransitioning(true)
+      setTimeout(() => {
+        setTransitioning(false)
+      }, 700)
       e.preventDefault()
       router.push(href as string, {
         onTransitionReady: pageAnimation,

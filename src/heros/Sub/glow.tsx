@@ -13,7 +13,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
       transition={{
         ease: [0.77, 0, 0.175, 1],
         duration: 0.5,
-        delay: 1.5,
+        delay: 1.6,
       }}
       className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]"
     >

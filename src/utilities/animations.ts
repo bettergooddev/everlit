@@ -5,15 +5,27 @@
  * a Motion One element for a slide-up / fade-in effect that triggers when the
  * element enters the viewport.
  */
-export const fadeUpInView = (index: number, baseDelay = 0.2, duration = 0.6) => {
+export const fadeUpInView = ({
+  index,
+  once = true,
+  baseDelay = 0.2,
+  duration = 0.6,
+  delay = 0,
+}: {
+  index: number
+  once?: boolean
+  baseDelay?: number
+  duration?: number
+  delay?: number
+}) => {
   return {
     initial: { y: 200, opacity: 0 },
     whileInView: { y: 0, opacity: 1 },
-    viewport: { once: true, amount: 0.3 },
+    viewport: { once, amount: 0.3 },
     transition: {
       duration,
       ease: [0.33, 1, 0.68, 1] as [number, number, number, number],
-      delay: index * baseDelay,
+      delay: delay || index * baseDelay,
     },
   }
 }
