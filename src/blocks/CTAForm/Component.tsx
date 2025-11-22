@@ -226,7 +226,9 @@ export const CallToActionBlock: React.FC<
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>
-        <div className="container pt-32 md:pt-24">
+        <div
+          className={cn('relative container pb-16 md:pb-0 md:pt-24', dedicatedPage ? 'pt-32' : '')}
+        >
           {heading && !hasSubmitted && (
             <div className="flex w-full text-center">
               <RichText
@@ -254,7 +256,6 @@ export const CallToActionBlock: React.FC<
               )}
             </AnimatePresence>
 
-            {isLoading && !hasSubmitted && <Loading />}
             {error && <Error error={error} />}
 
             <form
@@ -271,7 +272,7 @@ export const CallToActionBlock: React.FC<
                   <CarouselItem className="w-full flex flex-col ">
                     <div className="relative p-2">
                       <FormLabel htmlFor={'email'} label={'Email'} required={true} />
-                      <div className="grid grid-cols-[1fr,auto] gap-4 mt-2">
+                      <div className="flex flex-col md:grid md:grid-cols-[1fr,auto] gap-4 mt-2">
                         <Email
                           blockName={'email'}
                           blockType="email"
@@ -287,7 +288,7 @@ export const CallToActionBlock: React.FC<
                         />
                         <Button
                           variant={'default'}
-                          className="px-6 flex h-full"
+                          className="px-6 flex md:h-full w-full md:w-auto"
                           type="button"
                           {...getFormAttentionHandlers('continue-button', 2)}
                           onClick={async (e) => {
@@ -383,9 +384,10 @@ export const CallToActionBlock: React.FC<
                         form={formID}
                         type="submit"
                         variant="default"
+                        disabled={isLoading}
                         {...getFormAttentionHandlers('submit-button', 2)}
                       >
-                        {submitButtonLabel}
+                        {isLoading ? 'Please wait...' : submitButtonLabel}
                       </Button>
                     </div>
                   </CarouselItem>
@@ -393,44 +395,6 @@ export const CallToActionBlock: React.FC<
               </Carousel>
             </form>
           </FormProvider>
-
-          {dedicatedPage && (emailLink || phone || address) && (
-            <div className="mt-48 pb-12 flex flex-col md:flex-row items-center md:items-start gap-16 md:gap-32 justify-center">
-              {emailLink && (
-                <div className="flex flex-col items-center md:items-start">
-                  <Mail className="w-6 h-6 mb-3" />
-                  <h4 className="type-h4 font-medium mb-2">Email</h4>
-                  <CMSLink
-                    {...emailLink}
-                    appearance="inline"
-                    className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
-                  />
-                </div>
-              )}
-              {phone && (
-                <div className="flex flex-col items-center md:items-start">
-                  <Phone className="w-6 h-6 mb-3" />
-                  <h4 className="type-h4 font-medium mb-2">Phone</h4>
-                  <CMSLink
-                    {...phone}
-                    appearance="inline"
-                    className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
-                  />
-                </div>
-              )}
-              {address && (
-                <div className="flex flex-col items-center md:items-start">
-                  <MapPin className="w-6 h-6 mb-3" />
-                  <h4 className="type-h4 font-medium mb-2">Office</h4>
-                  <CMSLink
-                    {...address}
-                    appearance="inline"
-                    className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
-                  />
-                </div>
-              )}
-            </div>
-          )}
 
           <AnimatePresence>
             {formPhase === 0 && (
@@ -602,13 +566,47 @@ export const CallToActionBlock: React.FC<
             )}
           </AnimatePresence>
         </div>
+
+        {dedicatedPage && (emailLink || phone || address) && (
+          <div className="mt-48 pb-12 flex flex-col md:flex-row items-center md:items-start gap-16 md:gap-32 justify-center">
+            {emailLink && (
+              <div className="flex flex-col items-center md:items-start">
+                <Mail className="w-6 h-6 mb-3" />
+                <h4 className="type-h4 font-medium mb-2">Email</h4>
+                <CMSLink
+                  {...emailLink}
+                  appearance="inline"
+                  className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
+                />
+              </div>
+            )}
+            {phone && (
+              <div className="flex flex-col items-center md:items-start">
+                <Phone className="w-6 h-6 mb-3" />
+                <h4 className="type-h4 font-medium mb-2">Phone</h4>
+                <CMSLink
+                  {...phone}
+                  appearance="inline"
+                  className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
+                />
+              </div>
+            )}
+            {address && (
+              <div className="flex flex-col items-center md:items-start">
+                <MapPin className="w-6 h-6 mb-3" />
+                <h4 className="type-h4 font-medium mb-2">Office</h4>
+                <CMSLink
+                  {...address}
+                  appearance="inline"
+                  className="type-body text-foreground-700 hover:opacity-100 underline transition-colors text-center md:text-left p-0 -mt-1.5 opacity-75"
+                />
+              </div>
+            )}
+          </div>
+        )}
       </Section>
     </div>
   )
-}
-
-function Loading() {
-  return <p>Loading, please wait...</p>
 }
 
 function Error({ error }: { error: { message: string; status?: string } }) {
