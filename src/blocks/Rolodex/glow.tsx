@@ -18,7 +18,7 @@ const GlowDesktop = ({
 
   return (
     <motion.div
-      className={cn('absolute inset-0 z-[-1]', className)}
+      className={cn('absolute inset-0 z-[-1] pointer-events-none', className)}
       initial={{ opacity: 0 }}
       animate={{ opacity: isInView ? 1 : 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
