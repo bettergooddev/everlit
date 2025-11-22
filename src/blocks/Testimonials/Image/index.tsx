@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useInView } from 'motion/react'
 import type { CarouselApi } from '@/components/ui/carousel'
 import {
   Carousel,
@@ -16,12 +17,16 @@ import { Button } from '@/components/ui/button'
 import Section from '@/components/Section'
 import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
 import { Link } from '@/components/ui/link'
+import { usePageTransition } from '@/providers/PageTransition'
 
 interface ImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
 }
 
 export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
+  const { isTransitioning } = usePageTransition()
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
 
@@ -39,10 +44,25 @@ export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) =
   if (!testimonials || testimonials.length === 0) return null
 
   return (
-    <Section className="relative z-[1]">
-      <GlowDesktop className="-z-[1] hidden lg:block" backgroundImage={backgroundImage} />
-      <GlowTablet className="-z-[1] hidden md:block lg:hidden" backgroundImage={backgroundImage} />
-      <GlowMobile className="-z-[1] md:hidden" backgroundImage={backgroundImage} />
+    <Section ref={sectionRef} className="relative z-[1]">
+      <GlowDesktop
+        className="-z-[1] hidden lg:block"
+        backgroundImage={backgroundImage}
+        inView={isInView}
+        isTransitioning={isTransitioning}
+      />
+      <GlowTablet
+        className="-z-[1] hidden md:block lg:hidden"
+        backgroundImage={backgroundImage}
+        inView={isInView}
+        isTransitioning={isTransitioning}
+      />
+      <GlowMobile
+        className="-z-[1] md:hidden"
+        backgroundImage={backgroundImage}
+        inView={isInView}
+        isTransitioning={isTransitioning}
+      />
 
       <div className="container z-[1]">
         {isCarousel ? (

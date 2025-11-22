@@ -5,20 +5,48 @@ import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
+const Wrapper = ({
+  children,
+  inView,
+  isTransitioning,
+}: {
+  children: React.ReactNode
+  inView: boolean
+  isTransitioning: boolean
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
+      transition={{
+        ease: [0.77, 0, 0.175, 1],
+        duration: 0.5,
+        delay: isTransitioning ? 1 : 0,
+      }}
+      className="pointer-events-none absolute inset-0 overflow-hidden -my-[52rem] -z-[1]"
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 const GlowDesktop = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[52rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 110,
           top: '400px',
           right: '-400px',
@@ -28,13 +56,11 @@ const GlowDesktop = ({
           height: '1900px',
         }}
         animate={{
-          opacity: 1,
           rotateY: [14, -14, 14],
           translateY: [2, -2, 2],
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -62,24 +88,27 @@ const GlowDesktop = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
 const GlowMobile = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[52rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 155,
           left: '-300px',
           bottom: '500px',
@@ -89,13 +118,11 @@ const GlowMobile = ({
           height: '1200px',
         }}
         animate={{
-          opacity: 1,
           rotateY: [14, -14, 14],
           translateY: [2, -2, 2],
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -123,24 +150,27 @@ const GlowMobile = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
 const GlowTablet = ({
   backgroundImage,
   className,
+  inView,
+  isTransitioning,
 }: {
   backgroundImage: string | MediaType | null | undefined
   className?: string
+  inView: boolean
+  isTransitioning: boolean
 }) => {
   if (!backgroundImage) return null
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -my-[52rem]">
+    <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
         initial={{
-          opacity: 0,
           rotate: 155,
           left: '-100px',
           bottom: '500px',
@@ -150,13 +180,11 @@ const GlowTablet = ({
           height: '1200px',
         }}
         animate={{
-          opacity: 1,
           rotateY: [14, -14, 14],
           translateY: [2, -2, 2],
           translateX: [5, -5, 5],
         }}
         transition={{
-          opacity: { duration: 1.4, ease: [0.25, 0.1, 0.25, 1] },
           rotateY: {
             duration: 4,
             repeat: Infinity,
@@ -184,7 +212,7 @@ const GlowTablet = ({
           imgClassName="size-full object-left"
         />
       </motion.div>
-    </div>
+    </Wrapper>
   )
 }
 
