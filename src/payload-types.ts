@@ -559,6 +559,18 @@ export interface ContentBlock {
   };
   grid?: {
     image: string | Media;
+    tags?:
+      | {
+          tag: string;
+          id?: string | null;
+        }[]
+      | null;
+    bullets?:
+      | {
+          bullet: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   reverseLayout?: boolean | null;
   id?: string | null;
@@ -1368,6 +1380,18 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        tags?:
+          | T
+          | {
+              tag?: T;
+              id?: T;
+            };
+        bullets?:
+          | T
+          | {
+              bullet?: T;
+              id?: T;
+            };
       };
   reverseLayout?: T;
   id?: T;

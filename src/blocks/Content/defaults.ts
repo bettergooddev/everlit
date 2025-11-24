@@ -62,5 +62,29 @@ export const defaults = {
     images: ['691c68822b8e4e51b55b601d', '691c68822b8e4e51b55b601d'],
     backgroundImage: '691c9205bfc6beea4171cb26',
   },
-  grid: {},
+  grid: {
+    image: '691c68822b8e4e51b55b601d',
+    tags: [
+      {
+        tag: 'Tag 1',
+      },
+      {
+        tag: 'Tag 2',
+      },
+      {
+        tag: 'Tag 3',
+      },
+    ],
+    bullets: [
+      {
+        bullet: 'Bullet 1',
+      },
+      {
+        bullet: 'Bullet 2',
+      },
+      {
+        bullet: 'Bullet 3',
+      },
+    ],
+  },
 }
