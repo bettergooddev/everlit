@@ -13,6 +13,7 @@ import { Media } from '@/components/Media'
 import type { TestimonialsBlock as TestimonialsBlockType, Testimonial } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 import Section from '@/components/Section'
+import { useTextReveal } from '@/hooks/useTextReveal'
 
 interface NoImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
@@ -84,11 +85,14 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   if (!testimonial) return null
 
   const { description, author } = testimonial
+  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: description })
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto">
       <div className="flex flex-col items-center justify-center h-full gap-12 xl:gap-16">
-        <blockquote className="type-h4 xl:type-h3 text-center">{description}</blockquote>
+        <blockquote ref={quoteRef} className="type-h4 xl:type-h3 text-center">
+          {description}
+        </blockquote>
         <div className="flex flex-nowrap items-center gap-8 justify-center">
           <div>
             <p className="type-h4">{author.name}</p>

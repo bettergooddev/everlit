@@ -18,6 +18,7 @@ import Section from '@/components/Section'
 import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
 import { Link } from '@/components/ui/link'
 import { usePageTransition } from '@/providers/PageTransition'
+import { useTextReveal } from '@/hooks/useTextReveal'
 
 interface ImageProps extends Omit<TestimonialsBlockType, 'testimonials'> {
   testimonials: Testimonial[]
@@ -112,6 +113,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
   if (!testimonial) return null
 
   const { image, description, author, caseStudy } = testimonial
+  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: description })
   const caseStudySlug =
     typeof caseStudy === 'object' && caseStudy !== null && 'slug' in caseStudy
       ? caseStudy.slug
@@ -127,7 +129,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
         />
       )}
       <div className="flex flex-col items-start h-full justify-between gap-12 xl:gap-0">
-        <blockquote className="type-h4 xl:type-h3">{description}</blockquote>
+        <blockquote ref={quoteRef} className="type-h4 xl:type-h3">
+          {description}
+        </blockquote>
         <div className="flex flex-nowrap items-end gap-5 justify-between w-full">
           <div className="flex flex-col">
             <p className="type-h4">{author.name}</p>

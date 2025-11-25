@@ -19,6 +19,7 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@mantine/hooks": "^8.3.8",
     "@payloadcms/admin-bar": "^3.62.1",
     "@payloadcms/db-mongodb": "^3.62.1",

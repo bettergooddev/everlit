@@ -7,11 +7,13 @@ import Section from '@/components/Section'
 import { GraphicDoubleQuote } from '@/paths/paths'
 import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
 import { usePageTransition } from '@/providers/PageTransition'
+import { useTextReveal } from '@/hooks/useTextReveal'
 
 export const Quote: React.FC<QuoteType> = ({ quote, backgroundImage }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
   const { isTransitioning } = usePageTransition()
+  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: quote })
 
   return (
     <Section ref={sectionRef} className="relative">
@@ -35,7 +37,9 @@ export const Quote: React.FC<QuoteType> = ({ quote, backgroundImage }) => {
       />
       <div className="container text-center relative">
         <GraphicDoubleQuote className="size-32 absolute top-1/2 left-0 -translate-y-[calc(50%+8px)] opacity-5 " />
-        <blockquote className="type-h3 max-w-[22ch] mx-auto italic ">{quote}</blockquote>
+        <blockquote ref={quoteRef} className="type-h3 max-w-[22ch] mx-auto italic ">
+          {quote}
+        </blockquote>
       </div>
     </Section>
   )
