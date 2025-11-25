@@ -226,9 +226,7 @@ export const CallToActionBlock: React.FC<
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />
 
       <Section>
-        <div
-          className={cn('relative container pb-16 md:pb-0 md:pt-24', dedicatedPage ? 'pt-32' : '')}
-        >
+        <div className="container pt-24">
           {heading && !hasSubmitted && (
             <div className="flex w-full text-center">
               <RichText
