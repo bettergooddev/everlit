@@ -73,9 +73,9 @@ export const Standard: React.FC<ContentBlock> = ({
         animation: gsap.to(frameRef.current, {
           opacity: 1,
           y: 0,
-          duration: 1.15,
+          duration: 1.265,
           delay: 0,
-          ease: 'power4.inOut',
+          ease: 'power2.out',
         }),
       })
 

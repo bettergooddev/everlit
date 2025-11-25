@@ -18,8 +18,8 @@ interface UseTextRevealOptions {
 
 export function useTextReveal<T extends HTMLElement = HTMLElement>({
   text,
-  start = 'top 50%',
-  end = 'top 30%',
+  start = 'top 40%',
+  end = 'top 20%',
   initialOpacity = 0.35,
   stagger = 0.015,
   delay = 0,

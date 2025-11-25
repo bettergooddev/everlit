@@ -66,14 +66,14 @@ export const DualImage: React.FC<ContentBlock> = ({
           animation: gsap.to(frame1Ref.current, {
             opacity: 1,
             y: 0,
-            duration: 1.15,
+            duration: 1.265,
             delay: 0,
-            ease: 'power4.inOut',
+            ease: 'power2.out',
           }),
         })
       }
 
-      // Frame 2 (smaller image) - 0.345s delay
+      // Frame 2 (smaller image) - delayed for sequential feel
       if (frame2Ref.current) {
         gsap.set(frame2Ref.current, {
           opacity: 0,
@@ -87,9 +87,9 @@ export const DualImage: React.FC<ContentBlock> = ({
           animation: gsap.to(frame2Ref.current, {
             opacity: 1,
             y: 0,
-            duration: 1.15,
-            delay: 0.345,
-            ease: 'power4.inOut',
+            duration: 1.265,
+            delay: 0.55,
+            ease: 'power2.out',
           }),
         })
       }
