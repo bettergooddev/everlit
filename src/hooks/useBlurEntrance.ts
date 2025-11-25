@@ -6,23 +6,25 @@ import { SplitText } from 'gsap/SplitText'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText)
 
-interface UseTextRevealOptions {
+interface UseBlurEntranceOptions {
   text: string | null | undefined
   start?: string
   end?: string
-  initialOpacity?: number
+  initialBlur?: number
   stagger?: number
   ease?: string
+  once?: boolean
 }
 
-export function useTextReveal<T extends HTMLElement = HTMLElement>({
+export function useBlurEntrance<T extends HTMLElement = HTMLElement>({
   text,
-  start = 'top 50%',
-  end = 'top 30%',
-  initialOpacity = 0.5,
-  stagger = 0.015,
-  ease = 'cubic.out',
-}: UseTextRevealOptions): RefObject<T | null> {
+  start = 'top 80%',
+  end = 'top 50%',
+  initialBlur = 10,
+  stagger = 0.08,
+  ease = 'power2.out',
+  once = true,
+}: UseBlurEntranceOptions): RefObject<T | null> {
   const textRef = useRef<T>(null)
 
   useGSAP(
@@ -30,24 +32,30 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
       if (!textRef.current || !text) return
 
       const split = new SplitText(textRef.current, {
-        type: 'chars',
+        type: 'words',
       })
 
-      const chars = split.chars
+      const words = split.words
 
-      if (!chars || chars.length === 0) return
+      if (!words || words.length === 0) return
 
-      // Set initial opacity
-      gsap.set(chars, { opacity: initialOpacity })
+      // Set initial state - blurred and faded
+      gsap.set(words, {
+        opacity: 0,
+        filter: `blur(${initialBlur}px)`,
+      })
 
-      // Animate each letter based on scroll progress
+      // Animate words on scroll - unblur and fade in
       const scrollTrigger = ScrollTrigger.create({
         trigger: textRef.current,
         start,
         end,
-        scrub: true,
-        animation: gsap.to(chars, {
+        once,
+        scrub: !once,
+        animation: gsap.to(words, {
           opacity: 1,
+          filter: 'blur(0px)',
+          duration: 0.8,
           stagger,
           ease,
         }),
@@ -66,4 +74,3 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
 
   return textRef
 }
-

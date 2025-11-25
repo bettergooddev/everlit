@@ -10,6 +10,9 @@ import { cn } from '@/utilities/ui'
 import Section from '@/components/Section'
 import { GlowDesktop, GlowMobile } from './glow'
 import { usePageTransition } from '@/providers/PageTransition'
+import { useBlurEntrance } from '@/hooks/useBlurEntrance'
+import { extractPlainText } from '@/utilities/richtext'
+import { useFadeUp } from '@/hooks/useFadeUp'
 
 export const DualImage: React.FC<ContentBlock> = ({
   heading,
@@ -56,12 +59,25 @@ export const DualImage: React.FC<ContentBlock> = ({
         <div className="w-full lg:w-2/5 flex flex-col justify-between gap-8 md:gap-14 lg:gap-0">
           <div className="flex flex-col">
             {heading && (
-              <div className="[&_*]:!type-h3 text-foreground-100">
+              <div
+                ref={useBlurEntrance<HTMLDivElement>({
+                  text: extractPlainText(heading),
+                  stagger: 0.08,
+                  initialBlur: 12,
+                })}
+                className="[&_*]:!type-h3 text-foreground-100"
+              >
                 <RichText data={heading} enableProse={false} enableGutter={false} />
               </div>
             )}
             {description && (
-              <p className="type-body mt-3 text-foreground-100 opacity-75 max-w-[48ch]">
+              <p
+                ref={useFadeUp<HTMLParagraphElement>({
+                  initialY: 20,
+                  delay: 0.3,
+                })}
+                className="type-body mt-3 text-foreground-100 opacity-75 max-w-[48ch]"
+              >
                 {description}
               </p>
             )}

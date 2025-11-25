@@ -8,6 +8,11 @@ import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
 import { Badge } from '@/components/ui/badge'
 import Section from '@/components/Section'
+import { useBlurEntrance } from '@/hooks/useBlurEntrance'
+import { extractPlainText } from '@/utilities/richtext'
+import { useFadeIn } from '@/hooks/useFadeIn'
+import { useFadeUp } from '@/hooks/useFadeUp'
+import { useFadeUpStagger } from '@/hooks/useFadeUpStagger'
 
 export const Standard: React.FC<ContentBlock> = ({
   heading,
@@ -36,12 +41,26 @@ export const Standard: React.FC<ContentBlock> = ({
         <div className="w-full lg:w-1/3 flex flex-col justify-between gap-14 lg:gap-0">
           <div className="flex flex-col">
             {heading && (
-              <div className="[&_*]:!type-h3 text-foreground-100">
+              <div
+                ref={useBlurEntrance<HTMLDivElement>({
+                  text: extractPlainText(heading),
+                  stagger: 0.08,
+                  initialBlur: 12,
+                })}
+                className="[&_*]:!type-h3 text-foreground-100"
+              >
                 <RichText data={heading} enableProse={false} enableGutter={false} />
               </div>
             )}
             {hasTags && (
-              <ul className="flex flex-row gap-2 flex-wrap mt-6 mb-2">
+              <ul
+                ref={useFadeUpStagger<HTMLUListElement>({
+                  initialY: 15,
+                  delay: 0.3,
+                  stagger: 0.08,
+                })}
+                className="flex flex-row gap-2 flex-wrap mt-6 mb-2"
+              >
                 {tags.map(({ tag }, index) => (
                   <li key={index}>
                     <Badge>{tag}</Badge>
@@ -50,13 +69,26 @@ export const Standard: React.FC<ContentBlock> = ({
               </ul>
             )}
             {description && (
-              <p className="type-body mt-4 text-foreground-100 opacity-75 max-w-[48ch]">
+              <p
+                ref={useFadeUp<HTMLParagraphElement>({
+                  initialY: 20,
+                  delay: 0.5,
+                })}
+                className="type-body mt-4 text-foreground-100 opacity-75 max-w-[48ch]"
+              >
                 {description}
               </p>
             )}
 
             {hasBullets && (
-              <ul className="list-disc list-outside mt-8 mb-2 space-y-4 pl-6">
+              <ul
+                ref={useFadeUpStagger<HTMLUListElement>({
+                  initialY: 20,
+                  delay: 0.7,
+                  stagger: 0.1,
+                })}
+                className="list-disc list-outside mt-8 mb-2 space-y-4 pl-6"
+              >
                 {bullets.map(({ bullet }, index) => (
                   <li key={index} className="type-h4 text-foreground-100 pl-2">
                     {bullet}
