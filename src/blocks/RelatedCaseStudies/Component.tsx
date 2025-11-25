@@ -8,6 +8,7 @@ import type { CaseStudy } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Media } from '@/components/Media'
+import Section from '@/components/Section'
 
 export type RelatedCaseStudiesProps = {
   currentSlug: string
@@ -27,7 +28,7 @@ export const RelatedCaseStudies: React.FC<RelatedCaseStudiesProps> = ({
   }
 
   return (
-    <div className={cn('container py-section-mobile md:py-section', className)}>
+    <Section className={cn('container', className)}>
       <div className="flex items-center justify-between mb-12">
         <h2 className="type-h2 text-foreground-100">Related Projects</h2>
         <Link href="/case-studies">
@@ -39,7 +40,7 @@ export const RelatedCaseStudies: React.FC<RelatedCaseStudiesProps> = ({
         {previousCaseStudy ? <StudyCard study={previousCaseStudy} /> : <div />}
         {nextCaseStudy ? <StudyCard study={nextCaseStudy} /> : <div />}
       </div>
-    </div>
+    </Section>
   )
 }
 
