@@ -110,10 +110,11 @@ export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) =
 }
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
+  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: testimonial?.description })
+
   if (!testimonial) return null
 
   const { image, description, author, caseStudy } = testimonial
-  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: description })
   const caseStudySlug =
     typeof caseStudy === 'object' && caseStudy !== null && 'slug' in caseStudy
       ? caseStudy.slug

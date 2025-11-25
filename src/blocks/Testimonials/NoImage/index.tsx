@@ -82,10 +82,11 @@ export const NoImage: React.FC<NoImageProps> = ({ testimonials }) => {
 }
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
+  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: testimonial?.description })
+
   if (!testimonial) return null
 
   const { description, author } = testimonial
-  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: description })
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto">
