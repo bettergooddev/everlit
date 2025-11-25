@@ -12,6 +12,7 @@ interface UseTextRevealOptions {
   end?: string
   initialOpacity?: number
   stagger?: number
+  delay?: number
   ease?: string
 }
 
@@ -21,6 +22,7 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
   end = 'top 30%',
   initialOpacity = 0.5,
   stagger = 0.015,
+  delay = 0,
   ease = 'cubic.out',
 }: UseTextRevealOptions): RefObject<T | null> {
   const textRef = useRef<T>(null)
@@ -48,6 +50,7 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
         scrub: true,
         animation: gsap.to(chars, {
           opacity: 1,
+          delay,
           stagger,
           ease,
         }),

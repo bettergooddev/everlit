@@ -24,6 +24,17 @@ export const DualImage: React.FC<ContentBlock> = ({
   const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
   const { isTransitioning } = usePageTransition()
 
+  // Call all hooks at the top level (before any conditional returns)
+  const headingRef = useBlurEntrance<HTMLDivElement>({
+    text: heading ? extractPlainText(heading) : null,
+    stagger: 0.08,
+    initialBlur: 12,
+  })
+  const descriptionRef = useFadeUp<HTMLParagraphElement>({
+    initialY: 20,
+    delay: 0.3,
+  })
+
   if (!dualImage?.images || dualImage.images.length === 0) return null
 
   const validImages = dualImage.images.filter(
@@ -59,23 +70,13 @@ export const DualImage: React.FC<ContentBlock> = ({
         <div className="w-full lg:w-2/5 flex flex-col justify-between gap-8 md:gap-14 lg:gap-0">
           <div className="flex flex-col">
             {heading && (
-              <div
-                ref={useBlurEntrance<HTMLDivElement>({
-                  text: extractPlainText(heading),
-                  stagger: 0.08,
-                  initialBlur: 12,
-                })}
-                className="[&_*]:!type-h3 text-foreground-100"
-              >
+              <div ref={headingRef} className="[&_*]:!type-h3 text-foreground-100">
                 <RichText data={heading} enableProse={false} enableGutter={false} />
               </div>
             )}
             {description && (
               <p
-                ref={useFadeUp<HTMLParagraphElement>({
-                  initialY: 20,
-                  delay: 0.3,
-                })}
+                ref={descriptionRef}
                 className="type-body mt-3 text-foreground-100 opacity-75 max-w-[48ch]"
               >
                 {description}
