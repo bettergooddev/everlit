@@ -288,8 +288,8 @@ export const CallToActionBlock: React.FC<
   return (
     <div
       className={cn(
-        'relative overflow-hidden z-0',
-        dedicatedPage ? 'mt-section-small' : '-mt-[12rem]',
+        'relative overflow-hidden z-0 -mb-section',
+        dedicatedPage ? 'mt-section-small' : '-mt-[6rem]',
       )}
     >
       <div className="absolute z-[1] md:h-54 h-[15rem] w-full bg-gradient-to-b from-background-900 to-background-900/0 top-0" />

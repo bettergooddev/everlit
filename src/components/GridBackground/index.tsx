@@ -30,7 +30,7 @@ export function GridBackground({
         )}
       />
       {showRadialGradient && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_-50%,black)]"></div>
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-background [mask-image:radial-gradient(ellipse_at_center,transparent_-25%,black)]"></div>
       )}
       {children && <div className="relative z-20">{children}</div>}
     </div>

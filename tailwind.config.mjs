@@ -69,7 +69,7 @@ const config = {
     },
     extend: {
       spacing: {
-        section: '10.35rem', // 48 * 0.25rem = 12rem
+        section: '8.35rem', // 48 * 0.25rem = 12rem
         'section-mobile': '5.35rem', // 36 * 0.25rem = 9rem
       },
       animation: {

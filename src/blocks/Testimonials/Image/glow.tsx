@@ -46,37 +46,49 @@ const GlowDesktop = ({
   return (
     <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
-        initial={{
+        // Dev mode: static positioning
+        animate={{
+          opacity: 1,
           rotate: 110,
-          top: '400px',
-          right: '-400px',
+          top: '550px',
+          right: '-200px',
           y: '0px',
           x: '120px',
-          width: '1900px',
-          height: '1900px',
+          width: '1300px',
+          height: '1300px',
         }}
-        animate={{
-          rotateY: [14, -14, 14],
-          translateY: [2, -2, 2],
-          translateX: [5, -5, 5],
-        }}
-        transition={{
-          rotateY: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          translateY: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          translateX: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-        }}
+        // Prod mode: animated rotation/translation
+        // initial={{
+        //   rotate: 110,
+        //   top: '400px',
+        //   right: '-400px',
+        //   y: '0px',
+        //   x: '120px',
+        //   width: '1900px',
+        //   height: '1900px',
+        // }}
+        // animate={{
+        //   rotateY: [14, -14, 14],
+        //   translateY: [2, -2, 2],
+        //   translateX: [5, -5, 5],
+        // }}
+        // transition={{
+        //   rotateY: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        //   translateY: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        //   translateX: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        // }}
         style={{
           transformStyle: 'preserve-3d',
         }}
@@ -108,7 +120,9 @@ const GlowMobile = ({
   return (
     <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
-        initial={{
+        // Dev mode: static positioning
+        animate={{
+          opacity: 1,
           rotate: 155,
           left: '-300px',
           bottom: '500px',
@@ -117,28 +131,38 @@ const GlowMobile = ({
           width: '1200px',
           height: '1200px',
         }}
-        animate={{
-          rotateY: [14, -14, 14],
-          translateY: [2, -2, 2],
-          translateX: [5, -5, 5],
-        }}
-        transition={{
-          rotateY: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          translateY: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          translateX: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-        }}
+        // Prod mode: animated rotation/translation
+        // initial={{
+        //   rotate: 155,
+        //   left: '-300px',
+        //   bottom: '500px',
+        //   y: '0px',
+        //   x: '0px',
+        //   width: '1200px',
+        //   height: '1200px',
+        // }}
+        // animate={{
+        //   rotateY: [14, -14, 14],
+        //   translateY: [2, -2, 2],
+        //   translateX: [5, -5, 5],
+        // }}
+        // transition={{
+        //   rotateY: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        //   translateY: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        //   translateX: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        // }}
         style={{
           transformStyle: 'preserve-3d',
         }}
@@ -170,7 +194,9 @@ const GlowTablet = ({
   return (
     <Wrapper inView={inView} isTransitioning={isTransitioning}>
       <motion.div
-        initial={{
+        // Dev mode: static positioning
+        animate={{
+          opacity: 1,
           rotate: 155,
           left: '-100px',
           bottom: '500px',
@@ -179,28 +205,38 @@ const GlowTablet = ({
           width: '1200px',
           height: '1200px',
         }}
-        animate={{
-          rotateY: [14, -14, 14],
-          translateY: [2, -2, 2],
-          translateX: [5, -5, 5],
-        }}
-        transition={{
-          rotateY: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          translateY: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          translateX: {
-            duration: 4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-        }}
+        // Prod mode: animated rotation/translation
+        // initial={{
+        //   rotate: 155,
+        //   left: '-100px',
+        //   bottom: '500px',
+        //   y: '0px',
+        //   x: '0px',
+        //   width: '1200px',
+        //   height: '1200px',
+        // }}
+        // animate={{
+        //   rotateY: [14, -14, 14],
+        //   translateY: [2, -2, 2],
+        //   translateX: [5, -5, 5],
+        // }}
+        // transition={{
+        //   rotateY: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        //   translateY: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        //   translateX: {
+        //     duration: 4,
+        //     repeat: Infinity,
+        //     ease: 'easeInOut',
+        //   },
+        // }}
         style={{
           transformStyle: 'preserve-3d',
         }}
