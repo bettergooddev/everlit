@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface UseFadeUpOptions {
+  triggerRef?: RefObject<HTMLElement | null>
   start?: string
   end?: string
   initialY?: number
@@ -16,6 +17,7 @@ interface UseFadeUpOptions {
 }
 
 export function useFadeUp<T extends HTMLElement = HTMLElement>({
+  triggerRef,
   start = 'top 80%',
   end = 'top 50%',
   initialY = 20,
@@ -30,6 +32,8 @@ export function useFadeUp<T extends HTMLElement = HTMLElement>({
     () => {
       if (!elementRef.current) return
 
+      const trigger = triggerRef?.current ?? elementRef.current
+
       // Set initial state - faded and moved up
       gsap.set(elementRef.current, {
         opacity: 0,
@@ -38,7 +42,7 @@ export function useFadeUp<T extends HTMLElement = HTMLElement>({
 
       // Animate on scroll - fade in and move to position
       const scrollTrigger = ScrollTrigger.create({
-        trigger: elementRef.current,
+        trigger,
         start,
         end,
         once,

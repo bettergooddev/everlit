@@ -15,7 +15,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
         duration: 0.5,
         delay: 1.6,
       }}
-      className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem]"
+      className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem] -z-[1]"
     >
       {children}
     </motion.div>

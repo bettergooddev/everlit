@@ -8,6 +8,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText)
 
 interface UseBlurEntranceOptions {
   text: string | null | undefined
+  triggerRef?: RefObject<HTMLElement | null>
   start?: string
   end?: string
   initialBlur?: number
@@ -19,6 +20,7 @@ interface UseBlurEntranceOptions {
 
 export function useBlurEntrance<T extends HTMLElement = HTMLElement>({
   text,
+  triggerRef,
   start = 'top 80%',
   end = 'top 50%',
   initialBlur = 10,
@@ -32,6 +34,8 @@ export function useBlurEntrance<T extends HTMLElement = HTMLElement>({
   useGSAP(
     () => {
       if (!textRef.current || !text) return
+
+      const trigger = triggerRef?.current ?? textRef.current
 
       const split = new SplitText(textRef.current, {
         type: 'words',
@@ -49,7 +53,7 @@ export function useBlurEntrance<T extends HTMLElement = HTMLElement>({
 
       // Animate words on scroll - unblur and fade in
       const scrollTrigger = ScrollTrigger.create({
-        trigger: textRef.current,
+        trigger,
         start,
         end,
         once,

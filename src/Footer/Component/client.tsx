@@ -29,10 +29,10 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
 
       <motion.div
         animate={{
-          rotateY: [12, -12, 12],
+          rotateY: [15.87, -15.87, 15.87],
           // rotateX: [10, -10, 10],
-          translateY: [2, -2, 2],
-          translateX: [5, -5, 5],
+          translateY: [2.645, -2.645, 2.645],
+          translateX: [6.6125, -6.6125, 6.6125],
           opacity: [100, 80, 100],
         }}
         transition={{

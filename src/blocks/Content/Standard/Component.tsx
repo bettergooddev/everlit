@@ -20,27 +20,36 @@ export const Standard: React.FC<ContentBlock> = ({
   reverseLayout,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
+  const isInView = useInView(sectionRef, { once: true, amount: 0.45 })
 
   // Call all hooks at the top level (before any conditional returns)
+  // All animations triggered by sectionRef so they chain properly
   const headingRef = useBlurEntrance<HTMLDivElement>({
     text: heading ? extractPlainText(heading) : null,
-    stagger: 0.08,
+    triggerRef: sectionRef,
+    start: 'top 65%',
+    stagger: 0.092,
     initialBlur: 12,
   })
   const tagsRef = useFadeUpStagger<HTMLUListElement>({
+    triggerRef: sectionRef,
+    start: 'top 65%',
     initialY: 15,
-    delay: 0.4,
-    stagger: 0.08,
+    delay: 0.46,
+    stagger: 0.092,
   })
   const descriptionRef = useFadeUp<HTMLParagraphElement>({
+    triggerRef: sectionRef,
+    start: 'top 65%',
     initialY: 20,
-    delay: 0.6,
+    delay: 0.69,
   })
   const bulletsRef = useFadeUpStagger<HTMLUListElement>({
+    triggerRef: sectionRef,
+    start: 'top 65%',
     initialY: 20,
-    delay: 0.8,
-    stagger: 0.1,
+    delay: 0.92,
+    stagger: 0.115,
   })
 
   if (!standard?.image) return null
@@ -98,7 +107,7 @@ export const Standard: React.FC<ContentBlock> = ({
           initial={{ opacity: 0, y: 100 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
           transition={{
-            duration: 1,
+            duration: 1.15,
             delay: 0,
             ease: [0.77, 0, 0.175, 1],
           }}

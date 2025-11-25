@@ -36,8 +36,8 @@ export const Quote: React.FC<QuoteType> = ({ quote, backgroundImage }) => {
         isTransitioning={isTransitioning}
       />
       <div className="container text-center relative">
-        <GraphicDoubleQuote className="size-32 absolute top-1/2 left-0 -translate-y-[calc(50%+8px)] opacity-5 " />
-        <blockquote ref={quoteRef} className="type-h3 max-w-[22ch] mx-auto italic ">
+        <GraphicDoubleQuote className="size-16 sm:size-24 lg:size-32 absolute top-1/2 left-0 -translate-y-[calc(50%+8px)] opacity-5 " />
+        <blockquote ref={quoteRef} className="type-h3 max-w-[22ch] mx-auto italic text-pretty">
           {quote}
         </blockquote>
       </div>

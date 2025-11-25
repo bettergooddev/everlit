@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 interface UseFadeInOptions {
+  triggerRef?: RefObject<HTMLElement | null>
   start?: string
   end?: string
   stagger?: number
@@ -14,6 +15,7 @@ interface UseFadeInOptions {
 }
 
 export function useFadeIn<T extends HTMLElement = HTMLElement>({
+  triggerRef,
   start = 'top 80%',
   end = 'top 50%',
   stagger = 0.1,
@@ -26,6 +28,7 @@ export function useFadeIn<T extends HTMLElement = HTMLElement>({
     () => {
       if (!elementRef.current) return
 
+      const trigger = triggerRef?.current ?? elementRef.current
       const children = Array.from(elementRef.current.children) as HTMLElement[]
 
       if (children.length === 0) return
@@ -37,7 +40,7 @@ export function useFadeIn<T extends HTMLElement = HTMLElement>({
 
       // Animate children on scroll - fade in
       const scrollTrigger = ScrollTrigger.create({
-        trigger: elementRef.current,
+        trigger,
         start,
         end,
         once,

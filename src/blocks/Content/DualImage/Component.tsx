@@ -21,18 +21,23 @@ export const DualImage: React.FC<ContentBlock> = ({
   reverseLayout,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
+  const isInView = useInView(sectionRef, { once: true, amount: 0.45 })
   const { isTransitioning } = usePageTransition()
 
   // Call all hooks at the top level (before any conditional returns)
+  // All animations triggered by sectionRef so they chain properly
   const headingRef = useBlurEntrance<HTMLDivElement>({
     text: heading ? extractPlainText(heading) : null,
-    stagger: 0.08,
+    triggerRef: sectionRef,
+    start: 'top 65%',
+    stagger: 0.092,
     initialBlur: 12,
   })
   const descriptionRef = useFadeUp<HTMLParagraphElement>({
+    triggerRef: sectionRef,
+    start: 'top 65%',
     initialY: 20,
-    delay: 0.3,
+    delay: 0.345,
   })
 
   if (!dualImage?.images || dualImage.images.length === 0) return null
@@ -88,8 +93,8 @@ export const DualImage: React.FC<ContentBlock> = ({
             initial={{ opacity: 0, y: 100 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
             transition={{
-              duration: 1,
-              delay: 0.3 * 1,
+              duration: 1.15,
+              delay: 0.345,
               ease: [0.77, 0, 0.175, 1],
             }}
             className="pr-16 lg:pr-0 aspect-[5/3] lg:aspect-square w-full"
@@ -106,8 +111,8 @@ export const DualImage: React.FC<ContentBlock> = ({
           initial={{ opacity: 0, y: 100 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
           transition={{
-            duration: 1,
-            delay: 0.3 * 0,
+            duration: 1.15,
+            delay: 0,
             ease: [0.77, 0, 0.175, 1],
           }}
           className="lg:w-3/5 aspect-[5/3] lg:aspect-square lg:mb-24 pl-16 lg:pl-0"
