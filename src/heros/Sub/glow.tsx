@@ -35,18 +35,18 @@ const GlowDesktop = ({
     <Wrapper>
       <motion.div
         initial={{
-          rotate: 0,
+          rotate: 10,
           right: '-250px',
-          top: '300px',
+          top: '275px',
           y: '0px',
           x: '0px',
           width: '1100px',
           height: '1100px',
         }}
         animate={{
-          rotate: 0,
+          rotate: 10,
           right: '-250px',
-          top: '300px',
+          top: '275px',
           y: '0px',
           x: '0px',
           width: '1100px',
