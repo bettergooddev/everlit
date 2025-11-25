@@ -20,7 +20,7 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
   text,
   start = 'top 50%',
   end = 'top 30%',
-  initialOpacity = 0.5,
+  initialOpacity = 0.35,
   stagger = 0.015,
   delay = 0,
   ease = 'cubic.out',
