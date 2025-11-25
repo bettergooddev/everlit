@@ -69,4 +69,3 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
 
   return textRef
 }
-

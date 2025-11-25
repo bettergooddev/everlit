@@ -30,16 +30,16 @@ export const Standard: React.FC<ContentBlock> = ({
   })
   const tagsRef = useFadeUpStagger<HTMLUListElement>({
     initialY: 15,
-    delay: 0.3,
+    delay: 0.4,
     stagger: 0.08,
   })
   const descriptionRef = useFadeUp<HTMLParagraphElement>({
     initialY: 20,
-    delay: 0.5,
+    delay: 0.6,
   })
   const bulletsRef = useFadeUpStagger<HTMLUListElement>({
     initialY: 20,
-    delay: 0.7,
+    delay: 0.8,
     stagger: 0.1,
   })
 
@@ -99,7 +99,7 @@ export const Standard: React.FC<ContentBlock> = ({
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
           transition={{
             duration: 1,
-            delay: 0.3 * 0,
+            delay: 0,
             ease: [0.77, 0, 0.175, 1],
           }}
           className="w-full lg:w-2/3 aspect-[5/3]"
