@@ -1,7 +1,10 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { useInView, motion } from 'motion/react'
+import { useInView } from 'motion/react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { ContentBlock } from '@/payload-types'
 import type { Media as MediaType } from '@/payload-types'
 import { Frame } from '@/components/Frame'
@@ -14,6 +17,8 @@ import { useBlurEntrance } from '@/hooks/useBlurEntrance'
 import { extractPlainText } from '@/utilities/richtext'
 import { useFadeUp } from '@/hooks/useFadeUp'
 
+gsap.registerPlugin(useGSAP, ScrollTrigger)
+
 export const DualImage: React.FC<ContentBlock> = ({
   heading,
   description,
@@ -21,6 +26,8 @@ export const DualImage: React.FC<ContentBlock> = ({
   reverseLayout,
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const frame1Ref = useRef<HTMLDivElement>(null)
+  const frame2Ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.45 })
   const { isTransitioning } = usePageTransition()
 
@@ -39,6 +46,56 @@ export const DualImage: React.FC<ContentBlock> = ({
     initialY: 20,
     delay: 0.345,
   })
+
+  // GSAP animation for both frames - synced with other animations via sectionRef
+  useGSAP(
+    () => {
+      if (!sectionRef.current) return
+
+      // Frame 1 (large image) - no delay
+      if (frame1Ref.current) {
+        gsap.set(frame1Ref.current, {
+          opacity: 0,
+          y: 100,
+        })
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 65%',
+          once: true,
+          animation: gsap.to(frame1Ref.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            delay: 0,
+            ease: 'power4.inOut',
+          }),
+        })
+      }
+
+      // Frame 2 (smaller image) - 0.345s delay
+      if (frame2Ref.current) {
+        gsap.set(frame2Ref.current, {
+          opacity: 0,
+          y: 100,
+        })
+
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 65%',
+          once: true,
+          animation: gsap.to(frame2Ref.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1.15,
+            delay: 0.345,
+            ease: 'power4.inOut',
+          }),
+        })
+      }
+    },
+    { scope: sectionRef },
+  )
 
   if (!dualImage?.images || dualImage.images.length === 0) return null
 
@@ -89,32 +146,17 @@ export const DualImage: React.FC<ContentBlock> = ({
             )}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-            transition={{
-              duration: 1.15,
-              delay: 0.345,
-              ease: [0.77, 0, 0.175, 1],
-            }}
-            className="pr-16 lg:pr-0 aspect-[5/3] lg:aspect-square w-full"
-          >
+          <div ref={frame2Ref} className="pr-16 lg:pr-0 aspect-[5/3] lg:aspect-square w-full">
             <Frame
               inner
               resource={image2}
               className="size-full relative"
               imgClassName="w-full h-full object-cover lg:absolute lg:inset-0 "
             />
-          </motion.div>
+          </div>
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-          transition={{
-            duration: 1.15,
-            delay: 0,
-            ease: [0.77, 0, 0.175, 1],
-          }}
+        <div
+          ref={frame1Ref}
           className="lg:w-3/5 aspect-[5/3] lg:aspect-square lg:mb-24 pl-16 lg:pl-0"
         >
           <Frame
@@ -123,7 +165,7 @@ export const DualImage: React.FC<ContentBlock> = ({
             className="size-full "
             imgClassName="w-full h-full object-cover "
           />
-        </motion.div>
+        </div>
       </div>
     </Section>
   )

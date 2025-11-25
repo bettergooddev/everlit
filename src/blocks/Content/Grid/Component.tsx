@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useRef } from 'react'
-import { useInView, motion } from 'motion/react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { ContentBlock } from '@/payload-types'
-import { Frame } from '@/components/Frame'
 import RichText from '@/components/RichText'
 import { cn } from '@/utilities/ui'
 import { Badge } from '@/components/ui/badge'
@@ -15,9 +16,11 @@ import { extractPlainText } from '@/utilities/richtext'
 import { useFadeUp } from '@/hooks/useFadeUp'
 import { useFadeUpStagger } from '@/hooks/useFadeUpStagger'
 
+gsap.registerPlugin(useGSAP, ScrollTrigger)
+
 export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, reverseLayout }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.45 })
+  const frameRef = useRef<HTMLDivElement>(null)
 
   // Call all hooks at the top level (before any conditional returns)
   // All animations triggered by sectionRef so they chain properly
@@ -48,6 +51,36 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
     delay: 0.805,
     stagger: 0.115,
   })
+
+  // GSAP animation for the frame - synced with other animations via sectionRef
+  useGSAP(
+    () => {
+      if (!frameRef.current || !sectionRef.current) return
+
+      gsap.set(frameRef.current, {
+        opacity: 0,
+        y: 100,
+      })
+
+      const scrollTrigger = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 65%',
+        once: true,
+        animation: gsap.to(frameRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 1.15,
+          delay: 0,
+          ease: 'power4.inOut',
+        }),
+      })
+
+      return () => {
+        scrollTrigger?.kill()
+      }
+    },
+    { scope: sectionRef },
+  )
 
   if (!grid?.image) return null
 
@@ -102,22 +135,13 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
               )}
             </div>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-            transition={{
-              duration: 1.15,
-              delay: 0,
-              ease: [0.77, 0, 0.175, 1],
-            }}
-            className="w-full lg:w-2/3 aspect-[5/3]"
-          >
+          <div ref={frameRef} className="w-full lg:w-2/3 aspect-[5/3]">
             <Media
               resource={image}
               className="size-full bg-background frame"
               imgClassName="w-full h-full object-cover"
             />
-          </motion.div>
+          </div>
         </div>
       </GridBackground>
     </Section>
