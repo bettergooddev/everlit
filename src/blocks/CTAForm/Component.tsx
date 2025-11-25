@@ -2,7 +2,7 @@
 import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import {
   useForm,
@@ -30,6 +30,11 @@ import Section from '@/components/Section'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { cn } from '@/utilities/ui'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 export type CallToActionBlockType = CallToActionBlockPayloadType & {
   form: FormType
@@ -75,6 +80,70 @@ export const CallToActionBlock: React.FC<
   const [focusedFields, setFocusedFields] = useState<Set<string>>(new Set())
   const [formPhase, setFormPhase] = useState(0)
   const router = useRouter()
+  const headingRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+  const lightRef = useRef<HTMLDivElement>(null)
+
+  // GSAP scroll-triggered animations for heading, form, and light in a single timeline
+  useGSAP(
+    () => {
+      if (!headingRef.current || !formRef.current || !lightRef.current) return
+
+      // Set initial states
+      gsap.set(headingRef.current, {
+        opacity: 0,
+        scale: 0.9,
+      })
+      gsap.set(formRef.current, {
+        opacity: 0,
+        y: 30,
+      })
+      gsap.set(lightRef.current, {
+        opacity: 0,
+      })
+
+      // Create timeline with all three animations
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 65%',
+          once: true,
+        },
+      })
+
+      // Add animations to timeline
+      tl.to(headingRef.current, {
+        opacity: 1,
+        scale: 1,
+        duration: 2,
+        ease: 'power3.out',
+      })
+        .to(
+          formRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.8,
+            ease: 'power3.out',
+          },
+          '-=1.7', // Start 1.7 seconds after heading starts (0.3s delay)
+        )
+        .to(
+          lightRef.current,
+          {
+            opacity: 1,
+            duration: 2.5,
+            ease: 'power3.out',
+          },
+          '-=1.5', // Start 1.5 seconds after form starts (0.5s delay from heading)
+        )
+
+      return () => {
+        tl.scrollTrigger?.kill()
+      }
+    },
+    { scope: headingRef },
+  )
 
   const hasFields = formFromProps && formFromProps.fields
   const fields = formFromProps.fields
@@ -219,7 +288,7 @@ export const CallToActionBlock: React.FC<
   return (
     <div
       className={cn(
-        'relative overflow-hidden -mb-[10rem] z-0',
+        'relative overflow-hidden z-0',
         dedicatedPage ? 'mt-section-small' : '-mt-[12rem]',
       )}
     >
@@ -228,7 +297,7 @@ export const CallToActionBlock: React.FC<
       <Section>
         <div className="container pt-24">
           {heading && !hasSubmitted && (
-            <div className="flex w-full text-center">
+            <div ref={headingRef} className="flex w-full text-center">
               <RichText
                 className="[&_*]:!type-h1 mb-8 lg:mb-12 text-foreground-900"
                 data={heading}
@@ -257,6 +326,7 @@ export const CallToActionBlock: React.FC<
             {error && <Error error={error} />}
 
             <form
+              ref={formRef}
               id={formID}
               onSubmit={handleSubmit(onSubmit)}
               className={hasSubmitted ? 'opacity-0 pointer-events-none invisible' : ''}
@@ -397,30 +467,55 @@ export const CallToActionBlock: React.FC<
           <AnimatePresence>
             {formPhase === 0 && (
               <motion.div
-                initial={{ opacity: 0.5 }}
-                animate={{ opacity: Math.min(Math.max(0.5 + (formProgress / 4) * 0.5, 0.5), 1) }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                 className="absolute inset-0 z-[-1]"
               >
-                <motion.div
-                  animate={{
-                    rotate: 0,
-                    top: '50%',
-                    left: '50%',
-                    y: '-44%',
-                    x: '-53%',
-                    width: '3000px',
-                    height: '3000px',
-                  }}
-                  className="absolute left-0 z-[0]"
-                >
-                  <Media
-                    resource={backgroundImage}
-                    className="blur-xl object-left"
-                    imgClassName="size-full object-left"
-                  />
-                </motion.div>
+                <div ref={lightRef} className="absolute inset-0">
+                  <motion.div
+                    animate={{
+                      opacity: Math.min(Math.max(0.5 + (formProgress / 4) * 0.5, 0.5), 1),
+                      rotate: 0,
+                      top: '50%',
+                      left: '50%',
+                      y: '-44%',
+                      x: '-53%',
+                      width: '3000px',
+                      height: '3000px',
+                      rotateY: [14, -14, 14],
+                      translateY: [2, -2, 2],
+                      translateX: [5, -5, 5],
+                    }}
+                    transition={{
+                      opacity: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
+                      rotateY: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      },
+                      translateY: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      },
+                      translateX: {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      },
+                    }}
+                    style={{
+                      transformStyle: 'preserve-3d',
+                    }}
+                    className="absolute left-0 z-[0]"
+                  >
+                    <Media
+                      resource={backgroundImage}
+                      className="blur-xl object-left"
+                      imgClassName="size-full object-left"
+                    />
+                  </motion.div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
