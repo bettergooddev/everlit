@@ -82,7 +82,7 @@ function FooterLinks({
   className?: string
 }) {
   return (
-    <ul className={cn('flex flex-row gap-3.5', className)}>
+    <ul className={cn('flex flex-row gap-5', className)}>
       {(links ?? []).map(({ link, id }, i) => (
         <li key={id ?? i}>
           <CMSLink {...link} appearance="link" className="" label={link.label} />
