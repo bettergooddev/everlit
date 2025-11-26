@@ -44,7 +44,7 @@ export const DualImage: React.FC<ContentBlock> = ({
     triggerRef: sectionRef,
     start: 'top 65%',
     initialY: 20,
-    delay: 0.345,
+    delay: 0.5,
   })
 
   // GSAP animation for both frames - synced with other animations via sectionRef

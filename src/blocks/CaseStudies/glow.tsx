@@ -21,7 +21,7 @@ const Wrapper = ({
       transition={{
         ease: [0.77, 0, 0.175, 1],
         duration: 0.6,
-        delay: isTransitioning ? 1 : 0.7,
+        delay: isTransitioning ? 1.1 : 0.8,
       }}
       className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem] -z-[1]"
     >
