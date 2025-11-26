@@ -14,10 +14,7 @@ export const Providers: React.FC<{
 }> = ({ children }) => {
   const pathname = usePathname()
 
-  // Reset scroll position and refresh ScrollTrigger after route changes
   useEffect(() => {
-    window.scrollTo(0, 0)
-
     const timeoutId = setTimeout(() => {
       ScrollTrigger.refresh()
     }, 100)
