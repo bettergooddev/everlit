@@ -13,7 +13,11 @@ export const Quote: React.FC<QuoteType> = ({ quote, backgroundImage }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.5 })
   const { isTransitioning } = usePageTransition()
-  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: quote })
+  const quoteRef = useTextReveal<HTMLQuoteElement>({
+    text: quote,
+    start: 'top 75%',
+    end: 'top 30%',
+  })
 
   return (
     <Section ref={sectionRef} className="relative">

@@ -110,7 +110,11 @@ export const Image: React.FC<ImageProps> = ({ testimonials, backgroundImage }) =
 }
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
-  const quoteRef = useTextReveal<HTMLQuoteElement>({ text: testimonial?.description })
+  const quoteRef = useTextReveal<HTMLQuoteElement>({
+    text: testimonial?.description,
+    start: 'top 75%',
+    end: 'top 30%',
+  })
 
   if (!testimonial) return null
 

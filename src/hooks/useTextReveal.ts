@@ -32,7 +32,7 @@ export function useTextReveal<T extends HTMLElement = HTMLElement>({
       if (!textRef.current || !text) return
 
       const split = new SplitText(textRef.current, {
-        type: 'chars',
+        type: 'chars,words',
       })
 
       const chars = split.chars
