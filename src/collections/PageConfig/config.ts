@@ -4,7 +4,7 @@ import { revalidatePageConfig } from './hooks/revalidatePageConfig'
 export const PageConfig: GlobalConfig = {
   slug: 'page-config',
   admin: {
-    hidden: true,
+    hidden: false,
   },
   hooks: {
     afterChange: [revalidatePageConfig],

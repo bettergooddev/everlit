@@ -40,13 +40,22 @@ function Inner({ desktopLogo, mobileLogo }: InnerProps) {
   return (
     <>
       {desktopLogo && (
-        <Media
-          resource={desktopLogo}
-          className="hidden md:block size-full w-auto"
-          imgClassName="h-full w-auto"
-          alt="logo"
-          priority={true}
-        />
+        <div className="relative group translate-y-0.5">
+          <Media
+            resource={desktopLogo}
+            className="hidden md:block size-full w-auto"
+            imgClassName="h-full w-auto"
+            alt="logo"
+            priority={true}
+          />
+          <Media
+            resource={desktopLogo}
+            className="hidden md:block size-full w-auto absolute inset-0 blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+            imgClassName="h-full w-auto"
+            alt="logo"
+            priority={true}
+          />
+        </div>
       )}
       {mobileLogo && (
         <Media

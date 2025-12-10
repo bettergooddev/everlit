@@ -118,7 +118,7 @@ export const Pages: CollectionConfig<'pages'> = {
               defaultValue: false,
               label: 'Ignore Suffix',
               admin: {
-                hidden: true,
+                // hidden: true,
               },
             },
             MetaImageField({
