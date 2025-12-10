@@ -82,27 +82,34 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
     { scope: sectionRef },
   )
 
-  if (!grid?.image) return null
+  if (!grid?.foregroundImage || !grid?.backgroundImage) return null
 
-  const { image, bullets, tags } = grid
+  const { foregroundImage, backgroundImage, bullets, tags } = grid
 
   const hasBullets = bullets && bullets.length > 0
   const hasTags = tags && tags.length > 0
 
   return (
-    <Section ref={sectionRef} className="relative">
-      <div className="-z-[1] absolute inset-0 -my-32">
-        <GridBackground className="-z-[1] absolute inset-0 -translate-y-1/2 top-1/2 " />
-      </div>
-
+    <Section
+      ref={sectionRef}
+      className="relative border-t-[1px] border-b-[1px] border-foreground-100/10"
+    >
       <div
         className={cn(
-          'container flex gap-8 md:gap-16 flex-col',
+          'container flex gap-8 md:gap-16 flex-col relative',
           reverseLayout ? ' lg:flex-row-reverse' : 'lg:flex-row',
         )}
       >
-        <div className="w-full lg:w-1/3 flex flex-col justify-between gap-14 lg:gap-0">
-          <div className="flex flex-col">
+        <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 left-4 block lg:hidden" />
+        <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 right-4 block lg:hidden" />
+        <div className="w-full lg:w-1/3 flex flex-col justify-between gap-14 lg:gap-0 relative">
+          <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 left-0 hidden lg:block" />
+
+          <div className="h-[1px] bg-foreground-100/10 absolute -left-full -right-8 md:-right-16 bottom-16 hidden lg:block" />
+
+          <div className="h-[1px] bg-foreground-100/10 absolute -bottom-8 left-0 right-0 block lg:hidden" />
+
+          <div className="flex flex-col p-8">
             {heading && (
               <div ref={headingRef} className="[&_*]:!type-h3 text-foreground-100">
                 <RichText data={heading} enableProse={false} enableGutter={false} />
@@ -137,10 +144,18 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
             )}
           </div>
         </div>
-        <div ref={frameRef} className="w-full lg:w-2/3 aspect-[5/3]">
+        <div ref={frameRef} className="w-full lg:w-2/3 aspect-[5/3] relative">
+          <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 left-0 hidden lg:block" />
+          <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 right-0 hidden lg:block" />
+
           <Media
-            resource={image}
-            className="size-full bg-background frame"
+            resource={backgroundImage}
+            className="size-full z-[0]"
+            imgClassName="w-full h-full object-cover"
+          />
+          <Media
+            resource={foregroundImage}
+            className="size-full absolute inset-0 z-[1]"
             imgClassName="w-full h-full object-cover"
           />
         </div>

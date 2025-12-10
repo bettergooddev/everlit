@@ -6,7 +6,14 @@ import { defaults } from '../defaults'
 
 export const gridFields: Field[] = [
   {
-    name: 'image',
+    name: 'foregroundImage',
+    type: 'upload',
+    relationTo: 'media',
+    required: true,
+    defaultValue: defaults.grid.image,
+  },
+  {
+    name: 'backgroundImage',
     type: 'upload',
     relationTo: 'media',
     required: true,

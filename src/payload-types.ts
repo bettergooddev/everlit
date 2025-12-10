@@ -572,7 +572,8 @@ export interface ContentBlock {
     backgroundImage?: (string | null) | Media;
   };
   grid?: {
-    image: string | Media;
+    foregroundImage: string | Media;
+    backgroundImage: string | Media;
     tags?:
       | {
           tag: string;
@@ -1393,7 +1394,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
   grid?:
     | T
     | {
-        image?: T;
+        foregroundImage?: T;
+        backgroundImage?: T;
         tags?:
           | T
           | {
