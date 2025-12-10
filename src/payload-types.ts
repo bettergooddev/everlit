@@ -413,6 +413,8 @@ export interface Testimonial {
 export interface CaseStudy {
   id: string;
   title: string;
+  thumbnailBig?: (string | null) | Media;
+  thumbnailSmall?: (string | null) | Media;
   studyHero: {
     image: string | Media;
     heading?: string | null;
@@ -1584,6 +1586,8 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  */
 export interface CaseStudiesSelect<T extends boolean = true> {
   title?: T;
+  thumbnailBig?: T;
+  thumbnailSmall?: T;
   studyHero?:
     | T
     | {

@@ -8,14 +8,13 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
-import type { CaseStudy, Testimonial } from '@/payload-types'
+import type { CaseStudy } from '@/payload-types'
 
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { StudyHero } from '@/heros/Study'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
-import { NoImage } from '@/blocks/Testimonials/NoImage'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -56,9 +55,6 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
     draft,
   })
 
-  // Populate testimonials from studyHero
-  const populatedTestimonials = await populateTestimonials(caseStudy.studyHero?.testimonials || [])
-
   return (
     <article className="">
       <PageClient />
@@ -71,15 +67,6 @@ export default async function CaseStudyPage({ params: paramsPromise }: Args) {
       {caseStudy.studyHero && <StudyHero type="study" study={caseStudy.studyHero} />}
 
       <GalleryBlock blockType="gallery" images={caseStudy.gallery} />
-
-      {populatedTestimonials.length > 0 && (
-        <NoImage
-          testimonials={populatedTestimonials}
-          variant="noImage"
-          backgroundImage=""
-          blockType="testimonials"
-        />
-      )}
 
       <RelatedCaseStudies
         currentSlug={slug}
@@ -108,7 +95,6 @@ const queryCaseStudyBySlug = cache(async ({ slug }: { slug: string }) => {
     limit: 1,
     overrideAccess: draft,
     pagination: false,
-    depth: 2,
     where: {
       slug: {
         equals: slug,
@@ -118,62 +104,6 @@ const queryCaseStudyBySlug = cache(async ({ slug }: { slug: string }) => {
 
   return result.docs?.[0] || null
 })
-
-const populateTestimonials = cache(
-  async (testimonials: (string | Testimonial)[] | null | undefined): Promise<Testimonial[]> => {
-    if (!testimonials || testimonials.length === 0) return []
-
-    const payload = await getPayload({ config: configPromise })
-
-    const testimonialIds = testimonials.map((testimonial) =>
-      typeof testimonial === 'object' && testimonial?.id ? testimonial.id : testimonial,
-    )
-
-    // Get unique IDs to fetch
-    const uniqueIds = Array.from(
-      new Set(testimonialIds.filter((id): id is string => typeof id === 'string')),
-    )
-
-    if (uniqueIds.length === 0) {
-      // If all testimonials are already populated objects, return them
-      return testimonials.filter(
-        (testimonial): testimonial is Testimonial =>
-          typeof testimonial === 'object' && testimonial !== null && 'id' in testimonial,
-      )
-    }
-
-    const testimonialsResult = await payload.find({
-      collection: 'testimonials',
-      depth: 2,
-      limit: uniqueIds.length,
-      pagination: false,
-      overrideAccess: false,
-      where: {
-        id: {
-          in: uniqueIds,
-        },
-      },
-    })
-
-    // Create a map of fetched testimonials by ID for quick lookup
-    const testimonialsMap = new Map<string, Testimonial>()
-    testimonialsResult.docs.forEach((testimonial) => {
-      if (testimonial.id) {
-        testimonialsMap.set(testimonial.id, testimonial)
-      }
-    })
-
-    // Map over original array to preserve order and duplicates
-    return testimonialIds
-      .map((id) => {
-        if (typeof id === 'string') {
-          return testimonialsMap.get(id)
-        }
-        return typeof id === 'object' && id !== null && 'id' in id ? id : null
-      })
-      .filter((testimonial): testimonial is Testimonial => testimonial !== null)
-  },
-)
 
 const getPreviousNextCaseStudies = cache(
   async ({ currentSlug, draft }: { currentSlug: string; draft: boolean }) => {

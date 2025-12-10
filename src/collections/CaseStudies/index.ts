@@ -64,6 +64,16 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
       required: true,
     },
     {
+      name: 'thumbnailBig',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
+      name: 'thumbnailSmall',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       type: 'tabs',
       tabs: [
         {

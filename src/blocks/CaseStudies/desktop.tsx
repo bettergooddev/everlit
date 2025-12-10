@@ -50,7 +50,7 @@ export function CaseStudiesDesktop({
               }}
             >
               <Frame
-                resource={caseStudies[index]?.studyHero?.image}
+                resource={caseStudies[index]?.thumbnailBig || caseStudies[index]?.studyHero?.image}
                 className="size-full -mt-[35%] flex aspect-[3/4] "
                 imgClassName="size-full object-cover will-change-transform"
               />
@@ -65,7 +65,7 @@ export function CaseStudiesDesktop({
                 }}
               >
                 <Frame
-                  resource={caseStudies[index]?.gallery[0]}
+                  resource={caseStudies[index]?.thumbnailSmall || caseStudies[index]?.gallery?.[0]}
                   className="size-full h-1/2 mt-[65%] flex"
                   imgClassName="size-full object-cover will-change-transform"
                 />

@@ -29,7 +29,7 @@ export function CaseStudiesMobile({
       {heading && <Heading heading={heading} className="container z-10" />}
 
       <div className="relative container grid gap-10 z-10">
-        {caseStudies.map(({ id, title, slug, studyHero }, index) => (
+        {caseStudies.map(({ id, title, slug, thumbnailBig, studyHero }, index) => (
           <motion.div
             key={id}
             initial={{ opacity: 0, y: 40 }}
@@ -44,7 +44,7 @@ export function CaseStudiesMobile({
           >
             <Link href={`/case-studies/${slug}`} className="group">
               <Frame
-                resource={studyHero?.image}
+                resource={thumbnailBig || studyHero?.image}
                 className="w-full aspect-[5/3] transition-colors duration-300 mb-4 hover:border-[#616f74] "
                 imgClassName="w-full h-full object-cover"
               />
