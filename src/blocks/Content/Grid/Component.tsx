@@ -20,7 +20,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, reverseLayout }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const frameRef = useRef<HTMLDivElement>(null)
+  const backgroundImageRef = useRef<HTMLDivElement>(null)
 
   // Call all hooks at the top level (before any conditional returns)
   // All animations triggered by sectionRef so they chain properly
@@ -52,25 +52,23 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
     stagger: 0.115,
   })
 
-  // GSAP animation for the frame - synced with other animations via sectionRef
+  // GSAP animation for the background image - fade in on scroll
   useGSAP(
     () => {
-      if (!frameRef.current || !sectionRef.current) return
+      if (!backgroundImageRef.current || !sectionRef.current) return
 
-      gsap.set(frameRef.current, {
+      gsap.set(backgroundImageRef.current, {
         opacity: 0,
-        y: 100,
       })
 
       const scrollTrigger = ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 65%',
         once: true,
-        animation: gsap.to(frameRef.current, {
+        animation: gsap.to(backgroundImageRef.current, {
           opacity: 1,
-          y: 0,
-          duration: 1.265,
-          delay: 0,
+          duration: 0.85,
+          delay: 0.7,
           ease: 'power2.out',
         }),
       })
@@ -144,15 +142,22 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
             )}
           </div>
         </div>
-        <div ref={frameRef} className="w-full lg:w-2/3 aspect-[5/3] relative">
+        <div className="w-full lg:w-2/3 aspect-[5/3] relative">
           <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 left-0 hidden lg:block" />
           <div className="w-[1px] bg-foreground-100/10 absolute -top-8 -bottom-8 right-0 hidden lg:block" />
 
-          <Media
-            resource={backgroundImage}
-            className="size-full z-[0]"
-            imgClassName="w-full h-full object-cover"
-          />
+          <div ref={backgroundImageRef} className="size-full z-[0]">
+            <Media
+              resource={backgroundImage}
+              className="size-full z-[0]"
+              imgClassName="w-full h-full object-cover"
+            />
+            <Media
+              resource={backgroundImage}
+              className="size-full z-[0]"
+              imgClassName="w-full h-full object-cover absolute inset-0 opacity-65"
+            />
+          </div>
           <Media
             resource={foregroundImage}
             className="size-full absolute inset-0 z-[1]"

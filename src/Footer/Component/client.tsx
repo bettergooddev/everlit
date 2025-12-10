@@ -46,7 +46,7 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
       >
         <Media
           resource={backgroundImage}
-          className="flex justify-center absolute left-[40%] -top-[380px] lg:-top-[320px] inset-0 -translate-x-1/2 lg:left-[45%] z-[0]"
+          className="flex justify-center absolute left-[40%] -top-[380px] lg:-top-[340px] inset-0 -translate-x-1/2 lg:left-[45%] z-[0]"
           imgClassName="max-w-[unset] size-[2000px] object-contain object-top "
         />
       </motion.div>

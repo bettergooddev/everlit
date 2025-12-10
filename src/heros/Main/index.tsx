@@ -18,18 +18,18 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
     text: props?.main?.headingRich ? extractPlainText(props.main.headingRich) : null,
     triggerRef: sectionRef,
     start: 'top 100%',
-    stagger: 0.08,
+    stagger: 0.092,
     initialBlur: 12,
-    delay: 0.6,
+    delay: 0.69,
   })
 
   const descriptionRef = useBlurEntrance<HTMLHeadingElement>({
     text: props?.main?.description || null,
     triggerRef: sectionRef,
     start: 'top 100%',
-    stagger: 0.08,
+    stagger: 0.092,
     initialBlur: 12,
-    delay: 1,
+    delay: 1.15,
   })
 
   if (!props?.main) return null
@@ -42,7 +42,7 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 1.2,
+          duration: 1.38,
           ease: [0.77, 0, 0.175, 1],
           delay: 0,
         }}
