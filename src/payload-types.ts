@@ -163,7 +163,21 @@ export interface Page {
   hero: {
     type: 'none' | 'main' | 'sub' | 'study' | 'archive';
     main?: {
-      heading: string;
+      headingRich: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
       description?: string | null;
       image?: (string | null) | Media;
     };
@@ -1282,7 +1296,7 @@ export interface PagesSelect<T extends boolean = true> {
         main?:
           | T
           | {
-              heading?: T;
+              headingRich?: T;
               description?: T;
               image?: T;
             };
