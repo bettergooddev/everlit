@@ -120,11 +120,11 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
           <NavLogo logo={data?.logo ?? null} />
         </motion.div>
         {/* Actions – right aligned */}
-        <div className="items-center gap-6 hidden lg:flex">
-          <div className="flex-1 justify-end gap-6 hidden lg:flex">
+        <div className="items-center gap-12 hidden lg:flex">
+          <div className="flex-1 justify-end gap-14 hidden lg:flex">
             {/* Primary navigation items – centered */}
             {navItems.map((item, index) =>
-              renderNavigationItem(item, index, { appearance: 'inline' }),
+              renderNavigationItem(item, index, { appearance: 'link' }),
             )}
           </div>
           {actions.map((item, index) => renderNavigationItem(item, `action-${index}`))}
