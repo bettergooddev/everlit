@@ -70,11 +70,7 @@ export const GalleryBlock: React.FC<GalleryBlockType> = ({ images }) => {
   )
 }
 
-const SingleColumnRow = ({
-  images,
-}: {
-  images: (string | MediaType)[]
-}) => {
+const SingleColumnRow = ({ images }: { images: (string | MediaType)[] }) => {
   return (
     <div className="w-full">
       {images.map((image, index) => (
@@ -90,19 +86,15 @@ const SingleColumnRow = ({
   )
 }
 
-const DoubleColumnRow = ({
-  images,
-}: {
-  images: (string | MediaType)[]
-}) => {
+const DoubleColumnRow = ({ images }: { images: (string | MediaType)[] }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {images.map((image, index) => (
-        <div key={index} className="relative">
+        <div key={index} className="relative flex">
           <Frame
             resource={image}
-            className="w-full overflow-hidden"
-            imgClassName="w-full h-auto max-h-screen object-cover"
+            className="size-full overflow-hidden"
+            imgClassName="size-full max-h-screen object-cover"
           />
         </div>
       ))}
