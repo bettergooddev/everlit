@@ -101,6 +101,11 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  upload: {
+    limits: {
+      fileSize: 20000000, // 20MB, written in bytes
+    },
+  },
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
