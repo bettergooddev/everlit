@@ -123,7 +123,7 @@ function FooterSocials({
         <li key={id ?? i}>
           <CMSLink {...link} appearance={'none'} className="" label={''}>
             <span className="sr-only">{link.label}</span>
-            <Media resource={image} className="w-auto h-auto flex " imgClassName="w-full h-7" />
+            <Media resource={image} className="w-auto h-auto flex " imgClassName="w-full h-6" />
           </CMSLink>
         </li>
       ))}
