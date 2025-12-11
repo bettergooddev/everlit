@@ -118,11 +118,11 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
             {description}
           </h3>
 
-          <ScrollIndicator
+          {/* <ScrollIndicator
             ref={scrollIndicatorRef}
             onClick={handleClick}
-            className="block lg:hidden -mb-[10rem] mt-6 -ml-[4.75rem]"
-          />
+            className="block lg:hidden -mb-[7rem] mt-0 -ml-[4.75rem]"
+          /> */}
         </div>
         <ScrollIndicator
           ref={scrollIndicatorRef}
