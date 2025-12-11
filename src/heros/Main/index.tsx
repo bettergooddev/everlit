@@ -121,7 +121,7 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
           <ScrollIndicator
             ref={scrollIndicatorRef}
             onClick={handleClick}
-            className="block lg:hidden -mb-8 mt-6 -ml-[4.75rem]"
+            className="block lg:hidden -mb-[10rem] mt-6 -ml-[4.75rem]"
           />
         </div>
         <ScrollIndicator
