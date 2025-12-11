@@ -180,6 +180,7 @@ export interface Page {
       };
       description?: string | null;
       image?: (string | null) | Media;
+      mobileImage?: (string | null) | Media;
     };
     study?: {
       image: string | Media;
@@ -1302,6 +1303,7 @@ export interface PagesSelect<T extends boolean = true> {
               headingRich?: T;
               description?: T;
               image?: T;
+              mobileImage?: T;
             };
         study?:
           | T

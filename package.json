@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@lottiefiles/dotlottie-react": "^0.17.10",
     "@mantine/hooks": "^8.3.8",
     "@payloadcms/admin-bar": "^3.62.1",
     "@payloadcms/db-mongodb": "^3.62.1",

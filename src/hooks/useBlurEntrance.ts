@@ -14,6 +14,7 @@ interface UseBlurEntranceOptions {
   initialBlur?: number
   stagger?: number
   delay?: number
+  duration?: number
   ease?: string
   once?: boolean
 }
@@ -26,6 +27,7 @@ export function useBlurEntrance<T extends HTMLElement = HTMLElement>({
   initialBlur = 10,
   stagger = 0.08,
   delay = 0,
+  duration = 0.8,
   ease = 'power2.out',
   once = true,
 }: UseBlurEntranceOptions): RefObject<T | null> {
@@ -61,7 +63,7 @@ export function useBlurEntrance<T extends HTMLElement = HTMLElement>({
         animation: gsap.to(words, {
           opacity: 1,
           filter: 'blur(0px)',
-          duration: 0.8,
+          duration,
           delay,
           stagger,
           ease,

@@ -14,12 +14,6 @@ export const mainHeroFields: Field[] = [
       features: [ParagraphFeature()],
     }),
   },
-  // {
-  //   name: 'heading',
-  //   type: 'text',
-  //   required: true,
-  //   defaultValue: defaults.heading,
-  // },
   {
     name: 'description',
     type: 'textarea',
@@ -27,6 +21,12 @@ export const mainHeroFields: Field[] = [
   },
   {
     name: 'image',
+    type: 'upload',
+    relationTo: 'media',
+    defaultValue: defaults.image,
+  },
+  {
+    name: 'mobileImage',
     type: 'upload',
     relationTo: 'media',
     defaultValue: defaults.image,
