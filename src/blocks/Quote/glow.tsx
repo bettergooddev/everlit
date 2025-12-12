@@ -22,10 +22,13 @@ const Wrapper = ({
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
       transition={{
         ease: [0.77, 0, 0.175, 1],
-        duration: 0.5,
+        duration: 3,
         delay: isTransitioning ? 1 : 0,
       }}
-      className={cn('pointer-events-none absolute inset-0 overflow-hidden -my-[28rem] -z-[1]', className)}
+      className={cn(
+        'pointer-events-none absolute inset-0 overflow-hidden -my-[28rem] -z-[1]',
+        className,
+      )}
     >
       {children}
     </motion.div>
@@ -50,18 +53,41 @@ const GlowDesktop = ({
       {/* Top-right glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
         transition={{
-          duration: 1,
-          delay: isTransitioning ? 1 + 0.3 * 0 : 0.3 * 0,
-          ease: [0.77, 0, 0.175, 1],
+          opacity: {
+            duration: 1,
+            delay: isTransitioning ? 1 + 0.5 * 0 : 0.5 * 0,
+            ease: [0.77, 0, 0.175, 1],
+          },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
           rotate: 15,
           top: '-100px',
-          right: '-10%',
-          width: '1200px',
-          height: '1200px',
+          right: '-35%',
+          width: '1400px',
+          height: '1400px',
+          transformStyle: 'preserve-3d',
         }}
         className="absolute z-[-1]"
       >
@@ -75,18 +101,41 @@ const GlowDesktop = ({
       {/* Bottom-left glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
         transition={{
-          duration: 1,
-          delay: isTransitioning ? 1 + 0.3 * 1 : 0.3 * 1,
-          ease: [0.77, 0, 0.175, 1],
+          opacity: {
+            duration: 1,
+            delay: isTransitioning ? 1 + 0.5 * 1 : 0.5 * 1,
+            ease: [0.77, 0, 0.175, 1],
+          },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
           rotate: 195,
           bottom: '-100px',
-          left: '-10%',
-          width: '1200px',
-          height: '1200px',
+          left: '-35%',
+          width: '1400px',
+          height: '1400px',
+          transformStyle: 'preserve-3d',
         }}
         className="absolute z-[-1]"
       >
@@ -118,18 +167,41 @@ const GlowMobile = ({
       {/* Top-right glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
         transition={{
-          duration: 1,
-          delay: isTransitioning ? 1 + 0.3 * 0 : 0.3 * 0,
-          ease: [0.77, 0, 0.175, 1],
+          opacity: {
+            duration: 1,
+            delay: isTransitioning ? 1 + 0.3 * 0 : 0.3 * 0,
+            ease: [0.77, 0, 0.175, 1],
+          },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
-          rotate: 15,
-          top: '200px',
-          right: '-35%',
-          width: '600px',
-          height: '600px',
+          rotate: 40,
+          top: '100px',
+          right: '-80%',
+          width: '900px',
+          height: '900px',
+          transformStyle: 'preserve-3d',
         }}
         className="absolute z-[-1]"
       >
@@ -143,18 +215,41 @@ const GlowMobile = ({
       {/* Bottom-left glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
         transition={{
-          duration: 1,
-          delay: isTransitioning ? 1 + 0.3 * 1 : 0.3 * 1,
-          ease: [0.77, 0, 0.175, 1],
+          opacity: {
+            duration: 1,
+            delay: isTransitioning ? 1 + 0.3 * 1 : 0.3 * 1,
+            ease: [0.77, 0, 0.175, 1],
+          },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
-          rotate: 195,
-          bottom: '200px',
-          left: '-35%',
-          width: '600px',
-          height: '600px',
+          rotate: 220,
+          bottom: '100px',
+          left: '-80%',
+          width: '900px',
+          height: '900px',
+          transformStyle: 'preserve-3d',
         }}
         className="absolute z-[-1]"
       >
@@ -186,11 +281,33 @@ const GlowTablet = ({
       {/* Top-right glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
         transition={{
-          duration: 1,
-          delay: isTransitioning ? 1 + 0.3 * 0 : 0.3 * 0,
-          ease: [0.77, 0, 0.175, 1],
+          opacity: {
+            duration: 1,
+            delay: isTransitioning ? 1 + 0.3 * 0 : 0.3 * 0,
+            ease: [0.77, 0, 0.175, 1],
+          },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
           rotate: 15,
@@ -198,6 +315,7 @@ const GlowTablet = ({
           right: '-30%',
           width: '1200px',
           height: '1200px',
+          transformStyle: 'preserve-3d',
         }}
         className="absolute z-[-1]"
       >
@@ -211,11 +329,33 @@ const GlowTablet = ({
       {/* Bottom-left glow */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        animate={{
+          opacity: 1,
+          rotateY: [14, -14, 14],
+          translateY: [2, -2, 2],
+          translateX: [5, -5, 5],
+        }}
         transition={{
-          duration: 1,
-          delay: isTransitioning ? 1 + 0.3 * 1 : 0.3 * 1,
-          ease: [0.77, 0, 0.175, 1],
+          opacity: {
+            duration: 1,
+            delay: isTransitioning ? 1 + 0.3 * 1 : 0.3 * 1,
+            ease: [0.77, 0, 0.175, 1],
+          },
+          rotateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateY: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          translateX: {
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
         }}
         style={{
           rotate: 195,
@@ -223,6 +363,7 @@ const GlowTablet = ({
           left: '-30%',
           width: '1200px',
           height: '1200px',
+          transformStyle: 'preserve-3d',
         }}
         className="absolute z-[-1]"
       >

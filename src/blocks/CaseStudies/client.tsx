@@ -12,7 +12,7 @@ import { usePageTransition } from '@/providers/PageTransition'
 
 export function CaseStudiesClient(props: CaseStudiesBlockProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
+  const isInView = useInView(sectionRef, { once: true, amount: 0.4 })
   const { isTransitioning } = usePageTransition()
 
   if (!props.caseStudies || props.caseStudies.length === 0) return null
