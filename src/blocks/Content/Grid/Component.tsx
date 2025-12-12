@@ -67,8 +67,8 @@ export const Grid: React.FC<ContentBlock> = ({ heading, description, grid, rever
         once: true,
         animation: gsap.to(backgroundImageRef.current, {
           opacity: 1,
-          duration: 0.85,
-          delay: 0.7,
+          duration: 2,
+          delay: 0.4,
           ease: 'power2.out',
         }),
       })

@@ -35,7 +35,7 @@ export const SubHero: React.FC<Page['hero']> = (props) => {
           />
         </motion.div>
 
-        <div className="h-full flex flex-col-reverse lg:flex-col justify-between gap-8 lg:gap-0">
+        <div className="h-full flex flex-col-reverse lg:flex-col justify-between gap-4 lg:gap-0">
           <motion.p
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}

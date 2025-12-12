@@ -20,8 +20,8 @@ const Wrapper = ({
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
       transition={{
         ease: [0.77, 0, 0.175, 1],
-        duration: 0.5,
-        delay: isTransitioning ? 1 : 0.9,
+        duration: 10,
+        delay: isTransitioning ? 1.1 : 0,
       }}
       className="pointer-events-none absolute inset-0 overflow-hidden -my-[42rem] -z-[1]"
     >

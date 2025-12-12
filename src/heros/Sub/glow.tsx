@@ -12,8 +12,8 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{
         ease: [0.77, 0, 0.175, 1],
-        duration: 0.5,
-        delay: 1.6,
+        duration: 3,
+        delay: 0.2,
       }}
       className="pointer-events-none absolute inset-0 overflow-hidden -my-[28rem] -z-[1]"
     >

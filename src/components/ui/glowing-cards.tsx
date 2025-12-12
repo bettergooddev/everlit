@@ -68,9 +68,9 @@ export const GlowingCard: React.FC<GlowingCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{
-        duration: 1,
-        delay: 0.3 * index,
-        ease: [0.77, 0, 0.175, 1],
+        duration: 0.8,
+        delay: 0.15 * index,
+        ease: [0.33, 1, 0.68, 1],
       }}
     >
       <div
