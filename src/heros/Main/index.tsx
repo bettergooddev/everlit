@@ -74,7 +74,10 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
   }
 
   return (
-    <Section ref={sectionRef} className="relative min-h-screen !mt-0 flex overflow-hidden">
+    <Section
+      ref={sectionRef}
+      className="relative min-h-screen !mt-0 !mb-section-mobile flex overflow-hidden"
+    >
       <div className="absolute h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
