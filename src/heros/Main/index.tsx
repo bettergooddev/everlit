@@ -1,7 +1,10 @@
 'use client'
 
 import React, { forwardRef, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { motion } from 'motion/react'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import type { Page } from '@/payload-types'
 import Section from '@/components/Section'
@@ -13,17 +16,46 @@ import { extractPlainText } from '@/utilities/richtext'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import { cn } from '@/utilities/ui'
 
+gsap.registerPlugin(useGSAP, ScrollTrigger)
+
 export const MainHero: React.FC<Page['hero']> = (props) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
 
-  // Parallax scroll effect for hero image
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
+  // GSAP animation for image entrance and parallax
+  useGSAP(
+    () => {
+      if (!imageRef.current || !sectionRef.current) return
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+      // Set initial state to prevent flicker
+      gsap.set(imageRef.current, {
+        opacity: 0,
+        y: 40,
+      })
+
+      // Entrance animation
+      gsap.to(imageRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.38,
+        ease: 'power2.out',
+        delay: 0.2,
+      })
+
+      // Parallax scroll effect
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'start start',
+        end: 'end start',
+        scrub: true,
+        animation: gsap.to(imageRef.current, {
+          y: '30%',
+          ease: 'none',
+        }),
+      })
+    },
+    { scope: imageRef },
+  )
 
   // Blur entrance animations for text
   const headingRef = useBlurEntrance<HTMLHeadingElement>({
@@ -87,18 +119,7 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
       className="relative min-h-screen !mt-0 !mb-section-mobile flex overflow-hidden"
     >
       <div className="absolute h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
-      <motion.div
-        ref={imageRef}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 1.38,
-          ease: [0.77, 0, 0.175, 1],
-          delay: 0.2,
-        }}
-        style={{ y }}
-        className="absolute inset-0 z-[0]"
-      >
+      <div ref={imageRef} className="absolute inset-0 z-[0]">
         {mobileImage && (
           <Media
             resource={mobileImage}
@@ -113,7 +134,7 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
           }
           imgClassName="size-full object-cover object-[73%_45%] md:object-center"
         />
-      </motion.div>
+      </div>
 
       <div className="absolute top-0 left-0 w-2/3 h-full z-[0] bg-gradient-to-r from-black/60 to-transparent opacity-100" />
       <div className="absolute top-0 left-0 w-2/3 h-full z-[0] bg-gradient-to-r from-black/60 to-transparent opacity-75" />
