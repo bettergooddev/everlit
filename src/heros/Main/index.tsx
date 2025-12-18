@@ -1,12 +1,11 @@
 'use client'
 
 import React, { forwardRef, useRef } from 'react'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 
 import type { Page } from '@/payload-types'
 import Section from '@/components/Section'
 import { Media } from '@/components/Media'
-import { Frame } from '@/components/Frame'
 import RichText from '@/components/RichText'
 import { useBlurEntrance } from '@/hooks/useBlurEntrance'
 import { useFadeUp } from '@/hooks/useFadeUp'
@@ -16,6 +15,15 @@ import { cn } from '@/utilities/ui'
 
 export const MainHero: React.FC<Page['hero']> = (props) => {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+
+  // Parallax scroll effect for hero image
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
 
   // Blur entrance animations for text
   const headingRef = useBlurEntrance<HTMLHeadingElement>({
@@ -80,6 +88,7 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
     >
       <div className="absolute h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
       <motion.div
+        ref={imageRef}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -87,6 +96,7 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
           ease: [0.77, 0, 0.175, 1],
           delay: 0.2,
         }}
+        style={{ y }}
         className="absolute inset-0 z-[0]"
       >
         {mobileImage && (
@@ -109,15 +119,12 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
         <div className=" flex flex-col justify-end z-[1] relative p-6 md:p-24">
           <h1
             ref={headingRef}
-            className="text-foreground-900 max-w-[5ch] [text-shadow:0_0_10px_rgba(255,255,255,0.5)] shadow-yellow-300 z-[1] relative [&_*]:!type-h1"
+            className="text-foreground-900 [text-shadow:0_0_10px_rgba(255,255,255,0.5)] shadow-yellow-300 z-[1] relative [&_*]:!type-h1"
           >
             <RichText data={headingRich} enableGutter={false} enableProse={false} />
           </h1>
 
-          <h3
-            ref={descriptionRef}
-            className="text-foreground-500 max-w-[24ch] mt-6 md:mt-10 z-[1] relative"
-          >
+          <h3 ref={descriptionRef} className="text-foreground-500 mt-6 md:mt-10 z-[1] relative">
             {description}
           </h3>
 
