@@ -28,7 +28,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
       )}
 
       {/* Content Section */}
-      <div className="relative px-4 py-12 md:py-16 lg:py-24">
+      <div className="relative lg:px-4 py-12 md:py-16 lg:py-24">
         <div className="container mx-auto">
           {/* Heading */}
           {heading && (
