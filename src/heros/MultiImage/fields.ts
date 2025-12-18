@@ -26,8 +26,8 @@ export const multiImageHeroFields: Field[] = [
     relationTo: 'media',
     hasMany: true,
     required: true,
-    minRows: 6,
-    maxRows: 6,
+    minRows: 8,
+    maxRows: 8,
     defaultValue: () => JSON.parse(JSON.stringify(defaults.images)),
   },
   {
