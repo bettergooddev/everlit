@@ -113,7 +113,8 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
               <Link href={'/#case-studies'} className="mr-4">
                 <Button variant={'secondary'}>
                   <ArrowLeft />
-                  Back Home
+                  <span className="hidden md:inline">Back Home</span>
+                  <span className="inline md:hidden">Back</span>
                 </Button>
               </Link>
             </div>

@@ -29,10 +29,12 @@ export const RelatedCaseStudies: React.FC<RelatedCaseStudiesProps> = ({
 
   return (
     <Section className={cn('container', className)}>
-      <div className="flex items-center justify-between mb-12">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0 mb-12">
         <h2 className="type-h2 text-foreground-100">Related Projects</h2>
-        <Link href="/case-studies">
-          <Button variant="secondary">View All</Button>
+        <Link href="/case-studies" className="w-full md:w-auto">
+          <Button variant="secondary" className="w-full md:w-auto">
+            View All
+          </Button>
         </Link>
       </div>
 

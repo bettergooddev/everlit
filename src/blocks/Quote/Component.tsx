@@ -31,7 +31,7 @@ export const Quote: React.FC<QuoteType> = ({ quote, backgroundImage }) => {
       />
       <GlowMobile backgroundImage={backgroundImage} className="lg:hidden" inView={isInView} />
       <div className="container text-center relative">
-        <GraphicDoubleQuote className="size-16 sm:size-24 lg:size-32 absolute top-1/2 left-0 -translate-y-[calc(50%+8px)] opacity-5 " />
+        <GraphicDoubleQuote className="size-16 sm:size-24 lg:size-32 absolute top-1/2 left-0 -translate-y-[calc(50%+8px)] opacity-5 md:block hidden" />
         <blockquote ref={quoteRef} className="type-h3 max-w-[42ch] mx-auto italic text-pretty">
           {quote}
         </blockquote>

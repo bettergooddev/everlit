@@ -92,7 +92,7 @@ const GlowDesktop = ({
       </Wrapper>
 
       {/* Bottom-left glow */}
-      <Wrapper inView={inView} delay={0.75}>
+      <Wrapper inView={inView} delay={0.75} className={className}>
         <motion.div
           animate={{
             rotateY: [14, -14, 14],
@@ -178,7 +178,7 @@ const GlowMobile = ({
           style={{
             rotate: 40,
             top: '196px',
-            right: '-80%',
+            right: '-120%',
             width: '900px',
             height: '900px',
             transformStyle: 'preserve-3d',
@@ -194,7 +194,7 @@ const GlowMobile = ({
       </Wrapper>
 
       {/* Bottom-left glow */}
-      <Wrapper inView={inView} delay={0.75}>
+      <Wrapper inView={inView} delay={0.75} className={className}>
         <motion.div
           animate={{
             rotateY: [14, -14, 14],
@@ -221,7 +221,7 @@ const GlowMobile = ({
           style={{
             rotate: 220,
             bottom: '196px',
-            left: '-80%',
+            left: '-120%',
             width: '900px',
             height: '900px',
             transformStyle: 'preserve-3d',
@@ -296,7 +296,7 @@ const GlowTablet = ({
       </Wrapper>
 
       {/* Bottom-left glow */}
-      <Wrapper inView={inView} delay={0.75}>
+      <Wrapper inView={inView} delay={0.75} className={className}>
         <motion.div
           animate={{
             rotateY: [14, -14, 14],
