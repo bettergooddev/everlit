@@ -4,6 +4,7 @@ import { mainHeroFields } from '@/heros/Main/fields'
 import { archiveHeroFields } from '@/heros/Archive/fields'
 import { studyHeroFields } from '@/heros/Study/fields'
 import { subHeroFields } from '@/heros/Sub/fields'
+import { multiImageHeroFields } from '@/heros/MultiImage/fields'
 
 export const hero: Field = {
   name: 'hero',
@@ -34,6 +35,10 @@ export const hero: Field = {
         {
           label: 'Simple',
           value: 'archive',
+        },
+        {
+          label: 'Multi Image',
+          value: 'multiImage',
         },
       ],
       required: true,
@@ -72,6 +77,15 @@ export const hero: Field = {
       label: false,
       admin: {
         condition: (_, { type } = {}) => type === 'sub',
+      },
+    },
+    {
+      name: 'multiImage',
+      type: 'group',
+      fields: multiImageHeroFields,
+      label: false,
+      admin: {
+        condition: (_, { type } = {}) => type === 'multiImage',
       },
     },
   ],
