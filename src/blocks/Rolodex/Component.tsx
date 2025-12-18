@@ -35,16 +35,16 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights, backgroun
       />
       <GlowMobile backgroundImage={backgroundImage} isInView={isInView} className="lg:hidden" />
       <div className="container">
-        <div className="relative grid auto-cols-fr grid-cols-1 items-start gap-x-8 gap-y-12 lg:grid-cols-[0.75fr_1fr] lg:gap-y-16 xl:grid-cols-[2fr_3fr] xl:gap-x-20 justify-center">
-          <div className="static top-[30%] hidden h-48 overflow-hidden lg:sticky lg:flex lg:items-start lg:justify-end">
-            <h1 className="font-figtree text-[6rem] font-semibold leading-[1] lg:text-[10rem] xl:text-[11rem]">
+        <div className="relative grid auto-cols-fr grid-cols-1 items-start gap-x-8 gap-y-12 lg:grid-cols-[0.75fr_1fr] lg:gap-y-16 xl:grid-cols-[2fr_3fr] xl:gap-x-32 justify-center">
+          <div className="static top-[30%] hidden h-[6rem] lg:h-[10rem]  xl:h-[11rem] overflow-hidden lg:sticky lg:flex lg:items-start lg:justify-end">
+            <h1 className="font-calvino text-[6rem] font-medium leading-[1] lg:text-[10rem] xl:text-[11rem]">
               0
             </h1>
             <motion.div className="text-center" style={{ y }}>
               {numbers.map((number, index) => (
                 <h1
                   key={index}
-                  className="font-figtree text-[6rem] font-semibold leading-[1] lg:text-[10rem] xl:text-[11rem]"
+                  className="font-calvino text-[6rem] font-medium leading-[1] lg:text-[10rem] xl:text-[11rem]"
                 >
                   {number}
                 </h1>
@@ -78,7 +78,7 @@ const HighlightCard = ({
   return (
     <div className="flex flex-col items-start justify-center py-8 lg:py-0">
       <div className="mt-10 flex type-h1 lg:mt-0 lg:hidden">{displayNumber}</div>
-      <div ref={ref} className="mb-8 mt-8 h-0.5 w-full bg-neutral-lighter lg:mt-0">
+      <div ref={ref} className="mb-8 mt-8 h-0.5 w-full bg-foreground-100/10 lg:mt-0 hidden">
         <motion.div className="h-0.5 w-8 bg-neutral-black" style={width} />
       </div>
       <h2 className="rb-5 mb-4 type-h2 lg:mb-5 ">{highlight.heading}</h2>
