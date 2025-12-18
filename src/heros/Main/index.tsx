@@ -114,9 +114,12 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
           imgClassName="size-full object-cover object-[73%_45%] md:object-center"
         />
       </motion.div>
+
       <div className="absolute top-0 left-0 w-2/3 h-full z-[0] bg-gradient-to-r from-black/60 to-transparent opacity-100" />
-      <div className="container-full flex flex-row justify-between w-full items-end">
-        <div className=" flex flex-col justify-end z-[1] relative p-6 md:p-24">
+      <div className="absolute top-0 left-0 w-2/3 h-full z-[0] bg-gradient-to-r from-black/60 to-transparent opacity-75" />
+
+      <div className="lg:px-[2rem] container lg:!w-full lg:!max-w-full flex flex-row justify-between items-end">
+        <div className=" flex flex-col justify-end z-[1] relative  !pb-24">
           <h1
             ref={headingRef}
             className="text-foreground-900 [text-shadow:0_0_10px_rgba(255,255,255,0.5)] shadow-yellow-300 z-[1] relative [&_*]:!type-h1"
@@ -124,10 +127,12 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
             <RichText data={headingRich} enableGutter={false} enableProse={false} />
           </h1>
 
-          <h3 ref={descriptionRef} className="text-foreground-500 mt-6 md:mt-10 z-[1] relative">
+          <h3
+            ref={descriptionRef}
+            className="text-foreground-500 mt-6  z-[1] relative max-w-[26ch]"
+          >
             {description}
           </h3>
-
           {/* <ScrollIndicator
             ref={scrollIndicatorRef}
             onClick={handleClick}
