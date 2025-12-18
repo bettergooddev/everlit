@@ -110,13 +110,24 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
       style={transformStyles}
     >
       {images.map((image, index) => (
-        <div key={index} className={`absolute w-full ${positions[index]}`}>
+        <motion.div
+          key={index}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{
+            duration: 1.2,
+            delay: 0.3 + index * 0.15,
+            ease: [0.77, 0, 0.175, 1],
+          }}
+          className={`absolute w-full ${positions[index]}`}
+        >
           <Frame
             resource={image}
             className="size-full aspect-[1/1]"
             imgClassName="size-full object-cover"
           />
-        </div>
+        </motion.div>
       ))}
     </Animate>
   )
