@@ -61,44 +61,54 @@ const useMouseMove = () => {
 
   return { smoothMouseX, smoothMouseY, handleMouseMove }
 }
-const getTransformStyles = (
-  smoothMouseX: MotionValue<number>,
-  smoothMouseY: MotionValue<number>,
-  xRange: [string, string],
-  yRange: [string, string],
-): TransformStyles => {
-  return {
-    x: useTransform(smoothMouseX, [0, 1], xRange),
-    y: useTransform(smoothMouseY, [0, 1], yRange),
-  }
-}
-
 export const MultiImageHero: React.FC<Page['hero']> = (props) => {
   const sectionRef = useRef<HTMLElement>(null)
   const { smoothMouseX, smoothMouseY, handleMouseMove } = useMouseMove()
   const isMobile = useMediaQuery('(max-width: 991px)')
   const Animate = isMobile ? 'div' : motion.div
 
-  const canvasTransform = getTransformStyles(
-    smoothMouseX,
-    smoothMouseY,
-    ['10vw', '-5vw'],
-    ['10vh', '-5vh'],
-  )
+  // Blur entrance animations for text - must be called unconditionally
+  const headingRef = useBlurEntrance<HTMLDivElement>({
+    text: props?.multiImage?.heading ? extractPlainText(props.multiImage.heading) : null,
+    triggerRef: sectionRef,
+    start: 'top 100%',
+    stagger: 0.2,
+    initialBlur: 12,
+    duration: 1.5,
+    delay: 0.8,
+  })
 
-  const group1Transform = getTransformStyles(
-    smoothMouseX,
-    smoothMouseY,
-    ['8%', '-8%'],
-    ['8%', '-8%'],
-  )
+  const descriptionRef = useBlurEntrance<HTMLParagraphElement>({
+    text: props?.multiImage?.description || null,
+    triggerRef: sectionRef,
+    start: 'top 100%',
+    stagger: 0.2,
+    initialBlur: 12,
+    duration: 1.5,
+    delay: 2.0,
+  })
 
-  const group2Transform = getTransformStyles(
-    smoothMouseX,
-    smoothMouseY,
-    ['2%', '-2%'],
-    ['2%', '-2%'],
-  )
+  // Transform styles - hooks must be called at component level
+  const canvasTransformX = useTransform(smoothMouseX, [0, 1], ['10vw', '-5vw'])
+  const canvasTransformY = useTransform(smoothMouseY, [0, 1], ['10vh', '-5vh'])
+  const canvasTransform: TransformStyles = {
+    x: canvasTransformX,
+    y: canvasTransformY,
+  }
+
+  const group1TransformX = useTransform(smoothMouseX, [0, 1], ['8%', '-8%'])
+  const group1TransformY = useTransform(smoothMouseY, [0, 1], ['8%', '-8%'])
+  const group1Transform: TransformStyles = {
+    x: group1TransformX,
+    y: group1TransformY,
+  }
+
+  const group2TransformX = useTransform(smoothMouseX, [0, 1], ['2%', '-2%'])
+  const group2TransformY = useTransform(smoothMouseY, [0, 1], ['2%', '-2%'])
+  const group2Transform: TransformStyles = {
+    x: group2TransformX,
+    y: group2TransformY,
+  }
 
   const renderImages = (
     images: (string | Media)[],
@@ -134,27 +144,6 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
 
   if (!props?.multiImage) return null
   const { heading, description, images, backgroundImage } = props.multiImage
-
-  // Blur entrance animations for text
-  const headingRef = useBlurEntrance<HTMLDivElement>({
-    text: heading ? extractPlainText(heading) : null,
-    triggerRef: sectionRef,
-    start: 'top 100%',
-    stagger: 0.2,
-    initialBlur: 12,
-    duration: 1.5,
-    delay: 0.8,
-  })
-
-  const descriptionRef = useBlurEntrance<HTMLParagraphElement>({
-    text: description || null,
-    triggerRef: sectionRef,
-    start: 'top 100%',
-    stagger: 0.2,
-    initialBlur: 12,
-    duration: 1.5,
-    delay: 2.0,
-  })
 
   const group1Images = images.slice(0, images.length / 2)
   const group2Images = images.slice(images.length / 2)
