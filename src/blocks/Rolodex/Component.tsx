@@ -51,7 +51,7 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights, backgroun
               ))}
             </motion.div>
           </div>
-          <div className="grid auto-cols-fr grid-cols-1 gap-x-12 gap-y-12 lg:gap-x-28 lg:gap-y-28">
+          <div className="grid auto-cols-fr grid-cols-1 gap-x-12 gap-y-16 lg:gap-x-28 lg:gap-y-36">
             {highlights.map((highlight, index) => (
               <HighlightCard key={index} {...highlight} index={index} />
             ))}
