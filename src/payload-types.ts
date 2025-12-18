@@ -161,7 +161,7 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'main' | 'sub' | 'study' | 'archive';
+    type: 'none' | 'main' | 'sub' | 'study' | 'archive' | 'multiImage';
     main?: {
       headingRich: {
         root: {
@@ -259,6 +259,26 @@ export interface Page {
       heading: string;
       description?: string | null;
       image?: (string | null) | Media;
+      backgroundImage?: (string | null) | Media;
+    };
+    multiImage?: {
+      heading: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+      description?: string | null;
+      images: (string | Media)[];
       backgroundImage?: (string | null) | Media;
     };
   };
@@ -1332,6 +1352,14 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               description?: T;
               image?: T;
+              backgroundImage?: T;
+            };
+        multiImage?:
+          | T
+          | {
+              heading?: T;
+              description?: T;
+              images?: T;
               backgroundImage?: T;
             };
       };
