@@ -39,7 +39,7 @@ const classes = {
     variants: {
       collapsed: {
         true: 'top-4 container',
-        false: 'top-0 container-full absolute',
+        false: 'top-0 container lg:w-full lg:max-w-full lg:px-[2rem] absolute',
       },
     },
   }),
@@ -87,7 +87,8 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
     <nav className={cn('left-0 right-0 z-50', classes.header({ collapsed }), className)}>
       <div
         className={cn(
-          'flex mx-auto p-[0.9rem] items-center justify-between w-full relative overflow-hidden',
+          'flex mx-auto items-center justify-between w-full relative overflow-hidden',
+          collapsed ? 'p-[0.9rem]' : 'py-[0.9rem]',
         )}
       >
         <div

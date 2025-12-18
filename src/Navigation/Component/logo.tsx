@@ -40,7 +40,7 @@ function Inner({ desktopLogo, mobileLogo }: InnerProps) {
   return (
     <>
       {desktopLogo && (
-        <div className="relative group translate-y-0.5">
+        <div className="relative group translate-y-1">
           <Media
             resource={desktopLogo}
             className="hidden md:block size-full w-auto"

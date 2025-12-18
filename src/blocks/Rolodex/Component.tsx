@@ -35,14 +35,16 @@ export const RolodexBlock: React.FC<RolodexBlockType> = ({ highlights, backgroun
       />
       <GlowMobile backgroundImage={backgroundImage} isInView={isInView} className="lg:hidden" />
       <div className="container">
-        <div className="relative grid auto-cols-fr grid-cols-1 items-start gap-x-8 gap-y-12 lg:grid-cols-[0.75fr_1fr] lg:gap-y-16 xl:grid-cols-[max-content_1fr] xl:gap-x-20">
-          <div className="static top-[30%] hidden h-56 overflow-hidden lg:sticky lg:flex lg:items-start">
-            <h1 className="text-[6rem] font-bold leading-[1] lg:text-[10rem] xl:text-[14rem]">0</h1>
+        <div className="relative grid auto-cols-fr grid-cols-1 items-start gap-x-8 gap-y-12 lg:grid-cols-[0.75fr_1fr] lg:gap-y-16 xl:grid-cols-[2fr_3fr] xl:gap-x-20 justify-center">
+          <div className="static top-[30%] hidden h-48 overflow-hidden lg:sticky lg:flex lg:items-start lg:justify-end">
+            <h1 className="font-figtree text-[6rem] font-semibold leading-[1] lg:text-[10rem] xl:text-[11rem]">
+              0
+            </h1>
             <motion.div className="text-center" style={{ y }}>
               {numbers.map((number, index) => (
                 <h1
                   key={index}
-                  className="text-[6rem] font-bold leading-[1] lg:text-[10rem] xl:text-[14rem]"
+                  className="font-figtree text-[6rem] font-semibold leading-[1] lg:text-[10rem] xl:text-[11rem]"
                 >
                   {number}
                 </h1>

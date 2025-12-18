@@ -55,7 +55,7 @@ export const GalleryBlock: React.FC<GalleryBlockType> = ({ images }) => {
 
   return (
     <Section className="z-[1]">
-      <div className="container-full px-6">
+      <div className="lg:container-full lg:px-6 container">
         <div className="flex flex-col gap-6">
           {rows.map((row, rowIndex) =>
             row.isSingle ? (
