@@ -25,8 +25,8 @@ export function createOnCTASubmit({
   incrementFormPhase,
 }: OnSubmitParams) {
   return (data: FormFieldBlock[]) => {
-    console.log('Submitted form data:', data)
-    console.log('Email data:', (data as any).email)
+    // console.log('Submitted form data:', data)
+    // console.log('Email data:', (data as any).email)
     let loadingTimerID: ReturnType<typeof setTimeout>
     const submitForm = async () => {
       setError(undefined)
@@ -44,7 +44,7 @@ export function createOnCTASubmit({
           value,
         }))
 
-      console.log('Form data to send:', dataToSend)
+      // console.log('Form data to send:', dataToSend)
 
       // delay loading indicator by 1s
       loadingTimerID = setTimeout(() => {

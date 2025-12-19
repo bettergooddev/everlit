@@ -284,7 +284,7 @@ export const CallToActionBlock: React.FC<
   )
 
   useEffect(() => {
-    console.log('formPhase:', formPhase, 'formProgress:', formProgress)
+    // console.log('formPhase:', formPhase, 'formProgress:', formProgress)
   }, [formPhase, formProgress])
 
   return (
