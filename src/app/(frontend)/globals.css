@@ -207,3 +207,11 @@ html {
   z-index: 1;
   animation: none !important;
 }
+
+@layer utilities {
+  @media (max-width: 1023px) {
+    .force-opacity-mobile * {
+      opacity: 1 !important;
+    }
+  }
+}

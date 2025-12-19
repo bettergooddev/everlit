@@ -134,7 +134,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
         />
       )}
       <div className="flex flex-col items-start h-full justify-between gap-12 xl:gap-0">
-        <blockquote ref={quoteRef} className="type-h4 xl:type-h3">
+        <blockquote ref={quoteRef} className="type-h4 xl:type-h3 force-opacity-mobile">
           {description}
         </blockquote>
         <div className="flex flex-nowrap items-end gap-5 justify-between w-full">
