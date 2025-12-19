@@ -17,7 +17,9 @@ import { useCallback, useRef } from 'react'
 import type { Media } from '@/payload-types'
 import { GlowDesktop, GlowMobile, GlowTablet } from './glow'
 import { useBlurEntrance } from '@/hooks/useBlurEntrance'
+import { useFadeUp } from '@/hooks/useFadeUp'
 import { extractPlainText } from '@/utilities/richtext'
+import { ScrollIndicator } from '@/components/ui/ScrollIndicator'
 
 type TransformStyles = {
   transform?: string
@@ -28,16 +30,16 @@ type TransformStyles = {
 
 const imagePositions = {
   group1: [
-    'bottom-[20%] left-[-8%] z-10 max-w-[18%] sm:bottom-[10%] lg:bottom-auto',
-    'left-[30%] top-[18%] z-10 max-w-[18%] sm:top-[10%] sm:max-w-[12%] lg:left-[40%] lg:top-[5%]',
-    'bottom-[10%] right-[-5%] z-10 max-w-[25%] lg:max-w-[18%]',
-    'bottom-[15%] left-[20%] z-10 max-w-[18%] sm:bottom-[-5%] sm:max-w-[16%] lg:bottom-[-10%]',
+    'bottom-[20%] left-[-8%] z-10 max-w-[22%] sm:bottom-[10%] lg:bottom-auto',
+    'left-[30%] top-[18%] z-10 max-w-[22%] sm:top-[10%] sm:max-w-[12%] lg:left-[40%] lg:top-[5%]',
+    'bottom-[10%] right-[-5%] z-10 max-w-[30%] lg:max-w-[18%]',
+    'bottom-[15%] left-[20%] z-10 max-w-[22%] sm:bottom-[-5%] sm:max-w-[16%] lg:bottom-[-10%]',
   ],
   group2: [
-    'left-[2%] top-[5%] max-w-[30%] sm:left-[5%] sm:max-w-[18%] lg:left-[10%] lg:top-[-10%]',
-    'right-[20%] top-[8%] max-w-[25%] sm:top-[5%] sm:max-w-[16%] lg:right-[20%] lg:top-[-10%]',
-    'right-[-5%] top-[18%] max-w-[20%] sm:max-w-[15%] lg:top-[25%]',
-    'bottom-[20%] right-[32%] max-w-[18%] sm:right-[30%] sm:max-w-[15%] lg:bottom-[5%] lg:max-w-[12%]',
+    'left-[2%] top-[5%] max-w-[35%] sm:left-[5%] sm:max-w-[18%] lg:left-[10%] lg:top-[-10%]',
+    'right-[20%] top-[8%] max-w-[30%] sm:top-[5%] sm:max-w-[16%] lg:right-[20%] lg:top-[-10%]',
+    'right-[-5%] top-[18%] max-w-[25%] sm:max-w-[15%] lg:top-[25%]',
+    'bottom-[20%] right-[32%] max-w-[22%] sm:right-[30%] sm:max-w-[15%] lg:bottom-[5%] lg:max-w-[12%]',
   ],
 }
 const useMouseMove = () => {
@@ -86,6 +88,15 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
     initialBlur: 12,
     duration: 1.5,
     delay: 2.0,
+  })
+
+  const scrollIndicatorRef = useFadeUp<HTMLDivElement>({
+    triggerRef: sectionRef,
+    start: 'top 100%',
+    initialY: 20,
+    duration: 1.4,
+    delay: 4.25,
+    ease: 'power2.out',
   })
 
   // Transform styles - hooks must be called at component level
@@ -167,14 +178,17 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
       <div className="absolute h-[16rem] lg:h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
       <div className="px-[5%] py-16 md:py-24 lg:py-28">
         <div className="container">
-          <div className="relative z-10 text-center">
+          <div className="relative z-10 text-center justify-center">
             <div ref={headingRef} className=" [&_*]:!type-h1 [&_*]:text-foreground-500 md:mb-6">
               <RichText data={heading} enableProse={false} enableGutter={false} />
             </div>
 
-            <p ref={descriptionRef} className="type-body mt-3 text-foreground-500">
+            <p ref={descriptionRef} className="type-body mt-1 text-foreground-500">
               {description}
             </p>
+
+            <ScrollIndicator ref={scrollIndicatorRef} className="flex justify-center mt-8" />
+
             {/* <div className="mt-6 flex items-center justify-center gap-4 md:mt-8">
               {buttons.map((button, index) => (
                 <Button key={index} {...button}>
