@@ -94,7 +94,7 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
     triggerRef: sectionRef,
     start: 'top 100%',
     initialY: 20,
-    duration: 1.4,
+    duration: 1.6,
     delay: 4.25,
     ease: 'power2.out',
   })
@@ -135,7 +135,6 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
           key={index}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0, margin: '-100px' }}
           transition={{
             duration: 1.6,
             delay: 0.3 + index * 0.15,
@@ -189,7 +188,7 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
 
             <ScrollIndicator
               ref={scrollIndicatorRef}
-              className="flex justify-center md:mt-8 hidden md:block"
+              className=" justify-center md:mt-8 hidden md:flex"
             />
 
             {/* <div className="mt-6 flex items-center justify-center gap-4 md:mt-8">
