@@ -165,20 +165,23 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
       className="relative flex h-svh items-center justify-center overflow-hidden lg:h-screen"
       onMouseMove={handleMouseMove}
     >
-      <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
+      {/* <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
       <GlowTablet backgroundImage={backgroundImage} className="hidden md:block xl:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
 
       <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
       <GlowTablet backgroundImage={backgroundImage} className="hidden md:block xl:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
-      <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
+      <GlowMobile backgroundImage={backgroundImage} className="md:hidden" /> */}
 
       <div className="absolute h-[16rem] lg:h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
       <div className="px-[5%] py-16 md:py-24 lg:py-28">
         <div className="container">
           <div className="relative z-10 text-center justify-center">
-            <div ref={headingRef} className=" [&_*]:!type-h1 [&_*]:text-foreground-500 md:mb-6">
+            <div
+              ref={headingRef}
+              className=" [&_*]:!type-h1 [&_*]:text-foreground-500 md:mb-6 [text-shadow:0_0_10px_rgba(255,255,255,0.5)]"
+            >
               <RichText data={heading} enableProse={false} enableGutter={false} />
             </div>
 
