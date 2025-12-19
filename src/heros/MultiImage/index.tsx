@@ -188,7 +188,7 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
 
             <ScrollIndicator
               ref={scrollIndicatorRef}
-              className=" justify-center md:mt-8 hidden md:flex"
+              className=" justify-center -mb-24 md:mt-8 hidden md:flex"
             />
 
             {/* <div className="mt-6 flex items-center justify-center gap-4 md:mt-8">
