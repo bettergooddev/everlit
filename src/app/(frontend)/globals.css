@@ -114,7 +114,7 @@ html {
   .type-h1,
   .prose h1 {
     font-family: var(--font-calvino);
-    font-size: clamp( 3.285rem,  3.285rem + ((100vw - 20rem) / 44) * 3.95, 6.95rem);
+    font-size: clamp(3.285rem, 3.285rem + ((100vw - 20rem) / 44) * 3.95, 6.95rem);
     font-style: normal;
     font-weight: 300;
     line-height: 110%;
