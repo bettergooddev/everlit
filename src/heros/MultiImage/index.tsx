@@ -124,9 +124,9 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
           key={index}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, amount: 0, margin: '-100px' }}
           transition={{
-            duration: 1.2,
+            duration: 1.6,
             delay: 0.3 + index * 0.15,
             ease: [0.77, 0, 0.175, 1],
           }}
@@ -156,11 +156,11 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
       onMouseMove={handleMouseMove}
     >
       <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
-      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block lg:hidden" />
+      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block xl:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
 
       <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
-      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block lg:hidden" />
+      <GlowTablet backgroundImage={backgroundImage} className="hidden md:block xl:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
 
