@@ -43,13 +43,13 @@ const ScrollIndicator = forwardRef<HTMLDivElement, { className?: string }>(({ cl
           src="https://lottie.host/54c3b337-f3f4-4414-8184-e51495f17bd3/tHWf3qGIWI.lottie"
           loop
           autoplay
-          className="w-[11rem] h-[11rem] z-[1]"
+          className="size-[11rem] z-[1]"
         />
         <DotLottieReact
           src="https://lottie.host/54c3b337-f3f4-4414-8184-e51495f17bd3/tHWf3qGIWI.lottie"
           loop
           autoplay
-          className="w-[11rem] h-[11rem] z-[0] absolute inset-0 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
+          className="size-[11rem] z-[0] absolute inset-0 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
         />
       </div>
     </motion.div>
