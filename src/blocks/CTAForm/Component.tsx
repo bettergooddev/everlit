@@ -25,7 +25,6 @@ import type { CallToActionBlock as CallToActionBlockPayloadType } from '@/payloa
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import { Checkbox } from '@/components/ui/checkbox'
 import { isFieldFull } from './actions/isFieldFull'
-import { Media } from '@/components/Media'
 import Section from '@/components/Section'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
@@ -33,6 +32,9 @@ import { cn } from '@/utilities/ui'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { GlowPhase1 } from './glowPhase1'
+import { GlowPhase2Desktop, GlowPhase2Mobile } from './glowPhase2'
+import { GlowPhase3 } from './glowPhase3'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -466,197 +468,31 @@ export const CallToActionBlock: React.FC<
 
           <AnimatePresence>
             {formPhase === 0 && (
-              <motion.div
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute inset-0 z-[-1]"
-              >
-                <div ref={lightRef} className="absolute inset-0">
-                  <motion.div
-                    animate={{
-                      opacity: Math.min(Math.max(0.5 + (formProgress / 4) * 0.5, 0.5), 1),
-                      rotate: 0,
-                      top: '50%',
-                      left: '50%',
-                      y: '-44%',
-                      x: '-53%',
-                      width: '3000px',
-                      height: '3000px',
-                      rotateY: [14, -14, 14],
-                      translateY: [2, -2, 2],
-                      translateX: [5, -5, 5],
-                    }}
-                    transition={{
-                      opacity: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
-                      rotateY: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      },
-                      translateY: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      },
-                      translateX: {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      },
-                    }}
-                    style={{
-                      transformStyle: 'preserve-3d',
-                    }}
-                    className="absolute left-0 z-[0]"
-                  >
-                    <Media
-                      resource={backgroundImage}
-                      className="blur-xl object-left"
-                      imgClassName="size-full object-left"
-                    />
-                  </motion.div>
-                </div>
-              </motion.div>
+              <GlowPhase1
+                backgroundImage={backgroundImage}
+                formProgress={formProgress}
+                lightRef={lightRef}
+              />
             )}
           </AnimatePresence>
           <AnimatePresence>
             {formPhase === 1 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
-                className="absolute inset-0 z-[-1]"
-              >
-                <motion.div
-                  animate={{
-                    rotate: Math.min(Math.max(-65 + ((formProgress - 3) / 9) * 65, -65), 0),
-                    opacity: Math.min(Math.max(0.5 + ((formProgress - 3) / 9) * 0.5, 0.5), 1),
-                  }}
-                  transition={{ duration: 0.7 }}
-                  className="absolute inset-0 z-[-1]"
-                >
-                  <motion.div
-                    animate={{
-                      rotate: 90,
-                      top: '50%',
-                      y: '-50%',
-                      x: '-2000px',
-                      width: '3800px',
-                      height: '3800px',
-                    }}
-                    className="absolute left-0 z-[0]"
-                  >
-                    <Media
-                      resource={backgroundImage}
-                      className="blur-xl object-left"
-                      imgClassName="size-full object-left"
-                    />
-                  </motion.div>
-                  <motion.div
-                    animate={{
-                      rotate: -90,
-                      right: 0,
-                      top: '50%',
-                      y: '-50%',
-                      x: '2000px',
-                      width: '3800px',
-                      height: '3800px',
-                    }}
-                    className="absolute z-[0]"
-                  >
-                    <Media
-                      resource={backgroundImage}
-                      className="blur-xl object-right"
-                      imgClassName="size-full object-left"
-                    />
-                  </motion.div>
-                </motion.div>
-              </motion.div>
+              <>
+                <GlowPhase2Desktop
+                  backgroundImage={backgroundImage}
+                  formProgress={formProgress}
+                  className="hidden md:block"
+                />
+                <GlowPhase2Mobile
+                  backgroundImage={backgroundImage}
+                  formProgress={formProgress}
+                  className="md:hidden"
+                />
+              </>
             )}
           </AnimatePresence>
           <AnimatePresence>
-            {formPhase === 2 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
-                className="absolute inset-0 z-[-1]"
-              >
-                <motion.div
-                  animate={{
-                    rotate: 180,
-                    top: '-20%',
-                    left: '50%',
-                    y: '-40%',
-                    x: '-53%',
-                    width: '3800px',
-                    height: '3800px',
-                  }}
-                  className="absolute left-0 z-[0]"
-                >
-                  <Media
-                    resource={backgroundImage}
-                    className="blur-xl object-left"
-                    imgClassName="size-full object-left"
-                  />
-                </motion.div>
-                <motion.div
-                  animate={{
-                    rotate: 0,
-                    top: '50%',
-                    left: '50%',
-                    y: '-40%',
-                    x: '-53%',
-                    width: '3800px',
-                    height: '3800px',
-                  }}
-                  className="absolute left-0 z-[0]"
-                >
-                  <Media
-                    resource={backgroundImage}
-                    className="blur-xl object-left"
-                    imgClassName="size-full object-left"
-                  />
-                </motion.div>
-                <motion.div
-                  animate={{
-                    rotate: 90,
-                    top: '50%',
-                    y: '-70%',
-                    x: '-2000px',
-                    width: '3800px',
-                    height: '3800px',
-                  }}
-                  className="absolute left-0 z-[0]"
-                >
-                  <Media
-                    resource={backgroundImage}
-                    className="blur-xl object-left"
-                    imgClassName="size-full object-left"
-                  />
-                </motion.div>
-                <motion.div
-                  animate={{
-                    rotate: -90,
-                    right: 0,
-                    top: '50%',
-                    y: '-70%',
-                    x: '2000px',
-                    width: '3800px',
-                    height: '3800px',
-                  }}
-                  className="absolute z-[0]"
-                >
-                  <Media
-                    resource={backgroundImage}
-                    className="blur-xl object-right"
-                    imgClassName="size-full object-left"
-                  />
-                </motion.div>
-              </motion.div>
-            )}
+            {formPhase === 2 && <GlowPhase3 backgroundImage={backgroundImage} />}
           </AnimatePresence>
         </div>
 
