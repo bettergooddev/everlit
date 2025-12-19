@@ -63,7 +63,7 @@ export const StudyHero: React.FC<Page['hero']> = (props) => {
             {description && !isRichTextEmpty(description) && (
               <div className="mb-8 md:mb-0">
                 <RichText
-                  className="[&_*]:max-w-[48ch] [&_br]:!block"
+                  className="[&_*]:max-w-[48ch] [&_br]:!block [&_*]:text-foreground-100/75"
                   data={description}
                   enableGutter={false}
                 />

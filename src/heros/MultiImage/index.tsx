@@ -158,10 +158,13 @@ export const MultiImageHero: React.FC<Page['hero']> = (props) => {
       <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
       <GlowTablet backgroundImage={backgroundImage} className="hidden md:block lg:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
+
       <GlowDesktop backgroundImage={backgroundImage} className="hidden xl:block" />
       <GlowTablet backgroundImage={backgroundImage} className="hidden md:block lg:hidden" />
       <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
-      <div className="absolute h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
+      <GlowMobile backgroundImage={backgroundImage} className="md:hidden" />
+
+      <div className="absolute h-[16rem] lg:h-[32rem] md:h-32 bg-gradient-to-t from-background-900 to-background-900/0 bottom-0 left-0 right-0 z-[1]" />
       <div className="px-[5%] py-16 md:py-24 lg:py-28">
         <div className="container">
           <div className="relative z-10 text-center">
