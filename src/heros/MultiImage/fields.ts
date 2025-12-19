@@ -37,3 +37,4 @@ export const multiImageHeroFields: Field[] = [
     defaultValue: defaults.backgroundImage,
   },
 ]
+

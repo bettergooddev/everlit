@@ -30,7 +30,8 @@ export const defaults = {
       version: 1,
     },
   },
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   images: [
     '691c68822b8e4e51b55b601d',
     '691c68822b8e4e51b55b601d',
@@ -41,4 +42,3 @@ export const defaults = {
   ],
   backgroundImage: '6915cd5c765fbb41ce17e08e',
 }
-

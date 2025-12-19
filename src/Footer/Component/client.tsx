@@ -25,7 +25,13 @@ export const FooterClient: React.FC<FooterClientProps> = ({ data }) => {
     <footer className="mt-section bg-background-500/35 pb-16 p-12 lg:p-16 lg:pb-20 relative overflow-hidden">
       <div className="absolute inset-0 border-t-foreground-100/10 border-t-[0.0625rem] z-[10]" />
 
-      <div className="absolute inset-0 bg-background/5 backdrop-blur-sm z-[1]" />
+      <div
+        className="absolute inset-0 bg-background/5 z-[1]"
+        style={{
+          WebkitBackdropFilter: 'blur(4px)',
+          backdropFilter: 'blur(4px)',
+        }}
+      />
 
       <motion.div
         animate={{

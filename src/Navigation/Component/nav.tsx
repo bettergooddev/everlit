@@ -93,9 +93,14 @@ export const NavigationNav: React.FC<NavigationNavProps> = ({
       >
         <div
           className={cn(
-            'absolute inset-0 w-full pointer-events-none bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[10.3px] border border-foreground-100/10 z-[-1]',
+            'absolute inset-0 w-full pointer-events-none bg-white/14 rounded-sm shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-foreground-100/10 z-[-1]',
+            // "backdrop-blur-[10.3px]",
             classes.visible({ collapsed }),
           )}
+          style={{
+            WebkitBackdropFilter: 'blur(10.3px)',
+            backdropFilter: 'blur(10.3px)',
+          }}
         ></div>
         {/* Logo – left aligned */}
         <motion.div
