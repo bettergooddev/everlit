@@ -77,7 +77,7 @@ const HighlightCard = ({
 
   return (
     <div className="flex flex-col items-start justify-center py-8 lg:py-0">
-      <div className="mt-10 flex type-h1 lg:mt-0 lg:hidden">{displayNumber}</div>
+      <div className="mt-10 mb-2 flex type-h1 lg:mb-0 lg:mt-0 lg:hidden">{displayNumber}</div>
       <div ref={ref} className="mb-8 mt-8 h-0.5 w-full bg-foreground-100/10 lg:mt-0 hidden">
         <motion.div className="h-0.5 w-8 bg-neutral-black" style={width} />
       </div>
