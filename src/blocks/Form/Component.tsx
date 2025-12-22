@@ -8,6 +8,8 @@ import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
+import { formVerificationAction } from '@/actions/form-verification'
+import { getCaptchaToken } from '@/utilities/captcha'
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
 import Section from '@/components/Section'
@@ -58,53 +60,65 @@ export const FormBlock: React.FC<
           value,
         }))
 
-        // delay loading indicator by 1s
+        // delay loading indicator by 500ms
         loadingTimerID = setTimeout(() => {
           setIsLoading(true)
-        }, 1000)
+        }, 500)
 
-        try {
-          const req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
-            body: JSON.stringify({
-              form: formID,
-              submissionData: dataToSend,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          })
+        const token = await getCaptchaToken()
+        const captchaResponse = await formVerificationAction(token)
 
-          const res = await req.json()
-
-          clearTimeout(loadingTimerID)
-
-          if (req.status >= 400) {
-            setIsLoading(false)
-
-            setError({
-              message: res.errors?.[0]?.message || 'Internal Server Error',
-              status: res.status,
+        if (captchaResponse.success) {
+          try {
+            const req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
+              body: JSON.stringify({
+                form: formID,
+                submissionData: dataToSend,
+              }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'POST',
             })
 
-            return
+            const res = await req.json()
+
+            clearTimeout(loadingTimerID)
+
+            if (req.status >= 400) {
+              setIsLoading(false)
+
+              setError({
+                message: res.errors?.[0]?.message || 'Internal Server Error',
+                status: res.status,
+              })
+
+              return
+            }
+
+            setIsLoading(false)
+            setHasSubmitted(true)
+
+            if (confirmationType === 'redirect' && redirect) {
+              const { url } = redirect
+
+              const redirectUrl = url
+
+              if (redirectUrl) router.push(redirectUrl)
+            }
+          } catch (err) {
+            console.warn(err)
+            clearTimeout(loadingTimerID)
+            setIsLoading(false)
+            setError({
+              message: 'Something went wrong.',
+            })
           }
-
-          setIsLoading(false)
-          setHasSubmitted(true)
-
-          if (confirmationType === 'redirect' && redirect) {
-            const { url } = redirect
-
-            const redirectUrl = url
-
-            if (redirectUrl) router.push(redirectUrl)
-          }
-        } catch (err) {
-          console.warn(err)
+        } else {
+          clearTimeout(loadingTimerID)
           setIsLoading(false)
           setError({
-            message: 'Something went wrong.',
+            message: 'Captcha Failed',
           })
         }
       }

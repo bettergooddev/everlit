@@ -215,3 +215,6 @@ html {
     }
   }
 }
+
+.grecaptcha-badge { visibility: hidden; }
+
