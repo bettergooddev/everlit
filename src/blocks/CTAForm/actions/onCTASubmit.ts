@@ -1,6 +1,8 @@
 import type { FormFieldBlock } from '@payloadcms/plugin-form-builder/types'
 import type { useRouter } from 'next/navigation'
 
+import { formVerificationAction } from '@/actions/form-verification'
+import { getCaptchaToken } from '@/utilities/captcha'
 import { getClientSideURL } from '@/utilities/getURL'
 
 interface OnSubmitParams {
@@ -49,51 +51,63 @@ export function createOnCTASubmit({
       // delay loading indicator by 1s
       loadingTimerID = setTimeout(() => {
         setIsLoading(true)
-      }, 1000)
+      }, 500)
 
-      try {
-        const req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
-          body: JSON.stringify({
-            form: formID,
-            submissionData: dataToSend,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-        })
+      const token = await getCaptchaToken()
+      const captchaResponse = await formVerificationAction(token)
 
-        const res = await req.json()
-
-        clearTimeout(loadingTimerID)
-
-        if (req.status >= 400) {
-          setIsLoading(false)
-
-          setError({
-            message: res.errors?.[0]?.message || 'Internal Server Error',
-            status: res.status,
+      if (captchaResponse.success) {
+        try {
+          const req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
+            body: JSON.stringify({
+              form: formID,
+              submissionData: dataToSend,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
           })
 
-          return
+          const res = await req.json()
+
+          clearTimeout(loadingTimerID)
+
+          if (req.status >= 400) {
+            setIsLoading(false)
+
+            setError({
+              message: res.errors?.[0]?.message || 'Internal Server Error',
+              status: res.status,
+            })
+
+            return
+          }
+
+          setIsLoading(false)
+          setHasSubmitted(true)
+          incrementFormPhase(1)
+
+          if (confirmationType === 'redirect' && redirect) {
+            const { url } = redirect
+
+            const redirectUrl = url
+
+            if (redirectUrl) router.push(redirectUrl)
+          }
+        } catch (err) {
+          console.warn(err)
+          clearTimeout(loadingTimerID)
+          setIsLoading(false)
+          setError({
+            message: 'Something went wrong.',
+          })
         }
-
-        setIsLoading(false)
-        setHasSubmitted(true)
-        incrementFormPhase(1)
-
-        if (confirmationType === 'redirect' && redirect) {
-          const { url } = redirect
-
-          const redirectUrl = url
-
-          if (redirectUrl) router.push(redirectUrl)
-        }
-      } catch (err) {
-        console.warn(err)
+      } else {
+        clearTimeout(loadingTimerID)
         setIsLoading(false)
         setError({
-          message: 'Something went wrong.',
+          message: 'Captcha Failed',
         })
       }
     }

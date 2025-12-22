@@ -459,6 +459,23 @@ export const CallToActionBlock: React.FC<
                       >
                         {isLoading ? 'Please wait...' : submitButtonLabel}
                       </Button>
+                      <div className="[&_*]:type-caption type-caption !mt-4  [&>*]:opacity-50">
+                        <span>This site is protected by reCAPTCHA and the Google </span>
+                        <a
+                          href="https://policies.google.com/privacy"
+                          className="underline hover:opacity-100"
+                        >
+                          Privacy Policy
+                        </a>{' '}
+                        <span>and</span>{' '}
+                        <a
+                          href="https://policies.google.com/terms"
+                          className="underline hover:opacity-100"
+                        >
+                          Terms of Service
+                        </a>{' '}
+                        <span>apply.</span>
+                      </div>
                     </div>
                   </CarouselItem>
                 </CarouselContent>
