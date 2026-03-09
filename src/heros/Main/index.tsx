@@ -118,7 +118,8 @@ export const MainHero: React.FC<Page['hero']> = (props) => {
       <div className="absolute top-0 left-0 w-2/3 h-full z-[0] bg-gradient-to-r from-black/60 to-transparent opacity-100" />
       <div className="absolute top-0 left-0 w-2/3 h-full z-[0] bg-gradient-to-r from-black/60 to-transparent opacity-75" />
 
-      <div className="lg:px-[2rem] container lg:!w-full lg:!max-w-full flex flex-row justify-between items-end">
+      {/* <div className="lg:px-[2rem] container lg:!w-full lg:!max-w-full flex flex-row justify-between items-end"> */}
+      <div className="container flex flex-row justify-between items-end">
         <div className=" flex flex-col justify-end z-[1] relative  !pb-24">
           <h1
             ref={headingRef}

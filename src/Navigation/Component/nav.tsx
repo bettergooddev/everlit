@@ -39,7 +39,8 @@ const classes = {
     variants: {
       collapsed: {
         true: 'top-4 container',
-        false: 'top-0 container lg:w-full lg:max-w-full lg:px-[2rem] absolute',
+        false: 'top-0 container absolute',
+        // false: 'top-0 container lg:w-full lg:max-w-full lg:px-[2rem] absolute',
       },
     },
   }),
