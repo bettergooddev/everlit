@@ -100,17 +100,21 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
         </blockquote>
         <div className="flex flex-nowrap items-center gap-8 justify-center">
           <div>
-            <p className="type-h4">{author.name}</p>
-            <p className="[&_*]:type-body opacity-65 mt-1">
-              <span>{author.position}</span>, <span>{author.company}</span>
-            </p>
+            {author?.name && <p className="type-h4">{author.name}</p>}
+            {(author?.position || author?.company) && (
+              <p className="[&_*]:type-body opacity-65 mt-1">
+                {author.position && <span>{author.position}</span>}
+                {author.position && author.company && <span>, </span>}
+                {author.company && <span>{author.company}</span>}
+              </p>
+            )}
           </div>
-          {author.logo && (
+          {author?.logo && (
             <>
               <div className="w-px h-12 bg-foreground-100/15" />
               <div>
                 <Media
-                  resource={author.logo}
+                  resource={author?.logo}
                   className="h-8"
                   imgClassName="size-full object-contain"
                 />
