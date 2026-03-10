@@ -44,23 +44,23 @@ export const Testimonials: CollectionConfig<'testimonials'> = {
         {
           name: 'name',
           type: 'text',
-          required: true,
+          // required: true,
         },
         {
           name: 'position',
           type: 'text',
-          required: true,
+          // required: true,
         },
         {
           name: 'company',
           type: 'text',
-          required: true,
+          // required: true,
         },
         {
           name: 'logo',
           type: 'upload',
           relationTo: 'media',
-          required: true,
+          // required: true,
         },
       ],
     },

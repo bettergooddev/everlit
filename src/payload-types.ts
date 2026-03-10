@@ -413,11 +413,11 @@ export interface Testimonial {
   title: string;
   description: string;
   image?: (string | null) | Media;
-  author: {
-    name: string;
-    position: string;
-    company: string;
-    logo: string | Media;
+  author?: {
+    name?: string | null;
+    position?: string | null;
+    company?: string | null;
+    logo?: (string | null) | Media;
   };
   caseStudy?: (string | null) | CaseStudy;
   publishedAt?: string | null;

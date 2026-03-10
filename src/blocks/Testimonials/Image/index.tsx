@@ -124,6 +124,10 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
       ? caseStudy.slug
       : null
 
+  if (author) {
+    author.name = null
+  }
+
   return (
     <div className="lg:grid w-full lg:auto-cols-fr lg:grid-cols-2 items-center justify-center gap-12 md:gap-10 lg:gap-x-20 flex flex-col">
       {image && (
@@ -139,20 +143,24 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
         </blockquote>
         <div className="flex flex-nowrap items-end gap-5 justify-between w-full">
           <div className="flex flex-col">
-            <p className="type-h4">{author.name}</p>
-            <p className="[&_*]:type-body opacity-65 mt-1">
-              <span>{author.position}</span>, <span>{author.company}</span>
-            </p>
+            {author?.name && <p className="type-h4">{author.name}</p>}
+            {(author?.position || author?.company) && (
+              <p className="[&_*]:type-body opacity-65 mt-1">
+                {author.position && <span>{author.position}</span>}
+                {author.position && author.company && <span>, </span>}
+                {author.company && <span>{author.company}</span>}
+              </p>
+            )}
             {caseStudySlug && (
               <Link href={`/case-studies/${caseStudySlug}`} className="mt-6">
                 <Button variant={'secondary'}>View Case Study</Button>
               </Link>
             )}
           </div>
-          {author.logo && (
+          {author?.logo && (
             <div>
               <Media
-                resource={author.logo}
+                resource={author?.logo}
                 className="h-8"
                 imgClassName="size-full object-contain"
               />
