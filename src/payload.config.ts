@@ -84,18 +84,18 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
-  // email: nodemailerAdapter({
-  //   defaultFromAddress: process.env.EMAIL_DEFAULT_FROM_ADDRESS!,
-  //   defaultFromName: process.env.EMAIL_DEFAULT_FROM_NAME!,
-  //   transportOptions: {
-  //     host: process.env.SMTP_HOST,
-  //     port: 587,
-  //     auth: {
-  //       user: process.env.SMTP_USER,
-  //       pass: process.env.SMTP_PASS,
-  //     },
-  //   },
-  // }),
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.EMAIL_DEFAULT_FROM_ADDRESS!,
+    defaultFromName: process.env.EMAIL_DEFAULT_FROM_NAME!,
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
+  }),
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
