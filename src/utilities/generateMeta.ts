@@ -50,6 +50,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title: pageTitle,
+      siteName: process.env.NEXT_PUBLIC_COMPANY_NAME,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
     }),
     title: pageTitle,
